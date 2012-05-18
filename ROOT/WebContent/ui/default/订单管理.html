@@ -1,0 +1,68 @@
+
+    <div id="mem_right" name="mem_right"  width="100%" height="606" frameborder="0" scrolling="no" onload="javascript:dyniframesize('mem_right');" style="display: block; ">
+     <div id="mem_position"><a href="/Member/index.jsp" target="_parent">会员专区</a> &gt; <a href="#">订单管理</a></div>
+<div id="hui_r">
+      <div class="huinew_rbox">
+        <form action="/Member/AllOrderList.do" method="POST" style="margin:0px;">
+          <input type="hidden" name="ColumnId" value="-1">
+          <div class="huihis_seabox">
+            <div class="huihis_seamain">
+              <div class="huihis_title1">订单查询</div>
+              <div class="huihis_seat1">按时间查询：</div>
+              <div class="huihis_seainp1">从 <input id="beginDateInput" type="text" readonly="" maxlength="20" size="15" value="" name="beginDateInput"></div>
+              <div class="huihis_seaimg"> <img id="beginDateBtn" style="cursor:pointer;" src="/datang/templets/Default/Default/images/huihis_timeimg.gif" alt=""></div>
+              <div class="huihis_seainp1">&nbsp;&nbsp;&nbsp;&nbsp;到 <input id="endDateInput" type="text" readonly="" maxlength="20" size="15" value="" name="endDateInput"></div>
+              <div class="huihis_seaimg"><img id="endDateBtn" style="cursor:pointer;" src="/datang/templets/Default/Default/images/huihis_timeimg.gif" alt=""></div>
+			  <div class="clear" style="height:10px;"></div>
+			<div class="huihis_seat2">按订单号查询：</div>
+              <div class="huihis_seainp2"><input name="aliasCodeInput" id="aliasCodeInput" value="" type="text"></div>
+              <div class="huihis_seabtn"><input type="image" src="/datang/templets/Default/Default/images/huihis_seabtn.gif" alt=""></div>
+            </div>
+          </div>
+        </form>
+        <br>
+        <div class="myc_top">
+          
+            
+            <ul>
+            <li> <a class="cur" href="/Member/AllOrderList.do" style="text-decoration:none;color:#333;"><span>我的订单(0)</span></a></li>
+            <li><a href="/Member/OrderListNotPay.do" style="text-decoration:none;color:#333;"><span>需要支付的订单(0)</span></a></li>
+            <li><a href="/Member/OrderListCancel.do" style="text-decoration:none;color:#333;"><span>已取消的订单(0)</span></a></li>
+            <li><a href="/Member/PhoneRechargeList.do" style="text-decoration:none;color:#333;"><span>空中充值的订单(0)</span></a></li>
+              </ul>
+            
+            
+            
+            
+          
+
+        </div>
+   <!-- flag为common的即为普通商品的订单 -->
+     <div class="myorderlist_wrap">
+		<table width="738" border="0" cellpadding="0" cellspacing="1" bgcolor="#e6e6e6" class="myorderlist">
+  			<tbody><tr>
+		    <td class="myorderlist_th1 th1">订单号</td>
+		    <td class="myorderlist_th2 th1">订单商品</td>
+		    <td class="myorderlist_th3 th1">下单时间</td>
+		    <td class="myorderlist_th4 th1">支付状态</td>
+		    <td class="myorderlist_th5 th1">处理状态</td>
+		    <td class="myorderlist_th6 th1">订单总额</td>
+		    <td class="myorderlist_th7 th1">操作</td>
+		  </tr>
+		  
+		</tbody></table>
+	</div>
+  
+        <!-- 普通商品订单代码结束 -->
+        
+        <!-- 手机直充订单列表 -->
+        
+        <div class="huinew_page" style="float:right;">
+          <div id="infoPage"><ul><li><a class="upPage" title="目前已是第一页"></a></li><li><a class="downPage" title="目前已是最后一页"></a></li><li>&nbsp;&nbsp;到第&nbsp;<select name="select2" onchange="window.location.href='/Member/AllOrderList.do?page='+this.options[this.selectedIndex].value + ''"></select>&nbsp;页</li></ul></div>
+
+        </div>
+        <div style="clear:both;"></div>
+      </div>
+    </div>
+	<div class="mem_fixHeight"></div>
+</div>

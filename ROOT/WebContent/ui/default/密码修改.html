@@ -1,0 +1,37 @@
+
+    <div id="mem_position"><a href="/Member/index.jsp" target="_parent">会员专区</a> &gt; <a href="/Member/UpdatePassword.do">修改密码</a></div>
+    <div id="hui_r">
+      <div class="huiind_rm1_t760"><span>修改登录密码</span></div>
+      <div class="mem_bor_006194" style="height:1%;">
+        <div style="padding:10px 15px 0;">
+          <form id="updatePassForm" method="post" action="/Member/UpdatePasswordResult.do" style="margin:0px;">
+            <div class="mem_pwd_newtitle">修改我的登录密码</div>            
+            <div style="height:130px;margin-top:30px;">
+              <div id="showMsg" style="font-weight:bold;height:20px;width:200px;color:#fff;line-height:20px;margin-left:240px;background:#ef8f00;display:none;" align="center"></div>
+              <ul>
+                <li class="mem_pwd01"><span style="color:#c00;padding-left:10px;">*</span> 旧&nbsp;&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码：</li>
+                <li class="mem_pwd02"><input name="passwordOld" type="password"></li>
+                <li class="mem_pwd01"><span style="color:#c00;padding-left:10px;">*</span> 新&nbsp;&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码：</li>
+                <li class="mem_pwd02 mem_w_gray"><input name="newpassword" type="password"><span style="margin-left:10px;color:#666;">密码长度应在6~16位数字之间</span></li>
+                <li class="mem_pwd01"><span style="color:#c00;padding-left:10px;">*</span> 确定新密码：</li>
+                <li class="mem_pwd02 mem_w_gray"><input name="ComPass" type="password"></li>
+              </ul>
+            </div>
+            <div class="mem_tips2">您已经设置了密码保护，如果希望更改您的密码保护问题，<a href="/Member/SetPasswordProtection.do">请继续修改</a></div>
+            <br>
+            <div style="margin-left:30px;">
+              <ul>
+                <li class="Determined" style=""><input src="images/mem_btn_xgbc.gif" alt="" type="image"></li>
+                <li class="Re_fill" style="padding-left:40px;"><a href="javascript:;" onclick="resetForm();"><img src="images/mem_but18.gif" alt="" border="0"></a></li>
+                <li id="p_last">&nbsp;</li>
+              </ul>
+            </div>
+          </form>
+          <br>
+        </div>
+
+      </div>
+    </div>
+    <div class="mem_fixHeight"></div>
+  
+

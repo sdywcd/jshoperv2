@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2011-12-21 20:50:59 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.jshop.entity.GoodsTypeT" table="goods_type_t" >
+        <id name="id" type="string">
+            <column name="ID" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="navid" type="string">
+            <column name="NAVID" length="20" />
+        </property>
+        <property name="nname" type="string">
+            <column name="NNAME" length="50" />
+        </property>
+        <property name="ltypeid" type="string">
+            <column name="LTYPEID" length="20" />
+        </property>
+        <property name="lname" type="string">
+            <column name="LNAME" length="50" />
+        </property>
+        <property name="stypeid" type="string">
+            <column name="STYPEID" length="20" />
+        </property>
+        <property name="sname" type="string">
+            <column name="SNAME" length="50" />
+        </property>
+        <property name="fname" type="string">
+            <column name="FNAME" length="50" />
+        </property>
+        <property name="navigation" type="string">
+            <column name="NAVIGATION" length="20" />
+        </property>
+        <property name="createtime" type="timestamp">
+            <column name="CREATETIME" length="0" not-null="true" />
+        </property>
+        <property name="creatorid" type="string">
+            <column name="CREATORID" length="20" not-null="true" />
+        </property>
+        <property name="state" type="string">
+            <column name="STATE" length="1" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

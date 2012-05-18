@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>我的购物车${(jshopbasicinfo.jshopname)}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/global.css" />
+<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/shopcar.css" />
+<script type="text/javascript"  src="${basepath}ui/default/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="${basepath}js/jquery.query.js"></script>
+</head>
+<body>
+<!--载入公共头文件-->
+<#include "/WEB-INF/theme/default/shop/header.ftl">
+<div class="head_nav">
+				<div class="head_shopcar_step">
+					<div class="steppic">
+						<img src="/datang/templets/Default/Default/images/step_1.gif">
+					</div>
+					<div class="step1">
+						我的购物车
+					</div>
+					<div class="steppic">
+						<img src="/datang/templets/Default/Default/images/step_3.gif">
+					</div>
+					<div class="step2">
+						填写核对订单
+					</div>
+					<div class="steppic">
+						<img src="/datang/templets/Default/Default/images/step_5.gif">
+					</div>
+					<div class="step2">
+						成功提交订单
+					</div>
+					<div class="steppic">
+						<img src="/datang/templets/Default/Default/images/step_4.gif">
+					</div>
+				</div>
+			</div>
+<div id="main">
+  <div id="errorMsgDiv" style="padding-left: 20px; "> <font color="red">&nbsp;&nbsp;&nbsp;&nbsp;温馨提示：</font>请输入正确的商品数量！ </div>
+  <div class="cartcontent" id="showcart">
+    <div id="cart_box4" class="cart_emp" style="display:none"><strong>温馨提示：</strong> <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;您的购物车为空,请<a href="/index.jsp ">返回</a>我们的商城继续购物吧！ </div>
+    <div class="st1_div1">
+      <table class="car_table3" cellspacing="0" cellpadding="0" id="cartTable2">
+        <tbody>
+          <tr class="title">
+            <td>商品名称</td>
+            <td>价格（元）</td>
+            <td>商品数量</td>
+            <td>获积分</td>
+            <td>小计（元）</td>
+            <!-- <td>节省（元）</td>  -->
+            <td>操作</td>
+          </tr>
+          <!--当前可卖数-->
+          <!--安全可卖数-->
+          <tr id="cartitemAll_30003301">
+            <td class="td1"><div class="img"> <a href="/product/229021.html"><img src="${basepath}/ui/default/images/229021_1_pic60_2615.jpg" alt=""></a> </div>
+              <div class="name"> <a href="#">尼康（Nikon）1 尼克尔 VR 10-100mm f/4.5-5.6 PD 变焦</a> </div></td>
+            <td class="td3"><span>￥5399.00</span><br>
+              ￥5206.00 </td>
+            <td class="td4"><div class="myc_delTips" id="updatesuccess30003301" style="display:none;">
+                <div class="bot"></div>
+              </div>
+              <img src="${basepath}ui/default/images/car_inpl.gif" alt="" onclick="decamountMarkAjax(30003301,0,-1,'num',1,229021,0,5206.0,5206.00,100,0,0,0);">&nbsp;
+              <div style="position:absolute;margin-left:150px;width:255px;">
+                <div id="num30003301" tipbox="yes" style="display:none;"> </div>
+              </div>
+              <input class="inp" type="text" name="amount30003301" id="amount30003301" value="3" onchange="updateMarkAjax(30003301,this.value,0,-1,this.id,'num',1,229021,0,5206.0,5206.00,100,0,0,0);">
+              <img src="${basepath}ui/default/images/car_inpr.gif" alt="" onclick="increaseMarkAjax(30003301,0,-1,'num',1,229021,0,5206.0,5206.00,100,0,0,0);"></td>
+            <td class="td5"><span id="integral_30003301">15618</span></td>
+            <td class="td6"><div style="padding-top:1px;" id="cart_con1m830003301"><span id="UnitPrice30003301">￥15618.00</span></div></td>
+            <td class="td7"><div class="myc_delTips" id="del30003301" style="display:none;">
+                <div class="box">你确定要删除吗？<br>
+                  <a style="color:#c00; text-decoration:none;" href="javascript:void(0);" onclick="deleteMarkAjax(0,30003301,-1,0);">[确定]</a>&nbsp;&nbsp;<a style="color:#c00; text-decoration:none;" href="javascript:void(0);" onclick="showDelAllCart('del','30003301');">[取消]</a></div>
+                <div class="bot"></div>
+              </div>
+              <a href="javascript:void(0)" onclick="showDelAllCart('del','30003301');">删除</a></td>
+          </tr>
+          <tr id="cartitemAll_30003300">
+            <td class="td1"><div class="img"> <a href="#"><img src="${basepath}ui/default/images/246780_1_pic60_8794.jpg" alt=""></a> </div>
+              <div class="name"> <a href="#">尼康（Nikon） AF-S 尼克尔 35mm f/1.4G</a> </div></td>
+            <td class="td3"><span>￥12199.00</span><br>
+              ￥12188.00 </td>
+            <td class="td4"><div class="myc_delTips" id="updatesuccess30003300" style="display:none;">
+                <div class="bot"></div>
+              </div>
+              <img src="${basepath}ui/default/images/car_inpl.gif" alt="" onclick="decamountMarkAjax(30003300,0,-1,'num',2,246780,0,12188.0,12188.00,50,0,0,0);">&nbsp;
+              <div style="position:absolute;margin-left:150px;width:255px;">
+                <div id="num30003300" tipbox="yes" style="display:none;"> </div>
+              </div>
+              <input class="inp" type="text" name="amount30003300" id="amount30003300" value="1" onchange="updateMarkAjax(30003300,this.value,0,-1,this.id,'num',2,246780,0,12188.0,12188.00,50,0,0,0);">
+              <img src="${basepath}ui/default/images/car_inpr.gif" alt="" onclick="increaseMarkAjax(30003300,0,-1,'num',2,246780,0,12188.0,12188.00,50,0,0,0);"></td>
+            <td class="td5"><span id="integral_30003300">12188</span></td>
+            <td class="td6"><div style="padding-top:1px;" id="cart_con1m830003300"><span id="UnitPrice30003300">￥12188.00</span></div></td>
+
+            <td class="td7"><div class="myc_delTips" id="del30003300" style="display:none;">
+                <div class="box">你确定要删除吗？<br>
+                  <a style="color:#c00; text-decoration:none;" href="javascript:void(0);" onclick="deleteMarkAjax(0,30003300,-1,0);">[确定]</a>&nbsp;&nbsp;<a style="color:#c00; text-decoration:none;" href="javascript:void(0);" onclick="showDelAllCart('del','30003300');">[取消]</a></div>
+                <div class="bot"></div>
+              </div>
+              <a href="javascript:void(0)" onclick="showDelAllCart('del','30003300');">删除</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="st1_div2" id="integerPoint">
+      <span></span>
+      <div class="st1_div2_r">商品总价（不含运费）：<span id="totalPrice">￥27806.00</span>元
+      </div>
+    </div>
+    <div class="st1_btn" id="others">
+      <div class="myc_delTips2" id="delAll1" style="display:none;">
+        <div class="box">你确定要删除吗？<br>
+          <a style="color:#c00; text-decoration:none;" href="/DelCartItem.do?mid=0&amp;ItemId=&amp;ObjectId=&amp;ObjectType=&amp;deliveryDepartmentId=" class="sea_keyword">[确定]</a>&nbsp;&nbsp;<a style="color:#c00; text-decoration:none;" href="javascript:void(0);" onclick="showDelAllCart('delAll','1');">[取消]</a></div>
+        <div class="bot"></div>
+      </div>
+      <a href="javascript:;" onclick="showDelAllCart('delAll','1')"><img src="${basepath}ui/default/images/cart_btn1.gif"></a> <a href=""><img src="${basepath}ui/default/images/cart_btn2.gif"></a>
+      <a onclick="goAccountingCenter('/Cart/OrderForm.do');" href="#" class="nextbtn1"> <img src="${basepath}ui/default/images/cart_btn3.gif"> </a> </div>
+  </div>
+</div>
+<#include "/WEB-INF/theme/default/shop/footer.ftl">
+<script type="text/javascript" src="${basepath}ui/default/js/jshop.js"></script>
+</body>
+</html>

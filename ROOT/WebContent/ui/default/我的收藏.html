@@ -1,0 +1,72 @@
+<div id="mem_position"><a href="/Member/index.jsp" target="_parent">会员专区</a> &gt; <a href="/Member/FavoriteList.do">我的收藏</a></div>
+<div id="hui_r">
+  <div class="huiind_rm1_t760"><span>我的收藏</span></div>
+  <div class="mem_bor_006194" style="_height:1%;">
+    <div style="padding:0 3px 15px 3px;">
+      <div class="mem_scTop"> 请选择显示类别：
+        <select id="caterories" onchange="changeCategory(this.options[this.selectedIndex].value)">
+          <option value="0" selected="selected">全部</option>
+          <option value="1">未分类</option>
+          <option value="168659">笔记本</option>
+        </select>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        将选中的分类移到：
+        <select id="moveTo" onchange="moveToCategory(this);">
+          <option>请选择...</option>
+          <option value="168659">笔记本</option>
+        </select>
+      </div>
+      <div class="mem_scTitle">
+        <div class="t1">商品图片</div>
+        <div class="t2">商品名称</div>
+        <div class="t3">操作</div>
+      </div>
+      <div>
+        <form id="favorForm">
+          <ul id="favor363507" class="mem_bor_70bccc_dashed" style="height:170px;">
+            <li class="mem_Favorites03">
+              <input name="ids" value="363507" type="checkbox">
+            </li>
+            <li class="mem_Favorites01">
+              <div class="mem_Favorites01_div"> <a href="/product/244416.html" target="_blank" onmouseover="showLayer(244416,'l');" onmouseout="notShow(244416);"><img id="imgbox_244416" alt="戴尔（DELL）Inspiron13Z-328 13.3英寸笔记本电脑（i5-2450M 4G内存 320G硬盘 集显 摄像头 蓝牙 无线 Win7）红色" src="images/244416_1_pic120_5701.jpg" border="0"></a> </div>
+              <div id="pic_layer244416" class="list2_open" style="display:none;" onmouseover="this.style.display='';" onmouseout="this.style.display='none';">
+                <div class="list2_op_top"><img src="/style/product/images/spacer.gif" alt="" height="1" width="1"></div>
+                <div class="list_shadow_ie6 list2_op_shadow" id="layer_content">
+                  <div class="list2_op_clo"><img onclick="hideLayer(244416);" style="cursor:pointer;" src="/style/product/images/list2_op_clo.gif" alt=""></div>
+                  <div class="list2_opimg">
+                    <div><a href="/product/244416.html" target="_blank"><img src="/upload/601/603/51300/51301/51302/244416_1_pic310_5701.jpg" alt="戴尔（DELL）Inspiron13Z-328 13.3英寸笔记本电脑（i5-2450M 4G内存 320G硬盘 集显 摄像头 蓝牙 无线 Win7）红色" border="0"></a></div>
+                  </div>
+                </div>
+                <div class="list_bottom_ie6 list2_op_bottom"></div>
+              </div>
+            </li>
+            <li class="mem_Favorites02">
+              <div style="line-height:22px;"> <a href="/product/244416.html" target="_blank" class="mem_214977_14" title="戴尔（DELL）Inspiron13Z-328 13.3英寸笔记本电脑（i5-2450M 4G内存 320G硬盘 集显 摄像头 蓝牙 无线 Win7）红色">戴尔（DELL）Inspiron13Z-328 13.3英寸笔记本电脑（i5-2450M 4G内存 320G硬盘 集显 摄像头 蓝牙 无线 Win7）红色</a> <br>
+                <p>外形纤薄，乐趣无尽，绝对时尚。带着这款轻薄型笔记本电脑，无论走到哪里，都随时可以连接到您的数字世界。</p>
+              </div>
+            </li>
+            <li class="mem_Favorites04"> <a href="/product/244416.html" target="_blank"><img src="images/mem_btn_sc.gif" alt=""></a> <a href="javascript:onClick=delFavor(363507)"><img style="cursor:pointer;" src="images/mem_but44.gif" border="0"></a> </li>
+            <div style="clear:both;"></div>
+          </ul>
+        </form>
+      </div>
+      <div style="float:right;padding:5px 15px 5px 0;">
+        <div id="infoPage">
+          <ul>
+            <li><a class="upPage" title="目前已是第一页"></a></li>
+            <li><a class="nowPage">1</a></li>
+            <li><a class="downPage" title="目前已是最后一页"></a></li>
+            <li>&nbsp;&nbsp;到第&nbsp;
+              <select name="select2" onchange="window.location.href='/Member/FavoriteList.do?page='+this.options[this.selectedIndex].value + ''">
+                <option value="1" selected="selected">-1-</option>
+              </select>
+              &nbsp;页</li>
+          </ul>
+        </div>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </div>
+</div>
+<div class="mem_fixHeight"></div>
+</div>

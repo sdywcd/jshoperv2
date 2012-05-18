@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2011-12-21 20:50:59 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.jshop.entity.NoticeT" table="notice_t" >
+        <id name="noticeid" type="string">
+            <column name="NOTICEID" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="title" type="string">
+            <column name="TITLE" length="50" not-null="true" />
+        </property>
+        <property name="content" type="string">
+            <column name="CONTENT" length="65535" not-null="true" />
+        </property>
+        <property name="createtime" type="timestamp">
+            <column name="CREATETIME" length="0" not-null="true" />
+        </property>
+        <property name="creatorid" type="string">
+            <column name="CREATORID" length="20" not-null="true" />
+        </property>
+        <property name="noticenlname" type="string">
+            <column name="NOTICENLNAME" length="50" not-null="true" />
+        </property>
+        <property name="noticenlid" type="string">
+            <column name="NOTICENLID" length="20" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
