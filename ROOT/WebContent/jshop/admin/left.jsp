@@ -82,26 +82,23 @@
 				<li>
 					<a id="link2" href="#">合并订单（待考虑）</a>
 				</li>-->
-				<li class="collapsible last">
-					<a href="#" class="plus">订单列表</a>
-					<ul class="collapsed">
-						<li>
-							<a id="link3" href="<%=basePatha%>jshop/admin/order/ordersmanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#order">所有订单</a>
-						</li>
-						<li>
-							<a id="link4" href="<%=basePatha%>jshop/admin/order/orderstobeshipped.jsp?session=6584359BA964336B9BDE75737952F5AA#order">待发货订单</a>
-						</li>
-						<li>
-							<a id="link5" href="<%=basePatha%>jshop/admin/order/ordershaveshipped.jsp?session=6584359BA964336B9BDE75737952F5AA#order">已发货订单</a>
-						</li>
-						<li>
-							<a id="link6" href="<%=basePatha%>jshop/admin/order/orderinvoicemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#order">需开票订单</a>
-						</li>
-						<li class="last">
-							<a id="link7" href="<%=basePatha%>jshop/admin/order/returnordermanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#order">需退货订单</a>
-						</li>
-					</ul>
+			
+				<li>
+					<a id="link3" href="<%=basePatha%>jshop/admin/order/ordersmanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#order">所有订单</a>
 				</li>
+				<li>
+					<a id="link4" href="<%=basePatha%>jshop/admin/order/orderstobeshipped.jsp?session=6584359BA964336B9BDE75737952F5AA#order">待发货订单</a>
+				</li>
+				<li>
+					<a id="link5" href="<%=basePatha%>jshop/admin/order/ordershaveshipped.jsp?session=6584359BA964336B9BDE75737952F5AA#order">已发货订单</a>
+				</li>
+				<li>
+					<a id="link6" href="<%=basePatha%>jshop/admin/order/orderinvoicemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#order">需开票订单</a>
+				</li>
+				<li class="last">
+					<a id="link7" href="<%=basePatha%>jshop/admin/order/returnordermanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#order">需退货订单</a>
+				</li>
+				
 			</ul>
 			<h6 id="h-menu-member">
 				<a href="#member"><span>会员管理</span>
@@ -130,15 +127,12 @@
 				<li>
 					<a id="link3" href="<%=basePatha%>jshop/admin/pagecontent/addarticle.jsp?session=6584359BA964336B9BDE75737952F5AA#pagecontent">添加文章</a>
 				</li>
-				<li class="collapsible last">
-					<a href="#" class="plus">文章列表</a>
-					<ul class="collapsed">
-						<li>
-							<a id="link4" href="<%=basePatha%>jshop/admin/pagecontent/articlemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#pagecontent">所有文章</a>
-						</li>
-						
-					</ul>
+			
+				
+				<li>
+					<a id="link4" href="<%=basePatha%>jshop/admin/pagecontent/articlemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#pagecontent">所有文章</a>
 				</li>
+				
 				
 				<li class="collapsible last">
 					<a href="#" class="plus">帮助</a>
@@ -220,35 +214,27 @@
 				</li>
 
 				
-				<li class="collapsible last">
-					<a href="#" class="plus">页面模板</a>
-					<ul class="collapsed">
-						<li>
-							<a id="link12" href="<%=basePatha%>jshop/admin/template/templatethememanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#settings">模板主题设置</a>
-						</li>
-						<li>
-							<a id="link10" href="<%=basePatha%>jshop/admin/template/templatemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#settings">模板文件设置</a>
-						</li>
-						<li class="last">
-							<a id="link11" href="<%=basePatha%>jshop/admin/template/templatesetmanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#settings">模板文件和系统内容设置</a>
-						</li>
-					</ul>
-				</li>
-				
-				<li class="collapsible last">
-					<a href="#" class="plus">权限设置</a>
-					<ul class="collapsed">
-						<li>
-							<a id="link13" href="<%=basePatha%>jshop/admin/setting/modulemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#settings">系统模块设置</a>
 			
-						</li>
-						<li>
-							<a id="link14" href="<%=basePatha%>jshop/admin/setting/functionmanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#settings">模块功能设置</a>
-						</li>
-						<li class="last">
-							<a id="link16" href="<%=basePatha%>jshop/admin/setting/rolemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#settings">角色权限设置</a>
-						</li>
-					</ul>
+				<li>
+					<a id="link12" href="<%=basePatha%>jshop/admin/template/templatethememanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#settings">模板主题设置</a>
+				</li>
+				<li>
+					<a id="link10" href="<%=basePatha%>jshop/admin/template/templatemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#settings">模板文件设置</a>
+				</li>
+				<li class="last">
+					<a id="link11" href="<%=basePatha%>jshop/admin/template/templatesetmanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#settings">模板文件和系统内容设置</a>
+				</li>
+	
+	
+				<li>
+					<a id="link13" href="<%=basePatha%>jshop/admin/setting/modulemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#settings">系统模块设置</a>
+	
+				</li>
+				<li>
+					<a id="link14" href="<%=basePatha%>jshop/admin/setting/functionmanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#settings">模块功能设置</a>
+				</li>
+				<li class="last">
+					<a id="link16" href="<%=basePatha%>jshop/admin/setting/rolemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#settings">角色权限设置</a>
 				</li>
 				
 				<li class="collapsible last">
