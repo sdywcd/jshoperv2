@@ -169,7 +169,7 @@ public class JshopActivityIndex extends Activity{
                 }  
             }
             if(arg0==5){
-            	Intent intent = new Intent(JshopActivityIndex.this,JshopActivityGoodsList.class);
+            	Intent intent = new Intent(JshopActivityIndex.this,JshopMIndex.class);
 				startActivity(intent);
             }
         }  
@@ -279,7 +279,7 @@ public class JshopActivityIndex extends Activity{
 			TextView serverhost=(TextView) vhost.findViewById(R.id.serverhost);
 			serverhost.setText(oserverhost);
 			//放入静态变量
-			JshopActivityUtil.BASE_URL=oserverhost;
+			JshopActivityUtil.BASE_URL="http://"+oserverhost+"/";
 		}
 		AlertDialog alert=bulider.create();
 		alert.show();

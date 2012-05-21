@@ -57,4 +57,9 @@ public class TableTServiceImpl implements TableTService {
 		return this.getTableTDao().updateTableTtablestateBytableNo(tableNumber, tablestate);
 	}
 
+	@Override
+	public List<TableT> findAllTableT(int currentPage, int lineSize) {
+		return this.getTableTDao().findAllTableT(currentPage, lineSize);
+	}
+
 }

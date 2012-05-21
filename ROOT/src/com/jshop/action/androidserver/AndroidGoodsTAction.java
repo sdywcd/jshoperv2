@@ -20,7 +20,9 @@ import org.springframework.stereotype.Controller;
 
 import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.Validate;
+import com.jshop.entity.GoodsCategoryT;
 import com.jshop.entity.GoodsT;
+import com.jshop.service.GoodsCategoryTService;
 import com.jshop.service.GoodsTService;
 import com.jshop.service.impl.GoodsTServiceImpl;
 import com.opensymphony.xwork2.ActionSupport;
@@ -30,6 +32,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class AndroidGoodsTAction extends ActionSupport implements
 ServletRequestAware, ServletResponseAware {
 	private GoodsTService goodsTService;
+	private GoodsCategoryTService goodsCategoryTService;
 	private HttpServletRequest request;
     private HttpServletResponse response;
 	private List<GoodsT>beanlist=new ArrayList<GoodsT>();
@@ -38,9 +41,17 @@ ServletRequestAware, ServletResponseAware {
 	private int rp;
 	private int page=1;
 	private int total=0;
-	private String jsonstr;
+	private String responsejsonstr;
     private boolean sucflag;
+    
     @JSON(serialize = false)
+    public GoodsCategoryTService getGoodsCategoryTService() {
+		return goodsCategoryTService;
+	}
+	public void setGoodsCategoryTService(GoodsCategoryTService goodsCategoryTService) {
+		this.goodsCategoryTService = goodsCategoryTService;
+	}
+	@JSON(serialize = false)
 	public GoodsTService getGoodsTService() {
 		return goodsTService;
 	}
@@ -101,11 +112,12 @@ ServletRequestAware, ServletResponseAware {
 	public void setTotal(int total) {
 		this.total = total;
 	}
-	public String getJsonstr() {
-		return jsonstr;
+	
+	public String getResponsejsonstr() {
+		return responsejsonstr;
 	}
-	public void setJsonstr(String jsonstr) {
-		this.jsonstr = jsonstr;
+	public void setResponsejsonstr(String responsejsonstr) {
+		this.responsejsonstr = responsejsonstr;
 	}
 	public boolean isSucflag() {
 		return sucflag;
@@ -128,6 +140,44 @@ ServletRequestAware, ServletResponseAware {
 	public void validate() {
 		this.clearErrorsAndMessages(); 
 	
+	}
+	
+	/**
+	 * 获取商品分类给手机端
+	 * @throws IOException
+	 */
+	public void findAllGoodsCategoryTforAndroid() throws IOException{
+		String state="1";//表示显示的商品分类
+		List<GoodsCategoryT>list=this.getGoodsCategoryTService().findAllGoodsCategoryT(state);
+		StringBuilder json=new StringBuilder();
+		for(Iterator it=list.iterator();it.hasNext();){
+			GoodsCategoryT gct=(GoodsCategoryT)it.next();
+			json.append("{");
+			json.append("\"goodsCategoryTid\":\"").append(gct.getGoodsCategoryTid()).append("\",");
+			json.append("\"grade\":\"").append(gct.getGrade()).append("\",");
+			json.append("\"metaKeywords\":\"").append(gct.getMetaKeywords()).append("\",");
+			json.append("\"metaDes\":\"").append(gct.getMetaDes()).append("\",");
+			json.append("\"name\":\"").append(gct.getName()).append("\",");
+			json.append("\"state\":\"").append(gct.getState()).append("\",");
+			json.append("\"path\":\"").append(gct.getPath()).append("\",");
+			json.append("\"sort\":\"").append(gct.getSort()).append("\",");
+			json.append("\"sign\":\"").append(gct.getSign()).append("\",");
+			json.append("\"goodsTypeId\":\"").append(gct.getGoodsTypeId()).append("\",");
+			json.append("\"parentId\":\"").append(gct.getParentId()).append("\",");
+			json.append("\"createtime\":\"").append(BaseTools.formateDbDate(gct.getCreatetime())).append("\",");
+			json.append("\"creatorid\":\"").append(gct.getCreatorid()).append("\",");
+			json.append("\"parentName\":\"").append(gct.getParentName()).append("\",");
+			json.append("\"htmlpath\":\"").append(gct.getHtmlpath()).append("\"");
+			json.append("}").append("-");
+		}
+		json.deleteCharAt(json.length()-1);
+		this.setResponsejsonstr(json.toString());
+		response.setContentType("text/html");
+		response.setCharacterEncoding("utf-8");
+		PrintWriter out=response.getWriter();
+		out.write(this.getResponsejsonstr());
+		out.flush();
+		out.close();
 	}
 	
 	/**
@@ -158,11 +208,11 @@ ServletRequestAware, ServletResponseAware {
 					json.append("}").append("-");
 				}
 				json.deleteCharAt(json.length()-1);
-				this.setJsonstr(json.toString());
+				this.setResponsejsonstr(json.toString());
 				response.setContentType("text/html");
 				response.setCharacterEncoding("utf-8");
 				PrintWriter out=response.getWriter();
-				out.write(this.getJsonstr());
+				out.write(this.getResponsejsonstr());
 				out.flush();
 				out.close();
 			}
@@ -224,11 +274,11 @@ ServletRequestAware, ServletResponseAware {
 				json.append("\"pictureurl\":\"").append(gt.getPictureurl()).append("\"");
 				json.append("}");
 				//json.deleteCharAt(json.length());
-				this.setJsonstr(json.toString());
+				this.setResponsejsonstr(json.toString());
 				response.setContentType("text/html");
 				response.setCharacterEncoding("utf-8");
 				PrintWriter out=response.getWriter();
-				out.write(this.getJsonstr());
+				out.write(this.getResponsejsonstr());
 				out.flush();
 				out.close();
 			}

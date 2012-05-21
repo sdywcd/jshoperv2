@@ -48,7 +48,7 @@ public class TableTDaoImpl extends HibernateDaoSupport implements TableTDao{
 		log.debug("countfindAllTableT");
 		try {
 			String queryString = "select count(*) from TableT";
-			List list = this.getHibernateTemplate().find(queryString);
+			List<TableT> list = this.getHibernateTemplate().find(queryString);
 			if (list.size() > 0) {
 				Object o = list.get(0);
 				long l = (Long) o;
@@ -118,6 +118,28 @@ public class TableTDaoImpl extends HibernateDaoSupport implements TableTDao{
 		log.debug("sortAllTableT");
 		try {
 			List<TableT> list = this.getHibernateTemplate().executeFind(new HibernateCallback() {
+				public Object doInHibernate(Session session) throws HibernateException, SQLException {
+					Query query = session.createQuery(queryString);
+					query.setFirstResult((currentPage - 1) * lineSize);
+					query.setMaxResults(lineSize);
+					List list = query.list();
+					return list;
+				}
+			});
+			return list;
+		} catch (RuntimeException re) {
+			log.error("sortAllTableT failed",re);
+			throw re;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TableT> findAllTableT(final int currentPage, final int lineSize) {
+		log.debug("sortAllTableT");
+		try {
+			List<TableT> list = this.getHibernateTemplate().executeFind(new HibernateCallback() {
+				String queryString="from TableT";
 				public Object doInHibernate(Session session) throws HibernateException, SQLException {
 					Query query = session.createQuery(queryString);
 					query.setFirstResult((currentPage - 1) * lineSize);

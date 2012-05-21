@@ -146,7 +146,7 @@ public class JshopActivityShopList extends Activity{
 	}
 	
 
-	class ItemClickListener implements OnItemClickListener{
+	public class ItemClickListener implements OnItemClickListener{
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {

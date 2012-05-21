@@ -53,7 +53,7 @@
         android:orientation="vertical" >
 
         <GridView
-            android:id="@+id/gridView1"
+            android:id="@+id/tablegridView"
             android:layout_width="275dp"
             android:layout_height="386dp"
             android:layout_gravity="center"

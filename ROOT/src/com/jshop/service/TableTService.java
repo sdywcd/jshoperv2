@@ -28,6 +28,14 @@ public interface TableTService {
 	 */
 	public abstract List<TableT>findAllTableT();
 	/**
+	 * 分页查询所有桌
+	 * @param currentPage
+	 * @param lineSize
+	 * @return
+	 */
+	public abstract List<TableT>findAllTableT(final int currentPage,final int lineSize);
+	
+	/**
 	 * 统计分页查询所有桌
 	 * @return
 	 */

@@ -18,7 +18,7 @@ public class JshopActivityUtil {
 	private Context context;
 	private String FILESPATH;
 	public static String BASE_URL="";
-	
+	public static final String BASE_HEAD="http://";
 	
 	
 	public JshopActivityUtil() {
