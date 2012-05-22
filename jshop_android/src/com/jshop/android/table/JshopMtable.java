@@ -156,7 +156,6 @@ public class JshopMtable extends Activity {
 			TextView textView;
 			//ImageView imageView;
 			if(convertView==null){
-				
 				//imageView=new ImageView(mContext);
 				//imageView.setLayoutParams(new GridView.LayoutParams(85,85));
 				//imageView.setAdjustViewBounds(false);
