@@ -145,4 +145,5 @@ public interface GoodsCategoryTDao {
 	 */
 	public abstract List<GoodsCategoryT>sortAllGoodsCategoryT(final int currentPage,final int lineSize,final String state,String queryString);
 
+
 }

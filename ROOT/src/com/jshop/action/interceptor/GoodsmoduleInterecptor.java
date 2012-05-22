@@ -1,13 +1,18 @@
 package com.jshop.action.interceptor;
 
+import java.util.Iterator;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.springframework.stereotype.Controller;
 
 import com.jshop.dao.impl.GoodsAttributeTDaoImpl;
+import com.jshop.entity.GoodsCategoryT;
 import com.jshop.entity.GoodsTypeTN;
 import com.jshop.service.GoodsAttributeTService;
+import com.jshop.service.GoodsCategoryTService;
 import com.jshop.service.GoodsTService;
 import com.jshop.service.GoodsTypeBrandTService;
 import com.jshop.service.impl.GoodsAttributeTServiceImpl;
@@ -25,6 +30,14 @@ public class GoodsmoduleInterecptor {
 	private GoodsTypeBrandTService goodsTypeBrandTService;
 	private GoodsAttributeTService goodsAttributeTService;
 	private GoodsTService goodsTService;
+	private GoodsCategoryTService goodsCategoryTService;
+	
+	public GoodsCategoryTService getGoodsCategoryTService() {
+		return goodsCategoryTService;
+	}
+	public void setGoodsCategoryTService(GoodsCategoryTService goodsCategoryTService) {
+		this.goodsCategoryTService = goodsCategoryTService;
+	}
 	public GoodsTypeBrandTService getGoodsTypeBrandTService() {
 		return goodsTypeBrandTService;
 	}
@@ -87,16 +100,16 @@ public class GoodsmoduleInterecptor {
 	}
 	
 	/**
-	 * 收集生成商品分类静态页需要的数据集合
+	 * 更新商品分类的静态页路径
 	 */
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public void updateGoodsCategoryhtmlpath(){
+		List<GoodsCategoryT>list=this.getGoodsCategoryTService().findGoodsCategoryByGrade("0","1");
+		for(Iterator it=list.iterator();it.hasNext();){
+			GoodsCategoryT gct=(GoodsCategoryT)it.next();
+			List<GoodsCategoryT>glist=this.getGoodsCategoryTService().findGoodscategoryByparentId("1",gct.getParentId());
+			if(glist.isEmpty()){
+				this.getGoodsCategoryTService().updateHtmlPath(gct.getParentId(), "");
+			}
+		}
+	}
 }

@@ -849,13 +849,29 @@ public class GoodsCategoryTAction extends ActionSupport {
 							return "json";
 						}
 					}
-
 				}
 			}
-
+			//更新商品分类的静态页路径
+			updateGoodsCategoryhtmlpath();
+			
 		}
 		this.setSucflag(true);
 		return "json";
+	}
+	
+	
+	/**
+	 * 更新商品分类的静态页路径
+	 */
+	public void updateGoodsCategoryhtmlpath(){
+		List<GoodsCategoryT>list=this.getGoodsCategoryTService().findGoodsCategoryByGrade("0","1");
+		for(Iterator it=list.iterator();it.hasNext();){
+			GoodsCategoryT gct=(GoodsCategoryT)it.next();
+			List<GoodsCategoryT>glist=this.getGoodsCategoryTService().findGoodscategoryByparentId("1",gct.getParentId());
+			if(glist.isEmpty()){
+				this.getGoodsCategoryTService().updateHtmlPath(gct.getParentId(), "");
+			}
+		}
 	}
 
 	/**
