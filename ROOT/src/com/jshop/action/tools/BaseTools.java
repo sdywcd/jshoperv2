@@ -31,7 +31,7 @@ public class BaseTools {
 	 * 默认启用的模板主题标示
 	 */
 	 
-	public static final String DEFAULTTHEMESIGN="default";
+	public static final String DEFAULTTHEMESIGN="theme";
 	
 	/**
 	 * 默认的用户ID，用于在没有登录的情况下生成静态页面，主要是在安装的时候使用

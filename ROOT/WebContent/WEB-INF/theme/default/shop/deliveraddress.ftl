@@ -1,263 +1,92 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<html>
-  <head>
-  
-    
-    <title>${(jshopbasicinfo.jshopname)}我的收获地址</title>
-    
-	<meta http-equiv="pragma" content="OSTOCY">
-	<meta http-equiv="cache-control" content="OSTOCY">
-	<meta http-equiv="expires" content="0">    
-<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
-	<#if (jshopbasicinfo.metaKeywords)! !=""><meta http-equiv="keywords" content="${jshopbasicinfo.metaKeywords}"/></#if>
-	<#if (jshopbasicinfo.metaDes)! !=""><meta http-equiv="description" content="${jshopbasicinfo.metaDes}"/></#if>
-	<link rel="stylesheet" type="text/css" title="Green" href="${basePath}ui/default/css/style_usercenter.css" />
-	<link rel="stylesheet" type="text/css" title="Green" href="${basePath}ui/default/css/style_green.css" />
-	<link rel="stylesheet" type="text/css" href="${basePath}ui/default/css/tabs-accordion-usercenter.css"/>
-	<script type="text/javascript"  src="${basePath}ui/default/js/jquery1.4.2.js"></script>
-	<script type="text/javascript" src="${basePath}ui/default/js/jquery.tools.min.js"></script>
-  	<script type="text/javascript" src="${basePath}js/mydeliveraddressjs.js"></script>
-  	<script type="text/javascript" src="${basePath}js/location.js"></script>
-	<script type="text/javascript" src="${basePath}js/YLChinaArea.js"></script>
-  	<!--[if IE 6]>
-	<style>
-	body {behavior: url("<%=basePath%>ui/default/css/csshover3.htc");}
-	</style>
-	<![endif]-->
-<script type="text/javascript">    
-       $(document).ready(function() {
-         $("#ChinaArea").jChinaArea({
-             aspnet:false,
-             s1:"河南省",//默认选中的省名
-             s2:"安阳市",//默认选中的市名
-             s3:"文峰区"//默认选中的县区名
-         });
-       });
-   </script>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>地址簿</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/global.css" />
+<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/css.css" />
+<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/huiyuan.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript"  src="${basepath}ui/default/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="${basepath}js/jquery.query.js"></script>
+<script type="text/javascript" src="${basepath}ui/default/js/location.js"></script>
+<script type="text/javascript" src="${basepath}ui/default/js/YLChinaArea.js"></script>
+<script type="text/javascript" src="${basepath}ui/default/js/jshop.js"></script>
 
-  </head>
-  
+</head>
 <body>
+<!--载入公共头文件-->
+<#include "/WEB-INF/theme/default/shop/header.ftl">
 
-<s:hidden name="hidurl" id="hidurl" value=""></s:hidden>
-
-
-<div id="top_header">
-	<div id="top_header_menu">
-		<#include "/WEB-INF/theme/default/shop/top_header.ftl">
+<div id="ind_main" style="display:block;background-color:#ffffff">
+<div id="ind_fix">
+<#include "/WEB-INF/theme/default/shop/usermenu.ftl">
+<div id="mem_right" name="mem_right"  width="100%" height="606" style="position:relative ">
+  <div id="mem_position"><a href="#" target="_parent">会员专区</a> &gt; <a href="#">地址簿</a></div>
+  <div id="hui_r">
+        <div class="myad_rm1title"><span>我的地址薄</span></div>
+      <div class="myad_rbox">
+ 		<div class="myac_rmtitle" style="margin-left:12px">我的地址薄</div>
+       <div class="myad_rm1">
+          <div class="myad_rth">
+            <div class="myad_rth1">收货人</div>
+            <div class="myad_rth2">详细地址</div>
+            <div class="myad_rth3">邮编</div>
+            <div class="myad_rth4">固定电话</div>
+            <div class="myad_rth5">手机</div>
+            <div class="myad_rth6">操作</div>
+          </div>
+		<#if (deliveraddress??)&&(deliveraddress?size>0)>
+		<#list deliveraddress as addr>
+            <div class="myad_rtd1">${addr.username}</div>
+            <div class="myad_rtd2">${addr.street}</div>
+            <div class="myad_rtd3">${addr.postcode}</div>
+            <div class="myad_rtd4">${addr.telno}</div>
+            <div class="myad_rtd5">${addr.mobile}</div>
+            <div class="myad_rtd6"><a href="javascript:;" onclick="alteradderss(${addr.addressid});" class="thickbox myad_s1">修改</a>
+              <a href="javascript:;" onclick="delmyaddress(${addr.addressid});" class="myad_s2">删除</a></div>
+        </#list>
+		</#if>
+          <div class="clear"></div>
+        </div>
+          <div class="myad_rm2">
+			<div class="myad_rm2title">新增收货人地址</div>
+			<input id="addsid" name="addsid" type="hidden" value="">
+            <div class="myad_rm2l"><span>*</span>收 货 人：</div>
+			<div class="myad_rm2r1"><input type="text" name="username" id="username"></div>
+			<div class="myad_rm2l"><span>*</span>国  家：</div>
+			<div class="myad_rm2r1"><select id="country" name="country"><option value="1">中国</option></select></div>
+            <div class="myad_rm2l"><span>*</span>省  份：</div>
+      		<div id="ChinaArea" class="myad_rm2r1">
+			 <select id="province" name="province" style="width: 100px;"></select>
+			 <select id="city" name="city" style="width: 100px;"></select>
+			 <select id="district" name="district" style="width: 120px;"> </select>      
+			 </div>
+            <div class="myad_rm2l"><span>*</span>详细地址：</div>
+            <div class="myad_rm2r2"><input type="text" class="input2" maxlength="40" name="street" style="width: 400px;" id="street" onblur="checkreceiverAddress();" onfocus="aa(this);"></div>
+            <div class="myad_rm2l"><span>&nbsp;</span>固定电话：</div>
+            <div class="myad_rm2r3"><input type="text" class="input1" name="telno" id="telno" maxlength="11"></div>
+            <div><input type="hidden" name="telephoneType" value="0"></div>
+            <div class="clear"></div>
+            <div class="myad_rm2l"><span>*</span>手机号码：</div>
+            <div class="myad_rm2r1"> <input type="text" class="input1" name="mobile" id="mobile" maxlength="11"></div>
+            <div class="myad_rm2l"><span>*</span>邮政编码：</div>
+            <div class="myad_rm2r1"><input type="text" name="postcode" class="input1" id="postcode"></div>
+			<div class="myad_rm2l"><span>&nbsp;</span>电子邮件</div>
+			<div class="myad_rm2r1"><input type="text" name="email" class="input1" id="email" style="width: 200px;"></div>
+            <div class="clear"></div>
+            <div class="myad_btn"><input type="image" src="${basepath}ui/default/images/myad_addbtn.gif" onclick="myAddressAdd();">&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="image" src="${basepath}ui/default/images/myad_alterbtn.gif" onclick="myAddressAlter();"></div>
+          </div>
+      </div>
+	<div class="mem_fixHeight"></div>
     </div>
 </div>
-<div id="header">
-
-	<div id="header_inner" class="fixed">
-
-		<div id="logo">
-			<h2>www.soipay.com</h2>
-		</div>
-		
-		<!-- 读取导航菜单 -->
-		  <s:action name="GetIndexMenu" namespace="/jshop_system" id="bean" /> 
-		  <div id="menu">
-			<ul>
-				<#list siteNavigationList as navigation>
-					<#if navigation.position="2">
-					<li>
-						<a href="${basePath}<@navigation.htmlPath?interpret />"
-						<#if navigation.isTargetBlank="1"> target="_blank"</#if> class="active">${navigation.name}
-						</a>
-					</li>
-				        </#if>
-				</#list>
-			</ul>
-		 </div>
-		
-		
-  </div>
+</div>
 </div>
 
-<div id="main">
-
-	<div id="main_inner" class="fixed">
-	  <div id="top_main_inner" class="fixed">
-   		<#include "/WEB-INF/theme/default/shop/headersearch.ftl">
-      </div>
-      
-                   
-	  <div id="primaryContent_2columns">
-			<div id="columnA_2columns">
-
-				<br class="clear"/>
-				<div id="cart_info">
-					<div class="cart_img">
-						<img src="ui/default/images_green/cart_009.gif" alt="我的收获地址" />
-					</div>
-					<div class="list_cart">
-						<h2><strong>我的收货地址</strong> </h2><a id="addnewa">[增加新地址]</a><a id="closenewa">[关闭]</a>
-					</div>
-					<div class="cart_table">
-						<table>
-							<tbody>
-								<tr class="trhead">
-									<td width="10%" style="height:30px;">收货人</td>
-									<td>地址</td>
-									<td width="14%">邮编</td>
-									<td width="8%">手机号码</td>
-									<td width="10%">固定电话</td>
-									<td width="9%">邮箱</td>
-									<td width="9%">删除商品</td>
-								</tr>
-								<#if deliveraddress??&&deliveraddress?size>0>
-								<#list deliveraddress as d >
-								<tr class="align_Center">
-									<td style="padding: 5px 0pt;">${d.username}</td>
-									<td class="align_Left">
-										<span>
-											${d.province}${d.city}${d.district}${d.street}
-										</span>
-									</td>
-									<td>
-										${d.postcode}
-									</td>
-									<td>${d.mobile}</td>
-									<td>${d.telno}</td>
-									<td>
-										${d.email}
-									</td>
-									<td><a href="UserDelDeliverAddress.action?addressid=${d.addressid}">删除</a></td>
-								</tr>
-								</#list>
-								</#if>
-							</tbody>
-						</table>
-	
-					</div>
-							<div id="addnewaddressarea" style="display:none;" class="middle" >
-									<div id="addressform">
-										<table cellspacing="0" border="0" width="100%" >
-											<tbody>
-												<tr>
-													<td align="right" width="85" valign="middle">
-														<font color="red">*</font>
-														收货人姓名：
-													</td>
-													<td align="left" valign="middle">
-														<input id="username" class="txt" type="text" value="" maxlength="20"/>
-														<span id="deliver_username_info" style="display:none;" class="alertinfo">请填写收货人姓名</span>
-													</td>
-												</tr>
-												<tr>
-													<td align="right" width="85" valign="middle">
-														<font color="red">*</font>
-														国家：
-													</td>
-													<td align="left" valign="middle">
-														<select id="country" name="country">
-															<option value="1">中国</option>
-														</select>
-													</td>
-												</tr>
-												<tr>
-													<td align="right" valign="middle">
-														<font color="red">*</font>
-														省     份：
-													</td>
-													<td align="left" valign="middle">
-														<div id="ChinaArea">
-														 <select id="province" name="province" style="width: 100px;"></select>
-													     <select id="city" name="city" style="width: 100px;"></select>
-													     <select id="district" name="district" style="width: 120px;"> </select>      
-													     </div>
-													</td>
-												</tr>
-												<tr>
-													<td align="right" valign="middle">
-														<font color="red">*</font>
-														地     址：
-													</td>
-													<td align="left" valign="middle">
-														<input type="text" id="street" name="street" style="width:320px;" maxlength="100"/>
-													</td>
-												</tr>
-												<tr>
-													<td align="right" valign="middle">
-														<font color="red">*</font>
-														手机号码：
-													</td>
-													<td align="left" valign="middle">
-														<input type="text" id="mobile" name="mobile" style="width:100px;" maxlength="11"/>
-													</td>
-												</tr>
-												<tr>
-													<td align="right" valign="middle">
-														
-														固定电话：
-													</td>
-													<td align="left" valign="middle">
-														<input type="text" id="telno" name="telno" style="width:100px;" maxlength="11"/>
-													</td>
-												</tr>
-												<tr>
-													<td align="right" valign="middle">
-														
-														电子邮件：
-													</td>
-													<td align="left" valign="middle">
-														<input type="text" id="email" name="email" style="width:200px;" maxlength="50"/>
-													</td>
-												</tr>
-												<tr>
-													<td align="right" valign="middle">
-														
-														邮政编码：
-													</td>
-													<td align="left" valign="middle">
-														<input type="text" id="postcode" name="postcode" style="width:100px;" maxlength="11"/>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-									<div style="padding:10px 0px 20px 45px;">
-										<a id="addaddress" >[添加到常用地址]</a>
-									</div>
-								</div>
-					
-					<div class="round">
-						<div class="lround"></div>
-						<div class="rround"></div>
-					</div>
-					
-				</div>
-				
-				<br class="clear" />
-		
-			
-
-				
-				
-			</div>
-	
-		</div>
-		
-		<div id="secondaryContent_2columns">
-		
-			<div id="columnC_2columns">
-	
-				<jsp:include page="../usercentermenu.jsp"></jsp:include>
-
-			</div>
-
-		</div>
-
-		<br class="clear" />
-
-	</div>
-
-</div>
-
-
-    <#include "/WEB-INF/theme/default/shop/footer.ftl">
-  </body>
+<#include "/WEB-INF/theme/default/shop/footer.ftl">
+<script type="text/javascript" src="${basepath}ui/default/js/jshop.js"></script>
+</body>
 </html>
