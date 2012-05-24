@@ -15,6 +15,11 @@ public class FreeMarkervariable {
 	 */
 	public static final String BASEPATH="basepath";
 	/**
+	 * 默认启用的模板主题标示
+	 */
+	 
+	public static final String DEFAULTTHEMESIGN="theme";
+	/**
 	 * 导航数据
 	 */
 	public static final String SITENAVIGATIONLIST="sitenavigationlist";

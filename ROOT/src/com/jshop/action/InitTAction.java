@@ -1,18 +1,12 @@
 package com.jshop.action;
 
-import javax.annotation.Resource;
-
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
-import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
 
-import com.jshop.action.tools.BaseTools;
+import com.jshop.action.tools.FreeMarkervariable;
 import com.jshop.entity.TemplatethemeT;
 import com.jshop.service.TemplatethemeTService;
-import com.jshop.service.impl.TemplatethemeTServiceImpl;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 @ParentPackage("jshop")
@@ -80,11 +74,11 @@ public class InitTAction extends ActionSupport {
 			if(tt!=null){
 				//将启用的模板主题标示加入到服务器内存中
 				if(!tt.getSign().isEmpty()){
-					ActionContext.getContext().getApplication().put(BaseTools.DEFAULTTHEMESIGN, tt.getSign());
+					ActionContext.getContext().getApplication().put(FreeMarkervariable.DEFAULTTHEMESIGN, tt.getSign());
 				}else{
 					//如果没有默认的模板，那么启用默认主题模板
 					tt.setSign("default");
-					ActionContext.getContext().getApplication().put(BaseTools.DEFAULTTHEMESIGN, tt.getSign());
+					ActionContext.getContext().getApplication().put(FreeMarkervariable.DEFAULTTHEMESIGN, tt.getSign());
 				}
 				
 			}
