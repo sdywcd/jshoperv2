@@ -2,6 +2,7 @@ package com.jshop.action;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -58,6 +59,9 @@ public class ArticleTAction extends ActionSupport {
 	private Integer pageCount;
 	private String isnotice;
 	private String articleCategoryName;
+	private Date createtime;
+	private Date updatetime;
+	private Integer version;
 	private ArticleT bean = new ArticleT();
 	private ArticleCategoryT actbean = new ArticleCategoryT();
 	private Map<String, Object> map = new HashMap<String, Object>();
@@ -339,6 +343,31 @@ public class ArticleTAction extends ActionSupport {
 
 	public void setIsnotice(String isnotice) {
 		this.isnotice = isnotice;
+	}
+
+	
+	public Date getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
+
+	public Date getUpdatetime() {
+		return updatetime;
+	}
+
+	public void setUpdatetime(Date updatetime) {
+		this.updatetime = updatetime;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 
 	/**
