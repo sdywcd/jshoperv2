@@ -618,7 +618,7 @@ public class CreateHtml extends ActionSupport {
 	@SuppressWarnings("unchecked")
 	public String createGoodsCategoryT(String sign, String filename, Map<String, Object> data) throws IOException, TemplateException {
 		String realhtmlpath = "";
-		int pageSize = 1;
+		int pageSize = 12;
 		try{
 			setbean = this.getTemplatesetTService().findTemplatesetTBysign(sign);
 			if (setbean != null) {

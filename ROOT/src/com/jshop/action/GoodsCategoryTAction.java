@@ -489,22 +489,7 @@ public class GoodsCategoryTAction extends ActionSupport {
 
 	}
 
-	/**
-	 * 收集生成静态页所需数据
-	 */
-	public void createGoodsCategory() {
-		map.put(FreeMarkervariable.BASEPATH,this.getDataCollectionTAction().getBasePath());
-		//获取商城基本信息
-		map.put(FreeMarkervariable.JSHOPBASICINFO, this.getDataCollectionTAction().findJshopbasicInfo());
-		//获取导航
-		map.put(FreeMarkervariable.SITENAVIGATIONLIST, this.getDataCollectionTAction().findSiteNavigation());
-		//获取页脚文章一级分类
-		map.put(FreeMarkervariable.FOOTCATEGORY, this.getDataCollectionTAction().findFooterCateogyrT());
-		//获取页脚文章一级分类下得文章
-		map.put(FreeMarkervariable.FOOTERATRICLE, this.getDataCollectionTAction().findFooterArticle());
-		
-		findCategoryGoods();
-	}
+
 
 
 
@@ -529,29 +514,6 @@ public class GoodsCategoryTAction extends ActionSupport {
 //		}
 //	}
 
-	/**
-	 * 获取对应商品分类下得商品数据
-	 */
-	public void findCategoryGoods() {
-		if (bean != null) {
-			String salestate = "1";
-			if (bean.getGrade().equals("0")) {
-				String navid = this.getGoodsCategoryTid();
-				List<GoodsT> list = this.getGoodsTService().findAllGoodsBynavid(navid, salestate);
-				map.put(FreeMarkervariable.SECONDGOODSCATEGORY, this.getDataCollectionTAction().findSecondGoodsCategoryT(navid));//获取此分类下的二级分类
-				map.put(FreeMarkervariable.ALLGOODS, list);
-			} else if (bean.getGrade().equals("1")) {
-				String ltypeid = this.getGoodsCategoryTid();
-				List<GoodsT> list = this.getGoodsTService().findGoodsByLtypeid(ltypeid, salestate);
-				map.put(FreeMarkervariable.SECONDGOODSCATEGORY, this.getDataCollectionTAction().findSecondGoodsCategoryT(ltypeid));//获取此分类下的二级分类
-				map.put(FreeMarkervariable.ALLGOODS, list);
-			} else {
-				String stypeid = this.getGoodsCategoryTid();
-				List<GoodsT> list = this.getGoodsTService().findGoodsByStypeid(stypeid, salestate);
-				map.put(FreeMarkervariable.ALLGOODS, list);
-			}
-		}
-	}
 
 	/**
 	 * 获取顶级分类和一级分类
@@ -803,12 +765,6 @@ public class GoodsCategoryTAction extends ActionSupport {
 			this.getGoodsCategoryTService().updateGoodscategoryT(gct);
 			this.setSucflag(true);
 			bean=gct;
-			createGoodsCategory();
-			map.put("goodsCategory", gct);
-			//更新商品分类静态页路径
-			String htmlPath = this.getCreateHtml().createGoodsCategoryT(BaseTools.getApplicationthemesig()+"_"+ContentTag.TEMPLATENAMEFORGOODSCATEGORYLIST, gct.getSign(), map);
-			updateHtmlPath(gct.getGoodsCategoryTid(), htmlPath);
-			
 			return "json";
 		} else {
 			this.setSucflag(false);

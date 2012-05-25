@@ -350,19 +350,7 @@ public class ArticleTAction extends ActionSupport {
 
 	}
 
-	/**
-	 * 收集生成静态页所需数据
-	 */
-	public void createArticleT() {
-		//获取导航数据
-		map.put("siteNavigationList", this.getDataCollectionTAction().findSiteNavigation());
-		//获取商城基本数据
-		map.put("jshopbasicinfo", this.getDataCollectionTAction().findJshopbasicInfo());
-		//获取页脚分类数据
-		map.put("footcategory", this.getDataCollectionTAction().findFooterCateogyrT());
-		//获取页脚文章数据
-		map.put("footerarticle",this.getDataCollectionTAction().findFooterArticle());
-	}
+
 
 	/**
 	 * 增加文章
@@ -395,7 +383,7 @@ public class ArticleTAction extends ActionSupport {
 		at.setPageCount(this.getPageCount());
 		at.setCreatetime(BaseTools.systemtime());
 		at.setCreatorid(BaseTools.adminCreateId());
-		at.setHtmlPath(null);
+		at.setHtmlPath("#");
 		actbean = this.getArticleCategoryTService().findArticleCategoryByarticleCategoryTid(this.getArticleCategoryTid());
 		if (actbean != null) {
 			if (actbean.getPosition() != null && actbean.getPosition().equals("1")) {
@@ -406,11 +394,7 @@ public class ArticleTAction extends ActionSupport {
 		}
 		at.setIsnotice(this.getIsnotice());
 		this.getArticleTService().addArticleT(at);
-		createArticleT();
-		map.put("article", at);
-		//更新文章静态路径
-		String htmlPath = this.getCreateHtml().createArticleT(BaseTools.getApplicationthemesig()+"_"+ContentTag.TEMPLATENAMEFORARTICLE, at.getArticleid(), map);
-		updateHtmlPath(at.getArticleid(), htmlPath);
+		this.setBean(at);
 		this.setSucflag(true);
 		return "json";
 	}
@@ -456,7 +440,7 @@ public class ArticleTAction extends ActionSupport {
 	@Action(value = "updateArticleT", results = { @Result(name = "json", type = "json") })
 	public String updateArticleT() throws IOException, TemplateException {
 		ArticleT at = new ArticleT();
-		at.setArticleid(this.getArticleid());
+		at=this.getArticleTService().findArticleByarticleid(this.getArticleid());
 		at.setArticleCategoryTid(this.getArticleCategoryTid());
 		at.setArticleCategoryName(this.getArticleCategoryName());
 		at.setTitle(this.getTitle());
@@ -487,11 +471,7 @@ public class ArticleTAction extends ActionSupport {
 		}
 		at.setIsnotice(this.getIsnotice());
 		if (this.getArticleTService().updateArticleT(at) > 0) {
-			createArticleT();
-			map.put("article", at);
-			//更新文章静态路径
-			String htmlPath = this.getCreateHtml().createArticleT(BaseTools.getApplicationthemesig()+"_"+ContentTag.TEMPLATENAMEFORARTICLE, at.getArticleid(), map);
-			updateHtmlPath(at.getArticleid(), htmlPath);
+			this.setBean(at);
 			this.setSucflag(true);
 			return "json";
 		}

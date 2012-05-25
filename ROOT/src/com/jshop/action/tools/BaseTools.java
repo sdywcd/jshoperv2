@@ -9,6 +9,7 @@ import java.util.Date;
 
 import com.opensymphony.xwork2.ActionContext;
 
+
 public class BaseTools {
 	/**
 	 * 前台用户登录创建的session名称
