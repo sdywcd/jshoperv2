@@ -1129,21 +1129,6 @@ public class GoodsTNAction extends ActionSupport {
 	}
 
 	/**
-	 * 收集生成静态页所需数据
-	 */
-	public void createGoodsT() {
-		map.put(FreeMarkervariable.BASEPATH,this.getDataCollectionTAction().getBasePath());
-		//获取商城基本信息
-		map.put(FreeMarkervariable.JSHOPBASICINFO, this.getDataCollectionTAction().findJshopbasicInfo());
-		//获取导航
-		map.put(FreeMarkervariable.SITENAVIGATIONLIST, this.getDataCollectionTAction().findSiteNavigation());
-		//获取页脚文章一级分类
-		map.put(FreeMarkervariable.FOOTCATEGORY, this.getDataCollectionTAction().findFooterCateogyrT());
-		//获取页脚文章一级分类下得文章
-		map.put(FreeMarkervariable.FOOTERATRICLE, this.getDataCollectionTAction().findFooterArticle());
-	}
-
-	/**
 	 * 增加普通商品（没有开启规格，没有开启属性和参数）
 	 * 
 	 * @return
@@ -2208,18 +2193,8 @@ public class GoodsTNAction extends ActionSupport {
 		//规格和属性参数都没有开启
 		if ((this.getGoodsTypeId().equals("0") && this.getIsSpecificationsOpen().equals("0")) ||(this.getGoodsTypeId().equals("0")&&this.getIsSpecificationsOpen().equals("2"))) {
 			if (this.addNormalGoods()) {
-				if (this.getBean() != null) {
-					this.createGoodsT();
-					map.put("goodsdetail", this.getBean());
-					//这里获取商品参数和商品类型表中的对比并显示
-					map.put("goodsparameters",processGoodsparameters(this.getBean()));;//这是处理过后的商品参数,用在freemarker模板
-					String htmlPath = this.getCreateHtml().createGoodsT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORGOODSDETAIL, gt.getGoodsid(), map);
-					if (Validate.StrNotNull(htmlPath)) {
-						this.updateHtmlPath(gt.getGoodsid(), htmlPath);
-					}
-					this.setSucflag(true);
-					return "json";
-				}
+				this.setSucflag(true);
+				return "json";
 			} else {
 				this.setSucflag(false);
 				return "json";
@@ -2228,17 +2203,8 @@ public class GoodsTNAction extends ActionSupport {
 			//开启属性参数没开启规格即不增加货品
 			if (!this.getGoodsTypeId().equals("0") && this.getIsSpecificationsOpen().equals("0") || this.getIsSpecificationsOpen().equals("2")) {
 				if (this.addAttrsGoods()) {
-					if (this.getBean() != null) {
-						this.createGoodsT();
-						map.put("goodsdetail", this.getBean());
-						map.put("goodsparameters",processGoodsparameters(this.getBean()));//这是处理过后的商品参数,用在freemarker模板
-						String htmlPath = this.getCreateHtml().createGoodsT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORGOODSDETAIL, gt.getGoodsid(), map);
-						if (Validate.StrNotNull(htmlPath)) {
-							this.updateHtmlPath(gt.getGoodsid(), htmlPath);
-						}
-						this.setSucflag(true);
-						return "json";
-					}
+					this.setSucflag(true);
+					return "json";
 				} else {
 					this.setSucflag(false);
 					return "json";
@@ -2248,17 +2214,8 @@ public class GoodsTNAction extends ActionSupport {
 		//开启规格，没有开启属性和参数，有增加货品的过程
 		if (this.getIsSpecificationsOpen().equals("1") && this.getGoodsTypeId().equals("0")) {
 			if (this.addSpecificationGoods()) {
-				if (this.getBean() != null) {
-					this.createGoodsT();
-					map.put("goodsdetail", this.getBean());
-					map.put("goodsparameters",processGoodsparameters(this.getBean()));//这是处理过后的商品参数,用在freemarker模板
-					String htmlPath = this.getCreateHtml().createGoodsT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORGOODSDETAIL, gt.getGoodsid(), map);
-					if (Validate.StrNotNull(htmlPath)) {
-						this.updateHtmlPath(gt.getGoodsid(), htmlPath);
-					}
-					this.setSucflag(true);
-					return "json";
-				}
+				this.setSucflag(true);
+				return "json";
 			} else {
 				this.setSucflag(false);
 				return "json";
@@ -2267,22 +2224,12 @@ public class GoodsTNAction extends ActionSupport {
 		//规格和属性都开启
 		if (this.getIsSpecificationsOpen().equals("1") && !this.getGoodsTypeId().equals("0")) {
 			if (this.addAttrandSpecificationGoods()) {
-				if (this.getBean() != null) {
-					this.createGoodsT();
-					map.put("goodsdetail", this.getBean());
-					map.put("goodsparameters",processGoodsparameters(this.getBean()));//这是处理过后的商品参数,用在freemarker模板
-					String htmlPath = this.getCreateHtml().createGoodsT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORGOODSDETAIL, gt.getGoodsid(), map);
-					if (Validate.StrNotNull(htmlPath)) {
-						this.updateHtmlPath(gt.getGoodsid(), htmlPath);
-					}
-					this.setSucflag(true);
-					return "json";
-				}
+				this.setSucflag(true);
+				return "json";
 			} else {
 				this.setSucflag(false);
 				return "json";
 			}
-
 		}
 		this.setSucflag(false);
 		return "json";
@@ -2412,17 +2359,8 @@ public class GoodsTNAction extends ActionSupport {
 		//规格和属性都没有开启
 		if ((this.getGoodsTypeId().equals("0") && this.getIsSpecificationsOpen().equals("0")) ||(this.getGoodsTypeId().equals("0")&&this.getIsSpecificationsOpen().equals("2"))) {
 			if (this.updateNormalGoods()) {
-				if (this.getBean() != null) {
-					this.createGoodsT();
-					map.put("goodsdetail", this.getBean());
-					map.put("goodsparameters",processGoodsparameters(this.getBean()));//这是处理过后的商品参数,用在freemarker模板
-					String htmlPath = this.getCreateHtml().createGoodsT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORGOODSDETAIL, this.getBean().getGoodsid(), map);
-					if (Validate.StrNotNull(htmlPath)) {
-						this.updateHtmlPath(gt.getGoodsid(), htmlPath);
-					}
 					this.setSucflag(true);
 					return "json";
-				}
 			} else {
 				this.setSucflag(false);
 				return "json";
@@ -2431,17 +2369,8 @@ public class GoodsTNAction extends ActionSupport {
 			if (!this.getGoodsTypeId().equals("0") && this.getIsSpecificationsOpen().equals("0") || this.getIsSpecificationsOpen().equals("2")) {
 				//开启属性参数没开启规格即不更新货品
 				if (this.updateAttrsGoods()) {
-					if (this.getBean() != null) {
-						this.createGoodsT();
-						map.put("goodsdetail", this.getBean());
-						map.put("goodsparameters",processGoodsparameters(this.getBean()));//这是处理过后的商品参数,用在freemarker模板
-						String htmlPath = this.getCreateHtml().createGoodsT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORGOODSDETAIL, this.getBean().getGoodsid(), map);
-						if (Validate.StrNotNull(htmlPath)) {
-							this.updateHtmlPath(gt.getGoodsid(), htmlPath);
-						}
-						this.setSucflag(true);
-						return "json";
-					}
+					this.setSucflag(true);
+					return "json";
 				} else {
 					this.setSucflag(false);
 					return "json";
@@ -2451,17 +2380,8 @@ public class GoodsTNAction extends ActionSupport {
 		//开启规格，没有开启属性和参数，有更新货品的过程
 		if (this.getIsSpecificationsOpen().equals("1") && this.getGoodsTypeId().equals("0")) {
 			if (this.updateSpecificationGoods()) {
-				if (this.getBean() != null) {
-					this.createGoodsT();
-					map.put("goodsdetail", this.getBean());
-					map.put("goodsparameters",processGoodsparameters(this.getBean()));//这是处理过后的商品参数,用在freemarker模板
-					String htmlPath = this.getCreateHtml().createGoodsT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORGOODSDETAIL,this.getBean().getGoodsid(), map);
-					if (Validate.StrNotNull(htmlPath)) {
-						this.updateHtmlPath(gt.getGoodsid(), htmlPath);
-					}
-					this.setSucflag(true);
-					return "json";
-				}
+				this.setSucflag(true);
+				return "json";
 			} else {
 				this.setSucflag(false);
 				return "json";
@@ -2470,17 +2390,8 @@ public class GoodsTNAction extends ActionSupport {
 		//规格和属性都开启
 		if (this.getIsSpecificationsOpen().equals("1") && !this.getGoodsTypeId().equals("0")) {
 			if (this.updateAttrandSpecificationGoods()) {
-				if (this.getBean() != null) {
-					this.createGoodsT();
-					map.put("goodsdetail", this.getBean());
-					map.put("goodsparameters",processGoodsparameters(this.getBean()));//这是处理过后的商品参数,用在freemarker模板
-					String htmlPath = this.getCreateHtml().createGoodsT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORGOODSDETAIL,this.getBean().getGoodsid(), map);
-					if (Validate.StrisNull(htmlPath)) {
-						this.updateHtmlPath(gt.getGoodsid(), htmlPath);
-					}
-					this.setSucflag(true);
-					return "json";
-				}
+				this.setSucflag(true);
+				return "json";
 			} else {
 				this.setSucflag(false);
 				return "json";
@@ -2519,7 +2430,6 @@ public class GoodsTNAction extends ActionSupport {
 	 */
 	@Action(value = "updateGoodsSaleState", results = { @Result(name = "json", type = "json") })
 	public String updateGoodsSaleState() {
-
 		if (Validate.StrNotNull(this.getGoodsid())) {
 			String[] strs = this.getGoodsid().split(",");
 			int i = this.getGoodsTService().updateGoodsSaleState(strs, this.getSalestate(), BaseTools.adminCreateId());

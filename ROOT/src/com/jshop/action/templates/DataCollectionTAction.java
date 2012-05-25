@@ -13,6 +13,7 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
 import com.jshop.action.tools.BaseTools;
+import com.jshop.action.tools.FreeMarkervariable;
 import com.jshop.entity.ArticleCategoryT;
 import com.jshop.entity.ArticleT;
 import com.jshop.entity.BrandT;
@@ -24,6 +25,7 @@ import com.jshop.entity.GoodsTypeBrandT;
 import com.jshop.entity.JshopbasicInfoT;
 import com.jshop.entity.PageEditareaT;
 import com.jshop.entity.SiteNavigationT;
+import com.jshop.entity.TemplatethemeT;
 import com.jshop.service.ArticleCategoryTService;
 import com.jshop.service.ArticleTService;
 import com.jshop.service.BrandTService;
@@ -35,6 +37,7 @@ import com.jshop.service.GoodsTypeBrandTService;
 import com.jshop.service.JshopbasicInfoTService;
 import com.jshop.service.PageEditareaTService;
 import com.jshop.service.SiteNavigationTService;
+import com.jshop.service.TemplatethemeTService;
 import com.jshop.service.impl.ArticleCategoryTServiceImpl;
 import com.jshop.service.impl.ArticleTServiceImpl;
 import com.jshop.service.impl.GoodsCategoryTServiceImpl;
@@ -71,13 +74,27 @@ public class DataCollectionTAction extends ActionSupport {
 	private ArticleCategoryTService articleCategoryTService;
 	private GoodsAttributeTService goodsAttributeTService;
 	private GoodsCommentTService goodsCommentTService;
+	private TemplatethemeTService templatethemeTService;
+	private TemplatethemeT tt;
 	private String logmsg;
+
+	@JSON(serialize = false)
+	public TemplatethemeTService getTemplatethemeTService() {
+		return templatethemeTService;
+	}
+
+	public void setTemplatethemeTService(
+			TemplatethemeTService templatethemeTService) {
+		this.templatethemeTService = templatethemeTService;
+	}
+
 	@JSON(serialize = false)
 	public GoodsCommentTService getGoodsCommentTService() {
 		return goodsCommentTService;
 	}
 
-	public void setGoodsCommentTService(GoodsCommentTService goodsCommentTService) {
+	public void setGoodsCommentTService(
+			GoodsCommentTService goodsCommentTService) {
 		this.goodsCommentTService = goodsCommentTService;
 	}
 
@@ -86,7 +103,8 @@ public class DataCollectionTAction extends ActionSupport {
 		return goodsAttributeTService;
 	}
 
-	public void setGoodsAttributeTService(GoodsAttributeTService goodsAttributeTService) {
+	public void setGoodsAttributeTService(
+			GoodsAttributeTService goodsAttributeTService) {
 		this.goodsAttributeTService = goodsAttributeTService;
 	}
 
@@ -95,7 +113,8 @@ public class DataCollectionTAction extends ActionSupport {
 		return goodsTypeBrandTService;
 	}
 
-	public void setGoodsTypeBrandTService(GoodsTypeBrandTService goodsTypeBrandTService) {
+	public void setGoodsTypeBrandTService(
+			GoodsTypeBrandTService goodsTypeBrandTService) {
 		this.goodsTypeBrandTService = goodsTypeBrandTService;
 	}
 
@@ -113,7 +132,8 @@ public class DataCollectionTAction extends ActionSupport {
 		return jshopbasicInfoTService;
 	}
 
-	public void setJshopbasicInfoTService(JshopbasicInfoTService jshopbasicInfoTService) {
+	public void setJshopbasicInfoTService(
+			JshopbasicInfoTService jshopbasicInfoTService) {
 		this.jshopbasicInfoTService = jshopbasicInfoTService;
 	}
 
@@ -122,7 +142,8 @@ public class DataCollectionTAction extends ActionSupport {
 		return siteNavigationTService;
 	}
 
-	public void setSiteNavigationTService(SiteNavigationTService siteNavigationTService) {
+	public void setSiteNavigationTService(
+			SiteNavigationTService siteNavigationTService) {
 		this.siteNavigationTService = siteNavigationTService;
 	}
 
@@ -131,7 +152,8 @@ public class DataCollectionTAction extends ActionSupport {
 		return pageEditareaTService;
 	}
 
-	public void setPageEditareaTService(PageEditareaTService pageEditareaTService) {
+	public void setPageEditareaTService(
+			PageEditareaTService pageEditareaTService) {
 		this.pageEditareaTService = pageEditareaTService;
 	}
 
@@ -140,7 +162,8 @@ public class DataCollectionTAction extends ActionSupport {
 		return goodsCategoryTService;
 	}
 
-	public void setGoodsCategoryTService(GoodsCategoryTService goodsCategoryTService) {
+	public void setGoodsCategoryTService(
+			GoodsCategoryTService goodsCategoryTService) {
 		this.goodsCategoryTService = goodsCategoryTService;
 	}
 
@@ -167,7 +190,8 @@ public class DataCollectionTAction extends ActionSupport {
 		return articleCategoryTService;
 	}
 
-	public void setArticleCategoryTService(ArticleCategoryTService articleCategoryTService) {
+	public void setArticleCategoryTService(
+			ArticleCategoryTService articleCategoryTService) {
 		this.articleCategoryTService = articleCategoryTService;
 	}
 
@@ -185,6 +209,34 @@ public class DataCollectionTAction extends ActionSupport {
 
 	public void setLogmsg(String logmsg) {
 		this.logmsg = logmsg;
+	}
+
+	public TemplatethemeT getTt() {
+		return tt;
+	}
+
+	public void setTt(TemplatethemeT tt) {
+		this.tt = tt;
+	}
+
+	/**
+	 * 初始化后台所需要的数据
+	 * 
+	 * @return
+	 */
+	public String getDefaultTheme() {
+		String status = "1";// 标示默认主题
+		tt = this.getTemplatethemeTService().findTemplatethemeBystatus(status);
+		if (tt != null) {
+			// 将启用的模板主题标示加入到服务器内存中
+			if (!tt.getSign().isEmpty()) {
+				return tt.getSign();
+			} else {
+				// 如果没有默认的模板，那么启用默认主题模板
+				return "default";
+			}
+		}
+		return "default";
 	}
 
 	/**
@@ -213,9 +265,10 @@ public class DataCollectionTAction extends ActionSupport {
 	 */
 	public JshopbasicInfoT findJshopbasicInfo() {
 		try {
-			String state = "1";//商城状态标记
-			String openstate = "1";//商城开启运作标记
-			JshopbasicInfoT bean = this.getJshopbasicInfoTService().findJshopbasicInfoBystateandopstate(state, openstate);
+			String state = "1";// 商城状态标记
+			String openstate = "1";// 商城开启运作标记
+			JshopbasicInfoT bean = this.getJshopbasicInfoTService()
+					.findJshopbasicInfoBystateandopstate(state, openstate);
 			if (bean != null) {
 				return bean;
 			}
@@ -230,11 +283,12 @@ public class DataCollectionTAction extends ActionSupport {
 	/**
 	 * 获取导航
 	 */
-	@SuppressWarnings( { "unchecked"})
+	@SuppressWarnings({ "unchecked" })
 	public List<SiteNavigationT> findSiteNavigation() {
 		try {
-			String isVisible = "1";//显示标记
-			List<SiteNavigationT> list = this.getSiteNavigationTService().findSiteNavigationByisVisible(isVisible);
+			String isVisible = "1";// 显示标记
+			List<SiteNavigationT> list = this.getSiteNavigationTService()
+					.findSiteNavigationByisVisible(isVisible);
 			if (!list.isEmpty()) {
 				return list;
 			}
@@ -251,10 +305,13 @@ public class DataCollectionTAction extends ActionSupport {
 	 * 
 	 * @return
 	 */
-	@SuppressWarnings( { "unchecked", "unchecked" })
-	public Map<String, Object> findEditarea(String sign, String state, Map<String, Object> map) {
-		try{
-			List<PageEditareaT> list = this.getPageEditareaTService().findPageEditareaTBySign(sign, state, BaseTools.adminCreateId());
+	@SuppressWarnings({ "unchecked", "unchecked" })
+	public Map<String, Object> findEditarea(String sign, String state,
+			Map<String, Object> map) {
+		try {
+			List<PageEditareaT> list = this.getPageEditareaTService()
+					.findPageEditareaTBySign(sign, state,
+							BaseTools.adminCreateId());
 			if (!list.isEmpty()) {
 				for (Iterator it = list.iterator(); it.hasNext();) {
 					PageEditareaT pea = (PageEditareaT) it.next();
@@ -300,9 +357,9 @@ public class DataCollectionTAction extends ActionSupport {
 				}
 				return map;
 			}
-		
-		}catch(Exception e){
-			this.setLogmsg("<p style='color:red;'>"+e.getMessage()+"</p>");
+
+		} catch (Exception e) {
+			this.setLogmsg("<p style='color:red;'>" + e.getMessage() + "</p>");
 		}
 		this.setLogmsg("<p>获取首页自定义区域数据成功</p>");
 		return Collections.emptyMap();
@@ -316,8 +373,9 @@ public class DataCollectionTAction extends ActionSupport {
 	@SuppressWarnings("unchecked")
 	public List<GoodsCategoryT> findGoodsCategoryT() {
 		try {
-			String state = "1";//标示激活的商品分类
-			List<GoodsCategoryT> list = this.getGoodsCategoryTService().findAllGoodsCategoryT(state);
+			String state = "1";// 标示激活的商品分类
+			List<GoodsCategoryT> list = this.getGoodsCategoryTService()
+					.findAllGoodsCategoryT(state);
 			if (!list.isEmpty()) {
 				for (Iterator it = list.iterator(); it.hasNext();) {
 					GoodsCategoryT gt = (GoodsCategoryT) it.next();
@@ -329,7 +387,7 @@ public class DataCollectionTAction extends ActionSupport {
 			}
 		} catch (Exception e) {
 			this.setLogmsg("<p style='color:red;'>" + e.getMessage() + "</p>");
-		} 
+		}
 		this.setLogmsg("<p>商品分类导航数据获取成功</p>");
 		return Collections.emptyList();
 
@@ -350,30 +408,32 @@ public class DataCollectionTAction extends ActionSupport {
 	 * @return
 	 */
 	public List<GoodsCategoryT> findAllGoodsCategoryTByState() {
-		String state = "1";//启用的商品状态
-		List<GoodsCategoryT> list = this.getGoodsCategoryTService().findAllGoodsCategoryT(state);
+		String state = "1";// 启用的商品状态
+		List<GoodsCategoryT> list = this.getGoodsCategoryTService()
+				.findAllGoodsCategoryT(state);
 		if (!list.isEmpty()) {
 			return list;
-		} 
+		}
 		return Collections.emptyList();
-		
+
 	}
-	
+
 	/**
 	 * 获取二级商品分类
+	 * 
 	 * @param parentId
 	 * @return
 	 */
 	@SuppressWarnings({ "unchecked", "unchecked" })
-	public List<GoodsCategoryT>findSecondGoodsCategoryT(String parentId){
-		String state="1";
-		List<GoodsCategoryT>list=this.getGoodsCategoryTService().findGoodscategoryByparentId(state, parentId);
-		if(!list.isEmpty()){
+	public List<GoodsCategoryT> findSecondGoodsCategoryT(String parentId) {
+		String state = "1";
+		List<GoodsCategoryT> list = this.getGoodsCategoryTService()
+				.findGoodscategoryByparentId(state, parentId);
+		if (!list.isEmpty()) {
 			return list;
 		}
 		return Collections.emptyList();
 	}
-	
 
 	/**
 	 * 查询所有上架商品数据
@@ -381,17 +441,14 @@ public class DataCollectionTAction extends ActionSupport {
 	 * @return
 	 */
 	public List<GoodsT> findAllGoodsT() {
-		String salestate = "1";//标示上架
+		String salestate = "1";// 标示上架
 		List<GoodsT> list = this.getGoodsTService().finaAllGoodsT(salestate);
 		if (!list.isEmpty()) {
 			return list;
 		}
 		return Collections.emptyList();
-		
+
 	}
-	
-	
-	
 
 	/**
 	 * 获取所有文章数据
@@ -399,7 +456,7 @@ public class DataCollectionTAction extends ActionSupport {
 	 * @return
 	 */
 	public List<ArticleT> findAllArticleT() {
-		String status = "1";//标示显示
+		String status = "1";// 标示显示
 		List<ArticleT> list = this.getArticleTService().findAllArticleT(status);
 		if (!list.isEmpty()) {
 			return list;
@@ -412,119 +469,122 @@ public class DataCollectionTAction extends ActionSupport {
 	 * 获取页脚文章一级分类
 	 */
 	public List<ArticleCategoryT> findFooterCateogyrT() {
-		try{
-			String grade = "0";//标示文章是顶级分类
-			String status = "1";//标示显示
-			List<ArticleCategoryT> list = this.getArticleCategoryTService().findArticleCategoryByGrade(grade, status);
+		try {
+			String grade = "0";// 标示文章是顶级分类
+			String status = "1";// 标示显示
+			List<ArticleCategoryT> list = this.getArticleCategoryTService()
+					.findArticleCategoryByGrade(grade, status);
 			if (!list.isEmpty()) {
 				return list;
 			}
-			
-		}catch(Exception e){
-			this.setLogmsg("<p style='color:red;'>"+e.getMessage()+"</p>");
+
+		} catch (Exception e) {
+			this.setLogmsg("<p style='color:red;'>" + e.getMessage() + "</p>");
 		}
 		this.setLogmsg("<p>商城页脚分类数据获取成功</p>");
 		return Collections.emptyList();
-		
+
 	}
 
 	/**
 	 * 获取页脚文章一级分类下得文章
 	 */
-	@SuppressWarnings( { "unused", "unchecked" })
+	@SuppressWarnings({ "unused", "unchecked" })
 	public List<ArticleT> findFooterArticle() {
-		try{
-			String status = "1";//显示的文章
-			List<ArticleT> list = this.getArticleTService().findAllArticleT(status);
+		try {
+			String status = "1";// 显示的文章
+			List<ArticleT> list = this.getArticleTService().findAllArticleT(
+					status);
 			if (!list.isEmpty()) {
 				List<ArticleT> list1 = new ArrayList<ArticleT>();
 				for (Iterator it = list.iterator(); it.hasNext();) {
 					ArticleT at = (ArticleT) it.next();
-					if (at.getPosition() != null && at.getPosition().equals("1")) {
+					if (at.getPosition() != null
+							&& at.getPosition().equals("1")) {
 						list1.add(at);
 					}
 				}
 				return list1;
 			}
-			
-		}catch(Exception e){
-			this.setLogmsg("<p style='color:red;'>"+e.getMessage()+"</p>");
+
+		} catch (Exception e) {
+			this.setLogmsg("<p style='color:red;'>" + e.getMessage() + "</p>");
 		}
 		this.setLogmsg("<p>获取商城页脚文章成功</p>");
 		return Collections.emptyList();
-		
+
 	}
-	
+
 	/**
 	 * 获取所有的商品品牌数据
+	 * 
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<BrandT>findAllBrandt(){
-		try{
-			List<BrandT>list=this.getBrandTService().findAllBrandt();
-			if(!list.isEmpty()){
+	public List<BrandT> findAllBrandt() {
+		try {
+			List<BrandT> list = this.getBrandTService().findAllBrandt();
+			if (!list.isEmpty()) {
 				return list;
 			}
-		}catch(Exception e){
-			this.setLogmsg("<p style='color:red;'>"+e.getMessage()+"</p>");
+		} catch (Exception e) {
+			this.setLogmsg("<p style='color:red;'>" + e.getMessage() + "</p>");
 		}
 		this.setLogmsg("<p>获取商品品牌信息成功</p>");
 		return Collections.emptyList();
 	}
-	
-	
-	
-	
-	
+
 	/**
 	 * 
 	 * @param goodsTypeId
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<GoodsTypeBrandT>findGoodsTypeBrandBygoodsType(String goodsTypeId){
-		try{
-			List<GoodsTypeBrandT>list=this.getGoodsTypeBrandTService().findBrandBygoodsTypeId(goodsTypeId);
-			if(!list.isEmpty()){
+	public List<GoodsTypeBrandT> findGoodsTypeBrandBygoodsType(
+			String goodsTypeId) {
+		try {
+			List<GoodsTypeBrandT> list = this.getGoodsTypeBrandTService()
+					.findBrandBygoodsTypeId(goodsTypeId);
+			if (!list.isEmpty()) {
 				return list;
 			}
-		}catch(Exception e){
-			this.setLogmsg("<p style='color:red;'>"+e.getMessage()+"</p>");
+		} catch (Exception e) {
+			this.setLogmsg("<p style='color:red;'>" + e.getMessage() + "</p>");
 		}
 		this.setLogmsg("<p>获取商品类型品牌列表成功</p>");
 		return Collections.emptyList();
 	}
-	
-	
+
 	/**
 	 * 根据商品类型来获取对应的属性列表
+	 * 
 	 * @param goodsTypeId
 	 * @return
 	 */
-	public List<GoodsAttributeT>findGoodsAttributeTBygoodsTypeId(String goodsTypeId){
-		try{
-			List<GoodsAttributeT>list=this.getGoodsAttributeTService().findGoodsAttributeTBygoodsTypeId(goodsTypeId);
-			if(!list.isEmpty()){
+	public List<GoodsAttributeT> findGoodsAttributeTBygoodsTypeId(
+			String goodsTypeId) {
+		try {
+			List<GoodsAttributeT> list = this.getGoodsAttributeTService()
+					.findGoodsAttributeTBygoodsTypeId(goodsTypeId);
+			if (!list.isEmpty()) {
 				return list;
 			}
-		}catch(Exception e){
-			this.setLogmsg("<p style='color:red;'>"+e.getMessage()+"</p>");
+		} catch (Exception e) {
+			this.setLogmsg("<p style='color:red;'>" + e.getMessage() + "</p>");
 		}
 		this.setLogmsg("<p>获取商品类型属性列表成功</p>");
 		return Collections.emptyList();
 	}
 
-
 	/**
 	 * 根据商品id获取商品评论
+	 * 
 	 * @return
 	 */
-	public List<GoodsCommentT> findGoodsCommentBygoodsid(GoodsT gt){
-		List<GoodsCommentT>list=this.getGoodsCommentTService().findGoodsCommentByGoodsid(gt.getGoodsid(), 1, 10);
+	public List<GoodsCommentT> findGoodsCommentBygoodsid(GoodsT gt) {
+		List<GoodsCommentT> list = this.getGoodsCommentTService()
+				.findGoodsCommentByGoodsid(gt.getGoodsid(), 1, 10);
 		return list;
 	}
-	
-	
-	
+
 }
