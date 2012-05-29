@@ -13,7 +13,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -28,6 +30,7 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jshop.android.index.R;
 import com.jshop.android.shop.JshopActivityGoodsList;
@@ -69,7 +72,7 @@ public class JshopMtable extends Activity {
 		gv.setOnItemClickListener(new ItemClickListener());
 		//获取table信息
 		try {
-			processJsonstrs();
+			getTablelist();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,23 +85,41 @@ public class JshopMtable extends Activity {
 	 * @return
 	 */
 	private String queryTableForJshop(){
-		String url=JshopActivityUtil.BASE_URL+JshopMPostActionList.FINDALLTABLETFORANDROID;
-		return JshopActivityUtil.queryStringForPost(url);
+		String posturl=JshopActivityUtil.BASE_URL+JshopMPostActionList.FINDALLTABLETFORANDROID;
+		return JshopActivityUtil.queryStringForPost(posturl);
 	}
+	/**
+	 * 更新餐桌使用状态
+	 * @return
+	 */
+	private String updateTableTtablestateBytableNo(String tableid,String tablestate){
+		String queryString="?tableid="+tableid+"&tablestate="+tablestate;
+		String posturl=JshopActivityUtil.BASE_URL+JshopMPostActionList.UPDATETABLETABLESTATEBYTABLENO+queryString;
+		return JshopActivityUtil.queryStringForPost(posturl);
+	}
+	
 	
 	/**
 	 * 处理服务器端返回的json数据
 	 * @throws JSONException 
 	 */
-	private void processJsonstrs() throws JSONException{
+	private void getTablelist() throws JSONException{
 		requestjsonstr=this.queryTableForJshop();
 		if(requestjsonstr!=null){
 			String []strs=requestjsonstr.split("--");
 			for(int i=0;i<strs.length;i++){
 				Map<String,Object>map=new HashMap<String,Object>();
 				JSONObject jo=new JSONObject(strs[i].toString());
+				map.put("tableid", jo.getString("tableid"));
 				map.put("tableNumber", jo.getString("tableNumber"));
+				map.put("roomName", jo.getString("roomName"));
+				map.put("androidDevicesCount", jo.getString("androidDevicesCount"));
+				map.put("note", jo.getString("note"));
+				map.put("createtime", jo.getString("createtime"));
+				map.put("nop", jo.getString("nop"));
 				map.put("tablestate", jo.getString("tablestate"));
+				map.put("floor", jo.getString("floor"));
+				map.put("rnop", jo.getString("rnop"));
 				tableList.add(map);
 			}
 		}
@@ -107,18 +128,84 @@ public class JshopMtable extends Activity {
 	
 	
 	
-	
+	/**
+	 * 餐桌列表单击事件触发，显示详细的餐桌信息并选取此座位
+	 * @author "chenda"
+	 *
+	 */
 	public class ItemClickListener implements OnItemClickListener{
 
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-			Intent intent = new Intent(JshopMtable.this,JshopActivityGoodsList.class);
-			
-			startActivity(intent);
-			
+			getTableinfo(arg2);
 		}
 		
+	}
+	
+	private void getTableinfo(int index){
+		final String ctablestate=tableList.get(index).get("tablestate").toString();
+		final String tableid=tableList.get(index).get("tableid").toString();
+		LayoutInflater inflater=LayoutInflater.from(this);
+		final View vTableinfo=inflater.inflate(R.layout.jshop_m_tabledetail, null);
+		TextView tableNumber=(TextView) vTableinfo.findViewById(R.id.tableNumber);
+		TextView roomName=(TextView) vTableinfo.findViewById(R.id.roomName);
+		TextView floor=(TextView) vTableinfo.findViewById(R.id.floor);
+		TextView nop=(TextView) vTableinfo.findViewById(R.id.nop);
+		TextView rnop=(TextView) vTableinfo.findViewById(R.id.rnop);
+		TextView tablestate=(TextView) vTableinfo.findViewById(R.id.tablestate);
+		TextView note=(TextView) vTableinfo.findViewById(R.id.note);
+		tableNumber.setText("桌号："+tableList.get(index).get("tableNumber").toString());
+		roomName.setText("包厢："+tableList.get(index).get("roomName").toString());
+		floor.setText("楼层："+tableList.get(index).get("floor").toString());
+		nop.setText("人数："+tableList.get(index).get("nop").toString());
+		rnop.setText("就餐人数："+tableList.get(index).get("rnop").toString());
+		if(tableList.get(index).get("tablestate").toString().equals("1")){
+			tablestate.setText("状态：使用");
+		}else{
+			tablestate.setText("状态：空闲");
+		}
+		note.setText("备注："+tableList.get(index).get("note").toString());
+		AlertDialog.Builder bulider=new AlertDialog.Builder(this);
+		bulider.setMessage("餐桌信息").setCancelable(false).setView(vTableinfo).setPositiveButton(R.string.seattable,new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				//这里开始确认座位
+				if(ctablestate.equals("1")){
+					Toast t=Toast.makeText(getApplicationContext(), "餐桌已经被使用", Toast.LENGTH_LONG);
+					t.show();
+				}else{
+					String tag=updateTableTtablestateBytableNo(tableid,"1");
+					if("success".equals(tag)){
+						Toast t=Toast.makeText(getApplicationContext(), "就座成功", Toast.LENGTH_LONG);
+						t.show();
+						//再次获取餐桌信息
+						
+					}else{
+						Toast t=Toast.makeText(getApplicationContext(), "更新座位状态时系统异常", Toast.LENGTH_LONG);
+						t.show();
+					}
+				}
+				
+			}
+		}).setNegativeButton(R.string.changetable, new DialogInterface.OnClickListener(){
+			//这里判断当这个作为是使用状态就不能更换
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				if(ctablestate.equals("1")){
+					Toast t=Toast.makeText(getApplicationContext(), "当前餐桌正在使用不能更换座位到这里", Toast.LENGTH_LONG);
+					t.show();
+				}else{
+					Toast t=Toast.makeText(getApplicationContext(), "请呼叫服务员更换座位", Toast.LENGTH_LONG);
+					t.show();
+				}
+			}
+			
+		});
+		AlertDialog alert=bulider.create();
+		alert.show();
 	}
 	
 	
@@ -129,6 +216,7 @@ public class JshopMtable extends Activity {
 		};
 		
 		private Context mContext;
+		
 		
 		public ImageAdapter(Context mContext) {
 			this.mContext = mContext;
@@ -163,7 +251,7 @@ public class JshopMtable extends Activity {
 				//imageView.setPadding(8, 8, 8, 8);
 				textView=new TextView(mContext);
 				textView.setLayoutParams(new GridView.LayoutParams(63,48));
-				textView.setPadding(22,8,0,0);
+				textView.setPadding(22,8,10,10);
 				if(tableList.get(position).get("tablestate").toString().equals("1")){
 					textView.setText(tableList.get(position).get("tableNumber").toString());
 					textView.setBackgroundResource(imgs[1]);

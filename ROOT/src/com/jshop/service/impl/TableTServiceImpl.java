@@ -53,8 +53,8 @@ public class TableTServiceImpl implements TableTService {
 		this.getTableTDao().updateTableT(t);
 	}
 
-	public int updateTableTtablestateBytableNo(String tableNumber, String tablestate) {
-		return this.getTableTDao().updateTableTtablestateBytableNo(tableNumber, tablestate);
+	public int updateTableTtablestateBytableNo(String tableid, String tablestate) {
+		return this.getTableTDao().updateTableTtablestateBytableNo(tableid, tablestate);
 	}
 
 	@Override

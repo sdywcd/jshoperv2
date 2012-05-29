@@ -39,5 +39,13 @@
 	<string name="tablefloor">F1一楼大厅</string>
 	<string name="seattable">在此处就坐</string>
 	<string name="changetable">更换座位到这里</string>
+	<string name="tableNumber">桌号:</string>
+	<string name="roomName">包厢:</string>
+	<string name="androidDevicesCount">设备:</string>
+	<string name="tablenote">备注:</string>
+	<string name="nop">人数:</string>
+	<string name="tablestate">状态:</string>
+	<string name="floor">楼层:</string>
+	<string name="rnop">就餐人数:</string>
 	
 </resources>

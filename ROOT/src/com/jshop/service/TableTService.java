@@ -57,11 +57,11 @@ public interface TableTService {
 	public abstract List<TableT>sortAllTableT(final int currentPage,final int lineSize,String queryString);
 	/**
 	 * 更新当前餐桌使用情况
-	 * @param tableNumber
+	 * @param tableid
 	 * @param tablestate
 	 * @return
 	 */
-	public abstract int updateTableTtablestateBytableNo(String tableNumber,String tablestate);
+	public abstract int updateTableTtablestateBytableNo(String tableid,String tablestate);
 
 
 }

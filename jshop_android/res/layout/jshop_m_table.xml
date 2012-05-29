@@ -64,30 +64,5 @@
 
      
     </LinearLayout>
-   <TableRow
-            android:id="@+id/tableRow2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp" >
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/choosesitnormal"
-                android:text="@string/seattable"
-                android:textSize="12dp"
-                android:textColor="#FFFFFF" />
-
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/changesitnormal"
-                android:text="@string/changetable"
-                android:textSize="12dp"
-                 android:textColor="#FFFFFF"  />
-        </TableRow>
 </LinearLayout>
