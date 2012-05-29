@@ -2,10 +2,14 @@ package com.jshop.action;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Iterator;
+import java.util.Map;
 
+import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
+import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
 
@@ -18,10 +22,12 @@ import com.opensymphony.xwork2.ActionSupport;
 @Controller("electableTAction")
 public class ElectableTAction extends ActionSupport {
 	private TableTService tableTService;
+	private TableT bean = new TableT();
 	private Serial serial;
 	private String tableid;
 	private String tableNumber;
 	private String roomName;
+	private String tabletstrs;
 	private Integer androidDevicesCount;
 	private String note;
 	private Date createtime;
@@ -154,6 +160,12 @@ public class ElectableTAction extends ActionSupport {
 		this.total = total;
 	}
 	
+	public String getTabletstrs() {
+		return tabletstrs;
+	}
+	public void setTabletstrs(String tabletstrs) {
+		this.tabletstrs = tabletstrs;
+	}
 	public String getQuery() {
 		return query;
 	}
@@ -183,6 +195,7 @@ public class ElectableTAction extends ActionSupport {
 	/**
 	 * 获取所有餐桌
 	 */
+	@Action(value = "findAllTableT", results = { @Result(name = "json", type = "json") })
 	public String findAllTableT(){
 		if (this.getQtype().equals("sc")){
 			this.setTotal(0);
@@ -204,7 +217,7 @@ public class ElectableTAction extends ActionSupport {
 		this.setTotal(this.getTableTService().countfindAllTableT());
 		List<TableT> list = this.getTableTService().findAllTableT(currentPage, lineSize);
 		if(list != null){
-			;
+			this.ProcessTableTList(list);
 		}
 	}
 	
@@ -213,7 +226,94 @@ public class ElectableTAction extends ActionSupport {
 		for (Iterator it = list.iterator(); it.hasNext();){
 			TableT tt = (TableT) it.next();
 			//if("0".equals(tt.get))
-			
+			if("0".equals(tt.getTablestate())){
+				tt.setTablestate("空闲");
+			}else{
+				tt.setTablestate("使用中");
+			}
+			Map<String,Object> cellMap = new HashMap<String,Object>();
+			cellMap.put("id", tt.getTableid());
+			cellMap.put("cell", new Object[]{tt.getTableNumber(),tt.getRoomName(),tt.getFloor(),tt.getTablestate(),tt.getCreatetime(),tt.getCreatorid(),tt.getNop(),tt.getRnop(),tt.getAndroidDevicesCount()});
+			rows.add(cellMap);
 		}
+	}
+	
+	/**
+	 * 增加餐桌
+	 */
+	public String addTableT(){
+	return "json";	
+	}
+	
+	/**
+	 * 获取所有餐桌信息
+	 */
+	@Action(value = "getAllTableT", results = { @Result(name = "json", type = "json") })
+	public String getAllTableT(){
+		List<TableT> list = this.getTableTService().findAllTableT();
+		if(list!=null){
+			this.setTabletstrs("");
+			this.setTabletstrs("<option value='-1'>--请选择--</option>");
+			for(Iterator it =list.iterator(); it.hasNext();){
+				TableT tt = (TableT) it.next();
+				this.tabletstrs += "<input id='"+tt.getTableid()+"' value='" +tt.getTableNumber()+"' />";
+			}
+			this.setSucflag(true);
+			return "json";
+		}
+		this.setSucflag(false);
+		return "json";
+	}
+	/**
+	 * 通过ID获取某个餐桌信息
+	 * @return
+	 */
+	@Action(value = "findTableBytableid", results = { @Result(name = "json" ,type="json") })
+	public String findTableBytableid(){
+		if(Validate.StrNotNull(this.getTableid())){
+			bean = this.getTableTService().findTableBytableid(this.getTableid());
+			if(bean !=null){
+				return "json";
+			}
+		}
+		return "json";
+	}
+	/**
+	 * 根据ID删除选择的餐桌
+	 * @return
+	 */
+	@Action(value = "delTableT", results = { @Result(name = "json" ,type="json") })
+	public String delTableT(){
+		if(Validate.StrNotNull(this.getTableid())){
+			String[] strs = this.getTableid().trim().split(",");
+			int delconfirm =  this.getTableTService().delTableT(strs);
+			if(delconfirm>0){
+				this.setSucflag(true);
+				return "json";
+			}else{
+				this.setSucflag(false);
+				return "json";
+			}
+		}
+		return "json";
+	}
+
+	/**
+	 * 根据餐桌id
+	 * @return
+	 */
+	public String updateTableTtablestateBytableNo(){
+		if(Validate.StrNotNull(this.getTableid()) && Validate.StrNotNull(this.getTablestate())){
+			int i = this.getTableTService().updateTableTtablestateBytableNo(tableid, tablestate);
+			if(i>0){
+				this.setSucflag(true);
+				return "json";
+			}else{
+				this.setSucflag(false);
+				return "json";
+			}
+		}
+		this.setSucflag(false);
+		return "json";
 	}
 }

@@ -3,24 +3,51 @@
  * Global variables
  */
 var session="true";
+var rid="";
+var globalrjson="";//post json data to backstage server
 /*===========================================Gorgeous split-line==============================================*/
 
+/**
+ * Function
+ */
+/*
+ * To obtain random rid
+ */
+function getIdforradom(){
+	var myDate=new Date();
+	rid="1"+myDate.getSeconds().toString()+myDate.getMilliseconds().toString();
+}
+/*
+ * Delete Page elements According to rid 
+ */
+function delParamPChild(rid){
+	$('#add'+rid).remove();
+}
+/*===========================================Gorgeous split-line==============================================*/
+$(function(){
+	$.post("getAllTableT.action",function(data){
+		if(data.sucflag){
+			;
+		}
+	});
+});
+/*===========================================Gorgeous split-line==============================================*/
 /**
  * flexigrid list 
  */
 $(function() {
 	$("#electablemanagement").flexigrid( {
-		url : 'findAllGoods.action',
+		url : 'findAllTableT.action',
 		dataType : 'json',
 		cache : false,
 		colModel : [{
-			display : '餐桌号',
+			display : '餐桌号码',
 			name : 'tableNumber',
 			width : 150,
 			sortable : true,
 			align : 'center'
 		}, {
-			display : '房间名',
+			display : '包房名',
 			name : 'roomName',
 			width : 350,
 			sortable : true,
@@ -32,7 +59,7 @@ $(function() {
 			sortable : true,
 			align : 'center'
 		}, {
-			display : '餐桌状态',
+			display : '使用状态',
 			name : 'tablestate',
 			width : 120,
 			sortable : true,
@@ -44,25 +71,31 @@ $(function() {
 			sortable : true,
 			align : 'center'
 		}, {
-			display : '创建者ID',
+			display : '创建人',
 			name : 'creatorid',
 			width : 60,
 			sortable : true,
 			align : 'center'
 		}, {
-			display : '实际人数',
-			name : 'nop',
+			display : '备注',
+			name : 'note',
 			width : 60,
 			sortable : true,
 			align : 'center'
 		}, {
 			display : '可容纳人数',
+			name : 'nop',
+			width : 60,
+			sortable : true,
+			align : 'center'
+		}, {
+			display : '实际人数',
 			name : 'rnop',
 			width : 60,
 			sortable : true,
 			align : 'center'
 		}, {
-			display : '安卓设备统计',
+			display : 'Android设备数量',
 			name : 'androidDevicesCount',
 			width : 60,
 			sortable : true,
@@ -81,35 +114,11 @@ $(function() {
 			bclass : 'delete',
 			onpress : action
 		}, {
-			name : '上架',
+			name : '标记空闲',
 			bclass : 'add',
 			onpress : action
 		}, {
-			name : '下架',
-			bclass : 'add',
-			onpress : action
-		}, {
-			name : '标记特价',
-			bclass : 'add',
-			onpress : action
-		}, {
-			name : '标记热销',
-			bclass : 'add',
-			onpress : action
-		}, {
-			name : '标记推荐',
-			bclass : 'add',
-			onpress : action
-		}, {
-			name : '标记新品',
-			bclass : 'add',
-			onpress : action
-		}, {
-			name : '标记移动平台',
-			bclass : 'add',
-			onpress : action
-		}, {
-			name : '重置标记',
+			name : '标记占用',
 			bclass : 'add',
 			onpress : action
 		}, {
@@ -141,7 +150,7 @@ $(function() {
 	});
 	function action(com, grid) {
 		if (com == '添加') {
-			window.location.href = 'addtable.jsp?session='+session+"#table";
+			window.location.href = 'addrelectable.jsp?session='+session+"#table";
 			return;
 
 		}else if(com=='编辑'){
@@ -149,7 +158,7 @@ $(function() {
 				jConfirm('确定编辑此项吗?', '信息提示', function(r) {
 					if (r) {
 						var str = $('.trSelected', grid)[0].id.substr(3);
-						window.location.href = "edittable.jsp?session=" + session + "#table&tableid=" + str;
+						window.location.href = "editelectable.jsp?session=" + session + "#table&tableid=" + str;
 						return;
 					}
 				});
@@ -166,10 +175,10 @@ $(function() {
 							str += this.id.substr(3) + ",";
 						});
 						$.post("delTableT.action", {
-							"goodsid" : str
+							"tableid" : str
 						}, function(data) {
 							if (data.sucflag) {
-								$('#goodsmanagement').flexReload();
+								$('#electablemanagement').flexReload();
 								jAlert(data.goodsid + '号商品已经删除', '信息提示框');
 							}
 						});
@@ -180,7 +189,7 @@ $(function() {
 				jAlert('请选择要删除的信息!', '信息提示');
 				return false;
 			}
-		} else if (com == '标记特价') {
+		} else if (com == '标记空闲') {
 			if ($('.trSelected', grid).length > 0) {
 				jConfirm('确定要标记此些项吗?', '信息提示', function(r) {
 					if (r) {
@@ -188,13 +197,13 @@ $(function() {
 						$('.trSelected', grid).each(function() {
 							str += this.id.substr(3) + ",";
 						});
-						var bargainprice = "1";
+						var tablestate = "0";
 						$.post("updateGoodsbargainprice.action", {
-							"goodsid" : str,
-							"bargainprice" : bargainprice
+							"tableid" : str,
+							"tablestate" : bargainprice
 						}, function(data) {
 							if (data.sucflag) {
-								$('#goodsmanagement').flexReload();
+								$('#electablemanagement').flexReload();
 								jAlert('操作成功', '信息提示框');
 							}
 						});
@@ -202,10 +211,10 @@ $(function() {
 				});
 				return;
 			} else {
-				jAlert('请选择要标记特价的信息!', '信息提示');
+				jAlert('请选择要标记空闲的餐桌!', '信息提示');
 				return false;
 			}
-		} else if (com == '标记热销') {
+		} else if (com == '标记占用') {
 			if ($('.trSelected', grid).length > 0) {
 				jConfirm('确定要标记此些项吗?', '信息提示', function(r) {
 					if (r) {
@@ -213,13 +222,13 @@ $(function() {
 						$('.trSelected', grid).each(function() {
 							str += this.id.substr(3) + ",";
 						});
-						var hotsale = "1";
+						var tablestate = "1";
 						$.post("updateGoodshotsale.action", {
-							"goodsid" : str,
-							"hotsale" : hotsale
+							"tableid" : str,
+							"tablestate" : hotsale
 						}, function(data) {
 							if (data.sucflag) {
-								$('#goodsmanagement').flexReload();
+								$('#electablemanagement').flexReload();
 								jAlert('操作成功', '信息提示框');
 							}
 						});
@@ -227,169 +236,10 @@ $(function() {
 				});
 				return;
 			} else {
-				jAlert('请选择要标记热销的信息!', '信息提示');
+				jAlert('请选择要标记占用的餐桌!', '信息提示');
 				return false;
 			}
-		} else if (com == '标记推荐') {
-			if ($('.trSelected', grid).length > 0) {
-				jConfirm('确定要标记此些项吗?', '信息提示', function(r) {
-					if (r) {
-						var str = "";
-						$('.trSelected', grid).each(function() {
-							str += this.id.substr(3) + ",";
-						});
-						var recommended = "1";
-						$.post("updateGoodsrecommended.action", {
-							"goodsid" : str,
-							"recommended" : recommended
-						}, function(data) {
-							if (data.sucflag) {
-								$('#goodsmanagement').flexReload();
-								jAlert('操作成功', '信息提示框');
-							}
-						});
-					}
-				});
-				return;
-			} else {
-				jAlert('请选择要标记推荐的信息!', '信息提示');
-				return false;
-			}
-		} else if (com == '标记新品') {
-			if ($('.trSelected', grid).length > 0) {
-				jConfirm('确定要标记此些项吗?', '信息提示', function(r) {
-					if (r) {
-						var str = "";
-						$('.trSelected', grid).each(function() {
-							str += this.id.substr(3) + ",";
-						});
-						var isNew = "1";
-						$.post("updateGoodsisNew.action", {
-							"goodsid" : str,
-							"isNew" : isNew
-						}, function(data) {
-							if (data.sucflag) {
-								$('#goodsmanagement').flexReload();
-								jAlert('操作成功', '信息提示框');
-							}
-						});
-					}
-				});
-				return;
-			} else {
-				jAlert('请选择要标记新品的信息!', '信息提示');
-				return false;
-			}
-		} else if (com == '标记移动平台') {
-			if ($('.trSelected', grid).length > 0) {
-				jConfirm('确定要标记此些项吗?', '信息提示', function(r) {
-					if (r) {
-						var str = "";
-						$('.trSelected', grid).each(function() {
-							str += this.id.substr(3) + ",";
-						});
-						var ismobileplatformgoods = "1";
-						$.post("updateGoodsismobileplatformgoods.action", {
-							"goodsid" : str,
-							"ismobileplatformgoods" : ismobileplatformgoods
-						}, function(data) {
-							if (data.sucflag) {
-								$('#goodsmanagement').flexReload();
-								jAlert('操作成功', '信息提示框');
-							}
-						});
-					}
-				});
-				return;
-			} else {
-				jAlert('请选择要标记移动平台的信息!', '信息提示');
-				return false;
-			}
-		} else if (com == '重置标记') {
-			if ($('.trSelected', grid).length > 0) {
-				jConfirm('确定要标记此些项吗?', '信息提示', function(r) {
-					if (r) {
-						var str = "";
-						$('.trSelected', grid).each(function() {
-							str += this.id.substr(3) + ",";
-						});
-						var recommended = "0";
-						var hotsale = "0";
-						var bargainprice = "0";
-						var isNew = "0";
-						var ismobileplatformgood = "0";
-						$.post("updateFiveGoodsState.action", {
-							"goodsid" : str,
-							"recommended" : recommended,
-							"hotsale" : hotsale,
-							"bargainprice" : bargainprice,
-							"isNew" : isNew,
-							"ismobileplatformgoods" : ismobileplatformgoods
-						}, function(data) {
-							if (data.sucflag) {
-								$('#goodsmanagement').flexReload();
-								jAlert('操作成功', '信息提示框');
-							}
-						});
-					}
-				});
-				return;
-			} else {
-				jAlert('请选择要重置标记的信息!', '信息提示');
-				return false;
-			}
-		} else if (com == '上架') {
-			if ($('.trSelected', grid).length > 0) {
-				jConfirm('确定要上架此些项吗?', '信息提示', function(r) {
-					if (r) {
-						var str = "";
-						$('.trSelected', grid).each(function() {
-							str += this.id.substr(3) + ",";
-						});
-						var salestate = "1";
-						$.post("updateGoodsSaleState.action", {
-							"goodsid" : str,
-							"salestate" : salestate
-						}, function(data) {
-							if (data.sucflag) {
-								$('#goodsmanagement').flexReload();
-								jAlert('操作成功', '信息提示框');
-							}
-						});
-					}
-				});
-				return;
-			} else {
-				jAlert('请选择要上架的信息!', '信息提示');
-				return false;
-			}
-		} else if (com == '下架') {
-			if ($('.trSelected', grid).length > 0) {
-				jConfirm('确定要下架此些项吗?', '信息提示', function(r) {
-					if (r) {
-						var str = "";
-						$('.trSelected', grid).each(function() {
-							str += this.id.substr(3) + ",";
-						});
-						var salestate = "0";
-						$.post("updateGoodsSaleState.action", {
-							"goodsid" : str,
-							"salestate" : salestate
-						}, function(data) {
-							if (data.sucflag) {
-								$('#goodsmanagement').flexReload();
-								jAlert('操作成功', '信息提示框');
-							}
-						});
-					}
-				});
-				return;
-			} else {
-				jAlert('请选择要下架的信息!', '信息提示');
-				return false;
-			}
-	
-		}
+		} 
 
 	}
 });
