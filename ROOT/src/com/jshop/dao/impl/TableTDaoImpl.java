@@ -165,17 +165,17 @@ public class TableTDaoImpl extends HibernateDaoSupport implements TableTDao{
 		}
 	}
 
-	public int updateTableTtablestateBytableNo(final String tableNumber, final String tablestate) {
+	public int updateTableTtablestateBytableNo(final String tableid, final String tablestate) {
 		log.debug("updateTableTtablestateBytableNo");
 		try {
 			
-			final String queryString = "update TableT as t set t.tablestate=:tablestate where t.tableNumber=:tableNumber";
+			final String queryString = "update TableT as t set t.tablestate=:tablestate where t.tableid=:tableid";
 			this.getHibernateTemplate().execute(new HibernateCallback() {
 
 				public Object doInHibernate(Session session) throws HibernateException, SQLException {
 					int i = 0;
 					Query query = session.createQuery(queryString);
-					query.setParameter("tableNumber", tableNumber);
+					query.setParameter("tableid", tableid);
 					query.setParameter("tablestate", tablestate);
 					i = query.executeUpdate();
 					return i;
@@ -186,7 +186,7 @@ public class TableTDaoImpl extends HibernateDaoSupport implements TableTDao{
 			throw re;
 		}
 		return 0;
-
+		
 	}
 	
 

@@ -1,5 +1,6 @@
 package com.jshop.android.index;
 
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -66,6 +67,7 @@ public class JshopActivityIndex extends Activity{
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		super.requestWindowFeature(Window.FEATURE_NO_TITLE);//设置无标题窗口
+		gethosturl();
 		LayoutInflater inflater=getLayoutInflater();
 		//这里开始从服务器获取通讯地址
 		mi=new MenuInflater(this);
@@ -100,7 +102,12 @@ public class JshopActivityIndex extends Activity{
 		setContentView(maingroup);
 		viewPager.setAdapter(new JshopAndroidIndexGuidePageAdapter());
 		viewPager.setOnPageChangeListener(new JshopAndroidIndexGuidePageChangeListener());
+
 	}
+	
+	
+
+	
 	
 	/**
 	 * 对左右滚动空间进行适配器定义和操作
@@ -318,6 +325,15 @@ public class JshopActivityIndex extends Activity{
 		return res;
 	}
 	
-	
+	/**
+	 * 读取服务器地址
+	 */
+	private void gethosturl(){
+		String oserverhost=read();
+		if(oserverhost!=null){
+			//放入静态变量
+			JshopActivityUtil.BASE_URL="http://"+oserverhost+"/";
+		}
+	}
 	
 }

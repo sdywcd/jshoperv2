@@ -1,8 +1,10 @@
 
+/**
+ * 商品参数全局变量
+ */
 var session="true";
-
-//商品参数全局变量
 var flag=false;
+/*===========================================Gorgeous split-line==============================================*/
 
 //验证商品传递的参数
 function  validatethenpostinfotoaddgoods(){
@@ -100,11 +102,12 @@ function checkisDefault(){
 	checkisdefault=true;
 }
 
-
+/*===========================================Gorgeous split-line==============================================*/
+/**
+ * 增加商品
+ */
 $(function(){
-	//增加商品
 	$('#submit').click(function(){
-		
 		validatethenpostinfotoaddgoods();
 		if(flag){
 			$('#submit').attr("disabled",true);

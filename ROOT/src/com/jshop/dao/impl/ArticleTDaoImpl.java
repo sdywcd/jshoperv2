@@ -225,16 +225,13 @@ public class ArticleTDaoImpl extends HibernateDaoSupport implements ArticleTDao 
 	public int updateArticlepositionByarticleCategoryTid(final String articleCategoryTid, final String position) {
 		log.debug("updateHtmlPath");
 		try {
-
 			final String queryString = "update ArticleT as at set at.position=:position where at.articleCategoryTid=:articleCategoryTid ";
 			this.getHibernateTemplate().execute(new HibernateCallback() {
-
 				public Object doInHibernate(Session session) throws HibernateException, SQLException {
 					int i = 0;
 					Query query = session.createQuery(queryString);
 					query.setParameter("articleCategoryTid", articleCategoryTid);
 					query.setParameter("position", position);
-
 					i = query.executeUpdate();
 					return i;
 				}

@@ -2,6 +2,7 @@ package com.jshop.action.androidserver.electronicmenu;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
 
 import com.jshop.action.tools.BaseTools;
+import com.jshop.action.tools.Validate;
 import com.jshop.entity.TableT;
 import com.jshop.service.TableTService;
 import com.opensymphony.xwork2.ActionSupport;
@@ -37,6 +39,17 @@ public class AndroidJshopelectronicmenuTableTAction extends ActionSupport implem
     private int page;
     private TableT bean=new TableT();
     private String responsejsonstr;
+	private String tableid;
+	private String tableNumber;
+	private String roomName;
+	private String androidDevicesCount;
+	private String note;
+	private Date createtime;
+	private String creatorid;
+	private String nop;
+	private String tablestate;
+	private String floor;
+	private String rnop;
     @JSON(serialize = false)
 	public TableTService getTableTService() {
 		return tableTService;
@@ -99,6 +112,94 @@ public class AndroidJshopelectronicmenuTableTAction extends ActionSupport implem
 		this.responsejsonstr = responsejsonstr;
 	}
 
+	public String getTableid() {
+		return tableid;
+	}
+
+	public void setTableid(String tableid) {
+		this.tableid = tableid;
+	}
+
+	public String getTableNumber() {
+		return tableNumber;
+	}
+
+	public void setTableNumber(String tableNumber) {
+		this.tableNumber = tableNumber;
+	}
+
+	public String getRoomName() {
+		return roomName;
+	}
+
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
+	}
+
+	public String getAndroidDevicesCount() {
+		return androidDevicesCount;
+	}
+
+	public void setAndroidDevicesCount(String androidDevicesCount) {
+		this.androidDevicesCount = androidDevicesCount;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	public Date getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
+
+	public String getCreatorid() {
+		return creatorid;
+	}
+
+	public void setCreatorid(String creatorid) {
+		this.creatorid = creatorid;
+	}
+
+	public String getNop() {
+		return nop;
+	}
+
+	public void setNop(String nop) {
+		this.nop = nop;
+	}
+
+	public String getTablestate() {
+		return tablestate;
+	}
+
+	public void setTablestate(String tablestate) {
+		this.tablestate = tablestate;
+	}
+
+	public String getFloor() {
+		return floor;
+	}
+
+	public void setFloor(String floor) {
+		this.floor = floor;
+	}
+
+	public String getRnop() {
+		return rnop;
+	}
+
+	public void setRnop(String rnop) {
+		this.rnop = rnop;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -143,4 +244,23 @@ public class AndroidJshopelectronicmenuTableTAction extends ActionSupport implem
 	}
 	
 
+	/**
+	 * 更新餐桌使用状态
+	 * @throws IOException 
+	 */
+	@Action(value="updateTableTtablestateBytableNo")
+	public void updateTableTtablestateBytableNo() throws IOException{
+		if(Validate.StrNotNull(this.getTableid())&&Validate.StrNotNull(this.getTablestate())){
+			String tableid=this.getTableid().trim();
+			String tablestate=this.getTablestate().trim();
+			this.getTableTService().updateTableTtablestateBytableNo(tableid, tablestate);
+			response.setContentType("text/html");
+			response.setCharacterEncoding("utf-8");
+			PrintWriter out=response.getWriter();
+			out.write("success");
+			out.flush();
+			out.close();
+		}
+	}
+	
 }
