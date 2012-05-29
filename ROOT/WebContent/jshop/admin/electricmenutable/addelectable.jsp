@@ -13,7 +13,7 @@
 		<title>增加/编辑模板</title>
 	</head>
 
-	<body onload="findTemplateByTid();">
+	<body onload="findTableByid();">
 		<!-- header 包含头部导航-->
 		<%@include file="/jshop/admin/header.jsp"%>
 		<!-- end header -->
@@ -43,7 +43,7 @@
 									</div>
 									<div class="input">
 	
-										<input id="tableNum" name="tableNum" value="" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+										<input id="tableNumber" name="tableNumber" value="" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
 												
 									</div>
 
@@ -66,7 +66,7 @@
 										</label>
 									</div>
 									<div class="input">
-										<input id="floor" name="floor" type="text" value="WEB-INF/theme/default/shop/" class="small" readonly />
+										<input id="floor" name="floor" type="text" value=""  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="small" />
 									</div>
 								</div>
 
@@ -77,7 +77,7 @@
 										</label>
 									</div>
 									<div class="input">
-										<input id="nop" name="nop" type="text" value="WEB-INF/theme/default/shop/" class="small" readonly />
+										<input id="nop" name="nop" type="text" value=""  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="small" />
 									</div>
 
 								</div>
@@ -90,7 +90,7 @@
 										</label>
 									</div>
 									<div class="input" >
-										<textarea id="note" name="note" cols="100" rows="80" style="weight:500px;"></textarea>
+										<input id="note" name="note" type="text" clsaa="small" />
 									</div>
 								</div>
 
@@ -125,7 +125,7 @@
 		<!-- footer -->
 		<%@include file="/jshop/admin/footer.jsp"%>
 		<!-- end footert -->
-		<script type="text/javascript" src="<%=basePath%>jshop/admin/js/templatemanagementjs.js"></script>
+		<script type="text/javascript" src="<%=basePath%>jshop/admin/js/electablemanagement.js"></script>
 		
 	</body>
 </html>

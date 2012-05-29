@@ -39,7 +39,7 @@
 					<!-- end box / title -->
 					<div class="table">
 						<!-- flexigrid -->
-						<div id="flexelectablemanagement" style="width: 98%; margin-left: 15px;">
+						<div id="flexelectablemanagement" style="width: 98%; margin-left: 18px;">
 							<table id="electablemanagement" style="display: none;"></table>
 						</div>
 

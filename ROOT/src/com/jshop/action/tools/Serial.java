@@ -114,7 +114,8 @@ public class Serial {
 	public static final String ROLEFUNCTION="rolefunction";
 	//用户和角色关系
 	public static final String USERROLE="userrole";
-	
+	//电子餐桌表
+	public static final String ELECTABLE="electable";
 	private SerialTService serialTService;
 	
 	

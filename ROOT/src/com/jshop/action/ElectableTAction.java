@@ -13,6 +13,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
 
+import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.Serial;
 import com.jshop.action.tools.Validate;
 import com.jshop.entity.TableT;
@@ -184,6 +185,13 @@ public class ElectableTAction extends ActionSupport {
 	public void setRows(List rows) {
 		this.rows = rows;
 	}
+	
+	public TableT getBean() {
+		return bean;
+	}
+	public void setBean(TableT bean) {
+		this.bean = bean;
+	}
 	/**
 	 * 清理错误
 	 */
@@ -233,7 +241,7 @@ public class ElectableTAction extends ActionSupport {
 			}
 			Map<String,Object> cellMap = new HashMap<String,Object>();
 			cellMap.put("id", tt.getTableid());
-			cellMap.put("cell", new Object[]{tt.getTableNumber(),tt.getRoomName(),tt.getFloor(),tt.getTablestate(),tt.getCreatetime(),tt.getCreatorid(),tt.getNop(),tt.getRnop(),tt.getAndroidDevicesCount()});
+			cellMap.put("cell", new Object[]{tt.getTableNumber(),tt.getRoomName(),tt.getFloor(),tt.getTablestate(),tt.getCreatetime(),tt.getCreatorid(),tt.getNop(),tt.getRnop(),tt.getNote(),tt.getAndroidDevicesCount()});
 			rows.add(cellMap);
 		}
 	}
@@ -241,10 +249,61 @@ public class ElectableTAction extends ActionSupport {
 	/**
 	 * 增加餐桌
 	 */
+	@Action(value = "addTableT", results = { @Result(name = "json", type = "json") })
 	public String addTableT(){
-	return "json";	
+		
+		if(Validate.StrisNull(this.getTableNumber()) && Validate.StrisNull(this.getRoomName())){
+			this.setSucflag(false);
+			return "json";
+		}
+		TableT tt = new TableT();
+		tt.setTableid(this.getSerial().Serialid(Serial.ELECTABLE));
+		tt.setTableNumber(this.getTableNumber().trim());
+		tt.setRoomName(this.getRoomName().trim());
+		tt.setFloor(this.getFloor());
+		tt.setNop(this.getNop());
+		tt.setCreatetime(BaseTools.systemtime());
+		tt.setCreatorid(BaseTools.adminCreateId());
+		tt.setTablestate("0");
+
+		if(this.getTableTService().addTableT(tt)>0){
+			this.setSucflag(true);
+			return "json";
+		}else{
+			this.setSucflag(false);
+			return "json";
+		}
 	}
-	
+	/**
+	 * 更新餐桌
+	 * @return
+	 */
+	@Action(value = "updateTableT", results = { @Result(name = "json", type = "json") })
+	public String updateTableT(){
+		if(Validate.StrisNull(this.getTableid()) && Validate.StrisNull(this.getTableNumber()) && Validate.StrisNull(this.getRoomName())){
+			this.setSucflag(false);
+			return "json";
+		}
+		if(this.getTableTService().findTableBytableid(this.getTableid())!=null){
+			TableT tt = new TableT();
+			tt.setTableid(this.getTableid());
+			tt.setTableNumber(this.getTableNumber());
+			tt.setRoomName(this.getRoomName());
+			tt.setFloor(this.getFloor());
+			tt.setNop(this.getNop());
+			tt.setNote(this.getNote());
+			tt.setCreatetime(BaseTools.systemtime());
+			tt.setCreatorid(BaseTools.adminCreateId());
+			tt.setTablestate(this.getTablestate());
+			
+			this.getTableTService().updateTableT(tt);
+			this.setSucflag(true);
+			return "json";
+		}else{
+			this.setSucflag(false);
+			return "json";
+		}
+	}
 	/**
 	 * 获取所有餐桌信息
 	 */
