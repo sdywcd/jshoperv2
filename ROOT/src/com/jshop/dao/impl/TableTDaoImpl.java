@@ -159,10 +159,12 @@ public class TableTDaoImpl extends HibernateDaoSupport implements TableTDao{
 		log.debug("updateTableT");
 		try {
 			this.getHibernateTemplate().update(t);
+			
 		} catch (RuntimeException re) {
 			log.error("updateTableT failed", re);
 			throw re;
 		}
+		
 	}
 
 	public int updateTableTtablestateBytableNo(final String tableid, final String tablestate) {

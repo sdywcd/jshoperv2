@@ -29,6 +29,8 @@ public class ArticleT implements java.io.Serializable {
 	private String articleCategoryName;
 	private String position;
 	private String isnotice;
+	private Date updatetime;
+	private Integer version;
 
 	// Constructors
 
@@ -227,6 +229,22 @@ public class ArticleT implements java.io.Serializable {
 
 	public void setIsnotice(String isnotice) {
 		this.isnotice = isnotice;
+	}
+
+	public Date getUpdatetime() {
+		return updatetime;
+	}
+
+	public void setUpdatetime(Date updatetime) {
+		this.updatetime = updatetime;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 
 }
