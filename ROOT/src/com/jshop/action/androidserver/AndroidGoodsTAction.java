@@ -43,6 +43,7 @@ ServletRequestAware, ServletResponseAware {
 	private HttpServletRequest request;
     private HttpServletResponse response;
 	private List<GoodsT>beanlist=new ArrayList<GoodsT>();
+	private String goodsCategoryTid;
 	private String creatorid;
 	private String goodsid;
 	private String navid;
@@ -152,6 +153,13 @@ ServletRequestAware, ServletResponseAware {
 	public void setSalestate(String salestate) {
 		this.salestate = salestate;
 	}
+
+	public String getGoodsCategoryTid() {
+		return goodsCategoryTid;
+	}
+	public void setGoodsCategoryTid(String goodsCategoryTid) {
+		this.goodsCategoryTid = goodsCategoryTid;
+	}
 	/**
 	 * 清理错误
 	 */
@@ -159,6 +167,13 @@ ServletRequestAware, ServletResponseAware {
 	public void validate() {
 		this.clearErrorsAndMessages(); 
 	
+	}
+	
+	/**
+	 * 根据商品分类id获取旗下所有商品信息
+	 */
+	public void findGoodsByGoodsCategoryIdforAndroid(){
+		
 	}
 	
 	/**

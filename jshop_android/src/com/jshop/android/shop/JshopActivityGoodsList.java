@@ -113,6 +113,13 @@ public class JshopActivityGoodsList extends ListActivity{
 		//this.setListAdapter(sap);
 	}
 	
+	/**
+	 * 向服务器端发送请求获取goodslist信息
+	 * @return
+	 */
+	private String queryGoodsListForJshop(){
+		String 
+	}
 	
 	
 	private void getGoodsList(){
