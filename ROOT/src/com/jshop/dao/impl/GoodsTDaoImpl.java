@@ -1116,6 +1116,31 @@ public class GoodsTDaoImpl extends HibernateDaoSupport implements GoodsTDao {
 			throw re;
 		}
 	}
+	
+
+	@Override
+	public List<GoodsT> findAllGoodsByismobileplatformgoodsBynavid(
+			final String navid, final String salestate, final String ismobileplatformgoods) {
+		log.debug("findAllGoodsByismobileplatformgoods");
+		try {
+			@SuppressWarnings("unchecked")
+			List<GoodsT> list = this.getHibernateTemplate().executeFind(new HibernateCallback() {
+				String queryString = "from GoodsT as gt where gt.salestate=:salestate and gt.ismobileplatformgoods=:ismobileplatformgoods and gt.navid=:navid order by createtime asc";
+				public Object doInHibernate(Session session) throws HibernateException, SQLException {
+					Query query = session.createQuery(queryString);
+					query.setParameter("navid", navid);
+					query.setParameter("ismobileplatformgoods", ismobileplatformgoods);
+					query.setParameter("salestate", salestate);
+					List list = query.list();
+					return list;
+				}
+			});
+			return list;
+		} catch (RuntimeException re) {
+			log.error("findAllGoodsByismobileplatformgoods error", re);
+			throw re;
+		}
+	}
 
 	public int countfindAllGoodsByismobileplatformgoods(String creatorid) {
 		log.debug("count all countfindAllGoodsByismobileplatformgoods");
@@ -1153,11 +1178,8 @@ public class GoodsTDaoImpl extends HibernateDaoSupport implements GoodsTDao {
 		log.debug("findAllGoodsBynavid");
 		try {
 			String queryString = "from GoodsT as gt where gt.navid=:navid and gt.salestate=:salestate";
-			List list = this.getHibernateTemplate().findByNamedParam(queryString, new String[] { "navid", "salestate" }, new Object[] { navid, salestate });
-			if (list != null && list.size() > 0) {
-				return list;
-			}
-			return null;
+			List<GoodsT> list = this.getHibernateTemplate().findByNamedParam(queryString, new String[] { "navid", "salestate" }, new Object[] { navid, salestate });
+			return list;
 		} catch (RuntimeException re) {
 			log.error(" findAllGoodsBynaviderror", re);
 			throw re;
@@ -1514,8 +1536,7 @@ public class GoodsTDaoImpl extends HibernateDaoSupport implements GoodsTDao {
 			throw re;
 		}
 	}
-	
-	
+
 	
 	
 }

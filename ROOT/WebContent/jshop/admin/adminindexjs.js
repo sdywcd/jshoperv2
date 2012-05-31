@@ -31,15 +31,25 @@ function buildAllHtml(){
 $(function(){
 	$.post("CheckLogin.action",function(data){
 		if(data.slogin){
-		    top.location.href="http://"+window.location.host+"/jshop/admin/jump.jsp";
+			var pathnamearray=window.location.pathname.split("/");
+			var pathname=pathnamearray[1]+"/";
+			if(pathname=="jshop/"){
+				pathname="";
+			}
+		    top.location.href="http://"+window.location.host+"/"+pathname+"jshop/admin/jump.jsp";
 		}else{
 			if(data.length>0){
-				top.location.href="http://"+window.location.host+"/jshop/admin/jump.jsp";
+				var pathnamearray=window.location.pathname.split("/");
+				var pathname=pathnamearray[1]+"/";
+				if(pathname=="jshop/"){
+					pathname="";
+				}
+				top.location.href="http://"+window.location.host+"/"+pathname+"jshop/admin/jump.jsp";
 			}else{
-				
 				return;
 			}
 		}
+
 	})
 });
 

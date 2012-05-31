@@ -468,7 +468,14 @@ public interface GoodsTDao {
 	 * @return
 	 */
 	public abstract List<GoodsT> findAllGoodsByismobileplatformgoods(final int currentPage, int lineSize, String creatorid);
-
+	/**
+	 * 根据顶级分类获取手机端商品
+	 * @param navid
+	 * @param salestate
+	 * @param ismobileplatformgoods
+	 * @return
+	 */
+	public abstract List<GoodsT> findAllGoodsByismobileplatformgoodsBynavid(String navid,String salestate,String ismobileplatformgoods);
 	/**
 	 * 统计获取商品数据给手机客户端
 	 * 

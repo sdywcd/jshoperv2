@@ -253,13 +253,14 @@ public class AndroidJshopelectronicmenuTableTAction extends ActionSupport implem
 		if(Validate.StrNotNull(this.getTableid())&&Validate.StrNotNull(this.getTablestate())){
 			String tableid=this.getTableid().trim();
 			String tablestate=this.getTablestate().trim();
-			this.getTableTService().updateTableTtablestateBytableNo(tableid, tablestate);
-			response.setContentType("text/html");
-			response.setCharacterEncoding("utf-8");
-			PrintWriter out=response.getWriter();
-			out.write("success");
-			out.flush();
-			out.close();
+			if(this.getTableTService().updateTableTtablestateBytableNo(tableid, tablestate)>0){
+				response.setContentType("text/html");
+				response.setCharacterEncoding("utf-8");
+				PrintWriter out=response.getWriter();
+				out.write("success");
+				out.flush();
+				out.close();
+			}
 		}
 	}
 	
