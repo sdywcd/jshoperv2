@@ -126,7 +126,6 @@ public class JshopActivityGoodsCategoryList extends Activity{
 				textView=new TextView(mContext);
 				textView.setLayoutParams(new GridView.LayoutParams(100,100));
 				textView.setPadding(22,8,10,10);
-				//textView.setTextColor(R.color.white);
 				textView.setText(goodscategoryList.get(position).get("name").toString());
 			}else{
 				textView=(TextView)convertView;
@@ -148,6 +147,9 @@ public class JshopActivityGoodsCategoryList extends Activity{
 //			intent.putExtras(data);
 //			startActivity(intent);
 			//此处进入商品程序读取商品列表传递分类信息
+			
+			
+			
 		}
 	}
 	   

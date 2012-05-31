@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.interceptor.ServletRequestAware;
@@ -29,7 +31,10 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import freemarker.template.utility.StringUtil;
 @ParentPackage("jshop")
-
+@Namespace("")
+@InterceptorRefs({  
+    @InterceptorRef("defaultStack")  
+})
 @Controller("androidGoodsTAction")
 public class AndroidGoodsTAction extends ActionSupport implements
 ServletRequestAware, ServletResponseAware {
@@ -160,6 +165,7 @@ ServletRequestAware, ServletResponseAware {
 	 * 获取商品分类给手机端
 	 * @throws IOException
 	 */
+	@Action(value="findAllGoodsCategoryTforAndroid")
 	public void findAllGoodsCategoryTforAndroid() throws IOException{
 		String state="1";//表示显示的商品分类
 		List<GoodsCategoryT>list=this.getGoodsCategoryTService().findAllGoodsCategoryT(state);

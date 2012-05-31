@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.InterceptorRefs;
+import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
@@ -19,6 +22,10 @@ import com.jshop.service.ElectronicMenuCartTService;
 import com.jshop.service.ElectronicMenuOrderTService;
 import com.opensymphony.xwork2.ActionSupport;
 @ParentPackage("jshop")
+@Namespace("")
+@InterceptorRefs({  
+    @InterceptorRef("defaultStack")  
+})
 @Controller("androidJshopelectronicmenuorderAction")
 public class AndroidJshopelectronicmenuorderAction  extends ActionSupport implements
 ServletRequestAware, ServletResponseAware {
