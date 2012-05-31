@@ -412,6 +412,8 @@ public class ArticleTAction extends ActionSupport {
 		at.setPageCount(this.getPageCount());
 		at.setCreatetime(BaseTools.systemtime());
 		at.setCreatorid(BaseTools.adminCreateId());
+		at.setUpdatetime(BaseTools.systemtime());
+		at.setVersion(0);
 		at.setHtmlPath("#");
 		actbean = this.getArticleCategoryTService().findArticleCategoryByarticleCategoryTid(this.getArticleCategoryTid());
 		if (actbean != null) {

@@ -1160,7 +1160,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setKeywordname(this.getKeywordname());
 		gt.setWeight(this.getWeight());
 		gt.setReadcount(0);
-		//gt.setRelatedproductid(this.getRelatedproductid());
+		gt.setRelatedproductid("");
 		gt.setRecommended(this.getRecommended());
 		gt.setHotsale(this.getHotsale());
 		gt.setBargainprice(this.getBargainprice());
@@ -1213,6 +1213,8 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setGoodsAttrVal28(this.getGoodsAttrVal28());
 		gt.setGoodsAttrVal29(this.getGoodsAttrVal29());
 		gt.setUsersetnum(this.getUsersetnum());
+		gt.setUpdatetime(BaseTools.systemtime());
+		gt.setVersion(0);
 		gt.setIsSpecificationsOpen(this.getIsSpecificationsOpen());
 		gt.setStar(1);
 		gt.setStaruser(0);
@@ -1311,6 +1313,8 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setGoodsAttrVal28(this.getGoodsAttrVal28());
 		gt.setGoodsAttrVal29(this.getGoodsAttrVal29());
 		gt.setUsersetnum(this.getUsersetnum());
+		gt.setUpdatetime(BaseTools.systemtime());
+		gt.setVersion(0);
 		gt.setIsSpecificationsOpen(this.getIsSpecificationsOpen());
 		gt.setStar(bean.getStar());
 		gt.setStaruser(bean.getStaruser());
@@ -1355,7 +1359,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setKeywordname(this.getKeywordname());
 		gt.setWeight(this.getWeight());
 		gt.setReadcount(0);
-		//gt.setRelatedproductid(this.getRelatedproductid());
+		gt.setRelatedproductid("");
 		gt.setRecommended(this.getRecommended());
 		gt.setHotsale(this.getHotsale());
 		gt.setBargainprice(this.getBargainprice());
@@ -1408,6 +1412,8 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setGoodsAttrVal28(this.getGoodsAttrVal28());
 		gt.setGoodsAttrVal29(this.getGoodsAttrVal29());
 		gt.setUsersetnum(this.getUsersetnum());
+		gt.setUpdatetime(BaseTools.systemtime());
+		gt.setVersion(0);
 		gt.setIsSpecificationsOpen(this.getIsSpecificationsOpen());
 		gt.setStar(1);
 		gt.setStaruser(0);
@@ -1506,6 +1512,8 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setGoodsAttrVal28(this.getGoodsAttrVal28());
 		gt.setGoodsAttrVal29(this.getGoodsAttrVal29());
 		gt.setUsersetnum(this.getUsersetnum());
+		gt.setUpdatetime(BaseTools.systemtime());
+		gt.setVersion(0);
 		gt.setIsSpecificationsOpen(this.getIsSpecificationsOpen());
 		gt.setStar(bean.getStar());
 		gt.setStaruser(bean.getStaruser());
@@ -1551,7 +1559,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setKeywordname(this.getKeywordname());
 		gt.setWeight(this.getWeight());
 		gt.setReadcount(0);
-		//gt.setRelatedproductid(this.getRelatedproductid());
+		gt.setRelatedproductid("");
 		gt.setRecommended(this.getRecommended());
 		gt.setHotsale(this.getHotsale());
 		gt.setBargainprice(this.getBargainprice());
@@ -1604,6 +1612,8 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setGoodsAttrVal28(this.getGoodsAttrVal28());
 		gt.setGoodsAttrVal29(this.getGoodsAttrVal29());
 		gt.setUsersetnum(this.getUsersetnum());
+		gt.setUpdatetime(BaseTools.systemtime());
+		gt.setVersion(0);
 		gt.setIsSpecificationsOpen(this.getIsSpecificationsOpen());
 		gt.setStar(1);
 		gt.setStaruser(0);
@@ -1764,6 +1774,8 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setGoodsAttrVal28(this.getGoodsAttrVal28());
 		gt.setGoodsAttrVal29(this.getGoodsAttrVal29());
 		gt.setUsersetnum(this.getUsersetnum());
+		gt.setUpdatetime(BaseTools.systemtime());
+		gt.setVersion(0);
 		gt.setIsSpecificationsOpen(this.getIsSpecificationsOpen());
 		gt.setStar(bean.getStar());
 		gt.setStaruser(bean.getStaruser());
@@ -1881,7 +1893,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setKeywordname(this.getKeywordname());
 		gt.setWeight(this.getWeight());
 		gt.setReadcount(0);
-		//gt.setRelatedproductid(this.getRelatedproductid());
+		gt.setRelatedproductid("");
 		gt.setRecommended(this.getRecommended());
 		gt.setHotsale(this.getHotsale());
 		gt.setBargainprice(this.getBargainprice());
@@ -1934,6 +1946,8 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setGoodsAttrVal28(this.getGoodsAttrVal28());
 		gt.setGoodsAttrVal29(this.getGoodsAttrVal29());
 		gt.setUsersetnum(this.getUsersetnum());
+		gt.setUpdatetime(BaseTools.systemtime());
+		gt.setVersion(0);
 		gt.setIsSpecificationsOpen(this.getIsSpecificationsOpen());
 		gt.setStar(1);
 		gt.setStaruser(0);
@@ -2094,6 +2108,8 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setGoodsAttrVal28(this.getGoodsAttrVal28());
 		gt.setGoodsAttrVal29(this.getGoodsAttrVal29());
 		gt.setUsersetnum(this.getUsersetnum());
+		gt.setUpdatetime(BaseTools.systemtime());
+		gt.setVersion(0);
 		gt.setIsSpecificationsOpen(this.getIsSpecificationsOpen());
 		gt.setStar(bean.getStar());
 		gt.setStaruser(bean.getStaruser());
