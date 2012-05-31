@@ -582,6 +582,8 @@ public class GoodsCategoryTAction extends ActionSupport {
 				gct.setGoodsTypeId(this.getGoodsTypeId());
 				gct.setCreatetime(BaseTools.systemtime());
 				gct.setCreatorid(BaseTools.adminCreateId());
+				gct.setUpdatetime(BaseTools.systemtime());
+				gct.setVersion(0);
 				gct.setParentName("");
 				this.getGoodsCategoryTService().addGoodsCategory(gct);
 				this.setSucflag(true);
@@ -619,6 +621,8 @@ public class GoodsCategoryTAction extends ActionSupport {
 				gct.setGoodsTypeId(this.getGoodsTypeId());
 				gct.setCreatetime(BaseTools.systemtime());
 				gct.setCreatorid(BaseTools.adminCreateId());
+				gct.setUpdatetime(BaseTools.systemtime());
+				gct.setVersion(0);
 				gct.setParentId(this.getParentId());
 				gct.setParentName(this.getParentName());
 				this.getGoodsCategoryTService().addGoodsCategory(gct);
@@ -657,6 +661,8 @@ public class GoodsCategoryTAction extends ActionSupport {
 				gct.setGoodsTypeId(this.getGoodsTypeId());
 				gct.setCreatetime(BaseTools.systemtime());
 				gct.setCreatorid(BaseTools.adminCreateId());
+				gct.setUpdatetime(BaseTools.systemtime());
+				gct.setVersion(0);
 				gct.setParentId(this.getParentId1());
 				gct.setParentName(this.getParentName1());
 				this.getGoodsCategoryTService().addGoodsCategory(gct);
@@ -762,6 +768,7 @@ public class GoodsCategoryTAction extends ActionSupport {
 			gct.setGoodsCategoryTid(this.getGoodsCategoryTid());
 			gct.setCreatetime(BaseTools.systemtime());
 			gct.setCreatorid(BaseTools.adminCreateId());
+			gct.setUpdatetime(BaseTools.systemtime());
 			this.getGoodsCategoryTService().updateGoodscategoryT(gct);
 			this.setSucflag(true);
 			bean=gct;
