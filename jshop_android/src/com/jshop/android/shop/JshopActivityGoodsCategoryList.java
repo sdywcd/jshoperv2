@@ -35,7 +35,7 @@ import android.widget.ImageView;
 import com.jshop.android.index.R;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.shop.JshopActivityGoodsList;
-public class JshopActivityShopList extends Activity{
+public class JshopActivityGoodsCategoryList extends Activity{
 	public static final String ACTION="findAllJshopbasicInfoLogoforAndroid.action";
 	private GridView gv;
 	
@@ -114,7 +114,7 @@ public class JshopActivityShopList extends Activity{
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			LayoutInflater inflater=LayoutInflater.from(JshopActivityShopList.this);
+			LayoutInflater inflater=LayoutInflater.from(JshopActivityGoodsCategoryList.this);
 			View v=null;
 			ImageView imageView=new ImageView(this.mContext);
 			if(convertView==null){
@@ -154,7 +154,7 @@ public class JshopActivityShopList extends Activity{
 			String creatorid=creatoridlist.get(arg2).toString();
 			Bundle data=new Bundle();
 			data.putString("creatorid", creatorid);
-			Intent intent = new Intent(JshopActivityShopList.this,JshopActivityGoodsList.class);
+			Intent intent = new Intent(JshopActivityGoodsCategoryList.this,JshopActivityGoodsList.class);
 			intent.putExtras(data);
 			startActivity(intent);
 		}

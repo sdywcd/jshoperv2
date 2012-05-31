@@ -34,8 +34,8 @@ import android.widget.Toast;
 
 import com.jshop.android.index.R;
 import com.jshop.android.shop.JshopActivityGoodsList;
-import com.jshop.android.shop.JshopActivityShopList;
-import com.jshop.android.shop.JshopActivityShopList.ItemClickListener;
+import com.jshop.android.shop.JshopActivityGoodsCategoryList;
+import com.jshop.android.shop.JshopActivityGoodsCategoryList.ItemClickListener;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMPostActionList;
 /**
