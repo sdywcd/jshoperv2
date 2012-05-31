@@ -4,6 +4,7 @@
 var strvalue="";
 var session ="true";
 var rid="";
+var gloabdata;
 /*===========================================Gorgeous split-line==============================================*/
 /**
  * 获取随机id
@@ -19,6 +20,54 @@ function getIdforradom(){
 function delParamPChild(rid){
 	$('#'+rid).remove();
 
+}
+/**
+ * 再获取一次商品，绑定商品参数和属性。
+ * @param goodsid
+ */
+function bindgoodsattrparam(goodsid){
+	$.post("findGoodsById.action",{"goodsid":goodsid},function(data){
+		
+		//设置商品属性
+		$('#goodsAttrVal0').val(data.bean.goodsAttrVal0);
+		$('#goodsAttrVal1').val(data.bean.goodsAttrVal1);
+		$('#goodsAttrVal2').val(data.bean.goodsAttrVal2);
+		$('#goodsAttrVal3').val(data.bean.goodsAttrVal3);
+		$('#goodsAttrVal4').val(data.bean.goodsAttrVal4);
+		$('#goodsAttrVal5').val(data.bean.goodsAttrVal5);
+		$('#goodsAttrVal6').val(data.bean.goodsAttrVal6);
+		$('#goodsAttrVal7').val(data.bean.goodsAttrVal7);
+		$('#goodsAttrVal8').val(data.bean.goodsAttrVal8);
+		$('#goodsAttrVal9').val(data.bean.goodsAttrVal9);
+		$('#goodsAttrVal10').val(data.bean.goodsAttrVal10);
+		$('#goodsAttrVal11').val(data.bean.goodsAttrVal11);
+		$('#goodsAttrVal12').val(data.bean.goodsAttrVal12);
+		$('#goodsAttrVal13').val(data.bean.goodsAttrVal13);
+		$('#goodsAttrVal14').val(data.bean.goodsAttrVal14);
+		$('#goodsAttrVal15').val(data.bean.goodsAttrVal15);
+		$('#goodsAttrVal16').val(data.bean.goodsAttrVal16);
+		$('#goodsAttrVal17').val(data.bean.goodsAttrVal17);
+		$('#goodsAttrVal18').val(data.bean.goodsAttrVal18);
+		$('#goodsAttrVal19').val(data.bean.goodsAttrVal19);
+		$('#goodsAttrVal20').val(data.bean.goodsAttrVal20);
+		$('#goodsAttrVal21').val(data.bean.goodsAttrVal21);
+		$('#goodsAttrVal22').val(data.bean.goodsAttrVal22);
+		$('#goodsAttrVal23').val(data.bean.goodsAttrVal23);
+		$('#goodsAttrVal24').val(data.bean.goodsAttrVal24);
+		$('#goodsAttrVal25').val(data.bean.goodsAttrVal25);
+		$('#goodsAttrVal26').val(data.bean.goodsAttrVal26);
+		$('#goodsAttrVal27').val(data.bean.goodsAttrVal27);
+		$('#goodsAttrVal28').val(data.bean.goodsAttrVal28);
+		$('#goodsAttrVal29').val(data.bean.goodsAttrVal29);
+		bindgoodsparams(data.bean.goodsParameterValue);
+	});
+} 
+function bindgoodsparams(params){
+	//设置商品参数的值
+	var jsonstr1=$.parseJSON("["+params+"]");
+	$.each(jsonstr1,function(k,s){
+		$('#'+s.id).val(s.value);
+	});
 }
 /*===========================================Gorgeous split-line==============================================*/
 
@@ -166,60 +215,80 @@ $(function(){
 			$('#goodsTypeId').html(data.goodstypetnlist);
 		}
 	});
-	
+});
+$(function(){	
 	$('#goodsTypeId').change(function(){
+		var goodsid=$.query.get('goodsid');
+		if(goodsid==""){
+			return false;
+		}
+		var goodsTypeId=$('#goodsTypeId').val();
 		$('#gat').text("");
 		$('#gatattr').text("");
-		var goodsTypeId=$('#goodsTypeId').val();
-		$.post("findGoodsAttributeTBygoodsTypeId.action",{"goodsTypeId":goodsTypeId},function(data){
-			if(data.sucflag){
-				var gathtml="";
-				var option="";
-				var myoptionarray=new Array();
-				if(data.gatbeanlist!=null){
-					$.each(data.gatbeanlist,function(i,item){
-						myoptionarray=item.attributelist.split(",");
-						option="<option value='0'>--请选择--</option>";
-						for(var j=0;j<myoptionarray.length;j++){
-							option+="<option value='"+myoptionarray[j]+"'>"+myoptionarray[j]+"</option>";
-						}
-						gathtml+="<div class='field'>"+
-						"<div class='label'>"+
-						"<label for='select'>"+item.goodsattributename+"</label>"+
-						"</div>"+
-						"<div class='select'>"+
-						"<select id='goodsAttrVal"+i+"' name='goodsAttrVal"+i+"'>"+option+"</select>" +
-						"</div>"+
-						"</div>";
-						option="";
-					});
-					$('#gat').append(gathtml);
-				}
-				
-				
-				$.post("findGoodsParameter.action",{"goodsTypeId":goodsTypeId},function(data){
-					if(data.sucflag){
-						var gatattrhtml="";
-						var jsonstr=$.parseJSON(data.bean.goodsParameter);
-						$.each(jsonstr,function(k,s){
-							gatattrhtml+="<div class='field'>"+
-											"<div class='label'>"+
-												"<label for='input-small'>"+s.name+"</label>"+
-											"</div>"+
-											"<div class='input'>"+
-											"<input id='"+s.id+"' name='"+s.id+"' value='' class='small' type='text'></input>"+
-											"</div>"+
-										"</div>";
+		$.ajax({
+			url:'findGoodsAttributeTBygoodsTypeId.action',
+			type:"post",
+			data:{"goodsTypeId":goodsTypeId},
+			dataType:'json',
+			async:false,
+			success:function(data){
+				if(data.sucflag){
+					var gathtml="";
+					var option="";
+					var myoptionarray=new Array();
+					if(data.gatbeanlist!=null){
+						$.each(data.gatbeanlist,function(i,item){
+							myoptionarray=item.attributelist.split(",");
+							option="<option value='0'>--请选择--</option>";
+							for(var j=0;j<myoptionarray.length;j++){
+								option+="<option value='"+myoptionarray[j]+"'>"+myoptionarray[j]+"</option>";
+							}
+							gathtml+="<div class='field'>"+
+							"<div class='label'>"+
+							"<label for='select'>"+item.goodsattributename+"</label>"+
+							"</div>"+
+							"<div class='select'>"+
+							"<select id='goodsAttrVal"+i+"' name='goodsAttrVal"+i+"'>"+option+"</select>" +
+							"</div>"+
+							"</div>";
+							option="";
 						});
-						$('#gatattr').append(gatattrhtml);
+						$('#gat').append(gathtml);
 					}
-				});
+				}
 			}
-		});
-	
-	});
-});
+			});
+		$.ajax({
+			url:'findGoodsParameter.action',
+			type:"post",
+			data:{"goodsTypeId":goodsTypeId},
+			dataType:'json',
+			async:false,
+			success:function(data){
+			if(data.sucflag){
+				var gatattrhtml="";
+				var jsonstr=$.parseJSON(data.bean.goodsParameter);
+				$.each(jsonstr,function(k,s){
+					gatattrhtml+="<div class='field'>"+
+									"<div class='label'>"+
+										"<label for='input-small'>"+s.name+"</label>"+
+									"</div>"+
+									"<div class='input'>"+
+									"<input id='"+s.id+"' name='"+s.id+"' value='' class='small' type='text'></input>"+
+									"</div>"+
+								"</div>";
+				});
+				$('#gatattr').append(gatattrhtml);
+			}
+			}
+		});	
 
+		//再获取一次商品，绑定商品参数和属性。
+		bindgoodsattrparam(goodsid);
+	
+		
+});
+});
 //获取商品导航菜单
 $(function(){
 	$.post("findGoodscategoryNavid.action",function(data){
@@ -1087,6 +1156,7 @@ function findgoodsbyid(){
 								});
 								$('#gatattr').append(gatattrhtml);
 								//var jsonstr=data.bean.goodsParameterValue.trim();
+								//设置商品参数的值
 								var jsonstr1=$.parseJSON("["+data.bean.goodsParameterValue.trim()+"]");
 								$.each(jsonstr1,function(k,s){
 									$('#'+s.id).val(s.value);
@@ -1095,8 +1165,12 @@ function findgoodsbyid(){
 						});
 					}
 				});
-				
-			}	
+
+			}
+			
+			
+			
+			
 		}
 		});
 }

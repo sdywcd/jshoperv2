@@ -14,7 +14,12 @@
 	</head>
 	<script type="text/javascript">
 	$(document).ready(function() {
-		top.location.href="http://"+window.location.host+"/jshop/admin/adminlogin.jsp";
+		var pathnamearray=window.location.pathname.split("/");
+		var pathname=pathnamearray[1]+"/";
+		if(pathname=="jshop/"){
+			pathname="";
+		}
+		top.location.href="http://"+window.location.host+"/"+pathname+"jshop/admin/adminlogin.jsp";
 	})
 </script>
 	<body>

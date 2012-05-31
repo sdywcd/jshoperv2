@@ -6,24 +6,24 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Resource;
 
+import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
-import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
+
 import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.Serial;
 import com.jshop.action.tools.Validate;
+import com.jshop.entity.GoodsT;
 import com.jshop.entity.GoodsTypeTN;
+import com.jshop.service.GoodsTService;
 import com.jshop.service.GoodsTypeTNService;
-import com.jshop.service.impl.GoodsTypeTNServiceImpl;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import org.apache.struts2.convention.annotation.Action;
 
 @ParentPackage("jshop")
 @InterceptorRefs({  
@@ -53,7 +53,7 @@ public class GoodsTypeTNAction extends ActionSupport {
 	private String sortname;
 	private String sortorder;
 
-	
+
 	@JSON(serialize = false)
 	public GoodsTypeTNService getGoodsTypeTNService() {
 		return goodsTypeTNService;
@@ -216,6 +216,7 @@ public class GoodsTypeTNAction extends ActionSupport {
 	public void setSortorder(String sortorder) {
 		this.sortorder = sortorder;
 	}
+
 
 	/**
 	 *清理错误
@@ -398,4 +399,5 @@ public class GoodsTypeTNAction extends ActionSupport {
 		return "json";
 
 	}
+
 }
