@@ -27,10 +27,11 @@
 		<activity android:name="com.jshop.android.login.JshopActivityLogin" />
 		<activity android:name="com.jshop.android.register.JshopActivityRegister" />
 		<activity android:name="com.jshop.android.search.JshopActivitySearch"></activity>
-		<activity android:name="com.jshop.android.shop.JshopActivityShopList"></activity>
+		<activity android:name="com.jshop.android.shop.JshopActivityGoodsCategoryList"></activity>
 		<activity android:name="com.jshop.android.shop.JshopActivityGoodsList"></activity>
 		<activity android:name="com.jshop.android.shop.JshopActivityGoodsdetail"></activity>
 		<activity android:name="com.jshop.android.shop.JshopMGoodsdetail"></activity>
+		<activity android:name="com.jshop.android.shop.JshopActivityGoodsCategoryList"></activity>
 		<!-- <activity android:name="com.jshop.android.location.JshopActivityLocationer" />
 		<activity android:name="com.jshop.android.location.JshopItemizedOverlay" /> -->
 		

@@ -34,8 +34,8 @@ import android.widget.Toast;
 
 import com.jshop.android.index.R;
 import com.jshop.android.shop.JshopActivityGoodsList;
-import com.jshop.android.shop.JshopActivityShopList;
-import com.jshop.android.shop.JshopActivityShopList.ItemClickListener;
+import com.jshop.android.shop.JshopActivityGoodsCategoryList;
+import com.jshop.android.shop.JshopActivityGoodsCategoryList.ItemClickListener;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMPostActionList;
 /**
@@ -59,8 +59,8 @@ public class JshopMtable extends Activity {
 	private GridView gv;
 	
 	private String requestjsonstr;
-	private List tableNumberlist=new ArrayList();
-	private List tablestatelist=new ArrayList();
+//	private List tableNumberlist=new ArrayList();
+//	private List tablestatelist=new ArrayList();
 	private List<Map<String,Object>>tableList=new ArrayList<Map<String,Object>>();
 	
 	@Override
@@ -126,6 +126,69 @@ public class JshopMtable extends Activity {
 	}
 	
 	
+	
+
+	
+	public class ImageAdapter extends BaseAdapter{
+		private Integer[]imgs={
+				R.drawable.sitbuttonfree,
+				R.drawable.sitbuttonoccupied
+		};
+		
+		private Context mContext;
+		
+		
+		public ImageAdapter(Context mContext) {
+			this.mContext = mContext;
+		}
+
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return tableList.size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			// TODO Auto-generated method stub
+			return position;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return position;
+		}
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			TextView textView;
+			//ImageView imageView;
+			if(convertView==null){
+				//imageView=new ImageView(mContext);
+				//imageView.setLayoutParams(new GridView.LayoutParams(85,85));
+				//imageView.setAdjustViewBounds(false);
+				//imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+				//imageView.setPadding(8, 8, 8, 8);
+				textView=new TextView(mContext);
+				textView.setLayoutParams(new GridView.LayoutParams(63,48));
+				textView.setPadding(22,8,10,10);
+				if(tableList.get(position).get("tablestate").toString().equals("1")){
+					textView.setText(tableList.get(position).get("tableNumber").toString());
+					textView.setBackgroundResource(imgs[1]);
+					
+				}else{
+					textView.setText(tableList.get(position).get("tableNumber").toString());
+					textView.setBackgroundResource(imgs[0]);
+				}
+			}else{
+				textView=(TextView)convertView;
+			}
+			
+			return textView;
+		}
+		
+		
+	}
 	
 	
 	/**
@@ -208,66 +271,5 @@ public class JshopMtable extends Activity {
 		alert.show();
 	}
 	
-	
-	public class ImageAdapter extends BaseAdapter{
-		private Integer[]imgs={
-				R.drawable.sitbuttonfree,
-				R.drawable.sitbuttonoccupied
-		};
-		
-		private Context mContext;
-		
-		
-		public ImageAdapter(Context mContext) {
-			this.mContext = mContext;
-		}
-
-		@Override
-		public int getCount() {
-			// TODO Auto-generated method stub
-			return tableList.size();
-		}
-
-		@Override
-		public Object getItem(int position) {
-			// TODO Auto-generated method stub
-			return position;
-		}
-
-		@Override
-		public long getItemId(int position) {
-			// TODO Auto-generated method stub
-			return position;
-		}
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			TextView textView;
-			//ImageView imageView;
-			if(convertView==null){
-				//imageView=new ImageView(mContext);
-				//imageView.setLayoutParams(new GridView.LayoutParams(85,85));
-				//imageView.setAdjustViewBounds(false);
-				//imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				//imageView.setPadding(8, 8, 8, 8);
-				textView=new TextView(mContext);
-				textView.setLayoutParams(new GridView.LayoutParams(63,48));
-				textView.setPadding(22,8,10,10);
-				if(tableList.get(position).get("tablestate").toString().equals("1")){
-					textView.setText(tableList.get(position).get("tableNumber").toString());
-					textView.setBackgroundResource(imgs[1]);
-					
-				}else{
-					textView.setText(tableList.get(position).get("tableNumber").toString());
-					textView.setBackgroundResource(imgs[0]);
-				}
-			}else{
-				textView=(TextView)convertView;
-			}
-			
-			return textView;
-		}
-		
-		
-	}
 	
 }
