@@ -1,5 +1,6 @@
 package com.jshop.android.index;
 
+import com.jshop.android.shop.JshopActivityGoodsCategoryList;
 import com.jshop.android.shop.JshopActivityGoodsList;
 import com.jshop.android.table.JshopMtable;
 import com.jshop.android.util.JshopMParams;
@@ -74,9 +75,9 @@ public class JshopMIndex extends Activity {
 		ordingfoods.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(JshopMIndex.this,JshopActivityGoodsList.class);
+				Intent intent = new Intent(JshopMIndex.this,JshopActivityGoodsCategoryList.class);
 				startActivity(intent);
-
+					
 			}
 
 		});

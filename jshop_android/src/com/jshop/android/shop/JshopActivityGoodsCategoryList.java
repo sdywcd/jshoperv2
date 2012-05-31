@@ -5,8 +5,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,60 +33,65 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jshop.android.index.R;
 import com.jshop.android.util.JshopActivityUtil;
+import com.jshop.android.util.JshopMPostActionList;
 import com.jshop.android.shop.JshopActivityGoodsList;
 public class JshopActivityGoodsCategoryList extends Activity{
-	public static final String ACTION="findAllJshopbasicInfoLogoforAndroid.action";
 	private GridView gv;
+	private String requestjsonstr;
+	private List<Map<String,Object>>goodscategoryList=new ArrayList<Map<String,Object>>();
 	
-	//存储精品商品json字符串
-	private String boutiquesjsonstr;
-	private List sitelogolist=new ArrayList();
-	private List creatoridlist=new ArrayList();
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.jshop_activity_shoplist);
-		gv=(GridView)this.findViewById(R.id.shoplistgridView);
+		this.setContentView(R.layout.jshop_m_goodscategory);
+		gv=(GridView)this.findViewById(R.id.goodscategorygridView);
 		gv.setOnItemClickListener(new ItemClickListener());
-		boutiquesjsonstr=this.queryBoutiquesForJshopbasicInfoList();
-		if(boutiquesjsonstr==null){
-			return;
-		}else{
-			String []strs=boutiquesjsonstr.split("-");
-			try {
-				for(int i=0;i<strs.length;i++){
-					JSONObject jo=new JSONObject(strs[i].toString());
-					String sitelogo=jo.getString("sitelogo");
-					String creatorid=jo.getString("creatorid");
-					if(sitelogo.indexOf(",")<0){
-						sitelogolist.add(sitelogo.toString());
-						creatoridlist.add(creatorid.toString());
-					}
-				}
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			this.getGoodsCategoryList();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		gv.setAdapter(new ImageAdapter(this));
 		
 	}
 	
-	
-	
+	/**
+	 * 向服务器发送请求获取商品分类信息
+	 */
+	private String queryGoodsCategoryForJshop(){
+		String posturl=JshopActivityUtil.BASE_URL+JshopMPostActionList.FINDALLGOODSCATEGORYTFORANDROID;
+		return JshopActivityUtil.queryStringForPost(posturl);
+	}
 	
 	/**
-	 * 获取服务器端的商城基本数据
-	 * @return
+	 * 处理服务器端返回的json数据
+	 * @throws JSONException 
 	 */
-	private String queryBoutiquesForJshopbasicInfoList(){
-		String url=JshopActivityUtil.BASE_URL+ACTION;
-		return JshopActivityUtil.queryStringForPost(url);
+	private void getGoodsCategoryList() throws JSONException{
+		requestjsonstr=this.queryGoodsCategoryForJshop();
+		if(requestjsonstr!=null){
+			String []strs=requestjsonstr.split("--");
+			for(int i=0;i<strs.length;i++){
+				JSONObject jo=new JSONObject(strs[i].toString());
+				if(jo.getString("grade").equals("0")){
+					Map<String,Object>map=new HashMap<String,Object>();
+					map.put("goodsCategoryTid", jo.getString("goodsCategoryTid"));
+					map.put("grade", jo.getString("grade"));
+					map.put("name", jo.getString("name"));
+					map.put("goodsTypeId", jo.getString("goodsTypeId"));
+					map.put("sort", jo.getString("sort"));
+					goodscategoryList.add(map);
+				}
+				
+			}
+		}
 	}
 	
 	public class ImageAdapter extends BaseAdapter{
@@ -97,7 +104,7 @@ public class JshopActivityGoodsCategoryList extends Activity{
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
-			return sitelogolist.size();
+			return goodscategoryList.size();
 		}
 
 		@Override
@@ -114,32 +121,17 @@ public class JshopActivityGoodsCategoryList extends Activity{
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			LayoutInflater inflater=LayoutInflater.from(JshopActivityGoodsCategoryList.this);
-			View v=null;
-			ImageView imageView=new ImageView(this.mContext);
+			TextView textView;
 			if(convertView==null){
-				v=inflater.inflate(R.layout.jshop_activity_imageview, null);
-				
+				textView=new TextView(mContext);
+				textView.setLayoutParams(new GridView.LayoutParams(100,100));
+				textView.setPadding(22,8,10,10);
+				//textView.setTextColor(R.color.white);
+				textView.setText(goodscategoryList.get(position).get("name").toString());
 			}else{
-				v=(View)convertView;
+				textView=(TextView)convertView;
 			}
-			imageView=(ImageView)v.findViewById(R.id.imageViewForshoplist);
-			try{
-				URL url=new URL(sitelogolist.get(position).toString());
-				HttpURLConnection conn=(HttpURLConnection)url.openConnection();
-				conn.setRequestMethod("GET");
-				conn.setConnectTimeout(5*1000);
-				InputStream in=conn.getInputStream();
-				Bitmap bm=BitmapFactory.decodeStream(in);
-				in.close();
-				imageView.setImageBitmap(bm);
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-			imageView.setPadding(8, 8, 8, 8);
-			imageView.setAdjustViewBounds(false);
-			
-			return v;
+			return textView;
 		}
 		
 		
@@ -150,13 +142,12 @@ public class JshopActivityGoodsCategoryList extends Activity{
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-			//int a=(Integer) arg0.getItemAtPosition(arg2);
-			String creatorid=creatoridlist.get(arg2).toString();
-			Bundle data=new Bundle();
-			data.putString("creatorid", creatorid);
-			Intent intent = new Intent(JshopActivityGoodsCategoryList.this,JshopActivityGoodsList.class);
-			intent.putExtras(data);
-			startActivity(intent);
+//			Bundle data=new Bundle();
+//			data.putString("creatorid", creatorid);
+//			Intent intent = new Intent(JshopActivityGoodsCategoryList.this,JshopActivityGoodsList.class);
+//			intent.putExtras(data);
+//			startActivity(intent);
+			//此处进入商品程序读取商品列表传递分类信息
 		}
 	}
 	   

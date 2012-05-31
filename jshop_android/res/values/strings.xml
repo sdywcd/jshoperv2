@@ -47,5 +47,5 @@
 	<string name="tablestate">状态:</string>
 	<string name="floor">楼层:</string>
 	<string name="rnop">就餐人数:</string>
-	
+	<string name="goodscategoryname">菜单分类</string>
 </resources>
