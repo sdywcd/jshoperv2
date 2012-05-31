@@ -32,11 +32,17 @@ function delParamPChild(rid){
  * Get Goods Type for select elements
  */
 $(function(){
-	$.post("findGoodsTypeTNForSelect.action",function(data){
+	$.ajax({
+		url:"findGoodsTypeTNForSelect.action",
+		type:"post",
+		dataType:'json',
+		async:false,
+		success:function(data){
 		if(data.goodstypetnlist!=""){
 			var temp="<select id='goodstypetn' name='goodstypetn'>";
 			var temp1="</select>";
 			$('#goodstypetnselect').append(temp+data.goodstypetnlist+temp1);
+		}
 		}
 	});
 });
@@ -425,37 +431,48 @@ $(function(){
 		return false;
 	}
 	//这里需要绑定商品类型。有待商榷
-	$.post("findGoodsAttributeTByGoodsTypeName.action",{"goodsTypeName":goodsTypeName},function(data){
-		if(data.beanlist.length>0){
-			var html="";
-			var rid="";
+	$.ajax({
+		url:"findGoodsAttributeTByGoodsTypeName.action",
+		type:"post",
+		data:{"goodsTypeName":goodsTypeName},
+		dataType:'json',
+		async:false,
+		success:function(data){
+			if(data.beanlist.length>0){
+				var html="";
+				var rid="";
+				$.each(data.beanlist,function(n,value){
+					if(value.attributeType=="1"){
+						rid=value.goodsattributeid;
+						html+="<tr id='add"+rid+"'>" +
+						"<td class='title'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='paramlistname"+rid+"' name='paramlistname"+rid+"' value='"+value.goodsattributename+"'/></div></div></div></div></td>"+
+						"<td><div class='form' style='padding-top:25px;'><div class='fields'><div class='field field-first'><div class='typeinput'><select class='attribute' id='attributetype"+rid+"' name='attributetype"+rid+"'><option value='0'>筛选项</option><option value='1' selected>输入项</option></select></div></div></div></div></td>"+
+						"<td><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='attributelists"+rid+"' name='attributelists'"+rid+"' value='"+value.attributelist+"'></input></div></div></div></div></td>"+
+						"<td><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='paramlistsort"+rid+"' name='paramlistsort"+rid+"' value='"+value.sort+"'/></div></div></div></div></td>"+
+						"<input type='hidden' class='attribute' id='paramattributeid' name='paramattributeid' value='"+value.goodsattributeid+"'></input>"+
+						"<td><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input  class='attribute' id='delbutton"+rid+"' name='delbutton"+rid+"' type='button' value='删除' onClick='delParamPChild("+rid+")' style='display:none;' /></div></div></div></div></td>"+
+						"</tr>";
+					}else{
+						rid=value.goodsattributeid;
+						html+="<tr id='add"+rid+"'>" +
+						"<td class='title'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='paramlistname"+rid+"' name='paramlistname"+rid+"' value='"+value.goodsattributename+"'/></div></div></div></div></td>"+
+						"<td><div class='form' style='padding-top:25px;'><div class='fields'><div class='field field-first'><div class='typeinput'><select class='attribute' id='attributetype"+rid+"' name='attributetype"+rid+"'><option value='0' selected>筛选项</option><option value='1' >输入项</option></select></div></div></div></div></td>"+
+						"<td><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='attributelists"+rid+"' name='attributelists'"+rid+"' value='"+value.attributelist+"'></input></div></div></div></div></td>"+
+						"<td><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='paramlistsort"+rid+"' name='paramlistsort"+rid+"' value='"+value.sort+"'/></div></div></div></div></td>"+
+						"<input type='hidden' class='attribute' id='paramattributeid' name='paramattributeid' value='"+value.goodsattributeid+"'></input>"+
+						"<td><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input  class='attribute' id='delbutton"+rid+"' name='delbutton"+rid+"' type='button' value='删除' onClick='delParamPChild("+rid+")' style='display:none;' /></div></div></div></div></td>"+
+						"</tr>";
+					}
+				});
+				var gtid=data.beanlist[0].goodsTypeId
+				$('#goodstypetn').val(gtid);
+				$('.table tbody').append(html);
+			}
 			
-			$('#goodstypetn').val(data.beanlist[0].goodsTypeId);
-			$.each(data.beanlist,function(n,value){
-				if(value.attributeType=="1"){
-					rid=value.goodsattributeid;
-					html+="<tr id='add"+rid+"'>" +
-					"<td class='title'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='paramlistname"+rid+"' name='paramlistname"+rid+"' value='"+value.goodsattributename+"'/></div></div></div></div></td>"+
-					"<td><div class='form' style='padding-top:25px;'><div class='fields'><div class='field field-first'><div class='typeinput'><select class='attribute' id='attributetype"+rid+"' name='attributetype"+rid+"'><option value='0'>筛选项</option><option value='1' selected>输入项</option></select></div></div></div></div></td>"+
-					"<td><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='attributelists"+rid+"' name='attributelists'"+rid+"' value='"+value.attributelist+"'></input></div></div></div></div></td>"+
-					"<td><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='paramlistsort"+rid+"' name='paramlistsort"+rid+"' value='"+value.sort+"'/></div></div></div></div></td>"+
-					"<input type='hidden' class='attribute' id='paramattributeid' name='paramattributeid' value='"+value.goodsattributeid+"'></input>"+
-					"<td><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input  class='attribute' id='delbutton"+rid+"' name='delbutton"+rid+"' type='button' value='删除' onClick='delParamPChild("+rid+")' style='display:none;' /></div></div></div></div></td>"+
-					"</tr>";
-				}else{
-					rid=value.goodsattributeid;
-					html+="<tr id='add"+rid+"'>" +
-					"<td class='title'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='paramlistname"+rid+"' name='paramlistname"+rid+"' value='"+value.goodsattributename+"'/></div></div></div></div></td>"+
-					"<td><div class='form' style='padding-top:25px;'><div class='fields'><div class='field field-first'><div class='typeinput'><select class='attribute' id='attributetype"+rid+"' name='attributetype"+rid+"'><option value='0' selected>筛选项</option><option value='1' >输入项</option></select></div></div></div></div></td>"+
-					"<td><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='attributelists"+rid+"' name='attributelists'"+rid+"' value='"+value.attributelist+"'></input></div></div></div></div></td>"+
-					"<td><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='paramlistsort"+rid+"' name='paramlistsort"+rid+"' value='"+value.sort+"'/></div></div></div></div></td>"+
-					"<input type='hidden' class='attribute' id='paramattributeid' name='paramattributeid' value='"+value.goodsattributeid+"'></input>"+
-					"<td><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input  class='attribute' id='delbutton"+rid+"' name='delbutton"+rid+"' type='button' value='删除' onClick='delParamPChild("+rid+")' style='display:none;' /></div></div></div></div></td>"+
-					"</tr>";
-				}
-				
+			}
 			});
-			$('.table tbody').append(html);
+			
+			
 			//显示修改按钮
 			$('#modify').show();
 			$('#modifyparam').show();
@@ -463,10 +480,9 @@ $(function(){
 			$('#submit').hide();
 			$('#submitparam').hide();
 			$('#addparam').hide();
-		}
 		
-	});
-	
+		
+
 	//更新商品属性，完善商品品牌处理
 	/**
 	 * 修改商品类型数据

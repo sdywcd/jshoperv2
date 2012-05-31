@@ -109,9 +109,10 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 	private boolean sucflag;
 	private String usession;
 	private String sortname;
-
 	private String sortorder;
 
+	private String baseurl;
+	
 	public UserRoleMAction getUserRoleMAction() {
 		return userRoleMAction;
 	}
@@ -653,6 +654,14 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 		this.roleid = roleid;
 	}
 
+	public String getBaseurl() {
+		return baseurl;
+	}
+
+	public void setBaseurl(String baseurl) {
+		this.baseurl = baseurl;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -661,6 +670,7 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 		this.clearErrorsAndMessages();
 
 	}
+
 
 	/**
 	 * 验证登陆
@@ -673,6 +683,7 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 			this.setSlogin(false);
 			return "json";
 		} else {
+		
 			this.setSlogin(true);
 			return "json";
 		}

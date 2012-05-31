@@ -8,7 +8,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import com.jshop.android.login.JshopActivityLogin;
 import com.jshop.android.register.JshopActivityRegister;
 import com.jshop.android.search.JshopActivitySearch;
-import com.jshop.android.shop.JshopActivityShopList;
+import com.jshop.android.shop.JshopActivityGoodsCategoryList;
 import com.jshop.android.util.JshopActivityUtil;
 
 import android.app.Activity;
@@ -131,7 +131,7 @@ public class JshopActivityIndexMenu extends Activity {
 		boutiques.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(JshopActivityIndexMenu.this,JshopActivityShopList.class);
+				Intent intent = new Intent(JshopActivityIndexMenu.this,JshopActivityGoodsCategoryList.class);
 				startActivity(intent);
 			}
 			
