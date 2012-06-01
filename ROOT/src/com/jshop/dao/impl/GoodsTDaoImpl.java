@@ -1537,6 +1537,20 @@ public class GoodsTDaoImpl extends HibernateDaoSupport implements GoodsTDao {
 		}
 	}
 
+	@Override
+	public List<GoodsT> findGoodsByNavid(String navid, String salestate,
+			String ismobileplatformgoods) {
+		log.debug("findGoodsByNavidforandroid");
+		try {
+			String queryString = "from GoodsT as gt where gt.navid=:navid and gt.ismobileplatformgoods=:ismobileplatformgoods and gt.salestate=:salestate";
+			List list = this.getHibernateTemplate().findByNamedParam(queryString, new String[]{"navid","ismobileplatformgoods","salestate"}, new Object[]{navid,ismobileplatformgoods,salestate});
+			return list;
+		} catch (RuntimeException re) {
+			log.error(" findGoodsByNavidforandroid", re);
+			throw re;
+		}
+	}
+
 	
 	
 }

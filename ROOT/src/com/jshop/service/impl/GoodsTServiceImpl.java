@@ -296,4 +296,10 @@ public class GoodsTServiceImpl implements GoodsTService {
 		return this.getGoodsTDao().findGoodsByattrs(currentPage, lineSize, attr, salestate);
 	}
 
+	@Override
+	public List<GoodsT> findGoodsByNavid(String navid, String salestate,
+			String ismobileplatformgoods) {
+		return this.getGoodsTDao().findGoodsByNavid(navid, salestate, ismobileplatformgoods);
+	}
+
 }

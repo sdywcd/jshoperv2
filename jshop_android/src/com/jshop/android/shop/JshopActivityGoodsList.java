@@ -12,6 +12,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.app.LocalActivityManager;
 import android.app.TabActivity;
@@ -31,6 +32,8 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -47,6 +50,7 @@ import com.jshop.android.login.JshopActivityLogin;
 import com.jshop.android.register.JshopActivityRegister;
 import com.jshop.android.table.JshopMtable;
 import com.jshop.android.util.JshopActivityUtil;
+import com.jshop.android.util.JshopMPostActionList;
 /**
  * 读取分类下的所有商品列表
  * @Description TODO
@@ -61,12 +65,11 @@ import com.jshop.android.util.JshopActivityUtil;
  * 
  * @Data 2012-5-10 下午03:47:04
  */
-public class JshopActivityGoodsList extends ListActivity{
-	public static final String ACTION="findAllGoodsByismobileplatformgoodsforAndroid";
+public class JshopActivityGoodsList extends Activity{
 	
 	private String requestjsonstr;
 	private ArrayList<HashMap<String, Object>> goodslists = new ArrayList<HashMap<String, Object>>();
-	private List<View>listViews;
+	private ListView listViews;
 
 	
 	@Override
@@ -74,111 +77,86 @@ public class JshopActivityGoodsList extends ListActivity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.jshop_m_goodslist);
+		listViews=(ListView) this.findViewById(R.id.listViewgoods);
+		Intent intent=this.getIntent();
+		String goodsCategoryTid=intent.getStringExtra("goodsCategoryTid");
+		try {
+			this.getGoodsList(goodsCategoryTid);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block    
+			e.printStackTrace();
+		}	
+		SimpleAdapter listItemAdapter=new SimpleAdapter(this,goodslists,R.layout.jshop_m_goodslistitem,new String[]{"pictureurl","goodsname","memberprice"},new int[]{R.id.pictureurl,R.id.goodsname,R.id.memberprice});
+		listItemAdapter.setViewBinder(new MyViewBinder());
+		listViews.setAdapter(listItemAdapter);
+		//添加点击
+		listViews.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				//点击进入商品详细页面
+				Intent intent=new Intent(JshopActivityGoodsList.this,JshopActivityGoodsdetail.class);
+				intent.putExtra("goodsid", goodslists.get(arg2).get("goodsid").toString());
+				startActivity(intent);
+			}
+		});
 		
-//		Intent intent=this.getIntent();
-//		String creatorid=intent.getStringExtra("creatorid");
-//		goodsstrs=this.queryGoodsList(creatorid);
-//		if(goodsstrs==null){
-//			return;
-//		}else{
-//			String []strs=goodsstrs.split("-");
-//			try{
-//				for(int i=0;i<strs.length;i++){
-//					JSONObject jo=new JSONObject(strs[i].toString());
-//					String goodsid=jo.getString("goodsid");
-//					String pictureurl=jo.getString("pictureurl");
-//					String goodsname=jo.getString("goodsname");
-//					String memberprice=jo.getString("memberprice");
-//					if(pictureurl.indexOf(",")<0){
-//						HashMap<String, Object> list = new HashMap<String, Object>(); 
-//						Bitmap bm=getPictureurlImg(pictureurl);
-//						list.put("pictureurl", bm);
-//						list.put("goodsname", goodsname);
-//						list.put("memberprice", memberprice);
-//						list.put("goodsid", goodsid);
-//						goodslists.add(list);
-//					}
-//				}
-//			}catch (JSONException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//		
-//		SimpleAdapter sap=new SimpleAdapter(this,goodslists,R.layout.jshop_activity_goodsoutline,new String[]{"pictureurl","goodsname","memberprice"},new int[]{R.id.smallpictureurlimageView,R.id.goodsname,R.id.memberprice});
-//		sap.setViewBinder(new MyViewBinder());
-		//this.setListAdapter(sap);
 	}
 	
 	/**
 	 * 向服务器端发送请求获取goodslist信息
 	 * @return
 	 */
-	private String queryGoodsListForJshop(){
-		String 
+	private String queryGoodsListForJshop(String goodsCategoryTid){
+		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.FINDGOODSBYGOODSCATEGORYIDFORANDROID+"?goodsCategoryTid="+goodsCategoryTid;
+		return JshopActivityUtil.queryStringForPost(posturl);
 	}
 	
 	
-	private void getGoodsList(){
-		requestjsonstr=this.queryTableForJshop();
+	private void getGoodsList(String goodsCategoryTid) throws JSONException, IOException{
+		requestjsonstr=this.queryGoodsListForJshop(goodsCategoryTid);
 		if(requestjsonstr!=null){
 			String []strs=requestjsonstr.split("--");
 			for(int i=0;i<strs.length;i++){
-				Map<String,Object>map=new HashMap<String,Object>();
+				HashMap<String,Object>map=new HashMap<String,Object>();
 				JSONObject jo=new JSONObject(strs[i].toString());
-				map.put("tableid", jo.getString("tableid"));
-				map.put("tableNumber", jo.getString("tableNumber"));
-				map.put("roomName", jo.getString("roomName"));
-				map.put("androidDevicesCount", jo.getString("androidDevicesCount"));
-				map.put("note", jo.getString("note"));
-				map.put("createtime", jo.getString("createtime"));
-				map.put("nop", jo.getString("nop"));
-				map.put("tablestate", jo.getString("tablestate"));
-				map.put("floor", jo.getString("floor"));
-				map.put("rnop", jo.getString("rnop"));
-				tableList.add(map);
+				map.put("pictureurl", getPictureurlImg(JshopActivityUtil.BASE_URL+jo.getString("pictureurl")));
+				map.put("goodsname", jo.getString("goodsname"));
+				map.put("memberprice", "￥"+jo.getString("memberprice"));
+				map.put("goodsid", jo.getString("goodsid"));	
+				goodslists.add(map);
 			}
 		}
 	}
 	
-
-//	@Override
-//	protected void onListItemClick(ListView l,View v,int position,long id){
-//		Intent intent=null;
-//		String goodsid=goodslists.get(position).get("goodsid").toString();
-//		Bundle data=new Bundle();
-//		data.putString("goodsid", goodsid);
-//		intent = new Intent(JshopActivityGoodsList.this,JshopActivityGoodsdetail.class);
-//		intent.putExtras(data);
-//		startActivity(intent);
-//	}
-//	
-//	private Bitmap getPictureurlImg(String pictureurl) throws IOException{
-//		URL url=new URL(pictureurl);
-//		HttpURLConnection conn=(HttpURLConnection)url.openConnection();
-//		conn.setRequestMethod("GET");
-//		conn.setConnectTimeout(5*1000);
-//		InputStream in=conn.getInputStream();
-//		Bitmap bm=BitmapFactory.decodeStream(in);
-//		in.close();
-//		return bm;
-//	}
-//	/**
-//	 * 获取服务器的商品列表数据
-//	 * @return
-//	 */
-//	private String queryGoodsList(String param){
-//		String url=JshopActivityUtil.BASE_URL+ACTION+"?creatorid="+param;
-//		return JshopActivityUtil.queryStringForPost(url);
-//	}
-//	
-//	
 	
-	
-	
+	public class MyViewBinder implements ViewBinder{
+		@Override
+		public boolean setViewValue(View view, Object data, String text) {
+			if((view instanceof ImageView)&&(data instanceof Bitmap)){
+				ImageView iv=(ImageView)view;
+				Bitmap bm=(Bitmap)data;
+				iv.setImageBitmap(bm);
+				return true;
+			}
+			return false;
+		}
+		
+	}
+	private Bitmap getPictureurlImg(String pictureurl) throws IOException{
+	URL url=new URL(pictureurl);
+	HttpURLConnection conn=(HttpURLConnection)url.openConnection();
+	conn.setRequestMethod("GET");
+	conn.setConnectTimeout(5*1000);
+	InputStream in=conn.getInputStream();
+	Bitmap bm=BitmapFactory.decodeStream(in);
+	in.close();
+	return bm;
+}
 	
 
 }

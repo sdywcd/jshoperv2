@@ -53,7 +53,7 @@
         android:orientation="vertical" >
 
         <ListView
-            android:id="@+id/listView1"
+            android:id="@+id/listViewgoods"
             android:layout_width="275dp"
             android:layout_height="386dp"
             android:layout_gravity="center"

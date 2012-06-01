@@ -286,7 +286,7 @@ public class JshopActivityIndex extends Activity{
 			TextView serverhost=(TextView) vhost.findViewById(R.id.serverhost);
 			serverhost.setText(oserverhost);
 			//放入静态变量
-			JshopActivityUtil.BASE_URL="http://"+oserverhost+"/";
+			JshopActivityUtil.BASE_URL="http://"+oserverhost;
 		}
 		AlertDialog alert=bulider.create();
 		alert.show();

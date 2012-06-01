@@ -18,16 +18,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:baselineAligned="false" >
-
+
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/buttonhoverbg"
-                android:text="@string/submit" />
+                android:text="@string/addtoelectcart" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/buttonnormalbg"
@@ -49,41 +49,44 @@
             android:layout_gravity="center" >
 
             <ImageView
-                android:id="@+id/imageView1"
+                android:id="@+id/mainimageView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@drawable/indextopimg" />
 
         </TableRow>
-
+
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/goodsname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="这里是菜品的名称"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="15dp" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/memberprice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:text="49.9/份"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
             android:text="TextView" />
-
+
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:text="可选风味：" />
 
