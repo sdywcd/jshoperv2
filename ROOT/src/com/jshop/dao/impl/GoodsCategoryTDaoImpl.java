@@ -357,6 +357,7 @@ public class GoodsCategoryTDaoImpl extends HibernateDaoSupport implements GoodsC
 		log.debug("findAllGoodsCategoryT");
 		try {
 			String queryString = "from GoodsCategoryT as gct where gct.state=:state";
+			@SuppressWarnings("unchecked")
 			List<GoodsCategoryT> list = this.getHibernateTemplate().findByNamedParam(queryString, "state", state);
 			return list;
 		} catch (RuntimeException re) {

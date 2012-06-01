@@ -75,6 +75,7 @@ public class JshopMIndex extends Activity {
 		ordingfoods.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				
 				Intent intent = new Intent(JshopMIndex.this,JshopActivityGoodsCategoryList.class);
 				startActivity(intent);
 					

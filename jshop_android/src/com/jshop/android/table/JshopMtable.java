@@ -85,7 +85,7 @@ public class JshopMtable extends Activity {
 	 * @return
 	 */
 	private String queryTableForJshop(){
-		String posturl=JshopActivityUtil.BASE_URL+JshopMPostActionList.FINDALLTABLETFORANDROID;
+		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.FINDALLTABLETFORANDROID;
 		return JshopActivityUtil.queryStringForPost(posturl);
 	}
 	/**
@@ -94,7 +94,7 @@ public class JshopMtable extends Activity {
 	 */
 	private String updateTableTtablestateBytableNo(String tableid,String tablestate){
 		String queryString="?tableid="+tableid+"&tablestate="+tablestate;
-		String posturl=JshopActivityUtil.BASE_URL+JshopMPostActionList.UPDATETABLETABLESTATEBYTABLENO+queryString;
+		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.UPDATETABLETABLESTATEBYTABLENO+queryString;
 		return JshopActivityUtil.queryStringForPost(posturl);
 	}
 	

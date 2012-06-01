@@ -616,5 +616,13 @@ public interface GoodsTService {
 	 * @return
 	 */
 	public abstract List<GoodsT>findGoodsByattrs(final int currentPage,final int lineSize,final String attr,final String salestate);
+	/**
+	 * 根据商品顶级分类获取移动平台的商品数据
+	 * @param navid
+	 * @param salestate
+	 * @param ismobileplatformgoods
+	 * @return
+	 */
+	public abstract List<GoodsT>findGoodsByNavid(String navid,String salestate,String ismobileplatformgoods);
 	
 }
