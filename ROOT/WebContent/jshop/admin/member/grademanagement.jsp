@@ -63,7 +63,7 @@
 									<div class="select">
 										<select id="gradevalue" name="gradevalue">
 											<option value="0">
-												--请选择--
+												---请选择---
 											</option>
 											<option value="1">
 												普通会员

@@ -939,7 +939,7 @@ $(function(){
 				if(data.gatbeanlist!=null){
 					$.each(data.gatbeanlist,function(i,item){
 						myoptionarray=item.attributelist.split(",");
-						option="<option value='0'>--请选择--</option>";
+						option="<option value='0'>---请选择---</option>";
 						for(var j=0;j<myoptionarray.length;j++){
 							option+="<option value='"+myoptionarray[j]+"'>"+myoptionarray[j]+"</option>";
 						}

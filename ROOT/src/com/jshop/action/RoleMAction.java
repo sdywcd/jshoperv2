@@ -317,7 +317,7 @@ public class RoleMAction extends ActionSupport {
 		this.setRolestr("");
 		List<RoleM>list=this.getRoleMService().findAllRoleM();
 		if(!list.isEmpty()){
-			this.setRolestr("<option value='0'>--请选择--</option>");
+			this.setRolestr("<option value='0'>---请选择---</option>");
 			for(Iterator it=list.iterator();it.hasNext();){
 				RoleM rm=(RoleM)it.next();
 				this.rolestr+="<option value='"+rm.getId()+"'>"+rm.getRolename()+"</option>";

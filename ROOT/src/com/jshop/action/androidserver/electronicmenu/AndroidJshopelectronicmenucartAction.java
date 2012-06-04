@@ -20,6 +20,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
 
+import com.jshop.action.tools.Arith;
 import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.Serial;
 import com.jshop.action.tools.Validate;
@@ -51,6 +52,8 @@ ServletRequestAware, ServletResponseAware{
 	private Integer lunchbox;//打包盒
 	private String cookingstate;//烹饪状态
 	private String roomName;
+	private String state;
+	private Double totalmemberprice = 0.0;
 	private HttpServletRequest request;
     private HttpServletResponse response;
     private String responsejsonstr;
@@ -188,6 +191,22 @@ ServletRequestAware, ServletResponseAware{
 		this.roomName = roomName;
 	}
 
+	public Double getTotalmemberprice() {
+		return totalmemberprice;
+	}
+
+	public void setTotalmemberprice(Double totalmemberprice) {
+		this.totalmemberprice = totalmemberprice;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -198,21 +217,23 @@ ServletRequestAware, ServletResponseAware{
 	}
 	
 	/**
-	 * 根据餐桌号
+	 * 根据餐桌号获取电子菜单信息
 	 * @throws IOException 
 	 */
-	@Action(value="findAllElectronicMenuCartTBytableNumber")
-	public void findAllElectronicMenuCartTBytableNumber() throws IOException{
+	@Action(value="findAllElectronicMenuCartTBytableNumberforAndroid")
+	public void findAllElectronicMenuCartTBytableNumberforAndroid() throws IOException{
 		if(Validate.StrNotNull(this.getTableNumber())&&Validate.StrNotNull(this.getTablestate())){
 			String tableNumber=this.getTableNumber().trim();
 			String tablestate=this.getTablestate().trim();
 			List<ElectronicMenuCartT>list=this.getElectronicMenuCartTService().findAllElectronicMenuCartTBytableNumber(tableNumber, tablestate);
 			if(!list.isEmpty()){
+				this.setTotalmemberprice(0.0);
 				String temp=null;
 				String []temparray=null;
 				StringBuilder json=new StringBuilder();
 				for(Iterator it=list.iterator();it.hasNext();){
 					ElectronicMenuCartT emt=(ElectronicMenuCartT)it.next();
+					this.setTotalmemberprice(Arith.add(this.getTotalmemberprice(), Arith.mul(emt.getMemberprice(), Double.parseDouble(String.valueOf(emt.getNeedquantity())))));
 					temparray=StringUtil.split(emt.getPicture(), ',');
 					temp=temparray[0];
 					emt.setPicture(temp);
@@ -243,7 +264,9 @@ ServletRequestAware, ServletResponseAware{
 					json.append("\"tableNumber\":\"").append(emt.getTableNumber()).append("\",");
 					json.append("\"roomName\":\"").append(emt.getRoomName()).append("\",");
 					json.append("\"tablestate\":\"").append(emt.getTablestate()).append("\",");
-					json.append("\"electronicMenuCartid\":\"").append(emt.getElectronicMenuCartid()).append("\"");
+					json.append("\"electronicMenuCartid\":\"").append(emt.getElectronicMenuCartid()).append("\",");
+					//总价格
+					json.append("\"totalmemberprice\":\"").append(this.getTotalmemberprice()).append("\"");
 					json.append("}").append("--");
 					json.deleteCharAt(json.length()-1);
 					this.setResponsejsonstr(json.toString());
@@ -263,17 +286,18 @@ ServletRequestAware, ServletResponseAware{
 	 * @return
 	 * @throws IOException 
 	 */
-	public void addelEctronicMenuCart() throws IOException{
+	@Action(value="addelEctronicMenuCartforAndroid")
+	public void addelEctronicMenuCartforAndroid() throws IOException{
 		String tableNumber=this.getTableNumber();
 		String tablestate=this.getTablestate();
 		String state="1";//新增加的菜
-		String suctag = null;
+		String sucflag = null;
 		List<GoodsT>gtlist1=this.getElectronicMenuCartBygoodsidforcart();
 		for(GoodsT gt:gtlist1){
 			ElectronicMenuCartT elemcart=this.getElectronicMenuCartTService().findGoodsInElectronicMenuCartTOrNot(tableNumber, tablestate, goodsid, state);
 			if(elemcart!=null){
 				int i=this.getElectronicMenuCartTService().updateElectronicMenuCartTneedquantityBygoodsid(tableNumber, tablestate, goodsid, Integer.parseInt(this.getNeedquantity()), state);
-				suctag="success";
+				sucflag="success";
 			}else{
 				String[]temppicturl=StringUtils.split(gt.getPictureurl(),',');
 				ElectronicMenuCartT emt=new ElectronicMenuCartT();
@@ -305,14 +329,14 @@ ServletRequestAware, ServletResponseAware{
 				emt.setRoomName(this.getRoomName());
 				emt.setTablestate(tablestate);
 				if(this.getElectronicMenuCartTService().addElectronicMenuCartT(emt)>0){
-					suctag="success";
+					sucflag="success";
 				}
 			}
 		}
 		response.setContentType("text/html");
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out=response.getWriter();
-		out.write(suctag);
+		out.write(sucflag);
 		out.flush();
 		out.close();
 	}
@@ -333,10 +357,32 @@ ServletRequestAware, ServletResponseAware{
 		return Collections.emptyList();
 	}
 	
-	
-	
-	
-	
+
+	/**
+	 * 删除电子菜单商品
+	 * @throws IOException 
+	 */
+	@Action(value="delElectronicMenuCartTGoodsforAndroid")
+	public void delElectronicMenuCartTGoodsforAndroid() throws IOException{
+		if(Validate.StrNotNull(this.getTableNumber())&&Validate.StrNotNull(this.getGoodsid())){
+			//state从前台获取，控制菜单可删除的位置
+			String tableNumber=this.getTableNumber().trim();
+			String goodsid=this.getGoodsid().trim();
+			String state=this.getState().trim();
+			String tablestate="1";//使用中
+			String sucflag=null;
+			int i=this.getElectronicMenuCartTService().delElectronicMenuCartTGoods(tableNumber, tablestate, goodsid, state);
+			sucflag="success";
+			response.setContentType("text/html");
+			response.setCharacterEncoding("utf-8");
+			PrintWriter out=response.getWriter();
+			out.write(sucflag);
+			out.flush();
+			out.close();
+			
+		}
+			
+	}
 	
 	
 	
