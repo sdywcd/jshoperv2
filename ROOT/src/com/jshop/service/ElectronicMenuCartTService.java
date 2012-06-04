@@ -42,7 +42,7 @@ public interface ElectronicMenuCartTService {
 	 * @param tablestate 1标示使用中 0标示空闲中
 	 * @return
 	 */
-	public abstract List<ElectronicMenuCartT>findGoodsInElectronicMenuCartTOrNot(String tableNumber,String tablestate,String goodsid,String state);
+	public abstract ElectronicMenuCartT findGoodsInElectronicMenuCartTOrNot(String tableNumber,String tablestate,String goodsid,String state);
 	/**
 	 * 根据桌号和菜品号菜品状态更新所需的菜品数量
 	 * @param tableNumber
