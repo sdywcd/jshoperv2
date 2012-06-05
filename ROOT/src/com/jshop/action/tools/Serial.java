@@ -120,6 +120,8 @@ public class Serial {
 	public static final String ELECTRONICMENUCARTT="electronicmenucartt";
 	//电子菜单餐车表主键生成
 	public static final String ELECTRONICMENUCARTTINFO="electronicmenucarttinfo";
+	//团购主键表生成
+	public static final String GOODSGROUPT="googsgroupt";
 	
 	private SerialTService serialTService;
 	

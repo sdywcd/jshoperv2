@@ -45,6 +45,9 @@
 				<li>
 					<a id="link8" href="<%=basePatha%>jshop/admin/goods/addgoods.jsp?session=6584359BA964336B9BDE75737952F5AA#goods">添加新商品</a>
 				</li>
+				<li>
+					<a id="link18" href="<%=basePatha%>jshop/admin/goods/addgoodsgroupt.jsp?session=6584359BA964336B9BDE75737952F5AA#goods">添加团购商品</a>
+				</li>
 				
 				<li class="collapsible">
 					<a href="#" class="plus">商品列表</a>
