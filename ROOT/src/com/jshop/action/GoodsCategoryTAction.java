@@ -523,7 +523,7 @@ public class GoodsCategoryTAction extends ActionSupport {
 		this.setGoodscategoryzero("");
 		List<GoodsCategoryT> list = this.getGoodsCategoryTService().findGoodsCategoryByGrade("0", "1");
 		if (list != null) {
-			this.goodscategoryzero = "<option value='-1'>--请选择--</option><option value='0'>顶级分类</option>";
+			this.goodscategoryzero = "<option value='-1'>---请选择---</option><option value='0'>顶级分类</option>";
 			for (Iterator it = list.iterator(); it.hasNext();) {
 				GoodsCategoryT gct = (GoodsCategoryT) it.next();
 				this.goodscategoryzero += "<option value='" + gct.getGoodsCategoryTid() + "'>" + gct.getName() + "</option>";
@@ -543,7 +543,7 @@ public class GoodsCategoryTAction extends ActionSupport {
 		this.setGoodscategorytwo("");
 		List<GoodsCategoryT> list = this.getGoodsCategoryTService().findGoodsCategoryByGrade("1", "1");
 		if (list != null) {
-			this.goodscategorytwo = "<option value='-1'>--请选择--</option>";
+			this.goodscategorytwo = "<option value='-1'>---请选择---</option>";
 			for (Iterator it = list.iterator(); it.hasNext();) {
 				GoodsCategoryT gct = (GoodsCategoryT) it.next();
 				this.goodscategorytwo += "<option value='" + gct.getGoodsCategoryTid() + "'>" + gct.getName() + "</option>";
@@ -552,7 +552,7 @@ public class GoodsCategoryTAction extends ActionSupport {
 			return "json";
 		} else {
 			this.setGoodscategorytwo("");
-			this.goodscategorytwo = "<option value='-1'>--请选择--</option>";
+			this.goodscategorytwo = "<option value='-1'>---请选择---</option>";
 		}
 		this.setSucflag(true);
 		return "json";
@@ -871,7 +871,7 @@ public class GoodsCategoryTAction extends ActionSupport {
 			this.setLtypeidlist("");
 			this.secondcategory = this.getGoodsCategoryTService().findGoodscategoryByparentId("1", this.getParentId().trim());
 			if (this.secondcategory != null) {
-				this.ltypeidlist = "<option value='0'>--请选择--</option>";
+				this.ltypeidlist = "<option value='0'>---请选择---</option>";
 				for (Iterator it = this.secondcategory.iterator(); it.hasNext();) {
 					GoodsCategoryT gct = (GoodsCategoryT) it.next();
 					ltypeidlist += "<option value='" + gct.getGoodsCategoryTid() + "'>" + gct.getName() + "</option>";
@@ -900,7 +900,7 @@ public class GoodsCategoryTAction extends ActionSupport {
 			this.setLtypeidlist("");
 			this.thiredscategory = this.getGoodsCategoryTService().findGoodscategoryByparentId("1", this.getParentId().trim());
 			if (this.thiredscategory != null) {
-				this.stypeidlist = "<option value='0'>--请选择--</option>";
+				this.stypeidlist = "<option value='0'>---请选择---</option>";
 				for (Iterator it = this.thiredscategory.iterator(); it.hasNext();) {
 					GoodsCategoryT gct = (GoodsCategoryT) it.next();
 					stypeidlist += "<option value='" + gct.getGoodsCategoryTid() + "'>" + gct.getName() + "</option>";

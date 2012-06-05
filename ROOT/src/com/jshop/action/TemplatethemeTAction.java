@@ -450,7 +450,7 @@ public class TemplatethemeTAction extends ActionSupport {
 		List<TemplatethemeT> list = this.getTemplatethemeTService().findAllTemplatethemeWithNoParam(BaseTools.adminCreateId());
 		if (list != null) {
 			this.setTemplatethemestrs("");
-			this.setTemplatethemestrs("<option value='-1'>--请选择--</option>");
+			this.setTemplatethemestrs("<option value='-1'>---请选择---</option>");
 			for (Iterator it = list.iterator(); it.hasNext();) {
 				TemplatethemeT tt = (TemplatethemeT) it.next();
 				this.templatethemestrs += "<option value='" + tt.getTtid() + "," + tt.getSign() + "'>" + tt.getThemename() + "</option>";

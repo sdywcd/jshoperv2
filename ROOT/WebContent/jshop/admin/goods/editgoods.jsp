@@ -105,17 +105,17 @@
 
 											<select id="navid" name="navid">
 												<option value="0">
-													--请选择--
+													---请选择---
 												</option>
 											</select>
 											<select id="ltypeid" name="ltypeid">
 												<option value="0">
-													--请选择--
+													---请选择---
 												</option>
 											</select>
 											<select id="stypeid" name="stypeid">
 												<option value="0">
-													--请选择--
+													---请选择---
 												</option>
 											</select>
 										</div>
@@ -163,7 +163,7 @@
 									<div class="select">
 										<select id="brandname" name="brandname">
 											<option value="0">
-												--请选择--
+												---请选择---
 											</option>
 										</select>
 									</div>
@@ -222,7 +222,7 @@
 										<input type="text" id="weight" name="weight" class="small"></input>
 										<select id="weightselect">
 											<option value="0">
-												--请选择--
+												---请选择---
 											</option>
 										</select>
 									</div>
@@ -456,7 +456,7 @@
 									<div class="select">
 										<select id="keywordname" name="keywordname">
 											<option value="0">
-												--请选择--
+												---请选择---
 											</option>
 										</select>
 									</div>
@@ -528,7 +528,7 @@
 									<div class="select">
 										<select id="isSpecificationsOpen" name="isSpecificationsOpen">
 											<option value="0">
-												--请选择--
+												---请选择---
 											</option>
 											<option value="1">
 												开启

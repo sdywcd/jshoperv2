@@ -462,7 +462,7 @@ public class ProductSpecificationsTAction extends ActionSupport {
 					pst.setName(pst.getName() + "[" + pst.getNote() + "]");
 				}
 				this.specificationslist += "<div class='checkbox'><input type='checkbox' id='" + pst.getSpecificationsid() + "' name='pstspecificationsid' onclick='checkpstspecificationsid()' value='" + tempvalue + "'/><label>" + pst.getName() + "</label></div>";
-				strbeg = "<select id='" + pst.getSpecificationsid() + "' name='" + pst.getSpecificationsid() + "'><option value='0'>--请选择--</option>";
+				strbeg = "<select id='" + pst.getSpecificationsid() + "' name='" + pst.getSpecificationsid() + "'><option value='0'>---请选择---</option>";
 				this.specificationsselect += "<option value='" + tempvalue + "'>" + pst.getName() + "</option>";
 			}
 			this.setSpecificationslist(this.specificationslist);

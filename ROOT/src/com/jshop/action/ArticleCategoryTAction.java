@@ -400,7 +400,7 @@ public class ArticleCategoryTAction extends ActionSupport {
 		this.setArticlecategoryzero("");
 		List<ArticleCategoryT> list = this.getArticleCategoryTService().findArticleCategoryByGrade("0", "1", BaseTools.adminCreateId());
 		if (!list.isEmpty()) {
-			this.setArticlecategoryzero("<option value='-1'>--请选择--</option><option value='0'>顶级分类</option>");
+			this.setArticlecategoryzero("<option value='-1'>---请选择---</option><option value='0'>顶级分类</option>");
 			for (Iterator it = list.iterator(); it.hasNext();) {
 				ArticleCategoryT act = (ArticleCategoryT) it.next();
 				this.articlecategoryzero += "<option value='" + act.getArticleCategoryTid() + "'>" + act.getName() + "</option>";
@@ -422,7 +422,7 @@ public class ArticleCategoryTAction extends ActionSupport {
 		this.setArticlecategorytwo("");
 		List<ArticleCategoryT> list = this.getArticleCategoryTService().findArticleCategoryByGrade("1", "1", BaseTools.adminCreateId());
 		if (!list.isEmpty()) {
-			this.setArticlecategorytwo("<option value='-1'>--请选择--</option>");
+			this.setArticlecategorytwo("<option value='-1'>---请选择---</option>");
 			for (Iterator it = list.iterator(); it.hasNext();) {
 				ArticleCategoryT act = (ArticleCategoryT) it.next();
 				this.articlecategorytwo += "<option value='" + act.getArticleCategoryTid() + "'>" + act.getName() + "</option>";
@@ -431,7 +431,7 @@ public class ArticleCategoryTAction extends ActionSupport {
 			return "json";
 		} else {
 			this.setArticlecategorytwo("");
-			this.articlecategorytwo = "<option value='-1'>--请选择--</option>";
+			this.articlecategorytwo = "<option value='-1'>---请选择---</option>";
 		}
 		this.setSucflag(true);
 		return "json";

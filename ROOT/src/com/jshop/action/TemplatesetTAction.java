@@ -323,7 +323,7 @@ public class TemplatesetTAction extends ActionSupport {
 		//组织商品分类的所有信息
 		this.setSyscontentstrs("");
 		if (gclist != null) {
-			this.setSyscontentstrs("<option value='-1'>--请选择--</option><option value='0'>--自定义系统内容--</option><option value='1'>--以下是所创建的商品分类--</option>");
+			this.setSyscontentstrs("<option value='-1'>---请选择---</option><option value='0'>--自定义系统内容--</option><option value='1'>--以下是所创建的商品分类--</option>");
 			for (Iterator it = gclist.iterator(); it.hasNext();) {
 				GoodsCategoryT gct = (GoodsCategoryT) it.next();
 				if (gct.getGrade().equals("0")) {
@@ -362,7 +362,7 @@ public class TemplatesetTAction extends ActionSupport {
 		List<TemplateT> list = this.getTemplateTService().findAllTemplateWithNoParam(BaseTools.adminCreateId(), "1");
 		if (list != null) {
 			this.setTemplatestrs("");
-			this.setTemplatestrs("<option value='-1'>--请选择--</option>");
+			this.setTemplatestrs("<option value='-1'>---请选择---</option>");
 			for (Iterator it = list.iterator(); it.hasNext();) {
 				TemplateT tt = (TemplateT) it.next();
 				this.templatestrs += "<option value='" + tt.getUrl() + "," + tt.getSign() + "'>" + tt.getUrl() + "</option>";
@@ -384,7 +384,7 @@ public class TemplatesetTAction extends ActionSupport {
 
 		List<TemplatesetT> list = this.getTemplatesetTService().findAllTemplatesetWithNoParam(BaseTools.adminCreateId());
 		if (list != null) {
-			this.setTemplatesetstrs("<option value='-1'>--请选择--</option>");
+			this.setTemplatesetstrs("<option value='-1'>---请选择---</option>");
 			for (Iterator it = list.iterator(); it.hasNext();) {
 				TemplatesetT tst = (TemplatesetT) it.next();
 				this.templatesetstrs += "<option value='" + tst.getBuildhtmlpath() + "'>" + tst.getSystemcontent() + "</option>";

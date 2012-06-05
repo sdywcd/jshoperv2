@@ -55,8 +55,8 @@ public class CartTServiceImpl implements CartTService {
 		return this.getCartTDao().reduceCartNeddquantityByGoodsid(userid, goodsid, needquantity);
 	}
 
-	public int delCartByGoodsId(String userid, String goodsid) {
-		return this.getCartTDao().delCartByGoodsId(userid, goodsid);
+	public int delCartByGoodsId(String userid, String goodsid,String state) {
+		return this.getCartTDao().delCartByGoodsId(userid, goodsid,state);
 	}
 
 	public int updateCartNeedquantity(String userid, String goodsid, int needquantity) {

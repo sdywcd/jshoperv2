@@ -125,7 +125,7 @@
 								<div class="select">
 									<select id="country" name="country">
 										<option value="0">
-											----请选择----
+											---请选择---
 										</option>
 										<option value="1">
 											中国

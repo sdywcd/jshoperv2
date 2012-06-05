@@ -149,10 +149,7 @@ public class GoodsTDaoImpl extends HibernateDaoSupport implements GoodsTDao {
 		try {
 			String queryString = "from GoodsT as gt where gt.goodsid=:goodsid";
 			List<GoodsT> list = this.getHibernateTemplate().findByNamedParam(queryString, "goodsid", goodsid);
-			if (list != null && list.size() > 0) {
-				return list.get(0);
-			}
-			return null;
+			return list.get(0);
 		} catch (RuntimeException re) {
 			log.error("find by id GoodsT error", re);
 			throw re;

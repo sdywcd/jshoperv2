@@ -116,6 +116,11 @@ public class Serial {
 	public static final String USERROLE="userrole";
 	//电子餐桌表
 	public static final String ELECTABLE="electable";
+	//电子菜单餐车合并后的id生成
+	public static final String ELECTRONICMENUCARTT="electronicmenucartt";
+	//电子菜单餐车表主键生成
+	public static final String ELECTRONICMENUCARTTINFO="electronicmenucarttinfo";
+	
 	private SerialTService serialTService;
 	
 	

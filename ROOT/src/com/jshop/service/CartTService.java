@@ -57,12 +57,13 @@ public interface CartTService {
 	 */
 	public abstract int reduceCartNeddquantityByGoodsid(String userid,String goodsid,int needquantity);
 	/**
-	 * 删除购物车商品
+	 * 删除购物车商品加入state=1的条件表示只会删除新增加入的商品会在购物车中删除时生效。
 	 * @param userid
 	 * @param goodsid
+	 * @param state
 	 * @return
 	 */
-	public abstract int delCartByGoodsId(String userid,String goodsid);
+	public abstract int delCartByGoodsId(String userid,String goodsid,String state);
 	
 	/**
 	 * 更新购物车商品数量
