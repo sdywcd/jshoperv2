@@ -29,6 +29,7 @@ public class ContentTag {
 	
 	public static final String CREATORID="20100721001";
 	public static final String TEMPLATENAMEFORARTICLE="articlecontent";
+	public static final String TEMPLATENAMEFORNOTICE="noticecontent";
 	public static final String TEMPLATENAMEFORGOODSDETAIL="goodsdetail";
 	public static final String TEMPLATENAMEFORGOODSCATEGORYLIST="goodscategorylist";
 	public static final String TEMPLATENAMEFORINDEX="index";

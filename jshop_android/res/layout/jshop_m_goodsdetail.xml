@@ -20,7 +20,7 @@
             android:baselineAligned="false" >
 
             <Button
-                android:id="@+id/confirm"
+                android:id="@+id/addtoelectrocartconfirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/buttonhoverbg"

@@ -18,11 +18,11 @@
 		<activity android:name="com.jshop.android.util.JshopActivityUtil" />
 		<activity android:name="com.jshop.android.JshopActivity" />
 		<activity android:name="com.jshop.android.index.JshopMIndex" />
-		<activity android:name="com.jshop.android.util.Aroot"></activity>
 		<activity android:name="com.jshop.android.table.JshopMtable" />
 		<activity android:name="com.jshop.android.index.JshopMIndexbottom" />
 		<activity android:name="com.jshop.android.index.JshopMIndexcenter" />
 		<activity android:name="com.jshop.android.index.JshopMIndexmsgconfirm" />
+		
 		<!--  <activity android:name="com.jshop.android.index.JshopActivityIndex" />-->
 		<activity android:name="com.jshop.android.login.JshopActivityLogin" />
 		<activity android:name="com.jshop.android.register.JshopActivityRegister" />
@@ -32,10 +32,13 @@
 		<activity android:name="com.jshop.android.shop.JshopActivityGoodsdetail"></activity>
 		<activity android:name="com.jshop.android.shop.JshopMGoodsdetail"></activity>
 		<activity android:name="com.jshop.android.shop.JshopActivityGoodsCategoryList"></activity>
+		<activity android:name="com.jshop.android.shop.JshopMelectrocart"/>
+		<activity android:name="com.jshop.android.shop.JshopMelectroorder"/>
 		<!-- <activity android:name="com.jshop.android.location.JshopActivityLocationer" />
 		<activity android:name="com.jshop.android.location.JshopItemizedOverlay" /> -->
 		
 		<!--  <uses-library android:name="com.google.android.maps" /> -->
+		
     </application>
     
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

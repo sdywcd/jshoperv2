@@ -146,6 +146,8 @@ public class InitAllHtml extends ActionSupport {
 			buildhtmllog.append("<p>6,获取商城基础数据</p>");
 			map.put(FreeMarkervariable.JSHOPBASICINFO, this.getDataCollectionTAction().findJshopbasicInfo());
 			buildhtmllog.append(this.getDataCollectionTAction().getLogmsg());
+			
+			
 			//获取商品分类左侧主导航
 			buildhtmllog.append("<p>7,获取商品分类导航数据</p>");
 			map.put(FreeMarkervariable.GOODSCATEGORYTREE, this.getDataCollectionTAction().findGoodsCategoryT());
@@ -163,7 +165,10 @@ public class InitAllHtml extends ActionSupport {
 			buildhtmllog.append("<p>10,获取首页自定义区域数据</p>");
 			this.getDataCollectionTAction().findEditarea(ContentTag.TEMPLATENAMEFORINDEX, "1", map);
 			buildhtmllog.append(this.getDataCollectionTAction().getLogmsg());
-		
+			//获取系统所有文章数据
+			map.put(FreeMarkervariable.ARTICLE, this.getDataCollectionTAction().findAllArticleT());
+			
+			//根据模板生成静态页
 			List<TemplatesetT>list=this.getTemplatesetTService().findTemplatesetTBystatus("1");
 			if(!list.isEmpty()){
 				for(Iterator it=list.iterator();it.hasNext();){
@@ -177,6 +182,9 @@ public class InitAllHtml extends ActionSupport {
 					}else if(tt.getSign().equals(BaseTools.getApplicationthemesig()+"_"+ContentTag.TEMPLATENAMEFORGOODSCATEGORYLIST)){
 						this.getCreateHtml().buildGoodsCategoryPage(map);
 						buildhtmllog.append(this.getCreateHtml().getLogmsg().toString());
+					}else if(tt.getSign().equals(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORNOTICE)){
+						this.getCreateHtml().buildGoodsCategoryPage(map);
+						buildhtmllog.append(this.getCreateHtml().getLogmsg().toString());
 					}else{
 						this.getCreateHtml().createNormalhtml(tt.getSign(), "", map);
 						buildhtmllog.append(this.getCreateHtml().getLogmsg().toString());
@@ -184,6 +192,9 @@ public class InitAllHtml extends ActionSupport {
 				}
 				
 			}
+			
+			
+			
 		}catch(Exception e){
 			buildhtmllog.append("<p style='color:red;'>"+e.getMessage()+"出现异常请根据反馈信息修复</p>");
 			this.setBuildlog(buildhtmllog.toString());

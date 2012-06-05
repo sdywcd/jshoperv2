@@ -85,7 +85,7 @@ public class JshopActivityIndex extends Activity{
 		maingroup=(ViewGroup)inflater.inflate(R.layout.jshop_activity_index, null);
 		dotgroup=(ViewGroup)maingroup.findViewById(R.id.dotviewGroup);
 		viewPager=(ViewPager)maingroup.findViewById(R.id.guidePages);
-		
+		writeJmtable("-1"+",");//写入一个默认餐桌
 		for(int i=0;i<pageViews.size();i++){
 			imageView=new ImageView(JshopActivityIndex.this);
 			imageView.setLayoutParams(new LayoutParams(20,20));
@@ -332,8 +332,21 @@ public class JshopActivityIndex extends Activity{
 		String oserverhost=read();
 		if(oserverhost!=null){
 			//放入静态变量
-			JshopActivityUtil.BASE_URL="http://"+oserverhost+"/";
+			JshopActivityUtil.BASE_URL="http://"+oserverhost;
 		}
 	}
-	
+	/**
+	 * 写入一个默认的餐桌值，用来检测未就做即可点菜的问题
+	 * @param content
+	 */
+	private void writeJmtable(String content){
+		try{
+			//实例化文件文件输出流
+			FileOutputStream fos=openFileOutput(JshopMParams.SHAREMTABLEPARAM,MODE_WORLD_WRITEABLE+MODE_WORLD_WRITEABLE);
+			fos.write(content.getBytes());
+			fos.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 }

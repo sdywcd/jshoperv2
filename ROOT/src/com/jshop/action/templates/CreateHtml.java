@@ -253,12 +253,21 @@ public class CreateHtml extends ActionSupport {
 		if (!alist.isEmpty()) {
 			for (Iterator it = alist.iterator(); it.hasNext();) {
 				ArticleT at = (ArticleT) it.next();
-				map.put(FreeMarkervariable.ARTICLE, at);
-				String htmlPath = this.createArticleT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORARTICLE, at.getArticleid(), map);
-				this.getArticleTService().updateHtmlPath(at.getArticleid(), htmlPath);
+				if("1".equals(at.getIsnotice())){
+					map.put(FreeMarkervariable.ARTICLE, at);
+					String htmlPath = this.createArticleT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORNOTICE, at.getArticleid(), map);
+					this.getArticleTService().updateHtmlPath(at.getArticleid(), htmlPath);
+				}else{
+					map.put(FreeMarkervariable.ARTICLE, at);
+					String htmlPath = this.createArticleT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORARTICLE, at.getArticleid(), map);
+					this.getArticleTService().updateHtmlPath(at.getArticleid(), htmlPath);
+				}
+				
 			}
 		}
 	}
+
+	
 
 	/**
 	 * 商城上架状态的商品分类静态页

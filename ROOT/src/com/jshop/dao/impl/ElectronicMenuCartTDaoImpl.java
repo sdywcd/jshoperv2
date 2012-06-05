@@ -139,7 +139,10 @@ public class ElectronicMenuCartTDaoImpl extends HibernateDaoSupport implements E
 		try {
 			String queryString = "from ElectronicMenuCartT as ec where ec.tableNumber=:tableNumber and ec.tablestate=:tablestate and ec.goodsid=:goodsid and ec.state=:state";
 			List<ElectronicMenuCartT> list = this.getHibernateTemplate().findByNamedParam(queryString,new String[]{"tableNumber","tablestate","goodsid","state"}, new Object[]{tableNumber,tablestate,goodsid,state});
-			return list.get(0);
+			if(!list.isEmpty()){
+				return list.get(0);
+			}
+			return null;
 		} catch (RuntimeException re) {
 			log.error("findGoodsInElectronicMenuCartTOrNot error", re);
 			throw re;
