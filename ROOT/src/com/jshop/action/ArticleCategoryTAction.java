@@ -650,7 +650,8 @@ public class ArticleCategoryTAction extends ActionSupport {
 			bean.setMetaKeywords(this.getMetaKeywords());
 			bean.setMetaDes(this.getMetaDes());
 			bean.setPosition(this.getPosition());
-			bean.setCreatetime(BaseTools.systemtime());
+			//bean.setCreatetime(BaseTools.systemtime());
+			bean.setUpdatetime(BaseTools.systemtime());
 			bean.setCreatorid(BaseTools.adminCreateId());
 			this.getArticleCategoryTService().updateArticleCategoryT(bean);
 			this.setSucflag(true);

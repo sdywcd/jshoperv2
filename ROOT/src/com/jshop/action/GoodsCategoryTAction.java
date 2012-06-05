@@ -769,6 +769,7 @@ public class GoodsCategoryTAction extends ActionSupport {
 			gct.setCreatetime(BaseTools.systemtime());
 			gct.setCreatorid(BaseTools.adminCreateId());
 			gct.setUpdatetime(BaseTools.systemtime());
+			gct.setVersion(0);
 			this.getGoodsCategoryTService().updateGoodscategoryT(gct);
 			this.setSucflag(true);
 			bean=gct;
