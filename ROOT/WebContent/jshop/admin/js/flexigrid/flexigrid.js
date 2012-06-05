@@ -32,7 +32,7 @@
 			pagestat: 'Displaying {from} to {to} of {total} items',
 			pagetext: 'Page',
 			outof: 'of',
-			findtext: 'Find',
+			findtext: '搜索',
 			procmsg: '正在获取数据，请稍候...',
 			query: '',
 			qtype: '',
@@ -95,7 +95,8 @@
 				);
 				var nd = parseInt($(g.nDiv).height());
 				if (nd > newH) $(g.nDiv).height(newH).width(200);
-				else $(g.nDiv).height('auto').width('auto');
+				//以前是nDiv.height是auto的
+				else $(g.nDiv).height('300').width('auto');
 				$(g.block).css({
 					height: newH,
 					marginBottom: (newH * -1)
@@ -814,6 +815,9 @@
 				}
 			}
 			$(g.tDiv).append(tDiv2);
+			/*$(g.tDiv).append("<div class='sDiv2'>" + p.findtext + 
+					" <input type='text' value='" + p.query +"' size='30' name='q' class='qsbox' /> "+
+					" <select name='qtype'>" + sopt + "</select></div>");*/
 			$(g.tDiv).append("<div style='clear:both'></div>");
 			$(g.gDiv).prepend(g.tDiv);
 		}
@@ -1070,6 +1074,9 @@
 					p.qtype = sitems[0].name;
 				}
 				$(g.sDiv).append("<div class='sDiv2'>" + p.findtext + 
+						" <input type='text' value='" + p.query +"' size='30' name='q' class='qsbox' /> "+
+						" <select name='qtype'>" + sopt + "</select></div>");
+				$(g.tDiv).prepend("<div class='sDiv2'>" + p.findtext + 
 						" <input type='text' value='" + p.query +"' size='30' name='q' class='qsbox' /> "+
 						" <select name='qtype'>" + sopt + "</select></div>");
 				//Split into separate selectors because of bug in jQuery 1.3.2
