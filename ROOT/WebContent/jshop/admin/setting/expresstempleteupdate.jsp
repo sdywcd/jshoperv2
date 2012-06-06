@@ -46,7 +46,7 @@ String htmlData = request.getParameter("expressarea") != null ? request.getParam
 										请选择物流商
 										<select id="logisticsid" name="logisticsid">
 											<option value="0">
-												--请选择--
+												---请选择---
 											</option>
 										</select>
 										<input id="submit" name="submit" type="button" value="更新"/>

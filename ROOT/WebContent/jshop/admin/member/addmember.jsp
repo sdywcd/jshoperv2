@@ -77,7 +77,7 @@
 
 										<select id="grade" name="grade">
 											<option value="0">
-												--请选择--
+												---请选择---
 											</option>
 											<option value="1">
 												普通会员
@@ -108,7 +108,7 @@
 									<div class="select">
 										<select id="state" name="state">
 											<option value="0">
-												--请选择--
+												---请选择---
 											</option>
 											<option value="1">
 												普通用户

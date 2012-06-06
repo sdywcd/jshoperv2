@@ -7,6 +7,11 @@
 	request.setCharacterEncoding("UTF-8");
 	String htmlData = request.getParameter("detail") != null ? request.getParameter("detail") : "";
 %>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String htmlDatacommoditylist = request.getParameter("commoditylist") != null ? request
+			.getParameter("commoditylist") : "";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -54,6 +59,9 @@
 							</li>
 							<li class="ui-state-default ui-corner-top">
 								<a href="#box-detail">描述</a>
+							</li>
+							<li class="ui-state-defautl ui-corner-top">
+								<a href="#box-commoditylist">清单信息</a>
 							</li>
 							<li class="ui-state-default ui-corner-top">
 								<a href="#box-seo">搜索优化</a>
@@ -105,17 +113,17 @@
 
 											<select id="navid" name="navid">
 												<option value="0">
-													--请选择--
+													---请选择---
 												</option>
 											</select>
 											<select id="ltypeid" name="ltypeid">
 												<option value="0">
-													--请选择--
+													---请选择---
 												</option>
 											</select>
 											<select id="stypeid" name="stypeid">
 												<option value="0">
-													--请选择--
+													---请选择---
 												</option>
 											</select>
 										</div>
@@ -163,7 +171,7 @@
 									<div class="select">
 										<select id="brandname" name="brandname">
 											<option value="0">
-												--请选择--
+												---请选择---
 											</option>
 										</select>
 									</div>
@@ -222,7 +230,7 @@
 										<input type="text" id="weight" name="weight" class="small"></input>
 										<select id="weightselect">
 											<option value="0">
-												--请选择--
+												---请选择---
 											</option>
 										</select>
 									</div>
@@ -442,7 +450,22 @@
 							</div>
 						</div>
 					</div>
-
+					<div id="box-commoditylist" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+						<div class="form">
+							<div class="fields">
+								<div class="field">
+									<div class="label label-textarea">
+										<label for="textarea">
+											商品清单:
+										</label>
+									</div>
+									<div style="margin: 0 0 0 200px;">
+										<textarea id="commoditylist" name="commoditylist" cols="50" rows="12" style="width: 100%; height: 400px; visibility: hidden;"><%=htmlspecialchars(htmlDatacommoditylist)%></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 
 					<div id="box-seo" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
 						<div class="form">
@@ -456,7 +479,7 @@
 									<div class="select">
 										<select id="keywordname" name="keywordname">
 											<option value="0">
-												--请选择--
+												---请选择---
 											</option>
 										</select>
 									</div>
@@ -528,7 +551,7 @@
 									<div class="select">
 										<select id="isSpecificationsOpen" name="isSpecificationsOpen">
 											<option value="0">
-												--请选择--
+												---请选择---
 											</option>
 											<option value="1">
 												开启
@@ -656,6 +679,11 @@
 					KE.util.setData(id);
 				});
 			}
+		});
+ 		KE.show({
+			id : 'commoditylist',
+			items : ['fontname', 'fontsize', '|', 'textcolor', 'bgcolor', 'bold', 'italic', 'underline',
+					'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist','insertunorderedlist']
 		});
  		
  	</script>

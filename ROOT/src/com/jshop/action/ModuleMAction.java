@@ -258,7 +258,7 @@ public class ModuleMAction extends ActionSupport {
 		this.setModuleselectstr("");
 		List<ModuleM>list=this.getModuleMService().findAllModuleM();
 		if(!list.isEmpty()){
-			this.setModuleselectstr("<option value='0'>--请选择--</option>");
+			this.setModuleselectstr("<option value='0'>---请选择---</option>");
 			for(Iterator it=list.iterator();it.hasNext();){
 				ModuleM mm=(ModuleM)it.next();
 				this.moduleselectstr+="<option value='"+mm.getId()+"'>"+mm.getModulename()+"</option>";

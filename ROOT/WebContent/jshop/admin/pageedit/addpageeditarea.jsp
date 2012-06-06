@@ -50,7 +50,7 @@
 								<div class="select">
 									<select id="pagetype" name="pagetype">
 										<option value="0">
-											--请选择--
+											---请选择---
 										</option>
 										<option value="sitenavigation">
 											导航

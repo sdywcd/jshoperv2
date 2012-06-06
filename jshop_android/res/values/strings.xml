@@ -50,4 +50,5 @@
 	<string name="goodscategoryname">菜单分类</string>
 	<string name="goodslistname">菜品列表</string>
 	<string name="addtoelectcart">加入餐车</string>
+	<string name="myelectrocart">已点菜单</string>
 </resources>

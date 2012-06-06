@@ -1,5 +1,6 @@
 package com.jshop.android.table;
 
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -37,6 +38,7 @@ import com.jshop.android.shop.JshopActivityGoodsList;
 import com.jshop.android.shop.JshopActivityGoodsCategoryList;
 import com.jshop.android.shop.JshopActivityGoodsCategoryList.ItemClickListener;
 import com.jshop.android.util.JshopActivityUtil;
+import com.jshop.android.util.JshopMParams;
 import com.jshop.android.util.JshopMPostActionList;
 /**
  * 餐桌显示
@@ -229,6 +231,8 @@ public class JshopMtable extends Activity {
 			tablestate.setText("状态：空闲");
 		}
 		note.setText("备注："+tableList.get(index).get("note").toString());
+		//final String tablestates=tableList.get(index).get("tablestate").toString();
+		final String tablenumber=tableList.get(index).get("tableNumber").toString();
 		AlertDialog.Builder bulider=new AlertDialog.Builder(this);
 		bulider.setMessage("餐桌信息").setCancelable(false).setView(vTableinfo).setPositiveButton(R.string.seattable,new DialogInterface.OnClickListener() {
 			@Override
@@ -243,8 +247,9 @@ public class JshopMtable extends Activity {
 					if("success".equals(tag)){
 						Toast t=Toast.makeText(getApplicationContext(), "就座成功", Toast.LENGTH_LONG);
 						t.show();
-						//再次获取餐桌信息
-						
+
+						//携带餐桌号和餐桌状态传递给商品分类开始点菜
+						writeJmtable("1"+","+tablenumber);
 					}else{
 						Toast t=Toast.makeText(getApplicationContext(), "更新座位状态时系统异常", Toast.LENGTH_LONG);
 						t.show();
@@ -270,6 +275,19 @@ public class JshopMtable extends Activity {
 		AlertDialog alert=bulider.create();
 		alert.show();
 	}
-	
+	/**
+	 * 写文件，保存服务器地址
+	 * @param content
+	 */
+	private void writeJmtable(String content){
+		try{
+			//实例化文件文件输出流
+			FileOutputStream fos=openFileOutput(JshopMParams.SHAREMTABLEPARAM,MODE_WORLD_WRITEABLE+MODE_WORLD_WRITEABLE);
+			fos.write(content.getBytes());
+			fos.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 	
 }

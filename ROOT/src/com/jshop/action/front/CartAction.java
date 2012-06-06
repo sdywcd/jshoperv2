@@ -550,7 +550,8 @@ public class CartAction extends ActionSupport {
 		if (user != null) {
 			this.setSlogin(true);
 			@SuppressWarnings("unused")
-			int i = this.getCartTService().delCartByGoodsId(user.getUserid(), this.getGoodsid());
+			String state="1";
+			int i = this.getCartTService().delCartByGoodsId(user.getUserid(), this.getGoodsid(),state);
 			this.setSucflag(true);
 			return "json";
 		} else {
