@@ -49,6 +49,17 @@ public class GoodsSpecificationsRelationshipTDaoImpl extends HibernateDaoSupport
 	public List<GoodsSpecificationsRelationshipT> checkSpecificationRelationshipBygoodssetid(
 			String goodssetid) {
 		// TODO Auto-generated method stub
+		log.debug("find specificaionid by gooodsetid");
+		try{
+			String queryString = "select * from GoodsSpecificationsRelationshipT as gsrt where gsrt.goodssetid=:goodssetid";
+			List<GoodsSpecificationsRelationshipT> list = this.getHibernateTemplate().findByNamedParam(queryString, "goossetid", goodssetid);
+			if(list.size()>0){
+				return list;
+			}
+		}catch (RuntimeException re) {			
+            log .error("find specificaionid by gooodsetid error" , re);
+            throw re;
+		}
 		return null;
 	}
 	
@@ -80,7 +91,7 @@ public class GoodsSpecificationsRelationshipTDaoImpl extends HibernateDaoSupport
 		}
 	}
 	
-	public int delGoodsAssociatedProductById(final String[] list) {
+	public int delGoodsAssociatedProductById(final String list) {
 		// TODO Auto-generated method stub
 		log.debug("del Goods associated prouducts");
 		try{
@@ -90,17 +101,9 @@ public class GoodsSpecificationsRelationshipTDaoImpl extends HibernateDaoSupport
 				public Object doInHibernate(Session session) throws HibernateException, SQLException {
 					Query query = session.createQuery(queryString);
 					int i = 0;
-					for(String s: list){
-						query.setParameter("goodsSetId",s);
-						i = query.executeUpdate();
-						i++;
-					}
-					if (list.length == i){
-						return i;
-					}else{
-						return 0;
-					}
-					
+					query.setParameter("goodsSetId",list);
+					i = query.executeUpdate();
+					return i;
 				}
 			});
 			return 0;

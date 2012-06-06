@@ -437,6 +437,9 @@ $(function(){
 				 */
 				checkisDefault();
 				if(checkisdefault){
+				    /**
+				     * 组织商品规格的id
+				     */
 					$('input[name="specid"]').each(function(){
 						specid += $(this).val()+",";
 					});
@@ -444,7 +447,7 @@ $(function(){
 					var temparr = specid.split(',');
 					temparr = killrepeat(temparr);
 					specid = temparr.join(",");
-					alert(specid);
+					//提交给action增加商品
 					$.post("addGoods.action",{"specificationsValue":_specificationsValue,"ismobileplatformgoods":ismobileplatformgoods,"goodsTypeId":goodsTypeId,"rejson":rejson,"goodsname":goodsname,"nname":nname,"lname":lname,"sname":sname,"navid":navid,"ltypeid":ltypeid,"stypeid":stypeid,"price":price,"memberprice":memberprice,"points":points,"pictureurl":pictureurl,"quantity":quantity,"detail":detail,"unitname":unitname,"keywordname":keywordname,"weight":weight,"recommended":recommended,"hotsale":hotsale,"bargainprice":bargainprice,"salestate":salestate,"brandid":brandid,"brandname":brandname,"placeStore":placeStore,"metaKeywords":metaKeywords,"metaDescription":metaDescription,"cost":cost,"saleprice":saleprice,"isNew":isNew,"productSn":productSn,"keywordid":keywordid,"unitnameid":unitnameid,"usersetnum":usersetnum,"isSpecificationsOpen":isSpecificationsOpen,"freezeStore":freezeStore,"specificationId":specid},function(data){
 						if(data.sucflag){
 							jAlert('增加商品成功', '信息提示');
@@ -685,6 +688,9 @@ $(function(){
 						goodsParameterValue+="{\"id\":\""+this.name+"\",\"value\":\""+this.value+"\"},"
 					});
 					goodsParameterValue=goodsParameterValue.toString().substring(0,goodsParameterValue.length-1);
+				    /**
+				    * 组织商品规格的id
+				    */
 					$('input[name="specid"]').each(function(){
 						specid += $(this).val()+",";
 					});
@@ -692,7 +698,7 @@ $(function(){
 					var temparr = specid.split(',');
 					temparr = killrepeat(temparr);
 					specid = temparr.join(",");
-					alert(specid);
+					//提交给action增加商品
 					$.post("addGoods.action",{"specificationsValue":_specificationsValue,"ismobileplatformgoods":ismobileplatformgoods,"goodsAttrVal0":goodsAttrVal0,"goodsAttrVal1":goodsAttrVal1,"goodsAttrVal2":goodsAttrVal2,"goodsAttrVal3":goodsAttrVal3,"goodsAttrVal4":goodsAttrVal4,"goodsAttrVal5":goodsAttrVal5,"goodsAttrVal6":goodsAttrVal6,"goodsAttrVal7":goodsAttrVal7,"goodsAttrVal8":goodsAttrVal8,"goodsAttrVal9":goodsAttrVal9,"goodsAttrVal10":goodsAttrVal10,"goodsAttrVal11":goodsAttrVal11,"goodsAttrVal12":goodsAttrVal12,"goodsAttrVal13":goodsAttrVal13,"goodsAttrVal14":goodsAttrVal14,"goodsAttrVal15":goodsAttrVal15,"goodsAttrVal16":goodsAttrVal16,"goodsAttrVal17":goodsAttrVal17,"goodsAttrVal18":goodsAttrVal18,"goodsAttrVal19":goodsAttrVal19,"goodsAttrVal20":goodsAttrVal20,"goodsAttrVal21":goodsAttrVal21,"goodsAttrVal22":goodsAttrVal22,"goodsAttrVal23":goodsAttrVal23,"goodsAttrVal24":goodsAttrVal24,"goodsAttrVal25":goodsAttrVal25,"goodsAttrVal26":goodsAttrVal26,"goodsAttrVal27":goodsAttrVal27,"goodsAttrVal28":goodsAttrVal28,"goodsAttrVal29":goodsAttrVal29,"goodsParameterValue":goodsParameterValue,"goodsTypeName":goodsTypeName,"goodsTypeId":goodsTypeId,"rejson":rejson,"goodsname":goodsname,"nname":nname,"lname":lname,"sname":sname,"navid":navid,"ltypeid":ltypeid,"stypeid":stypeid,"price":price,"memberprice":memberprice,"points":points,"pictureurl":pictureurl,"quantity":quantity,"detail":detail,"unitname":unitname,"keywordname":keywordname,"weight":weight,"recommended":recommended,"hotsale":hotsale,"bargainprice":bargainprice,"salestate":salestate,"brandid":brandid,"brandname":brandname,"placeStore":placeStore,"metaKeywords":metaKeywords,"metaDescription":metaDescription,"cost":cost,"saleprice":saleprice,"isNew":isNew,"productSn":productSn,"keywordid":keywordid,"unitnameid":unitnameid,"usersetnum":usersetnum,"isSpecificationsOpen":isSpecificationsOpen,"freezeStore":freezeStore,"specificationId":specid},function(data){
 						if(data.sucflag){
 							jAlert('增加商品成功', '信息提示');
@@ -885,9 +891,6 @@ $(function(){
 				"<td><input id='delbutton"+rid+"' name='delbutton"+rid+"' value='删除' type='button' onClick='delParamPChild("+rid+")' class='productv'/></td>"+
 				"</tr>";
 		$('#addproductlistarea tbody').append(html);
-		//alert("specid after append area");
-		//var sepcid = $('input[name="specid"]').val();
-		//alert(sepcid);
 	});
 });
 

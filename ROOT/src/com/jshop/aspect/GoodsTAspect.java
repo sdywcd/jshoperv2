@@ -1,6 +1,7 @@
 package com.jshop.aspect;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -42,5 +43,23 @@ public class GoodsTAspect {
 			}
 		}
 	}
+	@After("execution(String com.jshop.action.GoodsTNAction.updateGoods())")
+	public void afterupdateSpecificationGoods(JoinPoint joinPoint) throws IOException{
+		GoodsTNAction gtn=(GoodsTNAction) joinPoint.getThis();
+		//当修改商品规格时关闭规格操作将删除该商品的规格值
+		if("0".equals(gtn.getSpecificationId())){
+			List<GoodsSpecificationsRelationshipT> list = gtn.getGoodsSpecificationsRelationshipTService().checkSpecificationRelationshipBygoodssetid(gtn.getBean().getGoodsid());
+			if(list.size()>0){
+				gtn.getGoodsSpecificationsRelationshipTService().delGoodsAssociatedProductById(gtn.getBean().getGoodsid());			
+			}			
+		}if("1".equals(gtn.getSpecificationId())){
+			GoodsSpecificationsRelationshipT gsrt = new GoodsSpecificationsRelationshipT();
+			gsrt.setSpecidicationsId(gtn.getSpecificationId());
+			gsrt.setGoodsSetId(gtn.getBean().getGoodsid());
+			gtn.getGoodsSpecificationsRelationshipTService().updateGoodsAssociatedProductById(gsrt);
+			
+		}
+	}
+    
 
 }
