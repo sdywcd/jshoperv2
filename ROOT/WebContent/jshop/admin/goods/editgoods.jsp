@@ -7,6 +7,11 @@
 	request.setCharacterEncoding("UTF-8");
 	String htmlData = request.getParameter("detail") != null ? request.getParameter("detail") : "";
 %>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String htmlDatacommoditylist = request.getParameter("commoditylist") != null ? request
+			.getParameter("commoditylist") : "";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -54,6 +59,9 @@
 							</li>
 							<li class="ui-state-default ui-corner-top">
 								<a href="#box-detail">描述</a>
+							</li>
+							<li class="ui-state-defautl ui-corner-top">
+								<a href="#box-commoditylist">清单信息</a>
 							</li>
 							<li class="ui-state-default ui-corner-top">
 								<a href="#box-seo">搜索优化</a>
@@ -442,7 +450,22 @@
 							</div>
 						</div>
 					</div>
-
+					<div id="box-commoditylist" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+						<div class="form">
+							<div class="fields">
+								<div class="field">
+									<div class="label label-textarea">
+										<label for="textarea">
+											商品清单:
+										</label>
+									</div>
+									<div style="margin: 0 0 0 200px;">
+										<textarea id="commoditylist" name="commoditylist" cols="50" rows="12" style="width: 100%; height: 400px; visibility: hidden;"><%=htmlspecialchars(htmlDatacommoditylist)%></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 
 					<div id="box-seo" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
 						<div class="form">
@@ -656,6 +679,11 @@
 					KE.util.setData(id);
 				});
 			}
+		});
+ 		KE.show({
+			id : 'commoditylist',
+			items : ['fontname', 'fontsize', '|', 'textcolor', 'bgcolor', 'bold', 'italic', 'underline',
+					'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist','insertunorderedlist']
 		});
  		
  	</script>

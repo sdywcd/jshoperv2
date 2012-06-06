@@ -32,6 +32,7 @@ import com.jshop.entity.ProductT;
 import com.jshop.service.ArticleCategoryTService;
 import com.jshop.service.ArticleTService;
 import com.jshop.service.GoodsCommentTService;
+import com.jshop.service.GoodsSpecificationsRelationshipTService;
 import com.jshop.service.GoodsTService;
 import com.jshop.service.GoodsTypeTNService;
 import com.jshop.service.JshopbasicInfoTService;
@@ -56,9 +57,11 @@ public class GoodsTNAction extends ActionSupport {
 	private GoodsTypeTNService goodsTypeTNService;
 	private CreateHtml createHtml;
 	private DataCollectionTAction dataCollectionTAction;
+	private GoodsSpecificationsRelationshipTService goodsSpecificationsRelationshipTService;
 	private String goodsid;
 	private String goodsname;
 	private String brandname;
+	
 	private String model;
 	private String nname;
 	private String lname;
@@ -139,6 +142,7 @@ public class GoodsTNAction extends ActionSupport {
 	private String staruser;
 	private String totalcomment;
 	private String ismobileplatformgoods;
+	
 	private String rejson;
 	private String query;//text
 	private String qtype;//select
@@ -162,6 +166,7 @@ public class GoodsTNAction extends ActionSupport {
 	private boolean slogin;
 	private boolean sucflag;
 	private String usession;
+	private String specificationId;
 	
 	@JSON(serialize = false)
 	public GoodsTypeTNService getGoodsTypeTNService() {
@@ -242,6 +247,16 @@ public class GoodsTNAction extends ActionSupport {
 
 	public void setGoodsCommentTService(GoodsCommentTService goodsCommentTService) {
 		this.goodsCommentTService = goodsCommentTService;
+	}
+	
+	@JSON(serialize = false)
+	public GoodsSpecificationsRelationshipTService getGoodsSpecificationsRelationshipTService() {
+		return goodsSpecificationsRelationshipTService;
+	}
+
+	public void setGoodsSpecificationsRelationshipTService(
+			GoodsSpecificationsRelationshipTService goodsSpecificationsRelationshipTService) {
+		this.goodsSpecificationsRelationshipTService = goodsSpecificationsRelationshipTService;
 	}
 
 	@JSON(serialize = false)
@@ -494,7 +509,7 @@ public class GoodsTNAction extends ActionSupport {
 	public void setMetaDescription(String metaDescription) {
 		this.metaDescription = metaDescription;
 	}
-
+	
 	public String getIsNew() {
 		return isNew;
 	}
@@ -863,6 +878,14 @@ public class GoodsTNAction extends ActionSupport {
 		this.total = total;
 	}
 
+	public String getSpecificationId() {
+		return specificationId;
+	}
+
+	public void setSpecificationId(String specificationId) {
+		this.specificationId = specificationId;
+	}
+
 	public File getFileupload() {
 		return fileupload;
 	}
@@ -1118,6 +1141,8 @@ public class GoodsTNAction extends ActionSupport {
 	public void setGmllist(List<GoodsparameterlistModel> gmllist) {
 		this.gmllist = gmllist;
 	}
+
+
 
 	/**
 	 * 清理错误
@@ -1535,6 +1560,7 @@ public class GoodsTNAction extends ActionSupport {
 	 * @return
 	 */
 	private boolean addSpecificationGoods() {
+		this.setSpecificationId(this.getSpecificationId());
 		GoodsT gt = new GoodsT();
 		gt.setGoodsid(this.getSerial().Serialid(Serial.GOODS));
 		gt.setGoodsname(this.getGoodsname());
@@ -1576,7 +1602,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setIsNew(this.getIsNew());
 		gt.setHtmlPath("#");
 		gt.setProductSn(this.getProductSn());
-		gt.setGoodsParameterValue(this.getGoodsParameterValue().trim());//在开启规格的时候同时开启了参数和属性
+		gt.setGoodsParameterValue("");//在开启规格的时候同时开启了参数和属性
 		gt.setFreezeStore(Integer.parseInt(this.getFreezeStore()));
 		gt.setKeywordid(this.getKeywordid());
 		gt.setGoodsTypeId(this.getGoodsTypeId());
@@ -2010,6 +2036,7 @@ public class GoodsTNAction extends ActionSupport {
 				}
 				if (this.getProductTService().addProductT(pt) > 0) {
 					count++;
+					//this.setPtasp(pt); //GoodsTaspect切片中使用
 				}
 			}
 			if (count == str.length) {

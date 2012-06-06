@@ -268,15 +268,15 @@ ServletRequestAware, ServletResponseAware{
 					//总价格
 					json.append("\"totalmemberprice\":\"").append(this.getTotalmemberprice()).append("\"");
 					json.append("}").append("--");
-					json.deleteCharAt(json.length()-1);
-					this.setResponsejsonstr(json.toString());
-					response.setContentType("text/html");
-					response.setCharacterEncoding("utf-8");
-					PrintWriter out=response.getWriter();
-					out.write(this.getResponsejsonstr());
-					out.flush();
-					out.close();
 				}
+				json.deleteCharAt(json.length()-1);
+				this.setResponsejsonstr(json.toString());
+				response.setContentType("text/html");
+				response.setCharacterEncoding("utf-8");
+				PrintWriter out=response.getWriter();
+				out.write(this.getResponsejsonstr());
+				out.flush();
+				out.close();
 			}
 		}
 	}
@@ -288,8 +288,9 @@ ServletRequestAware, ServletResponseAware{
 	 */
 	@Action(value="addelEctronicMenuCartforAndroid")
 	public void addelEctronicMenuCartforAndroid() throws IOException{
-		String tableNumber=this.getTableNumber();
-		String tablestate=this.getTablestate();
+		String goodsid=this.getGoodsid().trim();
+		String tableNumber=this.getTableNumber().trim();
+		String tablestate=this.getTablestate().trim();
 		String state="1";//新增加的菜
 		String sucflag = null;
 		List<GoodsT>gtlist1=this.getElectronicMenuCartBygoodsidforcart();

@@ -489,8 +489,9 @@ public class ArticleTAction extends ActionSupport {
 		at.setIsrecommend(this.getIsrecommend());
 		at.setIstop(this.getIstop());
 		at.setPageCount(this.getPageCount());
-		at.setCreatetime(BaseTools.systemtime());
+		at.setUpdatetime(BaseTools.systemtime());
 		at.setCreatorid(BaseTools.adminCreateId());
+		
 		at.setReadcount(Integer.parseInt(this.getReadcount()));
 		actbean = this.getArticleCategoryTService().findArticleCategoryByarticleCategoryTid(this.getArticleCategoryTid());
 		if (actbean != null) {
