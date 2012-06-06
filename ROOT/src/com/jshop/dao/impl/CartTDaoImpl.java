@@ -168,11 +168,11 @@ public class CartTDaoImpl extends HibernateDaoSupport implements CartTDao {
 		return 0;
 	}
 
-	public int delCartByGoodsId(final String userid, final String goodsid) {
+	public int delCartByGoodsId(final String userid, final String goodsid,final String state) {
 		log.debug("del cart goods");
 		try {
 
-			final String queryString = "delete from CartT as c where c.userid=:userid and c.goodsid=:goodsid";
+			final String queryString = "delete from CartT as c where c.state=:state,c.userid=:userid and c.goodsid=:goodsid";
 			this.getHibernateTemplate().execute(new HibernateCallback() {
 
 				public Object doInHibernate(Session session) throws HibernateException, SQLException {
@@ -180,6 +180,7 @@ public class CartTDaoImpl extends HibernateDaoSupport implements CartTDao {
 					int i = 0;
 					query.setParameter("userid", userid);
 					query.setParameter("goodsid", goodsid);
+					query.setParameter("state", state);
 					i = query.executeUpdate();
 
 					if (i > 0) {

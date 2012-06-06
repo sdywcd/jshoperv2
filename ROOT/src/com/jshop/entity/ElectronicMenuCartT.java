@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-6-2 0:06:28 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-6-4 11:26:05 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -25,7 +25,7 @@ public class ElectronicMenuCartT implements java.io.Serializable {
 	private Integer quantity;
 	private String picture;
 	private String usersetnum;
-	private double weight;
+	private String weight;
 	private String state;
 	private Double deliveryprice;
 	private String taste;
@@ -43,7 +43,7 @@ public class ElectronicMenuCartT implements java.io.Serializable {
 	public ElectronicMenuCartT(String id, String goodsid, String goodsname,
 			int needquantity, double memberprice, double points,
 			double subtotal, Date addtime, String picture, String usersetnum,
-			double weight, String state, String tableNumber, String tablestate,
+			String weight, String state, String tableNumber, String tablestate,
 			String electronicMenuCartid) {
 		this.id = id;
 		this.goodsid = goodsid;
@@ -66,7 +66,7 @@ public class ElectronicMenuCartT implements java.io.Serializable {
 			String goodsid, String goodsname, String userid, String username,
 			int needquantity, Double price, double memberprice,
 			Double changeprice, double points, double subtotal, Date addtime,
-			Integer quantity, String picture, String usersetnum, double weight,
+			Integer quantity, String picture, String usersetnum, String weight,
 			String state, Double deliveryprice, String taste,
 			String ispackaway, Integer lunchbox, String cookingstate,
 			String tableNumber, String roomName, String tablestate,
@@ -228,11 +228,11 @@ public class ElectronicMenuCartT implements java.io.Serializable {
 		this.usersetnum = usersetnum;
 	}
 
-	public double getWeight() {
+	public String getWeight() {
 		return this.weight;
 	}
 
-	public void setWeight(double weight) {
+	public void setWeight(String weight) {
 		this.weight = weight;
 	}
 

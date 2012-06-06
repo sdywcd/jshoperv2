@@ -142,7 +142,7 @@ public class GoodsTNAction extends ActionSupport {
 	private String staruser;
 	private String totalcomment;
 	private String ismobileplatformgoods;
-	
+	private String commoditylist;//清单
 	private String rejson;
 	private String query;//text
 	private String qtype;//select
@@ -1141,8 +1141,14 @@ public class GoodsTNAction extends ActionSupport {
 	public void setGmllist(List<GoodsparameterlistModel> gmllist) {
 		this.gmllist = gmllist;
 	}
+	
+	public String getCommoditylist() {
+		return commoditylist;
+	}
 
-
+	public void setCommoditylist(String commoditylist) {
+		this.commoditylist = commoditylist;
+	}
 
 	/**
 	 * 清理错误
@@ -1246,6 +1252,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setTotalcomment(0);
 		gt.setVirtualsale(0);
 		gt.setIsmobileplatformgoods(this.getIsmobileplatformgoods());
+		gt.setCommoditylist(this.getCommoditylist());
 		if (this.getGoodsTService().addGoods(gt) > 0) {
 			this.setBean(gt);
 			return true;
@@ -1346,6 +1353,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setTotalcomment(bean.getTotalcomment());
 		gt.setVirtualsale(bean.getVirtualsale());
 		gt.setIsmobileplatformgoods(this.getIsmobileplatformgoods());
+		gt.setCommoditylist(this.getCommoditylist());
 		if (this.getGoodsTService().updateGoods(gt) > 0) {
 			this.setBean(gt);
 			return true;
@@ -1445,6 +1453,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setTotalcomment(0);
 		gt.setVirtualsale(0);
 		gt.setIsmobileplatformgoods(this.getIsmobileplatformgoods());
+		gt.setCommoditylist(this.getCommoditylist());
 		if (this.getGoodsTService().addGoods(gt) > 0) {
 			this.setBean(gt);
 			return true;
@@ -1545,6 +1554,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setTotalcomment(bean.getTotalcomment());
 		gt.setVirtualsale(bean.getVirtualsale());
 		gt.setIsmobileplatformgoods(this.getIsmobileplatformgoods());
+		gt.setCommoditylist(this.getCommoditylist());
 		if (this.getGoodsTService().updateGoods(gt) > 0) {
 			this.setBean(gt);
 
@@ -1646,6 +1656,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setTotalcomment(0);
 		gt.setVirtualsale(0);
 		gt.setIsmobileplatformgoods(this.getIsmobileplatformgoods());
+		gt.setCommoditylist(this.getCommoditylist());
 		if (this.getGoodsTService().addGoods(gt) > 0) {
 			//此处要增加商品货品到货品表
 			ProductT pt = new ProductT();
@@ -1808,6 +1819,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setTotalcomment(bean.getTotalcomment());
 		gt.setVirtualsale(bean.getVirtualsale());
 		gt.setIsmobileplatformgoods(this.getIsmobileplatformgoods());
+		gt.setCommoditylist(this.getCommoditylist());
 		if (this.getGoodsTService().updateGoods(gt) > 0) {
 			//此处要增加商品货品到货品表
 			ProductT pt = new ProductT();
@@ -1980,6 +1992,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setTotalcomment(0);
 		gt.setVirtualsale(0);
 		gt.setIsmobileplatformgoods(this.getIsmobileplatformgoods());
+		gt.setCommoditylist(this.getCommoditylist());
 		if (this.getGoodsTService().addGoods(gt) > 0) {
 			//此处要增加商品货品到货品表
 			ProductT pt = new ProductT();
@@ -2143,6 +2156,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setTotalcomment(bean.getTotalcomment());
 		gt.setVirtualsale(bean.getVirtualsale());
 		gt.setIsmobileplatformgoods(this.getIsmobileplatformgoods());
+		gt.setCommoditylist(this.getCommoditylist());
 		if (this.getGoodsTService().updateGoods(gt) > 0) {
 			//此处要增加商品货品到货品表
 			ProductT pt = new ProductT();

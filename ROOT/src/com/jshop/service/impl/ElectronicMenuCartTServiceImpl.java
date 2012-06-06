@@ -53,7 +53,7 @@ public class ElectronicMenuCartTServiceImpl implements ElectronicMenuCartTServic
 		return this.getElectronicMenuCartTDao().findElectronicMenuCartTByelectronicMenuOrderid(electronicMenuOrderid, state);
 	}
 
-	public List<ElectronicMenuCartT> findGoodsInElectronicMenuCartTOrNot(String tableNumber, String tablestate, String goodsid, String state) {
+	public ElectronicMenuCartT findGoodsInElectronicMenuCartTOrNot(String tableNumber, String tablestate, String goodsid, String state) {
 		return this.getElectronicMenuCartTDao().findGoodsInElectronicMenuCartTOrNot(tableNumber, tablestate, goodsid, state);
 	}
 

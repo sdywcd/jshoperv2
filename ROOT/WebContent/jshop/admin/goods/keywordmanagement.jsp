@@ -67,7 +67,7 @@
 									<div class="select">
 										<select id="type" name="type">
 											<option value="0">
-												--请选择--
+												---请选择---
 											</option>
 											<option value="1">
 												商品类型

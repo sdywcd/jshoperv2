@@ -147,9 +147,15 @@ public class CreateStaticHtmlAspect {
 			map.put(FreeMarkervariable.FOOTERATRICLE, ata.getDataCollectionTAction().findFooterArticle());
 			//获取文章详细
 			map.put(FreeMarkervariable.ARTICLE, ata.getBean());
-			//更新文章静态路径
-			String htmlPath = ata.getCreateHtml().createArticleT(BaseTools.getApplicationthemesig()+"_"+ContentTag.TEMPLATENAMEFORARTICLE, ata.getBean().getArticleid(), map);
-			ata.getArticleTService().updateHtmlPath(ata.getBean().getArticleid(), htmlPath);
+			if("1".equals(ata.getBean().getIsnotice())){
+				//更新文章静态路径
+				String htmlPath = ata.getCreateHtml().createArticleT(BaseTools.getApplicationthemesig()+"_"+ContentTag.TEMPLATENAMEFORNOTICE, ata.getBean().getArticleid(), map);
+				ata.getArticleTService().updateHtmlPath(ata.getBean().getArticleid(), htmlPath);
+			}else{
+				//更新文章静态路径
+				String htmlPath = ata.getCreateHtml().createArticleT(BaseTools.getApplicationthemesig()+"_"+ContentTag.TEMPLATENAMEFORARTICLE, ata.getBean().getArticleid(), map);
+				ata.getArticleTService().updateHtmlPath(ata.getBean().getArticleid(), htmlPath);
+			}
 		}
 	}
 

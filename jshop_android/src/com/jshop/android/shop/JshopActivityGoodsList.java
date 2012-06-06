@@ -148,15 +148,16 @@ public class JshopActivityGoodsList extends Activity{
 		
 	}
 	private Bitmap getPictureurlImg(String pictureurl) throws IOException{
-	URL url=new URL(pictureurl);
-	HttpURLConnection conn=(HttpURLConnection)url.openConnection();
-	conn.setRequestMethod("GET");
-	conn.setConnectTimeout(5*1000);
-	InputStream in=conn.getInputStream();
-	Bitmap bm=BitmapFactory.decodeStream(in);
-	in.close();
-	return bm;
-}
+		URL url=new URL(pictureurl);
+		HttpURLConnection conn=(HttpURLConnection)url.openConnection();
+		conn.setRequestMethod("GET");
+		conn.setConnectTimeout(5*1000);
+		InputStream in=conn.getInputStream();
+		Bitmap bm=BitmapFactory.decodeStream(in);
+		in.close();
+		return bm;
+
+	}
 	
 
 }

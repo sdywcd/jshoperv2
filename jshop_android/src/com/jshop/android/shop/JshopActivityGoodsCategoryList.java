@@ -67,7 +67,7 @@ public class JshopActivityGoodsCategoryList extends Activity{
 	 * 向服务器发送请求获取商品分类信息
 	 */
 	private String queryGoodsCategoryForJshop(){
-		String posturl=JshopActivityUtil.BASE_URL+JshopMPostActionList.FINDALLGOODSCATEGORYTFORANDROID;
+		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.FINDALLGOODSCATEGORYTFORANDROID;
 		return JshopActivityUtil.queryStringForPost(posturl);
 	}
 	
@@ -90,7 +90,6 @@ public class JshopActivityGoodsCategoryList extends Activity{
 					map.put("sort", jo.getString("sort"));
 					goodscategoryList.add(map);
 				}
-				
 			}
 		}
 	}

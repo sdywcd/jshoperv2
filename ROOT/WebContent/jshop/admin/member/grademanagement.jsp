@@ -50,7 +50,6 @@
 							增加/编辑会员等级
 						</h5>
 					</div>
-					<form id="form" action="addGradet.action" method="post">
 						<div class="form">
 							<div class="fields">
 
@@ -63,7 +62,7 @@
 									<div class="select">
 										<select id="gradevalue" name="gradevalue">
 											<option value="0">
-												--请选择--
+												---请选择---
 											</option>
 											<option value="1">
 												普通会员
@@ -108,16 +107,13 @@
 									<div class="label">
 										<label for="input-small"></label>
 									</div>
-									<div class="input">
-										<s:property value="#request.errormsg" />
-									</div>
+								
 								</div>
 								<div class="buttons">
 
 									<div class="highlight">
-										<input type="submit" id="submit" name="submit" value="增加会员等级" />
-										<input style="display: none;" type="button" id="editgrade" name="editgrade" value="更新会员等级" />
-										<s:hidden id="gradename" name="gradename" value=""></s:hidden>
+										<input type="submit" id="submit" name="submit" value="增加" />
+										<input style="display: none;" type="button" id="editgrade" name="editgrade" value="更新" />
 										<input type="hidden" id="gradeid" name="gradeid" value="" />
 									</div>
 								</div>
@@ -125,11 +121,7 @@
 							</div>
 						</div>
 
-					</form>
 				</div>
-				<!-- end table -->
-
-
 
 			</div>
 			<!-- end content / right -->

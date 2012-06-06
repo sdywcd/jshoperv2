@@ -367,7 +367,7 @@ public class GoodsTypeTNAction extends ActionSupport {
 		this.setGoodstypetnlist("");
 		List<GoodsTypeTN> list = this.getGoodsTypeTNService().findAllGoodsTypeTNNopage();
 		if (list != null) {
-			this.setGoodstypetnlist("<option value='0'>--请选择--</option>");
+			this.setGoodstypetnlist("<option value='0'>---请选择---</option>");
 			for (Iterator it = list.iterator(); it.hasNext();) {
 				GoodsTypeTN gtn = (GoodsTypeTN) it.next();
 				this.goodstypetnlist += "<option value='" + gtn.getGoodsTypeId() + "'>" + gtn.getName() + "</option>";

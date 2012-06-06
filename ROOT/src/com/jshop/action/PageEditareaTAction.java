@@ -334,7 +334,7 @@ public class PageEditareaTAction extends ActionSupport {
 		String isVisible = "1";
 		List<SiteNavigationT> list = this.getSiteNavigationTService().findSiteNavigationByisVisible(isVisible, BaseTools.adminCreateId());
 		if (list != null) {
-			this.setSitenavigationstr("<option value='-1'>--请选择--</option>");
+			this.setSitenavigationstr("<option value='-1'>---请选择---</option>");
 			for (Iterator it = list.iterator(); it.hasNext();) {
 				SiteNavigationT sn = (SiteNavigationT) it.next();
 				this.sitenavigationstr += "<option value='" + sn.getSnid() + "," + sn.getHtmlPath() + "," + sn.getSign() + "'>" + sn.getName() + "</option>";
@@ -358,7 +358,7 @@ public class PageEditareaTAction extends ActionSupport {
 		this.setGoodscategorystr("");
 		List<GoodsCategoryT> list = this.getGoodsCategoryTService().findAllGoodsCategoryBycreatorid(BaseTools.adminCreateId());
 		if (list != null) {
-			this.setGoodscategorystr("<option value='-1'>--请选择--</option>");
+			this.setGoodscategorystr("<option value='-1'>---请选择---</option>");
 			for (Iterator it = list.iterator(); it.hasNext();) {
 				GoodsCategoryT gct = (GoodsCategoryT) it.next();
 				this.goodscategorystr += "<option value='" + gct.getGoodsCategoryTid() + "," + gct.getSign() + "'>" + gct.getName() + "</option>";

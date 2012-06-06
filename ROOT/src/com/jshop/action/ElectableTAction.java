@@ -312,7 +312,7 @@ public class ElectableTAction extends ActionSupport {
 		List<TableT> list = this.getTableTService().findAllTableT();
 		if(list!=null){
 			this.setTabletstrs("");
-			this.setTabletstrs("<option value='-1'>--请选择--</option>");
+			this.setTabletstrs("<option value='-1'>---请选择---</option>");
 			for(Iterator it =list.iterator(); it.hasNext();){
 				TableT tt = (TableT) it.next();
 				this.tabletstrs += "<input id='"+tt.getTableid()+"' value='" +tt.getTableNumber()+"' />";
