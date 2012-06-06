@@ -252,9 +252,9 @@ public class GoodsGroupTAction {
 		rows.clear();
 		for(Iterator it = ggtList.iterator();it.hasNext();){
 			GoodsGroupT ggt =(GoodsGroupT) it.next();
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("id", ggt.getGroupid());
-			map.put("cell", new Object[]{
+			Map<String, Object> cellMap = new HashMap<String, Object>();
+			cellMap.put("id", ggt.getGroupid());
+			cellMap.put("cell", new Object[]{
 					ggt.getGoodsid(),
 					ggt.getGoodsname(),
 					ggt.getPriceladder(),
@@ -270,7 +270,7 @@ public class GoodsGroupTAction {
 					ggt.getTotalOrderCount(),
 					ggt.getDetail()
 			});
-			rows.add(ggt);
+			rows.add(cellMap);
 		}
 		
 	}
