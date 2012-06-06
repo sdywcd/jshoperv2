@@ -30,5 +30,21 @@ public interface GoodsGroupTService {
 	 * @return
 	 */
 	public int delGoodsGroupT(String []list);
+	/**
+	 * 统计所有团购商品的数量
+	 * @param creatorid
+	 * @return
+	 */
+	public int countAllGoodsGroupT();
+	/**
+	 *根据字段按照排序方式排序
+	 * @param currentPage
+	 * @param lineSize
+	 * @param creatorid
+	 * @param queryString
+	 * @return
+	 */
+	public List<GoodsGroupT> sortAllGoodsGroup(final int currentPage, final int lineSize, final String queryString);
+
 
 }

@@ -158,8 +158,7 @@ public class TableTDaoImpl extends HibernateDaoSupport implements TableTDao{
 	public void updateTableT(TableT t) {
 		log.debug("updateTableT");
 		try {
-			this.getHibernateTemplate().update(t);
-			
+			this.getHibernateTemplate().update(t);			
 		} catch (RuntimeException re) {
 			log.error("updateTableT failed", re);
 			throw re;
