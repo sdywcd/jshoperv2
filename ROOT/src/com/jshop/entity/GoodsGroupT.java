@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-6-4 11:26:05 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-6-7 13:11:35 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -26,6 +26,7 @@ public class GoodsGroupT implements java.io.Serializable {
 	private double sendpoint;
 	private String priceladder;
 	private String detail;
+	private String pictureurl;
 
 	public GoodsGroupT() {
 	}
@@ -34,7 +35,7 @@ public class GoodsGroupT implements java.io.Serializable {
 			String state, Date begintime, Date endtime, String creatorid,
 			Date createtime, String cashstate, int limitbuy, int salequantity,
 			int SOrderCount, int totalOrderCount, double sendpoint,
-			String detail) {
+			String detail, String pictureurl) {
 		this.groupid = groupid;
 		this.goodsid = goodsid;
 		this.goodsname = goodsname;
@@ -50,13 +51,15 @@ public class GoodsGroupT implements java.io.Serializable {
 		this.totalOrderCount = totalOrderCount;
 		this.sendpoint = sendpoint;
 		this.detail = detail;
+		this.pictureurl = pictureurl;
 	}
 
 	public GoodsGroupT(String groupid, String goodsid, String goodsname,
 			String state, Date begintime, Date endtime, String creatorid,
 			Date createtime, String cashstate, Double cashlimit, int limitbuy,
 			int salequantity, int SOrderCount, int totalOrderCount,
-			double sendpoint, String priceladder, String detail) {
+			double sendpoint, String priceladder, String detail,
+			String pictureurl) {
 		this.groupid = groupid;
 		this.goodsid = goodsid;
 		this.goodsname = goodsname;
@@ -74,6 +77,7 @@ public class GoodsGroupT implements java.io.Serializable {
 		this.sendpoint = sendpoint;
 		this.priceladder = priceladder;
 		this.detail = detail;
+		this.pictureurl = pictureurl;
 	}
 
 	public String getGroupid() {
@@ -210,6 +214,14 @@ public class GoodsGroupT implements java.io.Serializable {
 
 	public void setDetail(String detail) {
 		this.detail = detail;
+	}
+
+	public String getPictureurl() {
+		return this.pictureurl;
+	}
+
+	public void setPictureurl(String pictureurl) {
+		this.pictureurl = pictureurl;
 	}
 
 }

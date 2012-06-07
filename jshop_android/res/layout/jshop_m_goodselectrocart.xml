@@ -18,13 +18,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:baselineAligned="true" >
-
-            <ImageButton
-                android:id="@+id/imageButton1"
+
+            <Button
+                android:id="@+id/Buttonback"
+                android:textColor="#ffffff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:src="@drawable/floorleftbutton" />
+                android:background="@drawable/floorleftbuttonleftbg"
+                android:text="@string/back" />
 
             <Button
                 android:id="@+id/button1"
@@ -34,14 +35,16 @@
                 android:background="@drawable/floortitlebg"
                 android:text="@string/myelectrocart"
                 android:textColor="#FFFFFF" />
-
-            <ImageButton
-                android:id="@+id/imageButton3"
+
+            <Button
+                android:id="@+id/Buttonmaidan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:background="#00000000"
-                android:src="@drawable/floorrightbutton" />
+                android:background="@drawable/floorleftbuttonrightbg"
+                android:text="@string/diandan"
+                android:textColor="#ffffff" />
+
         </TableRow>
     </LinearLayout>
 

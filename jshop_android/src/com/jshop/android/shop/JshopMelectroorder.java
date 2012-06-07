@@ -36,6 +36,7 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -71,6 +72,7 @@ import com.jshop.android.util.JshopMPostActionList;
  */
 public class JshopMelectroorder extends Activity{
 	
+	private Button Buttonback,Buttondiandan;
 	private String requestjsonstr;
 	private ArrayList<HashMap<String, Object>> electrocartgoodslists = new ArrayList<HashMap<String, Object>>();
 	private ListView listViews;
