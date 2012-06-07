@@ -20,12 +20,12 @@
             android:baselineAligned="true" >
 
             <Button
-                android:id="@+id/Buttonback"
+                android:id="@+id/Buttonmaidan"
                 android:textColor="#ffffff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/floorleftbuttonleftbg"
-                android:text="@string/back" />
+                android:text="@string/maidan" />
 
             <Button
                 android:id="@+id/button1"

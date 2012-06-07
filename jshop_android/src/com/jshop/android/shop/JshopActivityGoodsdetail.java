@@ -83,8 +83,8 @@ public class JshopActivityGoodsdetail extends Activity {
 					//进入购物车处理页面
 					Intent intent=new Intent(JshopActivityGoodsdetail.this,JshopMelectrocart.class);
 					intent.putExtra("goodsid", goodsdetail.get(0).get("goodsid").toString());
-					intent.putExtra("tablestate", temp[0].toString());
-					intent.putExtra("tableNumber", temp[1].toString());
+					//intent.putExtra("tablestate", temp[0].toString());
+					//intent.putExtra("tableNumber", temp[1].toString());
 					startActivity(intent);
 				}
 				

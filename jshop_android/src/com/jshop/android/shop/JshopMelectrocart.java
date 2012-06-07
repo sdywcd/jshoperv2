@@ -36,6 +36,7 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -71,6 +72,7 @@ import com.jshop.android.util.JshopMPostActionList;
  * @Data 2012-5-10 下午03:47:04
  */
 public class JshopMelectrocart extends Activity{
+	private Button buttonmaidan,buttondiandan;
 	private TextView totalcartprice;
 	private String requestjsonstr;
 	private ArrayList<HashMap<String, Object>> electrocartgoodslists = new ArrayList<HashMap<String, Object>>();
@@ -85,17 +87,19 @@ public class JshopMelectrocart extends Activity{
 		this.setContentView(R.layout.jshop_m_goodselectrocart);
 		listViews=(ListView) this.findViewById(R.id.listViewmyelectrocart);
 		totalcartprice=(TextView)this.findViewById(R.id.totalprice);
+		buttondiandan=(Button)this.findViewById(R.id.Buttondiandan);
+		buttonmaidan=(Button)this.findViewById(R.id.Buttonmaidan);
 		Intent intent=this.getIntent();
 		String goodsid=intent.getStringExtra("goodsid");
 		String tablestate=intent.getStringExtra("tablestate");
 		String tableNumber=intent.getStringExtra("tableNumber");
-		String []temp=readJmtable().split(",");
+		final String []temp=readJmtable().split(",");
 		if("-1".equals(temp[0])){
 			Toast t=Toast.makeText(getApplicationContext(), "您还没有消费", Toast.LENGTH_LONG);
 			t.show();
 		}else{
 			try {
-				findelectrocart(tablestate,tableNumber);
+				findelectrocart(temp[0],temp[1]);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -134,6 +138,29 @@ public class JshopMelectrocart extends Activity{
 		//注入总价值
 		
 		totalcartprice.setText(totalprice.toString());
+		/**
+		 * 点击点菜按钮
+		 */
+		buttondiandan.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				String tablestate=temp[0].toString();
+				String tableNumber=temp[1].toString();
+				String backstring=addelectororder(tablestate,tableNumber);
+				if(!"failed".equals(backstring)){
+					Intent intent=new Intent(JshopMelectrocart.this,JshopMelectroorderdetail.class);
+					intent.putExtra("electronicMenuOrderid",backstring);
+					startActivity(intent);
+				}
+			}
+		});
+	}
+	/**
+	 * 增加电子订单
+	 */
+	private String addelectororderForJshop(String tablestate,String tableNumber){
+		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.ADDELECTRONICMENUORDERTFORANDORID+"?tablestate="+tablestate+"&tableNumber="+tableNumber;
+		return JshopActivityUtil.queryStringForPost(posturl);
 	}
 	
 	/**
@@ -144,7 +171,19 @@ public class JshopMelectrocart extends Activity{
 		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.ADDELECTRONICMENUCARTFORANDROID+"?goodsid="+goodsid+"&tableNumber="+tableNumber+"&tablestate="+tablestate+"&needquantity="+needquantity;
 		return JshopActivityUtil.queryStringForPost(posturl);
 	}
-	
+	/**
+	 * 新增电子订单
+	 * @param tablestate
+	 * @param tableNumber
+	 * @return
+	 */
+	private String addelectororder(String tablestate,String tableNumber){
+		requestjsonstr=addelectororderForJshop(tablestate,tableNumber);
+		if(!"failed".equals(requestjsonstr)){
+			return null;
+		}
+		return requestjsonstr;
+	}
 	/**
 	 * 根据餐桌号获取电子菜单信息
 	 * @param tablestate

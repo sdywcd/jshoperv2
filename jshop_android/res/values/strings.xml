@@ -53,4 +53,5 @@
 	<string name="myelectrocart">已点菜单</string>
 	<string name="totalprice">总价</string>
 	<string name="diandan">点单</string>
+	<string name="maidan">买单</string>
 </resources>

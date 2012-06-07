@@ -325,63 +325,125 @@ ServletRequestAware, ServletResponseAware {
 		    String tablestate=this.getTablestate().trim();
 		    String tableNumber=this.getTableNumber().trim();
 		    String sucflag = null;
-		    List<ElectronicMenuCartT>list=this.getElectronicMenuCartTService().findAllElectronicMenuCartTBytableNumber(tableNumber, tablestate);
-			if(!list.isEmpty()){
-				getElectronicMenuCartT(list);
-				eleorder=new ElectronicMenuOrderT();
-				eleorder.setElectronicMenuOrderid(electronicMenuOrderid);
-				eleorder.setUserid("0");//无会员
-				eleorder.setUsername("0");
-				eleorder.setPaymentid("0");//无在线支付
-				eleorder.setPaymentname("0");
-				eleorder.setDelivermode("0");//无外送
-				eleorder.setDeliverynumber("0");
-				eleorder.setElectronicorderstate("0");//待确认
-				eleorder.setLogisticsid("0");
-				eleorder.setFreight(0.0);//无运费
-				eleorder.setAmount(this.getTotal());
-				eleorder.setPoints(this.getTotalpoints());
-				eleorder.setPurchasetime(BaseTools.systemtime());
-				eleorder.setDeliverytime(null);
-				eleorder.setInvoice("0");//不开发票
-				eleorder.setShippingaddressid("0");//无发货地址
-				eleorder.setCustomernotes("");//无客户留言
-				eleorder.setLogisticswebaddress("");//无物流商地址
-				eleorder.setPaytime(null);
-				eleorder.setOrderTag("1");//店内订单
-				eleorder.setToBuyer(null);//给客户留言
-				eleorder.setShouldpay(Arith.add(this.getTotal(),0.0));//无运费下的需支付
-				eleorder.setUsepoints(0.0);//用户没有使用积分
-				eleorder.setVouchersid(null);//无优惠券
-				eleorder.setGoodid(this.getElecartgoodsid());
-				eleorder.setGoodsname(this.getElecartgoodsname());
-				eleorder.setNeedquantity(this.getElecartneedquantity());
-				eleorder.setPaystate("0");//未付款
-				eleorder.setShippingstate("0");//配货中，可以是配菜中
-				eleorder.setDeliveraddressid("0");//没有收获地址
-				eleorder.setShippingusername("");
-				eleorder.setCreatetime(BaseTools.systemtime());
-				eleorder.setHasprintexpress("0");//未打印快递单
-				eleorder.setHasprintinvoice("0");//未打印发货单
-				eleorder.setHasprintfpinvoice("0");//未开具发票
-				eleorder.setExpressnumber("0");//无快递单号
-				eleorder.setTradeNo("0");//无支付宝交易号
-				eleorder.setTableNumber(tableNumber);
-				eleorder.setRoomName("");
-				eleorder.setTablestate(tablestate);
-				if(this.getElectronicMenuOrderTService().addElectronicMenuOrderT(eleorder)>0){
-					sucflag="success";
-				}else{
-					sucflag="failed";
+		    //3，检查电子订单中是否已经有相应的桌号对应的订单,如果有则进行菜单的重新计算，如果没有则新增电子订单
+		    List<ElectronicMenuOrderT>oldeleorder=this.getElectronicMenuOrderTService().findAllElectronicMenuOrderTBytableNumberandstate(tableNumber, tablestate, "0");
+		    if(!oldeleorder.isEmpty()){
+		    	//向订单新增菜品
+		    	List<ElectronicMenuCartT>list=this.getElectronicMenuCartTService().findAllElectronicMenuCartTBytableNumber(tableNumber, tablestate);
+				if(!list.isEmpty()){
+					getElectronicMenuCartT(list);
+					eleorder=new ElectronicMenuOrderT();
+					eleorder.setElectronicMenuOrderid(oldeleorder.get(0).getElectronicMenuOrderid());
+					eleorder.setUserid("0");//无会员
+					eleorder.setUsername("0");
+					eleorder.setPaymentid("0");//无在线支付
+					eleorder.setPaymentname("0");
+					eleorder.setDelivermode("0");//无外送
+					eleorder.setDeliverynumber("0");
+					eleorder.setElectronicorderstate("0");//待确认
+					eleorder.setLogisticsid("0");
+					eleorder.setFreight(0.0);//无运费
+					eleorder.setAmount(this.getTotal());
+					eleorder.setPoints(this.getTotalpoints());
+					eleorder.setPurchasetime(BaseTools.systemtime());
+					eleorder.setDeliverytime(null);
+					eleorder.setInvoice("0");//不开发票
+					eleorder.setShippingaddressid("0");//无发货地址
+					eleorder.setCustomernotes("");//无客户留言
+					eleorder.setLogisticswebaddress("");//无物流商地址
+					eleorder.setPaytime(null);
+					eleorder.setOrderTag("1");//店内订单
+					eleorder.setToBuyer(null);//给客户留言
+					eleorder.setShouldpay(Arith.add(this.getTotal(),0.0));//无运费下的需支付
+					eleorder.setUsepoints(0.0);//用户没有使用积分
+					eleorder.setVouchersid(null);//无优惠券
+					eleorder.setGoodid(this.getElecartgoodsid());
+					eleorder.setGoodsname(this.getElecartgoodsname());
+					eleorder.setNeedquantity(this.getElecartneedquantity());
+					eleorder.setPaystate("0");//未付款
+					eleorder.setShippingstate("0");//配货中，可以是配菜中
+					eleorder.setDeliveraddressid("0");//没有收获地址
+					eleorder.setShippingusername("");
+					eleorder.setCreatetime(BaseTools.systemtime());
+					eleorder.setHasprintexpress("0");//未打印快递单
+					eleorder.setHasprintinvoice("0");//未打印发货单
+					eleorder.setHasprintfpinvoice("0");//未开具发票
+					eleorder.setExpressnumber("0");//无快递单号
+					eleorder.setTradeNo("0");//无支付宝交易号
+					eleorder.setTableNumber(tableNumber);
+					eleorder.setRoomName("");
+					eleorder.setTablestate(tablestate);
+					this.getElectronicMenuOrderTService().updateElectronicMenuOrderT(eleorder);
+					sucflag=eleorder.getElectronicMenuOrderid();
+					response.setContentType("text/html");
+					response.setCharacterEncoding("utf-8");
+					PrintWriter out=response.getWriter();
+					out.write(sucflag);
+					out.flush();
+					out.close();
+					
 				}
-				response.setContentType("text/html");
-				response.setCharacterEncoding("utf-8");
-				PrintWriter out=response.getWriter();
-				out.write(sucflag);
-				out.flush();
-				out.close();
-				
-			}
+		    }else{
+		    	//新增订单
+		    	 List<ElectronicMenuCartT>list=this.getElectronicMenuCartTService().findAllElectronicMenuCartTBytableNumber(tableNumber, tablestate);
+					if(!list.isEmpty()){
+						getElectronicMenuCartT(list);
+						eleorder=new ElectronicMenuOrderT();
+						eleorder.setElectronicMenuOrderid(electronicMenuOrderid);
+						eleorder.setUserid("0");//无会员
+						eleorder.setUsername("0");
+						eleorder.setPaymentid("0");//无在线支付
+						eleorder.setPaymentname("0");
+						eleorder.setDelivermode("0");//无外送
+						eleorder.setDeliverynumber("0");
+						eleorder.setElectronicorderstate("0");//待确认
+						eleorder.setLogisticsid("0");
+						eleorder.setFreight(0.0);//无运费
+						eleorder.setAmount(this.getTotal());
+						eleorder.setPoints(this.getTotalpoints());
+						eleorder.setPurchasetime(BaseTools.systemtime());
+						eleorder.setDeliverytime(null);
+						eleorder.setInvoice("0");//不开发票
+						eleorder.setShippingaddressid("0");//无发货地址
+						eleorder.setCustomernotes("");//无客户留言
+						eleorder.setLogisticswebaddress("");//无物流商地址
+						eleorder.setPaytime(null);
+						eleorder.setOrderTag("1");//店内订单
+						eleorder.setToBuyer(null);//给客户留言
+						eleorder.setShouldpay(Arith.add(this.getTotal(),0.0));//无运费下的需支付
+						eleorder.setUsepoints(0.0);//用户没有使用积分
+						eleorder.setVouchersid(null);//无优惠券
+						eleorder.setGoodid(this.getElecartgoodsid());
+						eleorder.setGoodsname(this.getElecartgoodsname());
+						eleorder.setNeedquantity(this.getElecartneedquantity());
+						eleorder.setPaystate("0");//未付款
+						eleorder.setShippingstate("0");//配货中，可以是配菜中
+						eleorder.setDeliveraddressid("0");//没有收获地址
+						eleorder.setShippingusername("");
+						eleorder.setCreatetime(BaseTools.systemtime());
+						eleorder.setHasprintexpress("0");//未打印快递单
+						eleorder.setHasprintinvoice("0");//未打印发货单
+						eleorder.setHasprintfpinvoice("0");//未开具发票
+						eleorder.setExpressnumber("0");//无快递单号
+						eleorder.setTradeNo("0");//无支付宝交易号
+						eleorder.setTableNumber(tableNumber);
+						eleorder.setRoomName("");
+						eleorder.setTablestate(tablestate);
+						if(this.getElectronicMenuOrderTService().addElectronicMenuOrderT(eleorder)>0){
+							sucflag=eleorder.getElectronicMenuOrderid();//这里返回订单号
+						}else{
+							sucflag="failed";
+						}
+						response.setContentType("text/html");
+						response.setCharacterEncoding("utf-8");
+						PrintWriter out=response.getWriter();
+						out.write(sucflag);
+						out.flush();
+						out.close();
+						
+					}
+		    }
+		    
 		}
 	}
 	
