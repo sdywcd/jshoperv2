@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-6-4 11:26:05 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-6-7 14:23:05 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -10,7 +10,6 @@ import java.util.Date;
 public class GoodsBelinkedT implements java.io.Serializable {
 
 	private String belinkedid;
-	private int version;
 	private String maingoodsid;
 	private String belinkedgoodsid;
 	private String mode;
@@ -18,6 +17,7 @@ public class GoodsBelinkedT implements java.io.Serializable {
 	private String creatorid;
 	private Date createtime;
 	private Date updatetime;
+	private int versiont;
 	private String sxlinkedgoodsid;
 
 	public GoodsBelinkedT() {
@@ -25,7 +25,7 @@ public class GoodsBelinkedT implements java.io.Serializable {
 
 	public GoodsBelinkedT(String belinkedid, String maingoodsid,
 			String belinkedgoodsid, String mode, String state,
-			String creatorid, Date createtime, Date updatetime,
+			String creatorid, Date createtime, Date updatetime, int versiont,
 			String sxlinkedgoodsid) {
 		this.belinkedid = belinkedid;
 		this.maingoodsid = maingoodsid;
@@ -35,6 +35,7 @@ public class GoodsBelinkedT implements java.io.Serializable {
 		this.creatorid = creatorid;
 		this.createtime = createtime;
 		this.updatetime = updatetime;
+		this.versiont = versiont;
 		this.sxlinkedgoodsid = sxlinkedgoodsid;
 	}
 
@@ -44,14 +45,6 @@ public class GoodsBelinkedT implements java.io.Serializable {
 
 	public void setBelinkedid(String belinkedid) {
 		this.belinkedid = belinkedid;
-	}
-
-	public int getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
 	}
 
 	public String getMaingoodsid() {
@@ -108,6 +101,14 @@ public class GoodsBelinkedT implements java.io.Serializable {
 
 	public void setUpdatetime(Date updatetime) {
 		this.updatetime = updatetime;
+	}
+
+	public int getVersiont() {
+		return this.versiont;
+	}
+
+	public void setVersiont(int versiont) {
+		this.versiont = versiont;
 	}
 
 	public String getSxlinkedgoodsid() {

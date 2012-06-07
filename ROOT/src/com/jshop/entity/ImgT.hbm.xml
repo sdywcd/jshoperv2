@@ -1,16 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2012-6-4 11:26:05 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2012-6-7 14:23:06 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="com.jshop.entity.ImgT" table="img_t" catalog="jshopactive">
         <id name="imgId" type="string">
             <column name="IMG_ID" length="20" />
             <generator class="assigned" />
         </id>
-        <version name="version" type="java.lang.Integer">
-            <column name="VERSION" />
-        </version>
         <property name="imgName" type="string">
             <column name="IMG_NAME" length="45" />
         </property>
@@ -37,6 +34,9 @@
         </property>
         <property name="usedPositionId" type="string">
             <column name="USED_POSITION_ID" length="20" />
+        </property>
+        <property name="versiont" type="java.lang.Integer">
+            <column name="VERSIONT" />
         </property>
         <property name="usedGoodsname" type="string">
             <column name="USED_GOODSNAME" length="100" />

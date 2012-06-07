@@ -35,6 +35,9 @@ public class JshopMPostActionList {
 	 * 根据餐桌号获取电子菜单信息
 	 */
 	public static final String FINDALLELECTRONICMENUCARTTBYTABLENUMBERFORANDROID="findAllElectronicMenuCartTBytableNumberforAndroid.action";
-	
+	/**
+	 * 加入电子菜单订单
+	 */
+	public static final String ADDELECTRONICMENUORDERTFORANDORID="addElectronicMenuOrderTForAndorid.action";
 	
 }

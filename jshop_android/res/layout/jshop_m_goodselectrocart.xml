@@ -37,7 +37,7 @@
                 android:textColor="#FFFFFF" />
 
             <Button
-                android:id="@+id/Buttonmaidan"
+                android:id="@+id/Buttondiandan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"

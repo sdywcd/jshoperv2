@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-6-4 11:26:05 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-6-7 14:23:05 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -12,25 +12,26 @@ public class GradeT implements java.io.Serializable {
 	private String gradeid;
 	private String gradevalue;
 	private String gradename;
-	private Double needcost;
-	private Double discount;
+	private double needcost;
+	private double discount;
 	private Date createtime;
 	private String creatorid;
 
 	public GradeT() {
 	}
 
-	public GradeT(String gradeid, String gradevalue, String gradename,
-			Date createtime, String creatorid) {
+	public GradeT(String gradeid, String gradename, double needcost,
+			double discount, Date createtime, String creatorid) {
 		this.gradeid = gradeid;
-		this.gradevalue = gradevalue;
 		this.gradename = gradename;
+		this.needcost = needcost;
+		this.discount = discount;
 		this.createtime = createtime;
 		this.creatorid = creatorid;
 	}
 
 	public GradeT(String gradeid, String gradevalue, String gradename,
-			Double needcost, Double discount, Date createtime, String creatorid) {
+			double needcost, double discount, Date createtime, String creatorid) {
 		this.gradeid = gradeid;
 		this.gradevalue = gradevalue;
 		this.gradename = gradename;
@@ -64,19 +65,19 @@ public class GradeT implements java.io.Serializable {
 		this.gradename = gradename;
 	}
 
-	public Double getNeedcost() {
+	public double getNeedcost() {
 		return this.needcost;
 	}
 
-	public void setNeedcost(Double needcost) {
+	public void setNeedcost(double needcost) {
 		this.needcost = needcost;
 	}
 
-	public Double getDiscount() {
+	public double getDiscount() {
 		return this.discount;
 	}
 
-	public void setDiscount(Double discount) {
+	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
 

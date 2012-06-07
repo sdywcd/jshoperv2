@@ -1,5 +1,7 @@
 package com.jshop.service.impl;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Scope;
 
 import org.springframework.stereotype.Service;
@@ -38,9 +40,15 @@ public class GoodsSpecificationsRelationshipTServiceImpl implements GoodsSpecifi
 	}
 
 	@Override
-	public int delGoodsAssociatedProductById(String[] list) {
+	public int delGoodsAssociatedProductById(final String goodssetid) {
 		
-		return this.getGoodsSpecificationsRelationshipTDao().delGoodsAssociatedProductById(list);
+		return this.getGoodsSpecificationsRelationshipTDao().delGoodsAssociatedProductById(goodssetid);
+	}
+
+	@Override
+	public List<GoodsSpecificationsRelationshipT> checkSpecificationRelationshipBygoodssetid(String goodssetid) {
+		
+		return this.getGoodsSpecificationsRelationshipTDao().checkSpecificationRelationshipBygoodssetid(goodssetid);
 	}
 	
 	

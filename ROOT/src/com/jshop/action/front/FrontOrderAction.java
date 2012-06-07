@@ -94,7 +94,7 @@ public class FrontOrderAction extends ActionSupport {
 	private String vouchername;
 	private String customernotes;
 	private String orderTag;
-	private Double total;
+	private Double total;//会员总价
 	private Double totalweight;
 	private String defaultlogisticsid;
 	private Double freight;
@@ -782,11 +782,11 @@ public class FrontOrderAction extends ActionSupport {
 		order.setOrderTag(this.getOrderTag());
 		order.setToBuyer(null);//给用户的留言
 		//		if(!this.isSvoucher()){
-		order.setShouldpay(Arith.sub(Arith.add(this.getTotal(), this.getFreight()), this.getVouchercontent()));//�����˷Ѻ͵ֿ���Ϣ
+		order.setShouldpay(Arith.sub(Arith.add(this.getTotal(), this.getFreight()), this.getVouchercontent()));
 		//		}else{
 		//			order.setShouldpay(this.getTotal()+this.getFreight());//金额，含运费
 		//		}
-		order.setUsepoints(0.0);
+		order.setUsepoints(0.0);//用户没有使用积分
 		order.setVouchersid(this.getUsedvoucherid());
 		order.setCreatetime(BaseTools.systemtime());
 		order.setHasprintexpress("0");//未打印快递单
