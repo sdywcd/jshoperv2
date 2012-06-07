@@ -176,7 +176,7 @@ public class ElectronicMenuCartTDaoImpl extends HibernateDaoSupport implements E
 	public int updateElectronicMenuCartTneedquantityBygoodsid(final String tableNumber, final String tablestate, final String goodsid, final int needquantity, final String state) {
 		log.debug("updateElectronicMenuCartTneedquantityBygoodsid");
 		try {
-			final String queryString = "update ElectronicMenuCartT as ec set ec.needquantity=:needquantity where ec.tableNumber=:tableNumber and ec.tablestate=:tablestate and ec.goodsid=:goodsid and ec.state=:state";
+			final String queryString = "update ElectronicMenuCartT as ec set ec.needquantity=:needquantity+ec.needquantity where ec.tableNumber=:tableNumber and ec.tablestate=:tablestate and ec.goodsid=:goodsid and ec.state=:state";
 			this.getHibernateTemplate().execute(new HibernateCallback() {
 
 				public Object doInHibernate(Session session) throws HibernateException, SQLException {
