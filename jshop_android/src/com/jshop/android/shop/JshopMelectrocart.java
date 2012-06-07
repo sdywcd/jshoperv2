@@ -1,5 +1,6 @@
 package com.jshop.android.shop;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -9,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.util.EncodingUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,6 +39,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -49,7 +52,9 @@ import com.jshop.android.index.R;
 import com.jshop.android.login.JshopActivityLogin;
 import com.jshop.android.register.JshopActivityRegister;
 import com.jshop.android.table.JshopMtable;
+import com.jshop.android.util.Arith;
 import com.jshop.android.util.JshopActivityUtil;
+import com.jshop.android.util.JshopMParams;
 import com.jshop.android.util.JshopMPostActionList;
 /**
  * 读取电子菜单商品列表
@@ -66,11 +71,12 @@ import com.jshop.android.util.JshopMPostActionList;
  * @Data 2012-5-10 下午03:47:04
  */
 public class JshopMelectrocart extends Activity{
-	
+	private TextView totalcartprice;
 	private String requestjsonstr;
 	private ArrayList<HashMap<String, Object>> electrocartgoodslists = new ArrayList<HashMap<String, Object>>();
 	private ListView listViews;
 	private String needquantity="1";//默认一个
+	private Double totalprice=0.0;//购物车总价
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,19 +84,38 @@ public class JshopMelectrocart extends Activity{
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.jshop_m_goodselectrocart);
 		listViews=(ListView) this.findViewById(R.id.listViewmyelectrocart);
+		totalcartprice=(TextView)this.findViewById(R.id.totalprice);
 		Intent intent=this.getIntent();
 		String goodsid=intent.getStringExtra("goodsid");
 		String tablestate=intent.getStringExtra("tablestate");
 		String tableNumber=intent.getStringExtra("tableNumber");
-		try {
-			this.addGoodstoElectrocart(goodsid,tablestate,tableNumber);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block    
-			e.printStackTrace();
-		}	
+		String []temp=readJmtable().split(",");
+		if("-1".equals(temp[0])){
+			Toast t=Toast.makeText(getApplicationContext(), "您还没有消费", Toast.LENGTH_LONG);
+			t.show();
+		}else{
+			try {
+				findelectrocart(tablestate,tableNumber);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if(goodsid!=null){
+			try {
+				this.addGoodstoElectrocart(goodsid,tablestate,tableNumber);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block    
+				e.printStackTrace();
+			}	
+		}
+		
 		SimpleAdapter listItemAdapter=new SimpleAdapter(this,electrocartgoodslists,R.layout.jshop_m_goodselectrocartitem,new String[]{"picture","goodsname","memberprice","needquantity"},new int[]{R.id.pictureurl,R.id.goodsname,R.id.memberprice,R.id.needquantity});
 		listItemAdapter.setViewBinder(new MyViewBinder());
 		listViews.setAdapter(listItemAdapter);
@@ -106,7 +131,9 @@ public class JshopMelectrocart extends Activity{
 //				startActivity(intent);
 			}
 		});
+		//注入总价值
 		
+		totalcartprice.setText(totalprice.toString());
 	}
 	
 	/**
@@ -136,23 +163,33 @@ public class JshopMelectrocart extends Activity{
 		if(requestjsonstr!=null){
 			if("success".equals(requestjsonstr)){
 				//进入到读取电子菜单购物车列表
-				requestjsonstr=findelectrocartForJshop(tablestate,tableNumber);
-				if(requestjsonstr!=null){
-					String []strs=requestjsonstr.split("--");
-					for(int i=0;i<strs.length;i++){
-						HashMap<String,Object>map=new HashMap<String,Object>();
-						JSONObject jo=new JSONObject(strs[i].toString());
-						map.put("picture", getPictureurlImg(JshopActivityUtil.BASE_URL+jo.getString("picture")));
-						map.put("goodsname", jo.getString("goodsname"));
-						map.put("memberprice", "￥"+jo.getString("memberprice"));
-						map.put("goodsid", jo.getString("goodsid"));
-						map.put("needquantity", jo.getString("needquantity").toString()+"份");
-						electrocartgoodslists.add(map);
-					}
-				}
+				findelectrocart(tablestate,tableNumber);
 			}else{
 				//加入购物车出错
 			}
+		}
+	}
+	/**
+	 * 进入到读取电子菜单购物车列表
+	 * @param tablestate
+	 * @param tableNumber
+	 * @throws JSONException
+	 * @throws IOException
+	 */
+	public void findelectrocart(String tablestate,String tableNumber) throws JSONException, IOException{
+		electrocartgoodslists.clear();
+		requestjsonstr=findelectrocartForJshop(tablestate,tableNumber);
+		String []strs=requestjsonstr.split("--");
+		for(int i=0;i<strs.length;i++){
+			HashMap<String,Object>map=new HashMap<String,Object>();
+			JSONObject jo=new JSONObject(strs[i].toString());
+			map.put("picture", getPictureurlImg(JshopActivityUtil.BASE_URL+jo.getString("picture")));
+			map.put("goodsname", jo.getString("goodsname"));
+			map.put("memberprice", "￥"+jo.getString("memberprice"));
+			map.put("goodsid", jo.getString("goodsid"));
+			map.put("needquantity", jo.getString("needquantity").toString()+"份");
+			totalprice=Arith.add(totalprice, Arith.mul(Double.parseDouble(jo.getString("memberprice")), Double.parseDouble(jo.getString("needquantity"))));
+			electrocartgoodslists.add(map);
 		}
 	}
 	
@@ -180,6 +217,22 @@ public class JshopMelectrocart extends Activity{
 		in.close();
 		return bm;
 	}
-	
+	/**
+	 * 读取餐桌信息文件
+	 * @return
+	 */
+	private String readJmtable(){
+		String res="";
+		try{
+			FileInputStream fis=openFileInput(JshopMParams.SHAREMTABLEPARAM);
+			byte[]buffer=new byte[fis.available()];
+			fis.read(buffer);
+			res=EncodingUtils.getString(buffer,"UTF-8");
+			fis.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return res;
+	}
 
 }

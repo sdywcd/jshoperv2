@@ -2,6 +2,8 @@ package com.jshop.action.androidserver.electronicmenu;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +18,11 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
 
+import com.jshop.action.tools.Arith;
+import com.jshop.action.tools.BaseTools;
+import com.jshop.action.tools.Serial;
 import com.jshop.action.tools.Validate;
+import com.jshop.entity.ElectronicMenuCartT;
 import com.jshop.entity.ElectronicMenuOrderT;
 import com.jshop.service.ElectronicMenuCartTService;
 import com.jshop.service.ElectronicMenuOrderTService;
@@ -30,14 +36,35 @@ import com.opensymphony.xwork2.ActionSupport;
 public class AndroidJshopelectronicmenuorderAction  extends ActionSupport implements
 ServletRequestAware, ServletResponseAware {
 	private ElectronicMenuOrderTService electronicMenuOrderTService;
+	private ElectronicMenuCartTService electronicMenuCartTService;
+	private Serial serial;
 	private String electronicMenuOrderid;
-
+	private String tableNumber;
+	private String tablestate;
+	private Double total;//会员总价
+	private Double totalweight;
+	private Double freight;
+	private Double totalpoints;
+	private String elecartgoodsname;
+	private String elecartgoodsid;
+	private String elecartid;
+	private int elecartneedquantity;
+	private ElectronicMenuOrderT eleorder;
 	private HttpServletRequest request;
     private HttpServletResponse response;
     private String responsejsonstr;
    
-    
     @JSON(serialize = false)
+    public ElectronicMenuCartTService getElectronicMenuCartTService() {
+		return electronicMenuCartTService;
+	}
+
+	public void setElectronicMenuCartTService(
+			ElectronicMenuCartTService electronicMenuCartTService) {
+		this.electronicMenuCartTService = electronicMenuCartTService;
+	}
+
+	@JSON(serialize = false)
 	public ElectronicMenuOrderTService getElectronicMenuOrderTService() {
 		return electronicMenuOrderTService;
 	}
@@ -93,6 +120,102 @@ ServletRequestAware, ServletResponseAware {
 
 
 
+	public Serial getSerial() {
+		return serial;
+	}
+
+	public void setSerial(Serial serial) {
+		this.serial = serial;
+	}
+
+	public String getTableNumber() {
+		return tableNumber;
+	}
+
+	public void setTableNumber(String tableNumber) {
+		this.tableNumber = tableNumber;
+	}
+
+	public String getTablestate() {
+		return tablestate;
+	}
+
+	public void setTablestate(String tablestate) {
+		this.tablestate = tablestate;
+	}
+
+	public ElectronicMenuOrderT getEleorder() {
+		return eleorder;
+	}
+
+	public void setEleorder(ElectronicMenuOrderT eleorder) {
+		this.eleorder = eleorder;
+	}
+
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
+	}
+
+	public Double getTotalweight() {
+		return totalweight;
+	}
+
+	public void setTotalweight(Double totalweight) {
+		this.totalweight = totalweight;
+	}
+
+	public Double getFreight() {
+		return freight;
+	}
+
+	public void setFreight(Double freight) {
+		this.freight = freight;
+	}
+
+	public Double getTotalpoints() {
+		return totalpoints;
+	}
+
+	public void setTotalpoints(Double totalpoints) {
+		this.totalpoints = totalpoints;
+	}
+
+	public String getElecartgoodsname() {
+		return elecartgoodsname;
+	}
+
+	public void setElecartgoodsname(String elecartgoodsname) {
+		this.elecartgoodsname = elecartgoodsname;
+	}
+
+	public String getElecartgoodsid() {
+		return elecartgoodsid;
+	}
+
+	public void setElecartgoodsid(String elecartgoodsid) {
+		this.elecartgoodsid = elecartgoodsid;
+	}
+
+	public int getElecartneedquantity() {
+		return elecartneedquantity;
+	}
+
+	public void setElecartneedquantity(int elecartneedquantity) {
+		this.elecartneedquantity = elecartneedquantity;
+	}
+
+	public String getElecartid() {
+		return elecartid;
+	}
+
+	public void setElecartid(String elecartid) {
+		this.elecartid = elecartid;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -107,7 +230,7 @@ ServletRequestAware, ServletResponseAware {
 	 * @throws IOException 
 	 */
 	@Action(value="findElectronicMenuOrderTByelectronicMenuOrderid")
-	public void findElectronicMenuOrderTByelectronicMenuOrderid() throws IOException{
+	public void findElectronicMenuOrderTByelectronicMenuOrderidForAndroid() throws IOException{
 		if(Validate.StrNotNull(this.getElectronicMenuOrderid())){
 			String emorderid=this.getElectronicMenuOrderid().trim();
 			ElectronicMenuOrderT emo=new ElectronicMenuOrderT();
@@ -166,6 +289,102 @@ ServletRequestAware, ServletResponseAware {
 			}
 		}
 	}
+	/**
+	 * 处理电子餐车的价格和积分数据给订单
+	 * @param list
+	 */
+	private void getElectronicMenuCartT(List<ElectronicMenuCartT>list){
+		this.setTotal(0.0);
+		this.setTotalweight(0.0);
+		this.setTotalpoints(0.0);
+		this.setElecartgoodsname("");
+		this.setElecartgoodsid("");
+		this.setElecartneedquantity(0);
+		for(Iterator it=list.iterator();it.hasNext();){
+			ElectronicMenuCartT emt=(ElectronicMenuCartT)it.next();
+			total=Arith.add(total, Arith.mul(emt.getMemberprice(), Double.parseDouble(String.valueOf(emt.getNeedquantity()))));
+			totalweight=Arith.add(totalweight, Arith.mul(Double.parseDouble(emt.getWeight()), Double.parseDouble(String.valueOf(emt.getNeedquantity()))));
+			totalpoints=Arith.add(totalpoints, Arith.mul(emt.getPoints(), Double.parseDouble(String.valueOf(emt.getNeedquantity()))));
+			elecartgoodsname+=emt.getGoodsname();
+			elecartgoodsid+=emt.getGoodsid()+",";
+			elecartneedquantity+=emt.getNeedquantity();
+			elecartid=emt.getElectronicMenuCartid();
+		}
+	}
+	
+	/**
+	 * 加入电子菜单订单
+	 * @throws IOException 
+	 */
+	@Action(value="addElectronicMenuOrderTForAndorid")
+	public void addElectronicMenuOrderTForAndorid() throws IOException{
+		if(Validate.StrNotNull(this.getTableNumber())&&Validate.StrNotNull(this.getTablestate())){	
+			//1，生成订单号
+			String electronicMenuOrderid=this.getSerial().Serialid(Serial.ELECTRONICMENUORDER);
+			//2，收集需要结算的电子餐车
+		    String tablestate=this.getTablestate().trim();
+		    String tableNumber=this.getTableNumber().trim();
+		    String sucflag = null;
+		    List<ElectronicMenuCartT>list=this.getElectronicMenuCartTService().findAllElectronicMenuCartTBytableNumber(tableNumber, tablestate);
+			if(!list.isEmpty()){
+				getElectronicMenuCartT(list);
+				eleorder=new ElectronicMenuOrderT();
+				eleorder.setElectronicMenuOrderid(electronicMenuOrderid);
+				eleorder.setUserid("0");//无会员
+				eleorder.setUsername("0");
+				eleorder.setPaymentid("0");//无在线支付
+				eleorder.setPaymentname("0");
+				eleorder.setDelivermode("0");//无外送
+				eleorder.setDeliverynumber("0");
+				eleorder.setElectronicorderstate("0");//待确认
+				eleorder.setLogisticsid("0");
+				eleorder.setFreight(0.0);//无运费
+				eleorder.setAmount(this.getTotal());
+				eleorder.setPoints(this.getTotalpoints());
+				eleorder.setPurchasetime(BaseTools.systemtime());
+				eleorder.setDeliverytime(null);
+				eleorder.setInvoice("0");//不开发票
+				eleorder.setShippingaddressid("0");//无发货地址
+				eleorder.setCustomernotes("");//无客户留言
+				eleorder.setLogisticswebaddress("");//无物流商地址
+				eleorder.setPaytime(null);
+				eleorder.setOrderTag("1");//店内订单
+				eleorder.setToBuyer(null);//给客户留言
+				eleorder.setShouldpay(Arith.add(this.getTotal(),0.0));//无运费下的需支付
+				eleorder.setUsepoints(0.0);//用户没有使用积分
+				eleorder.setVouchersid(null);//无优惠券
+				eleorder.setGoodid(this.getElecartgoodsid());
+				eleorder.setGoodsname(this.getElecartgoodsname());
+				eleorder.setNeedquantity(this.getElecartneedquantity());
+				eleorder.setPaystate("0");//未付款
+				eleorder.setShippingstate("0");//配货中，可以是配菜中
+				eleorder.setDeliveraddressid("0");//没有收获地址
+				eleorder.setShippingusername("");
+				eleorder.setCreatetime(BaseTools.systemtime());
+				eleorder.setHasprintexpress("0");//未打印快递单
+				eleorder.setHasprintinvoice("0");//未打印发货单
+				eleorder.setHasprintfpinvoice("0");//未开具发票
+				eleorder.setExpressnumber("0");//无快递单号
+				eleorder.setTradeNo("0");//无支付宝交易号
+				eleorder.setTableNumber(tableNumber);
+				eleorder.setRoomName("");
+				eleorder.setTablestate(tablestate);
+				if(this.getElectronicMenuOrderTService().addElectronicMenuOrderT(eleorder)>0){
+					sucflag="success";
+				}else{
+					sucflag="failed";
+				}
+				response.setContentType("text/html");
+				response.setCharacterEncoding("utf-8");
+				PrintWriter out=response.getWriter();
+				out.write(sucflag);
+				out.flush();
+				out.close();
+				
+			}
+		}
+	}
+	
 	
 	
 	

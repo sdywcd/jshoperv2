@@ -1012,7 +1012,7 @@ function findgoodsbyid(){
 			$('#freezeStore').val(data.bean.freezeStore);
 			$('#placeStore').val(data.bean.placeStore);
 			$('#points').val(data.bean.points);
-			$('#commoditylist').val(data.bean.commoditylist);
+			KE.html("commoditylist", data.bean.commoditylist);
 			if("1"==data.bean.isNew){
 				$('#isNew').attr("checked","checked");
 			}else{

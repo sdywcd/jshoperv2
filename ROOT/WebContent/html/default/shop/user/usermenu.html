@@ -9,7 +9,7 @@
         </ul> -->
         <h1>我的订单</h1>
         <ul>
-          <li><a href="findAllUserOrder.action" class="mem_left" target="mem_right">所有订单</a></li>
+          <li><a href="findAllUserOrder.action" class="mem_left" target="mem_right">已购商品</a></li>
 		  <li><a href="findAllCartByUserId.action" class="mem_left" target="mem_right">我的购物车</a></li>
           <!-- 不显示 -->
           <!-- 不显示 -->

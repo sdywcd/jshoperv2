@@ -11,39 +11,52 @@ import com.jshop.service.GoodsGroupTService;
 @Service("goodsGroupTService")
 @Scope("prototype")
 public class GoodsGroupTServiceImpl implements GoodsGroupTService {
-	public GoodsGroupTDao goodsgrouptDao;
+	public GoodsGroupTDao goodsGroupTDao;
 	
 
-	public GoodsGroupTDao getGoodsgrouptDao() {
-		return goodsgrouptDao;
+	public GoodsGroupTDao getGoodsGroupTDao() {
+		return goodsGroupTDao;
 	}
 
-	public void setGoodsgrouptDao(GoodsGroupTDao goodsgrouptDao) {
-		this.goodsgrouptDao = goodsgrouptDao;
+	public void setGoodsGroupTDao(GoodsGroupTDao goodsGroupTDao) {
+		this.goodsGroupTDao = goodsGroupTDao;
 	}
 
 	@Override
 	public int addGoodsGroupT(GoodsGroupT group) {
 		
-		return this.getGoodsgrouptDao().addGoodsGroupT(group);
+		return this.getGoodsGroupTDao().addGoodsGroupT(group);
 	}
 
 	@Override
 	public int updateGoodsGroupT(GoodsGroupT group) {
 		
-		return this.getGoodsgrouptDao().updateGoodsGroupT(group);
+		return this.getGoodsGroupTDao().updateGoodsGroupT(group);
 	}
 
 	@Override
 	public List<GoodsGroupT> findAllGoodsGroupT(int currentPage, int lineSize) {
 		
-		return this.getGoodsgrouptDao().findAllGoodsGroupT(currentPage, lineSize);
+		return this.getGoodsGroupTDao().findAllGoodsGroupT(currentPage, lineSize);
 	}
 
 	@Override
 	public int delGoodsGroupT(String[] list) {
 		
-		return this.getGoodsgrouptDao().delGoodsGroupT(list);
+		return this.getGoodsGroupTDao().delGoodsGroupT(list);
+	}
+
+	@Override
+	public int countAllGoodsGroupT() {
+		
+		return this.getGoodsGroupTDao().countAllGoodsGroupT();
+	}
+
+	@Override
+	public List<GoodsGroupT> sortAllGoodsGroup(int currentPage, int lineSize,
+			 String queryString) {
+		
+		return this.getGoodsGroupTDao().sortAllGoodsGroup(currentPage, lineSize,  queryString);
 	}
 
 }

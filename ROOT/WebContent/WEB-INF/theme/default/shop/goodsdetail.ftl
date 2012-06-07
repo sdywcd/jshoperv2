@@ -182,6 +182,7 @@
 						<ul class="css-tabs">
 							<li onClick="showdiv('0')"><a href="javascript:;">商品详情</a></li>
 							<li onClick="showdiv('1')"><a href="javascript:;" >具体参数</a></li>
+							<li onClick="showdiv('5')"><a href="javascript:;" >包装清单</a></li>
 							<li onClick="showdiv('2')"><a href="javascript:;" >售后服务</a></li>
 							<li onClick="showdiv('3')"><a href="javascript:;" >客户点评</a></li>
 							<li onClick="showdiv('4')"><a href="javascript:;" >售前咨询</a></li>
@@ -226,7 +227,14 @@
 								</table>
 								</div>
 							</div>
-							
+							<!--5-->
+							<div id="gddiv5" style="display:none;">
+								<div class="prodetailbox" id="cont1">
+									<div class="prodetailtext">
+										${goodsdetail.commoditylist}
+									</div>
+								</div>
+							</div>
 							<!--3-->
 							<div id="gddiv2" style="display:none;">
 								<div class="after mt40" id="cont4">

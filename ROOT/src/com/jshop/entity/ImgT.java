@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-6-4 11:26:05 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-6-7 14:23:05 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -10,7 +10,6 @@ import java.util.Date;
 public class ImgT implements java.io.Serializable {
 
 	private String imgId;
-	private Integer version;
 	private String imgName;
 	private String usedGoodsid;
 	private String imgType;
@@ -20,6 +19,7 @@ public class ImgT implements java.io.Serializable {
 	private String imgTypeName;
 	private String usedPositionName;
 	private String usedPositionId;
+	private Integer versiont;
 	private String usedGoodsname;
 	private Date createtime;
 	private String creatorid;
@@ -40,8 +40,8 @@ public class ImgT implements java.io.Serializable {
 	public ImgT(String imgId, String imgName, String usedGoodsid,
 			String imgType, String imgHref, String des, String imgTypeId,
 			String imgTypeName, String usedPositionName, String usedPositionId,
-			String usedGoodsname, Date createtime, String creatorid,
-			String state) {
+			Integer versiont, String usedGoodsname, Date createtime,
+			String creatorid, String state) {
 		this.imgId = imgId;
 		this.imgName = imgName;
 		this.usedGoodsid = usedGoodsid;
@@ -52,6 +52,7 @@ public class ImgT implements java.io.Serializable {
 		this.imgTypeName = imgTypeName;
 		this.usedPositionName = usedPositionName;
 		this.usedPositionId = usedPositionId;
+		this.versiont = versiont;
 		this.usedGoodsname = usedGoodsname;
 		this.createtime = createtime;
 		this.creatorid = creatorid;
@@ -64,14 +65,6 @@ public class ImgT implements java.io.Serializable {
 
 	public void setImgId(String imgId) {
 		this.imgId = imgId;
-	}
-
-	public Integer getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(Integer version) {
-		this.version = version;
 	}
 
 	public String getImgName() {
@@ -144,6 +137,14 @@ public class ImgT implements java.io.Serializable {
 
 	public void setUsedPositionId(String usedPositionId) {
 		this.usedPositionId = usedPositionId;
+	}
+
+	public Integer getVersiont() {
+		return this.versiont;
+	}
+
+	public void setVersiont(Integer versiont) {
+		this.versiont = versiont;
 	}
 
 	public String getUsedGoodsname() {

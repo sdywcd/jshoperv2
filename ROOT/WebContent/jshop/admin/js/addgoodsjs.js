@@ -754,9 +754,12 @@ $(function(){
 //获取商品导航菜单
 $(function(){
 	$.post("findGoodscategoryNavid.action",function(data){
-		$("#navid").append(data.navidlist); ;
+		$("#navid").append(data.navidlist);
+		//向关联商品tab中注入商品导航
+		$("#navidbelinked").append(data.navidlist);
 		return;
 	});
+	
 });
 //获取商品二级菜单
 $(function(){
@@ -775,6 +778,24 @@ $(function(){
 			}
 		});
 	});
+	//向关联商品tab中注入商品二级菜单
+	$("#navidbelinked").change(function(){
+		var parentId=$("#navidbelinked").val();
+		if("0"==parentId){
+			return;
+		}
+		$.post("findGoodscategoryLtypeid.action",{"parentId":parentId},function(data){
+			$("#ltypeidbelinked option").remove();
+			if(data.ltypeidlist==""){
+				$("#ltypeidbelinked").hide();
+			}else{
+				$("#ltypeidbelinked").append(data.ltypeidlist); 
+				$("#ltypeidbelinked").show();
+			}
+		});
+	});
+	
+	
 });
 //获取商品三级菜单
 $(function(){
@@ -794,7 +815,23 @@ $(function(){
 			
 		});
 	});
-	
+	//向关联商品tab中注入商品二级菜单
+	$("#ltypeidbelinked").change(function(){
+		var parentId=$("#ltypeid").val();
+		if("0"==parentId){
+			return;
+		}
+		$.post("findGoodscategoryStypeid.action",{"parentId":parentId},function(data){
+			$("#stypeidbelinked option").remove();
+			if(data.stypeidlist==""){
+				$("#stypeidbelinked").hide();
+			}else{
+				$("#stypeidbelinked").append(data.stypeidlist);
+				$("#stypeidbelinked").show();
+			}
+			
+		});
+	});
 });
 //获取商品品牌json
 $(function(){

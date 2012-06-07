@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-6-5 14:06:24 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-6-7 14:23:05 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -10,7 +10,6 @@ import java.util.Date;
 public class GoodsT implements java.io.Serializable {
 
 	private String goodsid;
-	private int version;
 	private String goodsname;
 	private String brandname;
 	private String model;
@@ -95,6 +94,7 @@ public class GoodsT implements java.io.Serializable {
 	private Integer sales;
 	private Integer realsales;
 	private Date updatetime;
+	private int versiont;
 	private String commoditylist;
 
 	public GoodsT() {
@@ -104,7 +104,7 @@ public class GoodsT implements java.io.Serializable {
 			String nname, String lname, String navid, String ltypeid,
 			String pictureurl, int quantity, String detail, String recommended,
 			Date createtime, String creatorid, double saleprice,
-			Date updatetime, String commoditylist) {
+			Date updatetime, int versiont, String commoditylist) {
 		this.goodsid = goodsid;
 		this.goodsname = goodsname;
 		this.brandname = brandname;
@@ -120,6 +120,7 @@ public class GoodsT implements java.io.Serializable {
 		this.creatorid = creatorid;
 		this.saleprice = saleprice;
 		this.updatetime = updatetime;
+		this.versiont = versiont;
 		this.commoditylist = commoditylist;
 	}
 
@@ -152,7 +153,7 @@ public class GoodsT implements java.io.Serializable {
 			String usersetnum, String isSpecificationsOpen, Integer star,
 			Integer staruser, Integer totalcomment, Integer virtualsale,
 			String ismobileplatformgoods, Integer sales, Integer realsales,
-			Date updatetime, String commoditylist) {
+			Date updatetime, int versiont, String commoditylist) {
 		this.goodsid = goodsid;
 		this.goodsname = goodsname;
 		this.brandname = brandname;
@@ -238,6 +239,7 @@ public class GoodsT implements java.io.Serializable {
 		this.sales = sales;
 		this.realsales = realsales;
 		this.updatetime = updatetime;
+		this.versiont = versiont;
 		this.commoditylist = commoditylist;
 	}
 
@@ -247,14 +249,6 @@ public class GoodsT implements java.io.Serializable {
 
 	public void setGoodsid(String goodsid) {
 		this.goodsid = goodsid;
-	}
-
-	public int getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
 	}
 
 	public String getGoodsname() {
@@ -927,6 +921,14 @@ public class GoodsT implements java.io.Serializable {
 
 	public void setUpdatetime(Date updatetime) {
 		this.updatetime = updatetime;
+	}
+
+	public int getVersiont() {
+		return this.versiont;
+	}
+
+	public void setVersiont(int versiont) {
+		this.versiont = versiont;
 	}
 
 	public String getCommoditylist() {

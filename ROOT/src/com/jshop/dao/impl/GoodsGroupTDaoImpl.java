@@ -26,9 +26,8 @@ public class GoodsGroupTDaoImpl extends HibernateDaoSupport implements GoodsGrou
 		try {
 			this.getHibernateTemplate().save(group);
 			log.debug("add GoodsGroupT success");
-			return 0;
-		} catch (DataAccessException e) {
-			// TODO Auto-generated catch block
+			return 1;
+		} catch (DataAccessException e) {			
 			log.debug("add failed");
 			throw e;
 		}		
@@ -40,7 +39,7 @@ public class GoodsGroupTDaoImpl extends HibernateDaoSupport implements GoodsGrou
 		log.debug("update goodsGroupT");
 		final String queryString="update GoodsGroupT as ggt set ggt.cashstate=:cashstate,ggt.cashlimit=:cashlimit,ggt,limitbuy=:limitbuy,ggt.salequantity=:salequantity where ggt.goodsid=:goodsid";
 		try {
-			this.getHibernateTemplate().execute(new HibernateCallback() {
+			Integer integer = (Integer) this.getHibernateTemplate().execute(new HibernateCallback() {
 				
 				@Override
 				public Object doInHibernate(Session session) throws HibernateException,
@@ -56,12 +55,11 @@ public class GoodsGroupTDaoImpl extends HibernateDaoSupport implements GoodsGrou
 					return i;
 				}
 			});
+			return integer;
 		} catch (DataAccessException e) {
 			log.debug("update goodsgroupT failed");
 			throw e;
-		}
-		
-		return 0;
+		}		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -122,6 +120,48 @@ public class GoodsGroupTDaoImpl extends HibernateDaoSupport implements GoodsGrou
 			throw e;
 		}		
 		return 0;
+	}
+
+	@Override
+	public int countAllGoodsGroupT() {
+		log.debug("countAll GoodsGroupT");
+		try {
+			String queryString="select count(*) from GoodsGroupT ";
+			List list= this.getHibernateTemplate().find(queryString);
+			if(list.size()>0){
+				Object o =list.get(0);
+				long l =(Long) o;
+				return (int)l;
+			}			
+			return 0;
+		} catch (DataAccessException e) {
+			log.debug("countAll failed");
+			throw e;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<GoodsGroupT> sortAllGoodsGroup(final int currentPage, final int lineSize,
+			 final String queryString) {
+		try {
+			List<GoodsGroupT> list = this.getHibernateTemplate().executeFind(new HibernateCallback() {
+				
+				@Override
+				public Object doInHibernate(Session session) throws HibernateException,
+						SQLException {
+					Query query = session.createQuery(queryString);
+					query.setFirstResult((currentPage-1)*lineSize);
+					query.setMaxResults(lineSize);					
+					List list = query.list();
+					return list;
+				}
+			});
+			return list;
+		} catch (DataAccessException e) {
+			throw e;
+		}
+		
 	}
 
 }

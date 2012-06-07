@@ -2,6 +2,7 @@ package com.jshop.android.index;
 
 import com.jshop.android.shop.JshopActivityGoodsCategoryList;
 import com.jshop.android.shop.JshopActivityGoodsList;
+import com.jshop.android.shop.JshopMelectrocart;
 import com.jshop.android.table.JshopMtable;
 import com.jshop.android.util.JshopMParams;
 
@@ -75,14 +76,24 @@ public class JshopMIndex extends Activity {
 		ordingfoods.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
 				Intent intent = new Intent(JshopMIndex.this,JshopActivityGoodsCategoryList.class);
 				startActivity(intent);
 					
 			}
 
 		});
+		/**
+		 * 点击进入结算页面
+		 */
+		checkout.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(JshopMIndex.this,JshopMelectrocart.class);
+				startActivity(intent);
+					
+			}
 
+		});
 		
 		
 		
