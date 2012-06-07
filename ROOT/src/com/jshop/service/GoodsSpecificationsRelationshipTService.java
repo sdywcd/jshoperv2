@@ -26,7 +26,7 @@ public interface GoodsSpecificationsRelationshipTService {
 	 * @param list
 	 * @return
 	 */
-	public abstract int delGoodsAssociatedProductById(final String list);
+	public abstract int delGoodsAssociatedProductById(final String goodssetid);
 	
 	/**
 	 * 通过goodssetid 查找规格

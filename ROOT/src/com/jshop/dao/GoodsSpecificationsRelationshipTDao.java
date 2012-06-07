@@ -41,7 +41,7 @@ public interface GoodsSpecificationsRelationshipTDao {
 	 * @param goodsSetId
 	 * @return
 	 */
-	public int delGoodsAssociatedProductById(final String list);
+	public int delGoodsAssociatedProductById(final String goodssetid);
 	
 	
 	

@@ -357,7 +357,7 @@ public class GoodsTDaoImpl extends HibernateDaoSupport implements GoodsTDao {
 			this.getHibernateTemplate().update(g);
 			return 1;
 		} catch (RuntimeException re) {
-			log.error("update  BrandT error", re);
+			log.error("update  updateGoods error", re);
 			throw re;
 		}
 	}

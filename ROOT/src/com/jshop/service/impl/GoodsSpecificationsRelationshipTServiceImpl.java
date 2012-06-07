@@ -40,9 +40,9 @@ public class GoodsSpecificationsRelationshipTServiceImpl implements GoodsSpecifi
 	}
 
 	@Override
-	public int delGoodsAssociatedProductById(String list) {
+	public int delGoodsAssociatedProductById(final String goodssetid) {
 		
-		return this.getGoodsSpecificationsRelationshipTDao().delGoodsAssociatedProductById(list);
+		return this.getGoodsSpecificationsRelationshipTDao().delGoodsAssociatedProductById(goodssetid);
 	}
 
 	@Override

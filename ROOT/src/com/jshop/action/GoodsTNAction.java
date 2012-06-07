@@ -166,7 +166,7 @@ public class GoodsTNAction extends ActionSupport {
 	private boolean slogin;
 	private boolean sucflag;
 	private String usession;
-	private String specificationId;
+	private String specificationsId;
 	
 	@JSON(serialize = false)
 	public GoodsTypeTNService getGoodsTypeTNService() {
@@ -878,12 +878,12 @@ public class GoodsTNAction extends ActionSupport {
 		this.total = total;
 	}
 
-	public String getSpecificationId() {
-		return specificationId;
+	public String getSpecificationsId() {
+		return specificationsId;
 	}
 
-	public void setSpecificationId(String specificationId) {
-		this.specificationId = specificationId;
+	public void setSpecificationsId(String specificationsId) {
+		this.specificationsId = specificationsId;
 	}
 
 	public File getFileupload() {
@@ -1346,7 +1346,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setGoodsAttrVal29(this.getGoodsAttrVal29());
 		gt.setUsersetnum(this.getUsersetnum());
 		gt.setUpdatetime(BaseTools.systemtime());
-		gt.setVersion(0);
+		//gt.setVersion(0);
 		gt.setIsSpecificationsOpen(this.getIsSpecificationsOpen());
 		gt.setStar(bean.getStar());
 		gt.setStaruser(bean.getStaruser());
@@ -1547,7 +1547,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setGoodsAttrVal29(this.getGoodsAttrVal29());
 		gt.setUsersetnum(this.getUsersetnum());
 		gt.setUpdatetime(BaseTools.systemtime());
-		gt.setVersion(0);
+		//gt.setVersion(0);
 		gt.setIsSpecificationsOpen(this.getIsSpecificationsOpen());
 		gt.setStar(bean.getStar());
 		gt.setStaruser(bean.getStaruser());
@@ -1570,7 +1570,6 @@ public class GoodsTNAction extends ActionSupport {
 	 * @return
 	 */
 	private boolean addSpecificationGoods() {
-		this.setSpecificationId(this.getSpecificationId());
 		GoodsT gt = new GoodsT();
 		gt.setGoodsid(this.getSerial().Serialid(Serial.GOODS));
 		gt.setGoodsname(this.getGoodsname());
@@ -1812,7 +1811,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setGoodsAttrVal29(this.getGoodsAttrVal29());
 		gt.setUsersetnum(this.getUsersetnum());
 		gt.setUpdatetime(BaseTools.systemtime());
-		gt.setVersion(0);
+		//gt.setVersion(0);
 		gt.setIsSpecificationsOpen(this.getIsSpecificationsOpen());
 		gt.setStar(bean.getStar());
 		gt.setStaruser(bean.getStaruser());
@@ -2149,7 +2148,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setGoodsAttrVal29(this.getGoodsAttrVal29());
 		gt.setUsersetnum(this.getUsersetnum());
 		gt.setUpdatetime(BaseTools.systemtime());
-		gt.setVersion(0);
+		//gt.setVersion(0);
 		gt.setIsSpecificationsOpen(this.getIsSpecificationsOpen());
 		gt.setStar(bean.getStar());
 		gt.setStaruser(bean.getStaruser());
