@@ -39,5 +39,10 @@ public class JshopMPostActionList {
 	 * 加入电子菜单订单
 	 */
 	public static final String ADDELECTRONICMENUORDERTFORANDORID="addElectronicMenuOrderTForAndorid.action";
+	/**
+	 * 根据订单号获取订单详细
+	 */
+	public static final String FINDELECTRONICMENUORDERTBYELECTRONICMENUORDERIDFORANDROID="findElectronicMenuOrderTByelectronicMenuOrderidForAndroid.action";
+	
 	
 }

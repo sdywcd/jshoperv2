@@ -15,10 +15,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.LocalActivityManager;
 import android.app.TabActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,6 +31,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -39,6 +42,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 import android.widget.SimpleAdapter.ViewBinder;
@@ -72,6 +77,7 @@ import com.jshop.android.util.JshopMPostActionList;
  * @Data 2012-5-10 下午03:47:04
  */
 public class JshopMelectrocart extends Activity{
+	
 	private Button buttonmaidan,buttondiandan;
 	private TextView totalcartprice;
 	private String requestjsonstr;
@@ -79,7 +85,9 @@ public class JshopMelectrocart extends Activity{
 	private ListView listViews;
 	private String needquantity="1";//默认一个
 	private Double totalprice=0.0;//购物车总价
-	
+	private String paymentid="1";//选择的支付方式
+	private String paymentname="现金";
+	private boolean tag;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -89,6 +97,7 @@ public class JshopMelectrocart extends Activity{
 		totalcartprice=(TextView)this.findViewById(R.id.totalprice);
 		buttondiandan=(Button)this.findViewById(R.id.Buttondiandan);
 		buttonmaidan=(Button)this.findViewById(R.id.Buttonmaidan);
+		
 		Intent intent=this.getIntent();
 		String goodsid=intent.getStringExtra("goodsid");
 		String tablestate=intent.getStringExtra("tablestate");
@@ -135,6 +144,8 @@ public class JshopMelectrocart extends Activity{
 //				startActivity(intent);
 			}
 		});
+		
+		
 		//注入总价值
 		
 		totalcartprice.setText(totalprice.toString());
@@ -144,22 +155,99 @@ public class JshopMelectrocart extends Activity{
 		buttondiandan.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
-				String tablestate=temp[0].toString();
-				String tableNumber=temp[1].toString();
-				String backstring=addelectororder(tablestate,tableNumber);
-				if(!"failed".equals(backstring)){
-					Intent intent=new Intent(JshopMelectrocart.this,JshopMelectroorderdetail.class);
-					intent.putExtra("electronicMenuOrderid",backstring);
-					startActivity(intent);
+				//可能需要通知服务员
+				if(temp!=null){
+					String tablestate=temp[0].toString();
+					String tableNumber=temp[1].toString();
+					String backstring=addelectororder(tablestate,tableNumber);
+					if(!"failed".equals(backstring)){
+						Intent intent=new Intent(JshopMelectrocart.this,JshopMelectroorderdetail.class);
+						intent.putExtra("electronicMenuOrderid",backstring);
+						startActivity(intent);
+					}
 				}
+				
 			}
 		});
+		
+		/**
+		 * 点击买单按钮
+		 */
+		buttonmaidan.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				if(temp!=null){
+					//可能需要通知服务员
+					String tablestate=temp[0].toString();
+					String tableNumber=temp[1].toString();
+					//获取选择的支付方式
+					getPayway(tablestate,tableNumber);
+					
+					
+				}
+				
+			}
+		});
+		
+	
+		
+		
+		
 	}
+	
+	private void getPayway(final String tablestate,final String tableNumber ){
+		LayoutInflater inflater=LayoutInflater.from(this);
+		final View payway=inflater.inflate(R.layout.jshop_m_payway, null);
+		RadioGroup radioGrouppayway=(RadioGroup)payway.findViewById(R.id.radioGrouppayway);
+		radioGrouppayway.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				if(checkedId==R.id.cash1radioButton){
+					paymentid="1";
+					paymentname="现金";
+				}
+				if(checkedId==R.id.creditcard2radioButton){
+					paymentid="2";
+					paymentname="刷卡";
+				}
+			}
+			
+		});
+		AlertDialog.Builder bulider=new AlertDialog.Builder(this);
+		bulider.setMessage("请选择支付方式").setCancelable(false).setView(payway).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+			
+					String backstring=addelectororder(tablestate,tableNumber,paymentid,paymentname);
+					if(!"failed".equals(backstring)){
+						//
+						Intent intent=new Intent(JshopMelectrocart.this,JshopMelectroorderdetail.class);
+						intent.putExtra("electronicMenuOrderid",backstring);
+						startActivity(intent);
+					}
+				}
+			
+		}).setNegativeButton("取消", null);
+		AlertDialog alert=bulider.create();
+		alert.show();
+	}
+	
+	
 	/**
 	 * 增加电子订单
 	 */
 	private String addelectororderForJshop(String tablestate,String tableNumber){
 		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.ADDELECTRONICMENUORDERTFORANDORID+"?tablestate="+tablestate+"&tableNumber="+tableNumber;
+		return JshopActivityUtil.queryStringForPost(posturl);
+	}
+	/**
+	 * 更新电子订单
+	 */
+	private String addelectororderForJshop(String tablestate,String tableNumber,String paymentid,String paymentname){
+		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.ADDELECTRONICMENUORDERTFORANDORID+"?tablestate="+tablestate+"&tableNumber="+tableNumber+"&paymentid="+paymentid+"&paymentname="+paymentname;
 		return JshopActivityUtil.queryStringForPost(posturl);
 	}
 	
@@ -179,6 +267,19 @@ public class JshopMelectrocart extends Activity{
 	 */
 	private String addelectororder(String tablestate,String tableNumber){
 		requestjsonstr=addelectororderForJshop(tablestate,tableNumber);
+		if(!"failed".equals(requestjsonstr)){
+			return null;
+		}
+		return requestjsonstr;
+	}
+	/**
+	 * 更新电子订单
+	 * @param tablestate
+	 * @param tableNumber
+	 * @return
+	 */
+	private String addelectororder(String tablestate,String tableNumber,String paymentid,String paymentname){
+		requestjsonstr=addelectororderForJshop(tablestate,tableNumber,paymentid,paymentname);
 		if(!"failed".equals(requestjsonstr)){
 			return null;
 		}

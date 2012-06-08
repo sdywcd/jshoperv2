@@ -41,6 +41,8 @@ ServletRequestAware, ServletResponseAware {
 	private String electronicMenuOrderid;
 	private String tableNumber;
 	private String tablestate;
+	private String paymentid;
+	private String paymentname;
 	private Double total;//会员总价
 	private Double totalweight;
 	private Double freight;
@@ -216,6 +218,22 @@ ServletRequestAware, ServletResponseAware {
 		this.elecartid = elecartid;
 	}
 
+	public String getPaymentid() {
+		return paymentid;
+	}
+
+	public void setPaymentid(String paymentid) {
+		this.paymentid = paymentid;
+	}
+
+	public String getPaymentname() {
+		return paymentname;
+	}
+
+	public void setPaymentname(String paymentname) {
+		this.paymentname = paymentname;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -229,7 +247,7 @@ ServletRequestAware, ServletResponseAware {
 	 * 根据电子菜单订单号获取订单详细
 	 * @throws IOException 
 	 */
-	@Action(value="findElectronicMenuOrderTByelectronicMenuOrderid")
+	@Action(value="findElectronicMenuOrderTByelectronicMenuOrderidForAndroid")
 	public void findElectronicMenuOrderTByelectronicMenuOrderidForAndroid() throws IOException{
 		if(Validate.StrNotNull(this.getElectronicMenuOrderid())){
 			String emorderid=this.getElectronicMenuOrderid().trim();
@@ -319,6 +337,7 @@ ServletRequestAware, ServletResponseAware {
 	@Action(value="addElectronicMenuOrderTForAndorid")
 	public void addElectronicMenuOrderTForAndorid() throws IOException{
 		if(Validate.StrNotNull(this.getTableNumber())&&Validate.StrNotNull(this.getTablestate())){	
+			
 			//1，生成订单号
 			String electronicMenuOrderid=this.getSerial().Serialid(Serial.ELECTRONICMENUORDER);
 			//2，收集需要结算的电子餐车
@@ -336,8 +355,13 @@ ServletRequestAware, ServletResponseAware {
 					eleorder.setElectronicMenuOrderid(oldeleorder.get(0).getElectronicMenuOrderid());
 					eleorder.setUserid("0");//无会员
 					eleorder.setUsername("0");
-					eleorder.setPaymentid("0");//无在线支付
-					eleorder.setPaymentname("0");
+					if(Validate.StrNotNull(this.getPaymentid())&&Validate.StrNotNull(this.getPaymentname())){
+						eleorder.setPaymentid(this.getPaymentid().trim());
+						eleorder.setPaymentname(this.getPaymentname().trim());
+					}else{
+						eleorder.setPaymentid("0");//无在线支付
+						eleorder.setPaymentname("0");
+					}
 					eleorder.setDelivermode("0");//无外送
 					eleorder.setDeliverynumber("0");
 					eleorder.setElectronicorderstate("0");//待确认
