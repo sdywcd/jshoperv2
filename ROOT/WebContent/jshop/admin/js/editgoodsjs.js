@@ -989,7 +989,13 @@ function findgoodsbyid(){
 		if(data.sucflag){
 			$('#goodsid').attr("value",data.bean.goodsid);
 			$('#navid').val(data.bean.navid);
+			if(data.bean.ltypeid != 0){
+				$('#ltypeid').append("<option value='"+data.bean.ltypeid+"'>"+data.bean.lname+"</option>");
+			}
 			$('#ltypeid').val(data.bean.ltypeid);
+			if(data.bean.stypeid != 0){
+				$('#stypeid').append("<option value='"+data.bean.stypeid+"'>"+data.bean.sname+"</option>");
+			}
 			$('#stypeid').val(data.bean.stypeid);
 			$('#shownname').text(data.bean.nname);
 			$('#showlname').text(data.bean.lname);

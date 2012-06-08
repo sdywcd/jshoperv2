@@ -1053,5 +1053,12 @@ $(function(){
 	});
 });
 
+$("#searchbelinkedgoods").click(function(){
+	var navidbelinked = $('#navidbelinked').val();
+	var ltypeidbelinked = $('#ltypeidbelinked').val();
+	var stypeidbelinked = $('#stypeidbelinked').val();
+	//if(stypeidbelinked != )
+	
+});
 
 
