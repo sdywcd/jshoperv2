@@ -103,7 +103,7 @@ public class ElectronicMenuOrderTDaoImpl extends HibernateDaoSupport implements 
 	public List<ElectronicMenuOrderT> findAllElectronicMenuOrderTBytableNumberandstate(String tableNumber, String tablestate, String electronicorderstate) {
 		log.debug("findAllElectronicMenuOrderTBytableNumberandstate");
 		try {
-			String queryString = "from ElectronicMenuOrderT as eo where eo.tableNumber=:tableNumber and ec.tablestate=:tablestate and eo.electronicorderstate=:electronicorderstate";
+			String queryString = "from ElectronicMenuOrderT as eo where eo.tableNumber=:tableNumber and eo.tablestate=:tablestate and eo.electronicorderstate=:electronicorderstate";
 			List<ElectronicMenuOrderT> list = this.getHibernateTemplate().findByNamedParam(queryString,new String[]{"tableNumber","tablestate","electronicorderstate"}, new Object[]{tableNumber,tablestate,electronicorderstate});
 			return list;
 		} catch (RuntimeException re) {
