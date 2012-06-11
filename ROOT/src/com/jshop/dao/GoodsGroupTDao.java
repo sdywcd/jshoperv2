@@ -46,5 +46,16 @@ public interface GoodsGroupTDao {
 	 * @return
 	 */
 	public List<GoodsGroupT> sortAllGoodsGroup(final int currentPage, final int lineSize,  final String queryString);
-
+	/**
+	 * 根据团购商品ID 获取信息
+	 * @param groupid
+	 * @return
+	 */
+	public GoodsGroupT findGoodsGroupById(String groupid);
+	/**
+	 * 当团购商品时间结束的时候自动修改其状态
+	 * @param ggt
+	 * @return
+	 */
+	public int updateState(GoodsGroupT ggt);
 }

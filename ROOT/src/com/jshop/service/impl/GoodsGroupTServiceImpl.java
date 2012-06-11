@@ -59,4 +59,16 @@ public class GoodsGroupTServiceImpl implements GoodsGroupTService {
 		return this.getGoodsGroupTDao().sortAllGoodsGroup(currentPage, lineSize,  queryString);
 	}
 
+	@Override
+	public GoodsGroupT findGoodsGroupById(String groupid) {
+		
+		return this.getGoodsGroupTDao().findGoodsGroupById(groupid);
+	}
+
+	@Override
+	public int updateState(GoodsGroupT ggt) {
+		
+		return this.getGoodsGroupTDao().updateState(ggt);
+	}
+
 }
