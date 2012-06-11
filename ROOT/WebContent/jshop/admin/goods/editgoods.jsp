@@ -28,6 +28,15 @@
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 }
+.abelinked{  
+   display: block;  
+   border: 1px solid #aaa;  
+   text-decoration: none;  
+   background-color: #fafafa;  
+   color: #123456;  
+   margin: 2px;  
+   clear:both;  
+  }
 </style>
 	</head>
 
@@ -71,6 +80,9 @@
 							</li>
 							<li class="ui-state-default ui-corner-top">
 								<a href="#box-specification">规格货品</a>
+							</li>
+							<li class="ui-state-default ui-corner-top">
+								<a href="#box-goodsbelinked">关联商品</a>
 							</li>
 							<li class="ui-state-default ui-corner-top">
 								<a href="#box-submit">提交信息</a>
@@ -641,6 +653,67 @@
 							</div>
 						</div>
 					</div>
+					<div id="box-goodsbelinked" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+						<div class="form">
+							<div class="fields">
+								<div class="field ">
+									<div class="label">
+										<label for="select">
+											选择商品所属分类进行搜索:
+										</label>
+									</div>
+									<div class="select">
+										<div>
+											<select id="navidbelinked" name="navidbelinked">
+												<option value="0">
+													---请选择---
+												</option>
+											</select>
+											<select id="ltypeidbelinked" name="ltypeidbelinked">
+												<option value="0">
+													---请选择---
+												</option>
+											</select>
+											<select id="stypeidbelinked" name="stypeidbelinked">
+												<option value="0">
+													---请选择---
+												</option>
+											</select>
+											
+											<input style="border:1px solid #ccc;" type="button" id="searchbelinkedgoods" name="searchbelinkedgoods" value="搜索" />
+										</div>
+									</div>
+								</div>
+								<div class="field">
+									<div class="label label-textarea">
+										<label for="textarea">
+											可关联商品列表：
+										</label>
+									</div>
+ 
+									<div class="textarea" style="weight:auto;height:400px;">
+										<div style="float:left;text-align:center;margin: 10px;">  
+										  <select style="width:300px;height:350px" multiple id="select1">  
+											   <option value="1">Option 1</option>  
+											   <option value="2">Option 2</option>  
+											   <option value="3">Option 3</option>  
+											   <option value="4">Option 4</option>  
+										  </select>  
+  										  <a class="abelinked" href="#" id="addbelinked">add &gt;&gt;</a>  
+ 										</div>  
+										 <div style="float:left;text-align:center;margin: 10px;">  
+											  <select style="width:300px;height:350px" multiple id="select2"></select>  
+											  <a class="abelinked" href="#" id="removebelinked">&lt;&lt; remove</a>  
+										 </div>  
+									</div>
+								</div>
+
+									
+								
+							</div>
+
+						</div>
+					</div>
 					<div id="box-submit" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
 						<div class="form">
 							<div class="fields">
@@ -685,7 +758,14 @@
 			items : ['fontname', 'fontsize', '|', 'textcolor', 'bgcolor', 'bold', 'italic', 'underline',
 					'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist','insertunorderedlist']
 		});
- 		
+ 		 $().ready(function(){  
+ 	 		   $('#addbelinked').click(function() {  
+ 	 		    return !$('#select1 option:selected').remove().appendTo('#select2');  
+ 	 		   });
+ 	 		   $('#removebelinked').click(function() {  
+ 	 		    return !$('#select2 option:selected').remove().appendTo('#select1');  
+ 	 		   });  
+ 	 		 });  
  	</script>
 		<script type="text/javascript">
  	$(function(){

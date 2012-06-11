@@ -36,6 +36,7 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -44,6 +45,7 @@ import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.jshop.android.index.JshopActivityIndexMenu;
 import com.jshop.android.index.JshopMIndex;
 import com.jshop.android.index.JshopMIndexbottom;
 import com.jshop.android.index.JshopMIndexcenter;
@@ -71,6 +73,7 @@ import com.jshop.android.util.JshopMPostActionList;
  */
 public class JshopMelectroorder extends Activity{
 	
+	
 	private String requestjsonstr;
 	private ArrayList<HashMap<String, Object>> electrocartgoodslists = new ArrayList<HashMap<String, Object>>();
 	private ListView listViews;
@@ -82,12 +85,14 @@ public class JshopMelectroorder extends Activity{
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.jshop_m_goodselectrocart);
 		listViews=(ListView) this.findViewById(R.id.listViewmyelectrocart);
-
-		String []temp=readJmtable().split(",");
+		
+		final String []temp=readJmtable().split(",");
 		if("-1".equals(temp[0])){
 			Toast t=Toast.makeText(getApplicationContext(), "您还没有就座无法查看结帐", Toast.LENGTH_LONG);
 			t.show();
 		}else{
+			//这里检测购物车是否已经加入订单来改变菜单选项
+			
 			String tablestate=temp[0].toString();
 			String tableNumber=temp[1].toString();
 			try {
@@ -128,6 +133,8 @@ public class JshopMelectroorder extends Activity{
 //		return JshopActivityUtil.queryStringForPost(posturl);
 //	}
 	
+	
+	
 	/**
 	 * 根据餐桌号获取电子菜单信息
 	 * @param tablestate
@@ -138,6 +145,7 @@ public class JshopMelectroorder extends Activity{
 		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.FINDALLELECTRONICMENUCARTTBYTABLENUMBERFORANDROID+"?tablestate="+tablestate+"&tableNumber="+tableNumber;
 		return JshopActivityUtil.queryStringForPost(posturl);
 	}
+	
 	
 	
 	

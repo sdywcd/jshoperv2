@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-6-4 11:26:05 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-6-7 14:23:05 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -10,7 +10,6 @@ import java.util.Date;
 public class ArticleT implements java.io.Serializable {
 
 	private String articleid;
-	private int version;
 	private String articleCategoryTid;
 	private String title;
 	private String metaKeywords;
@@ -30,6 +29,7 @@ public class ArticleT implements java.io.Serializable {
 	private String position;
 	private String isnotice;
 	private Date updatetime;
+	private int versiont;
 
 	public ArticleT() {
 	}
@@ -38,7 +38,7 @@ public class ArticleT implements java.io.Serializable {
 			String contentvalue, String status, Date createtime,
 			String creatorid, String author, String ispublication,
 			String isrecommend, String istop, String articleCategoryName,
-			Date updatetime) {
+			Date updatetime, int versiont) {
 		this.articleid = articleid;
 		this.articleCategoryTid = articleCategoryTid;
 		this.title = title;
@@ -52,6 +52,7 @@ public class ArticleT implements java.io.Serializable {
 		this.istop = istop;
 		this.articleCategoryName = articleCategoryName;
 		this.updatetime = updatetime;
+		this.versiont = versiont;
 	}
 
 	public ArticleT(String articleid, String articleCategoryTid, String title,
@@ -60,7 +61,7 @@ public class ArticleT implements java.io.Serializable {
 			String ispublication, String isrecommend, String istop,
 			Integer readcount, String htmlPath, Integer pageCount,
 			String articleCategoryName, String position, String isnotice,
-			Date updatetime) {
+			Date updatetime, int versiont) {
 		this.articleid = articleid;
 		this.articleCategoryTid = articleCategoryTid;
 		this.title = title;
@@ -81,6 +82,7 @@ public class ArticleT implements java.io.Serializable {
 		this.position = position;
 		this.isnotice = isnotice;
 		this.updatetime = updatetime;
+		this.versiont = versiont;
 	}
 
 	public String getArticleid() {
@@ -89,14 +91,6 @@ public class ArticleT implements java.io.Serializable {
 
 	public void setArticleid(String articleid) {
 		this.articleid = articleid;
-	}
-
-	public int getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
 	}
 
 	public String getArticleCategoryTid() {
@@ -249,6 +243,14 @@ public class ArticleT implements java.io.Serializable {
 
 	public void setUpdatetime(Date updatetime) {
 		this.updatetime = updatetime;
+	}
+
+	public int getVersiont() {
+		return this.versiont;
+	}
+
+	public void setVersiont(int versiont) {
+		this.versiont = versiont;
 	}
 
 }

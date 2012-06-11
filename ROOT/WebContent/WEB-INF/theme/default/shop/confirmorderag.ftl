@@ -37,20 +37,22 @@
         <div class="consignee_address_wrap">
 			<!--获取常用地址数据-->
           <div class="consignee_address"> <span class="fb">常用地址</span> </div>
-          <div class="consignee_address" id="td2378038"> 
 		  <#if (deliveraddress??)&&(deliveraddress?size>0)>
 			<#list deliveraddress as da>
-			  <#if (da.addressid)==(myorderinfo.deliveraddressid)>
-			  <s><input id="checkaddress" name="checkaddress" value="${da.addressid}" type="radio" checked="checked"/></s>
-			  <span> ${da.username}&nbsp;&nbsp;&nbsp;&nbsp;${da.mobile}&nbsp;&nbsp;&nbsp;&nbsp;${da.province}-${da.city}-${da.district}-${da.street}</span>
-			  <#else>
-			   <s><input id="checkaddress" name="checkaddress" value="${da.addressid}" type="radio"/></s>
-			  <span> ${da.username}&nbsp;&nbsp;&nbsp;&nbsp;${da.mobile}&nbsp;&nbsp;&nbsp;&nbsp;${da.province}-${da.city}-${da.district}-${da.street}</span>
-			  </#if>
+			 
+				<div class="consignee_address" id="td2378038"> 
+				<#if (da.addressid)==(myorderinfo.deliveraddressid)>
+				<s><input id="checkaddress" name="checkaddress" value="${da.addressid}" type="radio" checked="checked"/></s>
+				<span> ${da.username}&nbsp;&nbsp;&nbsp;&nbsp;${da.mobile}&nbsp;&nbsp;&nbsp;&nbsp;${da.province}-${da.city}-${da.district}-${da.street}</span>
+				<#else>
+				<s><input id="checkaddress" name="checkaddress" value="${da.addressid}" type="radio"/></s>
+				<span> ${da.username}&nbsp;&nbsp;&nbsp;&nbsp;${da.mobile}&nbsp;&nbsp;&nbsp;&nbsp;${da.province}-${da.city}-${da.district}-${da.street}</span>
+				</#if>	
             <cite> <a href="javascript:;" onclick="deladdress(${da.addressid});" class="myad_s2">删除</a> </cite>
+		</div>
+
 			</#list>
 		  </#if>
-		</div>
         </div>
 		
 		<div id="addnewaddressarea">

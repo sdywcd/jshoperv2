@@ -1,16 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2012-6-4 11:26:05 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2012-6-7 14:23:06 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="com.jshop.entity.GoodsBelinkedT" table="goods_belinked_t" catalog="jshopactive">
         <id name="belinkedid" type="string">
             <column name="BELINKEDID" length="20" />
             <generator class="assigned" />
         </id>
-        <version name="version" type="int">
-            <column name="VERSION" not-null="true" />
-        </version>
         <property name="maingoodsid" type="string">
             <column name="MAINGOODSID" length="20" not-null="true" />
         </property>
@@ -31,6 +28,9 @@
         </property>
         <property name="updatetime" type="timestamp">
             <column name="UPDATETIME" length="0" not-null="true" />
+        </property>
+        <property name="versiont" type="int">
+            <column name="VERSIONT" not-null="true" />
         </property>
         <property name="sxlinkedgoodsid" type="string">
             <column name="SXLINKEDGOODSID" length="20" not-null="true" />

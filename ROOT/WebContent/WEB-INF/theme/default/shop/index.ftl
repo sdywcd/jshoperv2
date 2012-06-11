@@ -326,15 +326,18 @@
       <div class="mainright_r">
         <div class="board">
           <h1> <a href="#" target="_blank">更多</a> </h1>
-          <ul>
-            <li><a href="#" target="_blank">欧斯塔克商城返利</a></li>
-            <li><a href="#" target="_blank">有礼有节 小黑赠原装内存</a></li>
-            <li><a href="#" target="_blank">史上最给力神秘礼包现身</a></li>
-            <li><a href="#" target="_blank">低能耗数码限时1小时疯抢</a></li>
-            <li><a href="#" target="_blank">ThinkPad狂欢全场赠小黑优盘</a></li>
-            <li><a href="#" target="_blank">欧斯塔克商城打造女人节</a></li>
-            <li><a href="#" target="_blank">数码装备大折扣全场赠8G卡</a></li>
-          </ul>
+		  <#if (article??)&&(article?size>0) >
+			<ul>
+			<#list article as a>
+			<#if a.isnotice=="1">
+			<li> <a href="${basepath}<@a.htmlPath?interpret />" target="_blank">${a.title}</a> </li>
+			<#if a_index+1==5>
+			<#break/>
+			</#if>
+			</#if>
+			</#list>
+			</ul>
+		  </#if>
           <div class="clear"></div>
         </div>
         <div class="mainright_div1wrap mt7">
