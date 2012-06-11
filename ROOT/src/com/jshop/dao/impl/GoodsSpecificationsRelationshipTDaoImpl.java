@@ -49,7 +49,15 @@ public class GoodsSpecificationsRelationshipTDaoImpl extends HibernateDaoSupport
 	public List<GoodsSpecificationsRelationshipT> checkSpecificationRelationshipBygoodssetid(
 			String goodssetid) {
 		// TODO Auto-generated method stub
-		return null;
+		log.debug("find specificaionid by gooodsetid");
+		try{
+			String queryString = "from GoodsSpecificationsRelationshipT as gsrt where gsrt.goodsSetId=:goodssetid";
+			List<GoodsSpecificationsRelationshipT> list = this.getHibernateTemplate().findByNamedParam(queryString, "goodssetid", goodssetid);
+			return list;
+		}catch (RuntimeException re) {			
+            log .error("find specificaionid by gooodsetid error" , re);
+            throw re;
+		}
 	}
 	
 	
@@ -67,43 +75,46 @@ public class GoodsSpecificationsRelationshipTDaoImpl extends HibernateDaoSupport
 	}
 	
 	
-	public int updateGoodsAssociatedProductById(GoodsSpecificationsRelationshipT gsrt) {
+	public int updateGoodsAssociatedProductById(final GoodsSpecificationsRelationshipT gsrt) {
 		// TODO Auto-generated method stub
 		log.debug("update Goods Associated products");
 		try{
-			this.getHibernateTemplate().save(gsrt);
+			final String queryString = "update GoodsSpecificationsRelationshipT as gsrt set gsrt.specidicationsId=:specidicationsId where gsrt.goodsSetId=:goodsSetId";
+			Integer integer =(Integer) this.getHibernateTemplate().execute(new HibernateCallback() {
+				public Object doInHibernate(Session session) throws HibernateException, SQLException {
+					int i = 0;
+					Query query = session.createQuery(queryString);
+					query.setParameter("goodsSetId", gsrt.getGoodsSetId());
+					query.setParameter("specidicationsId", gsrt.getSpecidicationsId());
+					i = query.executeUpdate();
+					return i;
+				}
+			});
 			log.debug("update successful");
-			return 1;
+			return integer;
 		}catch(RuntimeException re){
 			log.error("updat failed");
 			throw re;
 		}
 	}
 	
-	public int delGoodsAssociatedProductById(final String[] list) {
+	public int delGoodsAssociatedProductById(final String goodssetid) {
 		// TODO Auto-generated method stub
 		log.debug("del Goods associated prouducts");
 		try{
-			final String queryString ="delete from GoodsSpecificationsRelationshipT as gsrt where gsrt.goodsSetId:goodsSetId";
-			this.getHibernateTemplate().execute(new HibernateCallback(){
+			final String queryString ="delete from GoodsSpecificationsRelationshipT as gsrt where gsrt.goodsSetId=:goodssetid";
+			Integer integer = (Integer)this.getHibernateTemplate().execute(new HibernateCallback(){
 				
 				public Object doInHibernate(Session session) throws HibernateException, SQLException {
 					Query query = session.createQuery(queryString);
 					int i = 0;
-					for(String s: list){
-						query.setParameter("goodsSetId",s);
-						i = query.executeUpdate();
-						i++;
-					}
-					if (list.length == i){
-						return i;
-					}else{
-						return 0;
-					}
-					
+					query.setParameter("goodssetid",goodssetid);
+					i = query.executeUpdate();
+					return i;
 				}
 			});
-			return 0;
+			log.debug("update successful");
+			return integer;
 		}catch(RuntimeException re){
 			log.error("del failed",re);
 			throw re;

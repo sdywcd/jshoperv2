@@ -461,7 +461,7 @@ public class ArticleCategoryTAction extends ActionSupport {
 				act.setCreatetime(BaseTools.systemtime());
 				act.setCreatorid(BaseTools.adminCreateId());
 				act.setUpdatetime(BaseTools.systemtime());
-				act.setVersion(0);
+				act.setVersiont(0);
 				act.setParentName("");
 				act.setPosition(this.getPosition());
 				this.getArticleCategoryTService().addArticleCategoryT(act);
@@ -502,7 +502,7 @@ public class ArticleCategoryTAction extends ActionSupport {
 				act.setCreatetime(BaseTools.systemtime());
 				act.setCreatorid(BaseTools.adminCreateId());
 				act.setUpdatetime(BaseTools.systemtime());
-				act.setVersion(0);
+				act.setVersiont(0);
 				act.setParentId(this.getParentId());
 				act.setParentName(this.getParentName());
 				act.setPosition(this.getPosition());
@@ -544,7 +544,7 @@ public class ArticleCategoryTAction extends ActionSupport {
 				act.setCreatetime(BaseTools.systemtime());
 				act.setCreatorid(BaseTools.adminCreateId());
 				act.setUpdatetime(BaseTools.systemtime());
-				act.setVersion(0);
+				act.setVersiont(0);
 				act.setParentId(this.getParentId1());
 				act.setParentName(this.getParentName1());
 				act.setPosition(this.getPosition());

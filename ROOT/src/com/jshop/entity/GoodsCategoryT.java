@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-6-4 11:26:05 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-6-7 14:23:05 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -10,7 +10,6 @@ import java.util.Date;
 public class GoodsCategoryT implements java.io.Serializable {
 
 	private String goodsCategoryTid;
-	private int version;
 	private String grade;
 	private String metaKeywords;
 	private String metaDes;
@@ -26,13 +25,14 @@ public class GoodsCategoryT implements java.io.Serializable {
 	private String parentName;
 	private String htmlpath;
 	private Date updatetime;
+	private int versiont;
 
 	public GoodsCategoryT() {
 	}
 
 	public GoodsCategoryT(String goodsCategoryTid, String grade, String name,
 			String state, String path, String sign, String goodsTypeId,
-			Date createtime, String creatorid, Date updatetime) {
+			Date createtime, String creatorid, Date updatetime, int versiont) {
 		this.goodsCategoryTid = goodsCategoryTid;
 		this.grade = grade;
 		this.name = name;
@@ -43,13 +43,14 @@ public class GoodsCategoryT implements java.io.Serializable {
 		this.createtime = createtime;
 		this.creatorid = creatorid;
 		this.updatetime = updatetime;
+		this.versiont = versiont;
 	}
 
 	public GoodsCategoryT(String goodsCategoryTid, String grade,
 			String metaKeywords, String metaDes, String name, String state,
 			String path, Integer sort, String sign, String goodsTypeId,
 			String parentId, Date createtime, String creatorid,
-			String parentName, String htmlpath, Date updatetime) {
+			String parentName, String htmlpath, Date updatetime, int versiont) {
 		this.goodsCategoryTid = goodsCategoryTid;
 		this.grade = grade;
 		this.metaKeywords = metaKeywords;
@@ -66,6 +67,7 @@ public class GoodsCategoryT implements java.io.Serializable {
 		this.parentName = parentName;
 		this.htmlpath = htmlpath;
 		this.updatetime = updatetime;
+		this.versiont = versiont;
 	}
 
 	public String getGoodsCategoryTid() {
@@ -74,14 +76,6 @@ public class GoodsCategoryT implements java.io.Serializable {
 
 	public void setGoodsCategoryTid(String goodsCategoryTid) {
 		this.goodsCategoryTid = goodsCategoryTid;
-	}
-
-	public int getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
 	}
 
 	public String getGrade() {
@@ -202,6 +196,14 @@ public class GoodsCategoryT implements java.io.Serializable {
 
 	public void setUpdatetime(Date updatetime) {
 		this.updatetime = updatetime;
+	}
+
+	public int getVersiont() {
+		return this.versiont;
+	}
+
+	public void setVersiont(int versiont) {
+		this.versiont = versiont;
 	}
 
 }
