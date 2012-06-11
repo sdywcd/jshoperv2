@@ -437,6 +437,47 @@
 	float: left;
 }
 
+.detail_info_rm3 .rm3_4{
+	width:376px;
+	padding:0 0 0 10px;
+	float:left;
+}
+
+.detail_info_rm3 .rm3_4 p{
+	width:70px;
+	float:left;
+	padding:20px 0 0 0 ;
+}
+
+.detail_info_rm3 .rm3_4 cite{
+	float:left;
+	width:300px;
+}
+
+.detail_info_rm3 .rm3_4 cite a{
+	float:left;
+	text-align:center;
+	height:20px;
+	line-height:20px;
+	margin:16px 9px 0 0;
+	width:auto;
+	padding:0 5px 0 5px;
+	border:#C6C6C6 solid 1px;	
+}
+.detail_info_rm3 .rm3_4 cite a:hover{
+	
+	color:E13A00;
+	text-decoration:none;
+	border:#E13A00 solid 1px;	
+}
+.detail_info_rm3 .rm3_4 cite a:active{
+	
+	color:E13A00;
+	font-weight:bold;
+	text-decoration:none;
+	border:#E13A00 solid 2px;	
+}
+
 .detail_info_rm3 .rm3_2 {
 	width: 366px;
 	float: left;
