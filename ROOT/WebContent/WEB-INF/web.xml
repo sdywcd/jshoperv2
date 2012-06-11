@@ -37,7 +37,7 @@
   	<listener>
    		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
   	</listener>
-  	<!-- spring的session管理-->
+  	<!-- spring的session管理
   	<filter>
    		<filter-name>openSessionInViewFilter</filter-name>
    		<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
@@ -56,7 +56,7 @@
 	<filter-mapping>
 	   <filter-name>openSessionInViewFilter</filter-name>
 	   <url-pattern>/*</url-pattern>
-	</filter-mapping>
+	</filter-mapping>-->
   	<!--struts2.1.8配置-->
   	<filter>
 		<filter-name>struts2</filter-name>
