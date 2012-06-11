@@ -52,6 +52,8 @@ public class GoodsGroupTAction {
 	private String sortname;//排序字段
 	private String sortorder;//排序方式
 	private String qtype;
+	private boolean goodsgroup =false;
+	private GoodsGroupT groupList= new GoodsGroupT();
 	
 	private List rows= new ArrayList();
 	@JSON(serialize=false)
@@ -212,6 +214,18 @@ public class GoodsGroupTAction {
 	public void setQtype(String qtype) {
 		this.qtype = qtype;
 	}
+	public boolean isGoodsgroup() {
+		return goodsgroup;
+	}
+	public void setGoodsgroup(boolean goodsgroup) {
+		this.goodsgroup = goodsgroup;
+	}
+	public GoodsGroupT getGroupList() {
+		return groupList;
+	}
+	public void setGroupList(GoodsGroupT groupList) {
+		this.groupList = groupList;
+	}
 	/**
 	 * 添加团购商品
 	 * @return
@@ -223,7 +237,7 @@ public class GoodsGroupTAction {
 		ggt.setGoodsid(this.getGoodsid().trim());
 		ggt.setCreatetime(BaseTools.systemtime());
 		ggt.setGoodsname(this.getGoodsname().trim());
-		ggt.setCreatorid(this.getCreatorid().trim());
+		ggt.setCreatorid(BaseTools.adminCreateId());
 		ggt.setState("0");
 		ggt.setCashstate("0");
 		ggt.setCashlimit(0.0);
@@ -236,10 +250,11 @@ public class GoodsGroupTAction {
 		ggt.setSendpoint(this.getSendpoint());
 		ggt.setPriceladder(this.getPriceladder().trim());
 		ggt.setDetail(this.getDetail().trim());
-		this.getGoodsGroupTService().addGoodsGroupT(ggt);
-			return "json";
-//		}	
-//		return "json";
+		if(this.getGoodsGroupTService().addGoodsGroupT(ggt)>0){
+			this.setGoodsgroup(true);
+			return "json";			
+		}	
+		return "json";
 	}
 
 	/**
@@ -268,7 +283,8 @@ public class GoodsGroupTAction {
 					ggt.getSalequantity(),
 					ggt.getSOrderCount(),
 					ggt.getTotalOrderCount(),
-					ggt.getDetail()
+					ggt.getDetail(),
+					ggt.getCreatorid()
 			});
 			rows.add(cellMap);
 		}
@@ -309,6 +325,76 @@ public class GoodsGroupTAction {
 		return "json";
 		
 	}
-	
+	/**
+	 * 根据groupid 获取团购商品信息
+	 * @return
+	 */
+	@Action(value="findGoodsGroupById",results={@Result(name="json",type="jaon")})
+	public String findGoodsGroupById(){
+		if(Validate.StrNotNull(this.getGroupid())){
+			groupList= this.getGoodsGroupTService().findGoodsGroupById(this.getGroupid().trim());
+			if(groupList!=null){
+			return "json";
+			}
+		}
+		return "json";
+	}
+	/**
+	 * 修改团购商品的信息
+	 * @return
+	 */
+	@Action(value="updateGoodsGroup",results={@Result(name="json",type="json")})
+	public String updateGoodsGroup(){
+		GoodsGroupT ggt = new GoodsGroupT();	
+		ggt.setBegintime(this.getBegintime());
+		ggt.setEndtime(this.getEndtime());
+		ggt.setDetail(this.getDetail().trim());
+		ggt.setCashlimit(this.getCashlimit());
+		ggt.setCashstate(this.getCashstate().trim());
+		ggt.setLimitbuy(this.getLimitbuy());
+		ggt.setGoodsid(this.getGoodsid().trim());
+		ggt.setCreatetime(BaseTools.systemtime());
+		ggt.setGoodsname(this.getGoodsname().trim());
+		ggt.setState(this.getState().trim());
+		ggt.setSalequantity(this.getSalequantity());
+		ggt.setSOrderCount(this.getSOrderCount());
+		ggt.setTotalOrderCount(this.getTotalOrderCount());
+		ggt.setSendpoint(this.getSendpoint());
+		ggt.setPriceladder(this.getPriceladder().trim());
+		if(this.getGoodsGroupTService().updateGoodsGroupT(ggt)>0){
+			this.setGoodsgroup(true);
+			return "json";
+		}
+			return "json";
+		
+	}
+	/**
+	 * 根据groupid批量删除团购商品
+	 * @return
+	 */
+	@Action(value="delGoodsGroup",results={@Result(name="json",type="json")})
+	public String delGoodsGroup(){
+		if(Validate.StrNotNull(this.getGroupid())){
+			String [] s = this.getGroupid().trim().split(",");
+			if(this.getGoodsGroupTService().delGoodsGroupT(s)>0){
+				this.setGoodsgroup(true);
+				return "json";
+			}
+			return "json";
+		}
+		return "json";
+	}
+	/**
+	 * 修改团购状态
+	 * @return
+	 */
+	@Action(value="updateState",results={@Result(name="json",type="json")})
+	public String updateState(){
+		GoodsGroupT ggt = new GoodsGroupT();
+		ggt.setGroupid(this.getGroupid().trim());
+		ggt.setState("2");
+		this.getGoodsGroupTService().updateState(ggt);
+		return "json";
+	}
 	
 }

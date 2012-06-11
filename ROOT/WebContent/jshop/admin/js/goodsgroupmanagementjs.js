@@ -140,11 +140,13 @@ $(function() {
 				jConfirm('确定编辑此项吗?', '信息提示', function(r) {
 					if (r) {
 						var str = $('.trSelected', grid)[0].id.substr(3);
-						window.location.href = "editgoods.jsp?session=" + session + "#goods&goodsid=" + str;
+						window.location.href = "addgoodsgroupt.jsp?session=" + session + "#goods&groupid=" + str;
 						return;
 					}
-				});
-			} else {
+				});				
+			}else if($('.trSelected').length>1){
+				jAlert('请不要选择多个','信息提示');
+			}else {
 				jAlert('请选择一条信息', '信息提示');
 				return false;
 			}
@@ -156,12 +158,12 @@ $(function() {
 						$('.trSelected', grid).each(function() {
 							str += this.id.substr(3) + ",";
 						});
-						$.post("delGoods.action", {
-							"goodsid" : str
+						$.post("delGoodsGroup.action", {
+							"groupid" : str
 						}, function(data) {
 							if (data.sucflag) {
-								$('#goodsmanagement').flexReload();
-								jAlert(data.goodsid + '号商品已经删除', '信息提示框');
+								$('#goodsgroupmanagement').flexReload();
+								jAlert( '商品已经删除', '信息提示框');
 							}
 						});
 					}

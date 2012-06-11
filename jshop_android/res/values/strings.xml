@@ -53,4 +53,8 @@
 	<string name="myelectrocart">已点菜单</string>
 	<string name="totalprice">总价</string>
 	<string name="diandan">点单</string>
+	<string name="maidan">买单</string>
+	<string name="payway">支付方式：</string>
+	<string name="cash1">现金</string>
+	<string name="creditcard2">刷卡</string>
 </resources>

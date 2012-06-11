@@ -96,14 +96,14 @@ public class GoodsGroupTDaoImpl extends HibernateDaoSupport implements GoodsGrou
 		log.debug("del goodsgroupt");
 		try {
 			this.getHibernateTemplate().execute(new HibernateCallback() {
-				String queryString="delete from GoodsGroupT as ggt where ggt.goodsid=:goodsid";
+				String queryString="delete from GoodsGroupT as ggt where ggt.groupid=:groupid";
 				@Override
 				public Object doInHibernate(Session session) throws HibernateException,
 						SQLException {
 					Query query =  session.createQuery(queryString);
 					int i = 0;
 					for(String s : list){
-						query.setParameter("goodsid", s);
+						query.setParameter("groupid", s);
 						i=query.executeUpdate();
 						i++;
 					}
@@ -162,6 +162,43 @@ public class GoodsGroupTDaoImpl extends HibernateDaoSupport implements GoodsGrou
 			throw e;
 		}
 		
+	}
+
+	@Override
+	public GoodsGroupT findGoodsGroupById(String groupid) {
+		try {
+			String queryString="from GoodsGroupT as ggt where ggt.groupid:groupid ";
+			List<GoodsGroupT> list =this.getHibernateTemplate().findByNamedParam(queryString, "groupid", groupid);
+			if(!list.isEmpty()){
+				return list.get(0);
+			}
+			return null;
+		} catch (DataAccessException e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public int updateState(final GoodsGroupT ggt) {
+		try {
+			final String queryString="update GoodsGroupT as ggt set ggt.state:state where ggt.groupid:groupid";
+			Integer integer = (Integer) this.getHibernateTemplate().execute(new HibernateCallback() {
+				
+				@Override
+				public Object doInHibernate(Session session) throws HibernateException,
+						SQLException {
+					 int i = 0;
+					 Query query = session.createQuery(queryString);
+					 query.setParameter("groupid", ggt.getGroupid());
+					 query.setParameter("state", ggt.getState());
+					 i=query.executeUpdate();
+					return i;
+				}
+			});
+			return integer;
+		} catch (DataAccessException e) {
+			throw e;
+		}
 	}
 
 }
