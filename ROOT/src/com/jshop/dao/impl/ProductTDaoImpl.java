@@ -169,6 +169,27 @@ public class ProductTDaoImpl extends HibernateDaoSupport implements ProductTDao 
 			throw re;
 		}
 	}
+
+	@Override
+	public int delProductTByproductid(final String productid) {
+		log.debug("delProductTBygoodsid");
+		try {
+			final String queryString = "delete from ProductT as pt where pt.productid=:productid";
+			Integer integer=(Integer)this.getHibernateTemplate().execute(new HibernateCallback() {
+				public Object doInHibernate(Session session) throws HibernateException, SQLException {
+					int i = 0;
+					Query query = session.createQuery(queryString);
+					query.setParameter("productid", productid);
+					i = query.executeUpdate();
+					return i;
+				}
+			});
+			return integer;
+		} catch (RuntimeException re) {
+			log.error("delProductTBygoodsid failed", re);
+			throw re;
+		}
+	}
 	
 	
 	
