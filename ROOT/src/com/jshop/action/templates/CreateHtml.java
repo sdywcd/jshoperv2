@@ -17,6 +17,7 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
 
+import com.jshop.action.GoodsGroupTAction;
 import com.jshop.action.GoodsTNAction;
 import com.jshop.action.TemplateTAction;
 import com.jshop.action.tools.BaseTools;
@@ -26,6 +27,7 @@ import com.jshop.action.tools.FreeMarkervariable;
 import com.jshop.action.tools.PageModel;
 import com.jshop.entity.ArticleT;
 import com.jshop.entity.GoodsCategoryT;
+import com.jshop.entity.GoodsGroupT;
 import com.jshop.entity.GoodsT;
 import com.jshop.entity.PageEditareaT;
 import com.jshop.entity.TemplateT;
@@ -55,6 +57,7 @@ public class CreateHtml extends ActionSupport {
 	private ArticleTService articleTService;
 	private GoodsCategoryTService goodsCategoryTService;
 	private DataCollectionTAction dataCollectionTAction;
+	private GoodsGroupTAction goodsGroupTAction;
 	private GoodsTNAction goodsTNAction;
 	private Map<String, Object> map = new HashMap<String, Object>();
 	private Map<String, Object> session = new HashMap<String, Object>();
@@ -212,6 +215,14 @@ public class CreateHtml extends ActionSupport {
 
 	public void setLogmsg(StringBuilder logmsg) {
 		this.logmsg = logmsg;
+	}
+
+	public GoodsGroupTAction getGoodsGroupTAction() {
+		return goodsGroupTAction;
+	}
+
+	public void setGoodsGroupTAction(GoodsGroupTAction goodsGroupTAction) {
+		this.goodsGroupTAction = goodsGroupTAction;
 	}
 
 	/**
@@ -770,6 +781,20 @@ public class CreateHtml extends ActionSupport {
 			this.getLogmsg().append("<p style='color:red;'>" + fc.getLogmsg() + "</p>");
 		} 
 		
+	}
+	/**
+	 *生成团购页面模板
+	 * @param map
+	 * @throws IOException
+	 * @throws TemplateException
+	 */
+	public void buildGoodsGroupT(Map<String, Object> map) throws IOException, TemplateException{
+		List<GoodsGroupT> list = this.getGoodsGroupTAction().findGoodsGroupByState();
+		for(Iterator it=list.iterator();it.hasNext();){
+			GoodsGroupT ggt = (GoodsGroupT) it.next();
+			map.put(FreeMarkervariable.GOODSGROUPT, ggt);
+			String htmlPath = this.createGoodsT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORGOODSGROUP, ggt.getGroupid(), map);
+		}
 	}
 
 }

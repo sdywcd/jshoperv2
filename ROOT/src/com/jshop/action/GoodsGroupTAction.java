@@ -24,6 +24,8 @@ import com.jshop.entity.GoodsGroupT;
 import com.jshop.entity.GoodsT;
 import com.jshop.service.GoodsGroupTService;
 import com.jshop.service.impl.GoodsGroupTServiceImpl;
+
+import edu.emory.mathcs.backport.java.util.Collections;
 @ParentPackage("jshop")
 @Controller("GoodsGroupTAction")
 public class GoodsGroupTAction {
@@ -403,5 +405,17 @@ public class GoodsGroupTAction {
 		this.getGoodsGroupTService().updateState(ggt);
 		return "json";
 	}
+	/**
+	 * 根据团购商品状态是“1”的 获取商品信息
+	 * @return
+	 */
 	
+	public List<GoodsGroupT> findGoodsGroupByState(){
+		List<GoodsGroupT> list =this.getGoodsGroupTService().findGoodsGroupByState("1");
+		if(!list.isEmpty()){
+			return list;
+		}
+		return Collections.emptyList();
+		
+	}
 }

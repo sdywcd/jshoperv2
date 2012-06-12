@@ -71,4 +71,10 @@ public class GoodsGroupTServiceImpl implements GoodsGroupTService {
 		return this.getGoodsGroupTDao().updateState(ggt);
 	}
 
+	@Override
+	public List<GoodsGroupT> findGoodsGroupByState(String state) {
+		
+		return this.getGoodsGroupTDao().findGoodsGroupByState(state);
+	}
+
 }
