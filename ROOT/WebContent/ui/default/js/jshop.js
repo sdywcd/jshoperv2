@@ -3,7 +3,15 @@ $(function() {
 	var windowsurl = window.location;
 	$('#hidurl').attr("value", windowsurl);
 });
-
+$(function(){
+	// 所在地插件
+	$("#ChinaArea").jChinaArea( {
+		aspnet : false,
+		s1 : "上海市",// 默认选中的省名
+		s2 : "上海市",// 默认选中的市名
+		s3 : "黄浦区"// 默认选中的县区名
+	});
+});
 var flag = false;
 // 验证商品传递的参数
 function validatethenpostinfotoaddgoods() {
@@ -195,13 +203,7 @@ $(function() {
 		});
 	});
 
-	// 所在地插件
-	$("#ChinaArea").jChinaArea( {
-		aspnet : false,
-		s1 : "上海市",// 默认选中的省名
-		s2 : "上海市",// 默认选中的市名
-		s3 : "黄浦区"// 默认选中的县区名
-	});
+	
 
 	/**
 	 * 用户中心个人资料部分
@@ -496,6 +498,7 @@ function addgoodscomment(){
 }
 
 
+
 /**
  * 购物车中删除商品
  */
@@ -768,12 +771,6 @@ $(function() {
 			return false;
 		}
 	});
-
-	
-	
-	
-	
-	
 });
 
 /*
@@ -796,6 +793,45 @@ function showdiv(index) {
 
 }
 
+/**
+ * 
+ * 在商品详细页面选择规格值时修改边框样式
+ */
+
+$(".rm3_pic").click(function(){
+	$(".rm3_pic").css("border","0px solid #FC5A0A ");
+	$(this).css("border","2px solid #FC5A0A ");
+	var sg=$("#selectedguigea").text();
+	//改变相应的页面内容
+	if(sg!=""){
+		$("#selectedguigea").text(sg+this.title);
+	}
+	$("#selectedguigea").text(this.title);
+	return true;
+});
+
+
+$(".text_current").click(function(){
+	$(".text_current").css("border","0px solid #FC5A0A ");
+	$(this).css("border","2px solid #FC5A0A ");
+	//改变相应的页面内容
+	var sg=$("#selectedguigea").text();
+	if(sg!=""){
+		$("#selectedguigea").text(sg+this.title);
+	}
+	$("#selectedguigea").text(this.title);
+	//发送请求获取货品内容修改页面值
+	var hidgoodsid=$("#hidgoodsid").val();
+	
+	return true;
+});
+
+/**
+ * 根据商品id获取货品值
+ */
+function findProductBygoodsid(){
+	
+}
 
 
 /*

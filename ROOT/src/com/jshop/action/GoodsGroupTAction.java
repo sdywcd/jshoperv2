@@ -329,7 +329,7 @@ public class GoodsGroupTAction {
 	 * 根据groupid 获取团购商品信息
 	 * @return
 	 */
-	@Action(value="findGoodsGroupById",results={@Result(name="json",type="jaon")})
+	@Action(value="findGoodsGroupById",results={@Result(name="json",type="json")})
 	public String findGoodsGroupById(){
 		if(Validate.StrNotNull(this.getGroupid())){
 			groupList= this.getGoodsGroupTService().findGoodsGroupById(this.getGroupid().trim());

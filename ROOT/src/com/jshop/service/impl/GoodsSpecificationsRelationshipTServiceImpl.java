@@ -50,6 +50,12 @@ public class GoodsSpecificationsRelationshipTServiceImpl implements GoodsSpecifi
 		
 		return this.getGoodsSpecificationsRelationshipTDao().checkSpecificationRelationshipBygoodssetid(goodssetid);
 	}
+
+	@Override
+	public List<GoodsSpecificationsRelationshipT> checkSpecificationRelationshipByspecificationsid(
+			String specificationsid) {
+		return this.getGoodsSpecificationsRelationshipTDao().checkSpecificationRelationshipByspecificationsid(specificationsid);
+	}
 	
 	
 	
