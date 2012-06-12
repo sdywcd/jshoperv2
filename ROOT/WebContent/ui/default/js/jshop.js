@@ -804,9 +804,13 @@ $(".rm3_pic").click(function(){
 	var sg=$("#selectedguigea").text();
 	//改变相应的页面内容
 	if(sg!=""){
+		$("#selectedguigea").text("");
 		$("#selectedguigea").text(sg+this.title);
+	}else{
+		
+		$("#selectedguigea").text(this.title);
 	}
-	$("#selectedguigea").text(this.title);
+	
 	return true;
 });
 
@@ -817,9 +821,11 @@ $(".text_current").click(function(){
 	//改变相应的页面内容
 	var sg=$("#selectedguigea").text();
 	if(sg!=""){
+		$("#selectedguigea").text("");
 		$("#selectedguigea").text(sg+this.title);
+	}else{
+		$("#selectedguigea").text(this.title);
 	}
-	$("#selectedguigea").text(this.title);
 	//发送请求获取货品内容修改页面值
 	var hidgoodsid=$("#hidgoodsid").val();
 	

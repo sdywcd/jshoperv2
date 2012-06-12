@@ -318,6 +318,7 @@ public class JshopMelectrocart extends Activity{
 	 */
 	public void findelectrocart(String tablestate,String tableNumber) throws JSONException, IOException{
 		electrocartgoodslists.clear();
+		totalprice=0.0;
 		requestjsonstr=findelectrocartForJshop(tablestate,tableNumber);
 		String []strs=requestjsonstr.split("--");
 		for(int i=0;i<strs.length;i++){
