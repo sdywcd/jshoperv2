@@ -4,13 +4,13 @@ $(function() {
 	$('#hidurl').attr("value", windowsurl);
 });
 $(function(){
-	// 所在地插件
-	$("#ChinaArea").jChinaArea( {
-		aspnet : false,
-		s1 : "上海市",// 默认选中的省名
-		s2 : "上海市",// 默认选中的市名
-		s3 : "黄浦区"// 默认选中的县区名
-	});
+//	// 所在地插件
+//	$("#ChinaArea").jChinaArea( {
+//		aspnet : false,
+//		s1 : "上海市",// 默认选中的省名
+//		s2 : "上海市",// 默认选中的市名
+//		s3 : "黄浦区"// 默认选中的县区名
+//	});
 });
 var flag = false;
 // 验证商品传递的参数
