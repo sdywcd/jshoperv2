@@ -138,6 +138,8 @@ public class GoodsTNAction extends ActionSupport {
 	private String usersetnum;
 	private String isSpecificationsOpen;
 	private String specificationsValue;
+	private String specificationsid;
+	private String specificationsName;
 	private String star;
 	private String staruser;
 	private String totalcomment;
@@ -1150,6 +1152,22 @@ public class GoodsTNAction extends ActionSupport {
 		this.commoditylist = commoditylist;
 	}
 
+	public String getSpecificationsid() {
+		return specificationsid;
+	}
+
+	public void setSpecificationsid(String specificationsid) {
+		this.specificationsid = specificationsid;
+	}
+
+	public String getSpecificationsName() {
+		return specificationsName;
+	}
+
+	public void setSpecificationsName(String specificationsName) {
+		this.specificationsName = specificationsName;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -1662,7 +1680,21 @@ public class GoodsTNAction extends ActionSupport {
 			String str[] = this.getRejson().split("-");
 			String strsv[] = this.getSpecificationsValue().split("-");
 			int count = 0;
+			String tempsv=null;
 			for (int i = 0; i < str.length; i++) {
+				//注入规格名称和规格值id
+				tempsv=strsv[i].toString().substring(0, strsv[i].length()-1);
+				JSONObject j = (JSONObject) JSONValue.parse(tempsv);
+				Iterator itr = j.keySet().iterator();
+				while(itr.hasNext()){
+					String key=itr.next().toString();
+					if(key.equals("goodsattributename")){
+						pt.setSpecificationsName(j.get(key).toString());
+					}
+					if(key.equals("specificationsid")){
+						pt.setSpecificationsid(j.get(key).toString());
+					}
+				}
 				pt.setProductid(this.getSerial().Serialid(Serial.PRODUCT));
 				pt.setProductName(gt.getGoodsname());
 				pt.setSpecificationsValue(strsv[i].toString());
@@ -1825,8 +1857,21 @@ public class GoodsTNAction extends ActionSupport {
 			String str[] = this.getRejson().split("-");
 			String strsv[] = this.getSpecificationsValue().split("-");
 			int count = 0;
+			String tempsv=null;
 			for (int i = 0; i < str.length; i++) {
-
+				//注入规格名称和规格值id
+				tempsv=strsv[i].toString().substring(0, strsv[i].length()-1);
+				JSONObject j = (JSONObject) JSONValue.parse(tempsv);
+				Iterator itr = j.keySet().iterator();
+				while(itr.hasNext()){
+					String key=itr.next().toString();
+					if(key.equals("goodsattributename")){
+						pt.setSpecificationsName(j.get(key).toString());
+					}
+					if(key.equals("specificationsid")){
+						pt.setSpecificationsid(j.get(key).toString());
+					}
+				}
 				pt.setProductName(gt.getGoodsname());
 				pt.setSpecificationsValue(strsv[i].toString());
 				pt.setGoodsid(gt.getGoodsid());
@@ -1877,7 +1922,7 @@ public class GoodsTNAction extends ActionSupport {
 					}
 				}
 				List<ProductT> list = this.getProductTService().findProductTByproductid(BaseTools.adminCreateId(), pt.getProductid());
-				if (list != null) {
+				if (!list.isEmpty()) {
 					if (this.getProductTService().updateProductT(pt) > 0) {
 						count++;
 					}
@@ -1998,7 +2043,21 @@ public class GoodsTNAction extends ActionSupport {
 			String str[] = this.getRejson().split("-");
 			String strsv[] = this.getSpecificationsValue().split("-");
 			int count = 0;
+			String tempsv=null;
 			for (int i = 0; i < str.length; i++) {
+				//注入规格名称和规格值id
+				tempsv=strsv[i].toString().substring(0, strsv[i].length()-1);
+				JSONObject j = (JSONObject) JSONValue.parse(tempsv);
+				Iterator itr = j.keySet().iterator();
+				while(itr.hasNext()){
+					String key=itr.next().toString();
+					if(key.equals("goodsattributename")){
+						pt.setSpecificationsName(j.get(key).toString());
+					}
+					if(key.equals("specificationsid")){
+						pt.setSpecificationsid(j.get(key).toString());
+					}
+				}
 				pt.setProductid(this.getSerial().Serialid(Serial.PRODUCT));
 				pt.setProductName(gt.getGoodsname());
 				pt.setSpecificationsValue(strsv[i].toString());
@@ -2162,7 +2221,21 @@ public class GoodsTNAction extends ActionSupport {
 			String str[] = this.getRejson().split("-");
 			String strsv[] = this.getSpecificationsValue().split("-");
 			int count = 0;
+			String tempsv=null;
 			for (int i = 0; i < str.length; i++) {
+				//注入规格名称和规格值id
+				tempsv=strsv[i].toString().substring(0, strsv[i].length()-1);
+				JSONObject j = (JSONObject) JSONValue.parse(tempsv);
+				Iterator itr = j.keySet().iterator();
+				while(itr.hasNext()){
+					String key=itr.next().toString();
+					if(key.equals("goodsattributename")){
+						pt.setSpecificationsName(j.get(key).toString());
+					}
+					if(key.equals("specificationsid")){
+						pt.setSpecificationsid(j.get(key).toString());
+					}
+				}
 				pt.setProductName(gt.getGoodsname());
 				pt.setSpecificationsValue(strsv[i].toString());
 				pt.setGoodsid(gt.getGoodsid());
@@ -2213,7 +2286,7 @@ public class GoodsTNAction extends ActionSupport {
 					}
 				}
 				List<ProductT> list = this.getProductTService().findProductTByproductid(BaseTools.adminCreateId(), pt.getProductid());
-				if (list != null) {
+				if (!list.isEmpty()) {
 					if (this.getProductTService().updateProductT(pt) > 0) {
 						count++;
 					}

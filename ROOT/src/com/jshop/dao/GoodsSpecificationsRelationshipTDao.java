@@ -15,13 +15,13 @@ public interface GoodsSpecificationsRelationshipTDao {
 	
 	
 	/**
-	 * 检测商品规格和商品关系
+	 * 通过goodssetid 查找规格
 	 * @return
 	 */
 	public List<GoodsSpecificationsRelationshipT>checkSpecificationRelationshipBygoodssetid(String goodssetid);
 
 	/**
-	 * 增加商品关联
+	 * 增加商品规格
 	 * @param goodsSetId
 	 * @param specidicationsId
 	 * @return
@@ -29,7 +29,7 @@ public interface GoodsSpecificationsRelationshipTDao {
 	public int addGoodsAssociatedProductById(GoodsSpecificationsRelationshipT gsrt);
 	
 	/**
-	 * 更新商品关联
+	 * 更新商品规格
 	 * @param goodsSetId
 	 * @param specidicationsId
 	 * @return
@@ -37,7 +37,7 @@ public interface GoodsSpecificationsRelationshipTDao {
 	public int updateGoodsAssociatedProductById(GoodsSpecificationsRelationshipT gsrt);
 	
 	/**
-	 * 删除商品关联
+	 * 删除商品规格
 	 * @param goodsSetId
 	 * @return
 	 */
