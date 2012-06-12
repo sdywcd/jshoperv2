@@ -29,6 +29,7 @@ import com.jshop.service.impl.GoodsGroupTServiceImpl;
 public class GoodsGroupTAction {
 	public GoodsGroupTService goodsGroupTService;
 	public Serial serial;
+	private String pictureurl;
 	private String groupid;
 	private String goodsid;
 	private String goodsname;
@@ -226,6 +227,12 @@ public class GoodsGroupTAction {
 	public void setGroupList(GoodsGroupT groupList) {
 		this.groupList = groupList;
 	}
+	public String getPictureurl() {
+		return pictureurl;
+	}
+	public void setPictureurl(String pictureurl) {
+		this.pictureurl = pictureurl;
+	}
 	/**
 	 * 添加团购商品
 	 * @return
@@ -238,18 +245,19 @@ public class GoodsGroupTAction {
 		ggt.setCreatetime(BaseTools.systemtime());
 		ggt.setGoodsname(this.getGoodsname().trim());
 		ggt.setCreatorid(BaseTools.adminCreateId());
-		ggt.setState("0");
-		ggt.setCashstate("0");
-		ggt.setCashlimit(0.0);
-		ggt.setLimitbuy(0);
-		ggt.setSalequantity(0);
-		ggt.setSOrderCount(0);
-		ggt.setTotalOrderCount(0);
-		ggt.setBegintime(BaseTools.systemtime());
-		ggt.setEndtime(BaseTools.systemtime());
+		ggt.setState(this.getState().trim());
+		ggt.setCashstate(this.getCashstate().trim());
+		ggt.setCashlimit(this.getCashlimit());
+		ggt.setLimitbuy(this.getLimitbuy());
+		ggt.setSalequantity(this.getSalequantity());
+	//	ggt.setSOrderCount(this.getSOrderCount());
+		//ggt.setTotalOrderCount(this.getTotalOrderCount());
+		ggt.setBegintime(this.getBegintime());
+		ggt.setEndtime(this.getEndtime());
 		ggt.setSendpoint(this.getSendpoint());
 		ggt.setPriceladder(this.getPriceladder().trim());
-		ggt.setDetail(this.getDetail().trim());
+		ggt.setDetail(this.getDetail().trim());		
+		ggt.setPictureurl(this.getPictureurl());
 		if(this.getGoodsGroupTService().addGoodsGroupT(ggt)>0){
 			this.setGoodsgroup(true);
 			return "json";			
@@ -282,8 +290,7 @@ public class GoodsGroupTAction {
 					ggt.getLimitbuy(),
 					ggt.getSalequantity(),
 					ggt.getSOrderCount(),
-					ggt.getTotalOrderCount(),
-					ggt.getDetail(),
+					ggt.getTotalOrderCount(),					
 					ggt.getCreatorid()
 			});
 			rows.add(cellMap);
@@ -329,7 +336,7 @@ public class GoodsGroupTAction {
 	 * 根据groupid 获取团购商品信息
 	 * @return
 	 */
-	@Action(value="findGoodsGroupById",results={@Result(name="json",type="jaon")})
+	@Action(value="findGoodsGroupById",results={@Result(name="json",type="json")})
 	public String findGoodsGroupById(){
 		if(Validate.StrNotNull(this.getGroupid())){
 			groupList= this.getGoodsGroupTService().findGoodsGroupById(this.getGroupid().trim());
@@ -361,6 +368,7 @@ public class GoodsGroupTAction {
 		ggt.setTotalOrderCount(this.getTotalOrderCount());
 		ggt.setSendpoint(this.getSendpoint());
 		ggt.setPriceladder(this.getPriceladder().trim());
+		ggt.setPictureurl(this.getPictureurl());
 		if(this.getGoodsGroupTService().updateGoodsGroupT(ggt)>0){
 			this.setGoodsgroup(true);
 			return "json";
@@ -376,11 +384,10 @@ public class GoodsGroupTAction {
 	public String delGoodsGroup(){
 		if(Validate.StrNotNull(this.getGroupid())){
 			String [] s = this.getGroupid().trim().split(",");
-			if(this.getGoodsGroupTService().delGoodsGroupT(s)>0){
+			this.getGoodsGroupTService().delGoodsGroupT(s);
 				this.setGoodsgroup(true);
 				return "json";
-			}
-			return "json";
+			
 		}
 		return "json";
 	}
