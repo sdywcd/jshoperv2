@@ -237,6 +237,9 @@ public class CreateHtml extends ActionSupport {
 			map.put(FreeMarkervariable.GOODSPARAMETERS,this.getGoodsTNAction().processGoodsparameters(gt));
 			//获取商品评论
 			map.put(FreeMarkervariable.GOODSCOMMENTS, this.getDataCollectionTAction().findGoodsCommentBygoodsid(gt));
+			//获取规格值
+			map.put(FreeMarkervariable.GOODSSPECIFICATION, this.getDataCollectionTAction().findProductSpecificationsTByspecificationsid(gt));
+			
 			String htmlPath = this.createGoodsT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORGOODSDETAIL, gt.getGoodsid(), map);
 			this.getGoodsTService().updateHtmlPath(gt.getGoodsid(), htmlPath);
 		}

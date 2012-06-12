@@ -116,10 +116,7 @@ public class ProductTDaoImpl extends HibernateDaoSupport implements ProductTDao 
 		try {
 			String queryString = "from ProductT as pt where pt.creatorid=:creatorid and pt.productid=:productid";
 			List list = this.getHibernateTemplate().findByNamedParam(queryString, new String[] { "creatorid", "productid" }, new Object[] { creatorid, productid });
-			if (list != null && list.size() > 0) {
-				return list;
-			}
-			return null;
+			return list;
 		} catch (RuntimeException re) {
 			log.error("findAllProductTByGoodsid error", re);
 			throw re;

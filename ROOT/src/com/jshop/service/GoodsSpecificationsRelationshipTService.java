@@ -35,4 +35,14 @@ public interface GoodsSpecificationsRelationshipTService {
 	 */
 	public abstract List<GoodsSpecificationsRelationshipT> checkSpecificationRelationshipBygoodssetid(String goodssetid);
 
+	
+	/**
+	 * 检测商品和商品规格关系
+	 * @return
+	 */
+	public List<GoodsSpecificationsRelationshipT>checkSpecificationRelationshipByspecificationsid(String specificationsid );
+	
+	
+	
+	
 }

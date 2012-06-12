@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -20,10 +22,12 @@ import com.jshop.entity.BrandT;
 import com.jshop.entity.GoodsAttributeT;
 import com.jshop.entity.GoodsCategoryT;
 import com.jshop.entity.GoodsCommentT;
+import com.jshop.entity.GoodsSpecificationsRelationshipT;
 import com.jshop.entity.GoodsT;
 import com.jshop.entity.GoodsTypeBrandT;
 import com.jshop.entity.JshopbasicInfoT;
 import com.jshop.entity.PageEditareaT;
+import com.jshop.entity.ProductSpecificationsT;
 import com.jshop.entity.SiteNavigationT;
 import com.jshop.entity.TemplatethemeT;
 import com.jshop.service.ArticleCategoryTService;
@@ -32,10 +36,12 @@ import com.jshop.service.BrandTService;
 import com.jshop.service.GoodsAttributeTService;
 import com.jshop.service.GoodsCategoryTService;
 import com.jshop.service.GoodsCommentTService;
+import com.jshop.service.GoodsSpecificationsRelationshipTService;
 import com.jshop.service.GoodsTService;
 import com.jshop.service.GoodsTypeBrandTService;
 import com.jshop.service.JshopbasicInfoTService;
 import com.jshop.service.PageEditareaTService;
+import com.jshop.service.ProductSpecificationsTService;
 import com.jshop.service.SiteNavigationTService;
 import com.jshop.service.TemplatethemeTService;
 import com.jshop.service.impl.ArticleCategoryTServiceImpl;
@@ -68,6 +74,8 @@ public class DataCollectionTAction extends ActionSupport {
 	private GoodsCategoryTService goodsCategoryTService;
 	private BrandTService brandTService;
 	private GoodsTypeBrandTService goodsTypeBrandTService;
+	private ProductSpecificationsTService productSpecificationsTService;
+	private GoodsSpecificationsRelationshipTService goodsSpecificationsRelationshipTService;
 	private int gradecount;
 	private GoodsTService goodsTService;
 	private ArticleTService articleTService;
@@ -77,6 +85,26 @@ public class DataCollectionTAction extends ActionSupport {
 	private TemplatethemeTService templatethemeTService;
 	private TemplatethemeT tt;
 	private String logmsg;
+	
+	@JSON(serialize = false)
+	public GoodsSpecificationsRelationshipTService getGoodsSpecificationsRelationshipTService() {
+		return goodsSpecificationsRelationshipTService;
+	}
+
+	public void setGoodsSpecificationsRelationshipTService(
+			GoodsSpecificationsRelationshipTService goodsSpecificationsRelationshipTService) {
+		this.goodsSpecificationsRelationshipTService = goodsSpecificationsRelationshipTService;
+	}
+
+	@JSON(serialize = false)
+	public ProductSpecificationsTService getProductSpecificationsTService() {
+		return productSpecificationsTService;
+	}
+
+	public void setProductSpecificationsTService(
+			ProductSpecificationsTService productSpecificationsTService) {
+		this.productSpecificationsTService = productSpecificationsTService;
+	}
 
 	@JSON(serialize = false)
 	public TemplatethemeTService getTemplatethemeTService() {
@@ -586,5 +614,26 @@ public class DataCollectionTAction extends ActionSupport {
 				.findGoodsCommentByGoodsid(gt.getGoodsid(), 1, 10);
 		return list;
 	}
+	
+	/**
+	 * 根据商品id获取规格值参数
+	 * @param gt
+	 * @return
+	 */
+	public List<ProductSpecificationsT>findProductSpecificationsTByspecificationsid(GoodsT gt){
+		List<GoodsSpecificationsRelationshipT>gsrlist=this.getGoodsSpecificationsRelationshipTService().checkSpecificationRelationshipBygoodssetid(gt.getGoodsid());
+		if(!gsrlist.isEmpty()){
+			List<ProductSpecificationsT>list =new ArrayList<ProductSpecificationsT>();
+			ProductSpecificationsT pst=new ProductSpecificationsT();
+			String []strspec=StringUtils.split(gsrlist.get(0).getSpecidicationsId(), ',');
+			for(String s:strspec){
+				pst=this.getProductSpecificationsTService().findProductSpecificationsTByspecificationsid(s);
+				list.add(pst);
+			}
+			return list;
+		}
+		return Collections.emptyList();
+	}
+	
 
 }

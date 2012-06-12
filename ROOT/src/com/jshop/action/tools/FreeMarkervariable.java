@@ -93,5 +93,8 @@ public class FreeMarkervariable {
 	 * 商品参数
 	 */
 	public static final String GOODSPARAMETERS="goodsparameters";
-	
+	/**
+	 * 商品规格值
+	 */
+	public static final String GOODSSPECIFICATION="goodsspecification";
 }

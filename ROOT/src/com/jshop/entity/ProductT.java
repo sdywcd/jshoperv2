@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-6-7 14:23:05 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-6-12 9:51:48 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -27,13 +27,16 @@ public class ProductT implements java.io.Serializable {
 	private String goodsid;
 	private String creatorid;
 	private Date createtime;
+	private String specificationsid;
+	private String specificationsName;
 
 	public ProductT() {
 	}
 
 	public ProductT(String productid, String isDefault, String isSalestate,
 			String productName, String specificationsValue, String goodsid,
-			String creatorid, Date createtime) {
+			String creatorid, Date createtime, String specificationsid,
+			String specificationsName) {
 		this.productid = productid;
 		this.isDefault = isDefault;
 		this.isSalestate = isSalestate;
@@ -42,6 +45,8 @@ public class ProductT implements java.io.Serializable {
 		this.goodsid = goodsid;
 		this.creatorid = creatorid;
 		this.createtime = createtime;
+		this.specificationsid = specificationsid;
+		this.specificationsName = specificationsName;
 	}
 
 	public ProductT(String productid, Double price, Double memberprice,
@@ -49,7 +54,8 @@ public class ProductT implements java.io.Serializable {
 			String isDefault, String isSalestate, String productName,
 			String productSn, String specificationsValue,
 			String warehouseLocation, String placeStore, String weight,
-			String goodsid, String creatorid, Date createtime) {
+			String goodsid, String creatorid, Date createtime,
+			String specificationsid, String specificationsName) {
 		this.productid = productid;
 		this.price = price;
 		this.memberprice = memberprice;
@@ -68,6 +74,8 @@ public class ProductT implements java.io.Serializable {
 		this.goodsid = goodsid;
 		this.creatorid = creatorid;
 		this.createtime = createtime;
+		this.specificationsid = specificationsid;
+		this.specificationsName = specificationsName;
 	}
 
 	public String getProductid() {
@@ -212,6 +220,22 @@ public class ProductT implements java.io.Serializable {
 
 	public void setCreatetime(Date createtime) {
 		this.createtime = createtime;
+	}
+
+	public String getSpecificationsid() {
+		return this.specificationsid;
+	}
+
+	public void setSpecificationsid(String specificationsid) {
+		this.specificationsid = specificationsid;
+	}
+
+	public String getSpecificationsName() {
+		return this.specificationsName;
+	}
+
+	public void setSpecificationsName(String specificationsName) {
+		this.specificationsName = specificationsName;
 	}
 
 }
