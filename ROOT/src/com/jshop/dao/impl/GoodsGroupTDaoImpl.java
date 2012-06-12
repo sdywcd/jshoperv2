@@ -37,7 +37,7 @@ public class GoodsGroupTDaoImpl extends HibernateDaoSupport implements GoodsGrou
 	@Override
 	public int updateGoodsGroupT(final GoodsGroupT group) {
 		log.debug("update goodsGroupT");
-		final String queryString="update GoodsGroupT as ggt set ggt.cashstate=:cashstate,ggt.cashlimit=:cashlimit,ggt,limitbuy=:limitbuy,ggt.salequantity=:salequantity where ggt.goodsid=:goodsid";
+		final String queryString="update GoodsGroupT as ggt set ggt.cashstate=:cashstate,ggt.cashlimit=:cashlimit,ggt.limitbuy=:limitbuy,ggt.salequantity=:salequantity where ggt.goodsid=:goodsid";
 		try {
 			Integer integer = (Integer) this.getHibernateTemplate().execute(new HibernateCallback() {
 				
@@ -118,8 +118,9 @@ public class GoodsGroupTDaoImpl extends HibernateDaoSupport implements GoodsGrou
 		} catch (DataAccessException e) {
 			log.debug("del failed");
 			throw e;
-		}		
-		return 0;
+		}
+		return 0;		
+		
 	}
 
 	@Override
@@ -164,10 +165,11 @@ public class GoodsGroupTDaoImpl extends HibernateDaoSupport implements GoodsGrou
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public GoodsGroupT findGoodsGroupById(String groupid) {
 		try {
-			String queryString="from GoodsGroupT as ggt where ggt.groupid:groupid ";
+			String queryString="from GoodsGroupT as ggt where ggt.groupid=:groupid ";
 			List<GoodsGroupT> list =this.getHibernateTemplate().findByNamedParam(queryString, "groupid", groupid);
 			if(!list.isEmpty()){
 				return list.get(0);
@@ -181,7 +183,7 @@ public class GoodsGroupTDaoImpl extends HibernateDaoSupport implements GoodsGrou
 	@Override
 	public int updateState(final GoodsGroupT ggt) {
 		try {
-			final String queryString="update GoodsGroupT as ggt set ggt.state:state where ggt.groupid:groupid";
+			final String queryString="update GoodsGroupT as ggt set ggt.state:state where ggt.groupid=:groupid";
 			Integer integer = (Integer) this.getHibernateTemplate().execute(new HibernateCallback() {
 				
 				@Override
@@ -199,6 +201,22 @@ public class GoodsGroupTDaoImpl extends HibernateDaoSupport implements GoodsGrou
 		} catch (DataAccessException e) {
 			throw e;
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<GoodsGroupT> findGoodsGroupByState(String state) {
+		try {
+			String queryString="from GoodsGroupT as ggt where ggt.state=:state order by begintime desc";
+			List<GoodsGroupT> list = this.getHibernateTemplate().findByNamedParam(queryString, "state", state);
+			if(!list.isEmpty()){
+				return list;
+			}
+			return null;
+		} catch (DataAccessException e) {
+			throw e;
+		}
+		
 	}
 
 }

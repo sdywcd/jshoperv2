@@ -53,6 +53,11 @@ public class ProductTServiceImpl implements ProductTService {
 
 		return this.getProductTDao().sortAllProductT(currentPage, lineSize, creatorid, queryString);
 	}
+
+	@Override
+	public int delProductTByproductid(String productid) {
+		return this.getProductTDao().delProductTByproductid(productid);
+	}
 	
 	
 }

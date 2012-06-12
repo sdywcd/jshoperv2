@@ -62,6 +62,13 @@ public interface ProductTService {
 	 */
 	public abstract List<ProductT>sortAllProductT(final int currentPage,final int lineSize,final String creatorid ,String queryString);
 
+	/**
+	 * 根据产品id删除产品
+	 * @param productid
+	 * @return
+	 */
+	public abstract int delProductTByproductid(String productid);
+	
 
 
 

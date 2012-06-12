@@ -9,10 +9,10 @@ $(function() {
 		colModel : [{
 			display : '商品ID',
 			name : 'goodsid',
-			width : 50,
+			width : 150,
 			sortable : true,
 			align : 'center'
-		}, {
+		},{
 			display : '商品名称',
 			name : 'goodsname',
 			width : 150,
@@ -21,72 +21,72 @@ $(function() {
 		}, {
 			display : '价格',
 			name : 'priceladder',
-			width : 70,
+			width : 60,
 			sortable : true,
 			align : 'center'
 		}, {
 			display : '积分',
 			name : 'sendpoint',
-			width : 120,
+			width :60,
 			sortable : true,
 			align : 'center'
 		}, {
-			display : '上架',
+			display : '保证金额度',
 			name : 'cashlimit',
 			width : 60,
 			sortable : true,
 			align : 'center'
 		}, {
-			display : '新品',
+			display : '开始时间',
 			name : 'begintime',
-			width : 60,
+			width : 120,
 			sortable : true,
 			align : 'center'
 		}, {
-			display : '特价',
+			display : '结束时间',
 			name : 'endtime',
-			width : 60,
+			width : 120,
 			sortable : true,
 			align : 'center'
 		}, {
-			display : '热销',
+			display : '保证金制度',
 			name : 'cashstate',
 			width : 60,
 			sortable : true,
 			align : 'center'
 		}, {
-			display : '推荐',
+			display : '状态',
 			name : 'state',
 			width : 60,
 			sortable : true,
 			align : 'center'
 		}, {
-			display : '库存',
+			display : '限购数量',
 			name : 'limitbuy',
 			width : 100,
 			sortable : true,
 			align : 'center'
 		}, {
-			display : '操作',
+			display : '可卖数量',
 			name : 'salequantity',
 			width : 110,
 			sortable : true,
 			align : 'center'
 		} , {
-			display : '操作',
+			display : '成功卖数',
 			name : 'SOrderCount',
 			width : 110,
 			sortable : true,
 			align : 'center'
 		} , {
-			display : '操作',
+			display : '总数量',
 			name : 'totalOrderCount',
 			width : 110,
 			sortable : true,
 			align : 'center'
 		} , {
-			display : '操作',
-			name : 'detail',
+			display : '创建者',
+			name : 'creatorid',
 			width : 110,
 			sortable : true,
 			align : 'center'
@@ -161,9 +161,11 @@ $(function() {
 						$.post("delGoodsGroup.action", {
 							"groupid" : str
 						}, function(data) {
-							if (data.sucflag) {
-								$('#goodsgroupmanagement').flexReload();
+							if (data.goodsgroup) {
 								jAlert( '商品已经删除', '信息提示框');
+								//window.location.href='goodsgroupmanagement.jsp?session'+session+"#goods";
+								$('#goodsgroupmanagement').flexReload();
+								
 							}
 						});
 					}
