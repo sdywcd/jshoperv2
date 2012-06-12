@@ -57,5 +57,11 @@ public interface GoodsGroupTService {
 	 * @return
 	 */
 	public int updateState(GoodsGroupT ggt);
+	/**
+	 * 根据团购商品状态获取团购商品信息
+	 * @param state
+	 * @return
+	 */
+	public List<GoodsGroupT> findGoodsGroupByState(String state); 
 
 }

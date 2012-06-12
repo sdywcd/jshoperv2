@@ -10,8 +10,8 @@ function validatethenpostinfotoaddgoodsgroup(){
 	var begintime=$('#begintime').val();
 	var endtime=$('#endtime').val();
 	var priceladder=$('#priceladder').val();
-	var totalordercount=$('#totalordercount').val();
-	var sordercount=$('#sordercount').val();
+	//var totalordercount=$('#totalordercount').val();
+	
 	var salequantity=$('#salequantity').val();
 	var limitbuy=$('#limitbuy').val();
 	var cashstate=$('#cashstate').val();
@@ -35,14 +35,8 @@ function validatethenpostinfotoaddgoodsgroup(){
 		jAlert('结束时间不能为空','信息提示');
 		return false;
 	}
-	if(""==totalordercount){
-		jAlert('总订购数不能为空','信息提示');
-		return false;
-	}
-	if(""==sordercount){
-		jAlert('成功订购数不能为空','信息提示');
-		return false;
-	}
+	
+	
 	if(""==salequantity){
 		jAlert('可售数量不能为空','信息提示');
 		return false;
@@ -80,21 +74,26 @@ $(function(){
 		validatethenpostinfotoaddgoodsgroup();
 		$('#add').show();
 		if(flag){
-		var goodsid=$('#goodsid').val();
+		var goodsid="0";
 		var goodsname=$('#goodsname').val();
-		var cashlimit=$('cashlimit').val();		
+		var cashlimit=$('#cashlimit').val();		
 		var sendpoint=$('#sendpoint').val();	
 		var detail=$('#detail').val();
 		var state= $('#state').val();
 		var begintime=$('#begintime').val();
 		var endtime=$('#endtime').val();
 		var priceladder=$('#priceladder').val();
-		var totalordercount=$('#totalordercount').val();
-		var sordercount=$('#sordercount').val();
+	//	var totalordercount=$('#totalordercount').val();
+		//var sordercount=$('#sordercount').val();
 		var salequantity=$('#salequantity').val();
 		var limitbuy=$('#limitbuy').val();
-		var cashstate=$('#cashstate').val();
-		$.post("addGoodsGroupT.action",{"priceladder":priceladder,"totalordercount":totalordercount,"sordercount":sordercount,"salequantity":salequantity,"cashstate":cashstate,"limitbuy":limitbuy,"endtime":endtime,"state":state,"begintime":begintime,"goodsid":goodsid,"goodsname":goodsname,"detail":detail,"sendpoint":sendpoint,"cashlimit":cashlimit},function(data){
+		var cashstate=$('#cashstate').val();		
+		//获取商品图片路径集合
+		var pictureurl="";
+		$(":checkbox[name='pcpath'][checked=true]").each(function(){
+			pictureurl+=this.value+",";
+		});		
+		$.post("addGoodsGroupT.action",{"pictureurl":pictureurl,"priceladder":priceladder,"salequantity":salequantity,"cashstate":cashstate,"limitbuy":limitbuy,"endtime":endtime,"state":state,"begintime":begintime,"goodsid":goodsid,"goodsname":goodsname,"detail":detail,"sendpoint":sendpoint,"cashlimit":cashlimit},function(data){
 			if(data.goodsgroup){
 				jAlert('添加成功','信息提示');
 				window.location.href='goodsgroupmanagement.jsp?session'+session+"#goods";
@@ -113,20 +112,37 @@ $(function(){
 		return false;		
 	}
 	$.post("findGoodsGroupById.action",{"groupid":groupid},function(data){
-		$('#goodsid').attr("value",data.groupList.goodsid);
+		
 		$('#goodsname').attr("value",data.groupList.goodsname);
 		$('#begintime').attr("value",data.groupList.begintime);
 		$('#endtime').attr("value",data.groupList.endtime);
-		$('#detail').attr("value".data.groupList.detail);
+		KE.html("detail",data.groupList.detail);
 		$('#sendpoint').attr("value",data.groupList.sendpoint);
-		$('#cashlimt').attr("value",data.groupList.cashlimit);
+		$('#cashlimit').attr("value",data.groupList.cashlimit);
 		$('#cashstate').attr("value",data.groupList.cashstate);
 		$('#limitbuy').attr("value",data.groupList.limitbuy);
 		$('#state').attr("value",data.groupList.state);
 		$('#salequantity').attr("value",data.groupList.salequantity);
-		$('#sordercount').attr("value",data.groupList.sordercount);
-		$('#totalordercount').attr("value",data.groupList.totalordercount);
+	//	$('#sordercount').attr("value",data.groupList.sordercount);
+		//$('#totalordercount').attr("value",data.groupList.totalordercount);
 		$('#priceladder').attr("value",data.groupList.priceladder);
+		//图片显示
+		var pcpath="";
+		var pcurl=data.groupList.pictureurl;
+		var htm="";
+		var checkpc="";
+		var temp=pcurl.split(',');
+		var allpcpath="";
+		$.each(temp,function(n,value){
+			if(""==value){
+				return;
+			}
+			pcpath=value;
+			htm="<img id='"+value+"' src='"+pcpath+"'></img>";
+			checkpc="<input id='"+value+"' name='pcpath' type='checkbox' value='"+value+"' checked/>";
+			allpcpath=htm+checkpc;
+			$('#triggers').append(allpcpath);
+		});
 		$('#update').show();
 		$('#add').hide();
 		return;			
@@ -134,29 +150,65 @@ $(function(){
 	$('#update').click(function(){
 		validatethenpostinfotoaddgoodsgroup();
 		if(flag){
-			var goodsid=$('#goodsid').val();
+			
 			var goodsname=$('#goodsname').val();
-			var cashlimit=$('cashlimit').val();		
+			var cashlimit=$('#cashlimit').val();		
 			var sendpoint=$('#sendpoint').val();	
 			var detail=$('#detail').val();
 			var state= $('#state').val();
 			var begintime=$('#begintime').val();
 			var endtime=$('#endtime').val();
 			var priceladder=$('#priceladder').val();
-			var totalordercount=$('#totalordercount').val();
-			var sordercount=$('#sordercount').val();
+			//var totalordercount=$('#totalordercount').val();
+		//	var sordercount=$('#sordercount').val();
 			var salequantity=$('#salequantity').val();
 			var limitbuy=$('#limitbuy').val();
 			var cashstate=$('#cashstate').val();
-		$.post("updateGoodsGroup.action",{"priceladder":priceladder,"totalordercount":totalordercount,"sordercount":sordercount,"salequantity":salequantity,"cashstate":cashstate,"limitbuy":limitbuy,"endtime":endtime,"state":state,"begintime":begintime,"goodsid":goodsid,"goodsname":goodsname,"detail":detail,"sendpoint":sendpoint,"cashlimit":cashlimit},function(data){
+			//获取商品图片路径集合
+			var pictureurl="";
+			$(":checkbox[name='pcpath'][checked=true]").each(function(){
+				pictureurl+=this.value+",";
+			});		
+		$.post("updateGoodsGroup.action",{"pictureurl":pictureurl,"priceladder":priceladder,"salequantity":salequantity,"cashstate":cashstate,"limitbuy":limitbuy,"endtime":endtime,"state":state,"begintime":begintime,"goodsname":goodsname,"detail":detail,"sendpoint":sendpoint,"cashlimit":cashlimit},function(data){
 			if(data.goodsgroup){
-				jAlert('添加成功','信息提示');
+				jAlert('修改成功','信息提示');
 				window.location.href='goodsgroupmanagement.jsp?session'+session+"#goods";
 			}else{
-				jAlert('添加失败','信息提示');
+				jAlert('修改失败','信息提示');
 				return false;
 			}
 		});
 		}else{ return false;}
+	});
+});
+//获取图片删除按钮并删除图片
+$(function(){
+	$("#delpc").click(function(){
+		var str="";
+		var sum=0;
+		$(":checkbox[name='pcpath'][checked=true]").each(function(){
+			sum++;
+			str=this.value;
+		});
+		if(sum==0){
+			jAlert('只有在选择图片后才能删除', '信息提示');
+			return false;
+		}
+		if(sum>1){
+			jAlert('不能选择多个图片', '信息提示');
+			return false;
+		}
+		$('#triggers img').each(function(){
+			if(this.id==str){
+				this.style.display="none";
+				$(":checkbox[name='pcpath'][checked=true]").each(function(){
+					if(this.value==str){
+						this.style.display="none";
+						this.name="dispcpath";
+					}
+				});
+			}
+		});  
+
 	});
 });

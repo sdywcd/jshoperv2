@@ -805,7 +805,7 @@ $(".rm3_pic").click(function(){
 	//改变相应的页面内容
 	if(sg!=""){
 		$("#selectedguigea").text("");
-		$("#selectedguigea").text(sg+this.title);
+		$("#selectedguigea").text(this.title);
 	}else{
 		
 		$("#selectedguigea").text(this.title);
@@ -822,7 +822,7 @@ $(".text_current").click(function(){
 	var sg=$("#selectedguigea").text();
 	if(sg!=""){
 		$("#selectedguigea").text("");
-		$("#selectedguigea").text(sg+this.title);
+		$("#selectedguigea").text(this.title);
 	}else{
 		$("#selectedguigea").text(this.title);
 	}

@@ -32,6 +32,7 @@ public class ContentTag {
 	public static final String TEMPLATENAMEFORNOTICE="noticecontent";
 	public static final String TEMPLATENAMEFORGOODSDETAIL="goodsdetail";
 	public static final String TEMPLATENAMEFORGOODSCATEGORYLIST="goodscategorylist";
+	
 	public static final String TEMPLATENAMEFORINDEX="index";
 	public static final String SYSTEMCONTENTINDEX="首页";
 	public static final String TEMPLATENAMEFORLOGIN="login";
@@ -40,6 +41,8 @@ public class ContentTag {
 	public static final String TEMPLATENAMEFOREMAIL="useractivates";//激活邮件
 	public static final String TEMPLATENAMEFORUSERACTIVATESCALLBACK="useractivatescallback";//用户激活回调页面
 	public static final String TEMPLATENAMEFOREMAILTEMPLATE="emailtemplate";//邮件模板
+	public static final String TEMPLATENAMEFORGOODSGROUP="goodsgroup";
+	
 	
 	
 	

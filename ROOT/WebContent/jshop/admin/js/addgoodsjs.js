@@ -29,13 +29,20 @@ function getIdforradom(){
  */
 function delParamPChild(rid){
 	$('#'+rid).remove();
-
+	delProductByproductid(rid);
 }
 /**
  * 删除产品表中的数据
  */
 function delProductByproductid(rid){
-	
+	$.post("delProductTByproductid.action",{"productid":rid},function(data){
+		if(data.sucflag){
+			return true;
+		}else{
+			alert("删除货品异常");
+			return false; 
+		}
+	});
 }
 /*===========================================Gorgeous split-line==============================================*/
 
