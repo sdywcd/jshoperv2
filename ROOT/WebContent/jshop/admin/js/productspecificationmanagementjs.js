@@ -23,6 +23,24 @@ function delParamPChild(rid) {
 	$('#add' + rid).remove();
 
 }
+
+function createUploader(rid){ 
+    var uploader = new qq.FileUploader({
+        element: document.getElementById("uploadguigepc"+rid),
+        action: 'ajaxFileUploads.action',
+        debug: true,
+        minSizeLimit:1024,
+        sizeLimit: 1073741824,
+        allowedExtensions: ['jpeg','jpg','gif','png'],
+        onComplete: function(id, fileName, responseJSON){
+		var pcpath=responseJSON.success;
+		var htm="<img class='attribute' style='width:100px;height:100px' id='"+id+"' src='../../.."+pcpath+"' rel='#"+fileName+"'/>"
+		$("#showguigepc"+rid).html(htm);
+        },
+      
+    });           
+}
+
 /*===========================================Gorgeous split-line==============================================*/
 
 
@@ -183,7 +201,8 @@ $(function() {
 		getIdforradom();
 		var html = "<tr id='add"+rid+"'>"
 		+ "<td class='title'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='paramlistname"+rid+"' name='paramlistname"+rid+"' value='' type='text'/></div></div></div></div></td>" 
-		+ "<td class='paraminput'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='attributelists"+rid+"' name='attributelists"+rid+"' type='text' value=''/></div></div></div></div></td>"
+		+ "<td class='paraminput'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><div style='display:none;' id='uploadguigepc"+rid+"'></div><input class='attribute' id='attributelists"+rid+"' name='attributelists"+rid+"' type='text' value=''/></div></div></div></div></td>"
+		+ "<td class='paraminput'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><div id='showguigepc"+rid+"' style='width:100px;height:100px;'></div></div></div></div></div></td>"
 		+ "<td class='paraminput'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='paramlistsort"+rid+"' name='paramlistsort"+rid+"' type='text' value='' /></div></div></div></div></td>"
 		+ "<td class='paraminput'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input  class='attribute' id='delbutton"+rid+"' name='delbutton"+rid+"' type='button' value='删除' onClick='delParamPChild("+rid+")'/></div></div></div></div></td>" + "</tr>";
 		$('.table tbody').append(html);
@@ -197,12 +216,16 @@ $(function() {
 					this.disabled = true;
 				}
 			});
-		} else {
+		} else if(specificationsType=="2"){
 			var attributelists = "attributelists";
 			$('#selectcolordiv').show();
 			$(".attribute").each(function() {
 				if (this.name.substring(0, 14) == attributelists) {
-					this.disabled = false;
+					this.style.display="none";//隐藏显示上传组件
+					$("#uploadguigepc"+rid).show();
+					createUploader(rid);
+					//this.disabled = false;
+					
 				}
 			});
 		}

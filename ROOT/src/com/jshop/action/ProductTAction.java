@@ -268,7 +268,21 @@ public class ProductTAction extends ActionSupport {
 
 	}
 	
-	
+	/**
+	 * 根据产品id删除产品
+	 * @return
+	 */
+	@Action(value = "delProductTByproductid", results = { @Result(name = "json", type = "json") })
+	public String delProductTByproductid(){
+		if(Validate.StrNotNull(this.getProductid())){
+			int i=this.getProductTService().delProductTByproductid(this.getProductid());
+			this.setSucflag(true);
+			return "json";
+		}
+		this.setSucflag(false);
+		return "json";
+		
+	}
 	
 	
 	

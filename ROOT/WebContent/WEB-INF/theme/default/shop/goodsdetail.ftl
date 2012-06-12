@@ -128,14 +128,15 @@
 				  <#list gs.specificationsValue?split('-') as scv>
 					<#assign gdata=scv?eval />
 					<a  href="#" title="${gs.name}${gdata.goodsattributename}" class="rm3_pic">
-						<img src="http://img.tao3c.com/601/603/78500/108400/111200/218205_1_pic60_6952.jpg">
+						<!--<img src="http://img.tao3c.com/601/603/78500/108400/111200/218205_1_pic60_6952.jpg">-->
+						<div style="width:60px;height:60px;background-color:${gdata.attributelist}"></div>
 					</a>
 				  </#list>
 				  </cite>
 				</div>
 				</#if>
 			</#list>
-			<div class="rm3_2">已选择：<span id="selectedguigea">蓝色</span></div>
+			<div class="rm3_2"><!--已选择：<span id="selectedguigea"></span>--></div>
 			</#if>
             
 
