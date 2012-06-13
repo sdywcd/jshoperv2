@@ -371,5 +371,14 @@
 </div>
 <#include "/WEB-INF/theme/default/shop/footer.ftl">
 <script type="text/javascript" src="${basepath}ui/default/js/jshop.js"></script>
+<script>
+// 所在地插件
+	$("#ChinaArea").jChinaArea( {
+		aspnet : false,
+		s1 : "上海市",// 默认选中的省名
+		s2 : "上海市",// 默认选中的市名
+		s3 : "黄浦区"// 默认选中的县区名
+	});
+</script>
 </body>
 </html>
