@@ -77,4 +77,10 @@ public class GoodsGroupTServiceImpl implements GoodsGroupTService {
 		return this.getGoodsGroupTDao().findGoodsGroupByState(state);
 	}
 
+	@Override
+	public int updateGoodsGroupHtmlPath(String htmlPath, String groupid) {
+		
+		return this.getGoodsGroupTDao().updateGoodsGroupHtmlPath(htmlPath, groupid);
+	}
+
 }

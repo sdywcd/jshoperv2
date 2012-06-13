@@ -41,7 +41,7 @@ public class ContentTag {
 	public static final String TEMPLATENAMEFOREMAIL="useractivates";//激活邮件
 	public static final String TEMPLATENAMEFORUSERACTIVATESCALLBACK="useractivatescallback";//用户激活回调页面
 	public static final String TEMPLATENAMEFOREMAILTEMPLATE="emailtemplate";//邮件模板
-	public static final String TEMPLATENAMEFORGOODSGROUP="goodsgroup";
+	public static final String TEMPLATENAMEFORGOODSGROUPT="goodsgroupt";
 	
 	
 	

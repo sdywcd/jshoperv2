@@ -183,7 +183,7 @@ public class GoodsGroupTDaoImpl extends HibernateDaoSupport implements GoodsGrou
 	@Override
 	public int updateState(final GoodsGroupT ggt) {
 		try {
-			final String queryString="update GoodsGroupT as ggt set ggt.state:state where ggt.groupid=:groupid";
+			final String queryString="update GoodsGroupT as ggt set ggt.state=:state where ggt.groupid=:groupid";
 			Integer integer = (Integer) this.getHibernateTemplate().execute(new HibernateCallback() {
 				
 				@Override
@@ -217,6 +217,29 @@ public class GoodsGroupTDaoImpl extends HibernateDaoSupport implements GoodsGrou
 			throw e;
 		}
 		
+	}
+
+	@Override
+	public int updateGoodsGroupHtmlPath(final String htmlpath, final String groupid) {
+		try {
+			final String queryString="update GoodsGroupT as ggt set ggt.htmlpath=:htmlpath where  ggt.groupid=:groupid";
+			this.getHibernateTemplate().execute(new HibernateCallback() {
+				
+				@Override
+				public Object doInHibernate(Session session) throws HibernateException,
+						SQLException {
+					int i=0;
+					Query query = session.createQuery(queryString);
+					query.setParameter("htmlpath", htmlpath);
+					query.setParameter("groupid",groupid);
+					i=query.executeUpdate();
+					return i;
+				}
+			});
+		} catch (DataAccessException e) {
+			throw e;
+		}
+		return 0;
 	}
 
 }

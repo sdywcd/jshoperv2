@@ -182,8 +182,8 @@ public class InitAllHtml extends ActionSupport {
 					}else if(tt.getSign().equals(BaseTools.getApplicationthemesig()+"_"+ContentTag.TEMPLATENAMEFORGOODSCATEGORYLIST)){
 						this.getCreateHtml().buildGoodsCategoryPage(map);
 						buildhtmllog.append(this.getCreateHtml().getLogmsg().toString());
-					}else if(tt.getSign().equals(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORNOTICE)){
-						this.getCreateHtml().buildGoodsCategoryPage(map);
+					}else if(tt.getSign().equals(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORGOODSGROUPT)){
+						this.getCreateHtml().buildGoodsGroupT(map);
 						buildhtmllog.append(this.getCreateHtml().getLogmsg().toString());
 					}else{
 						this.getCreateHtml().createNormalhtml(tt.getSign(), "", map);
