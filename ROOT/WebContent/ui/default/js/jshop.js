@@ -4,13 +4,13 @@ $(function() {
 	$('#hidurl').attr("value", windowsurl);
 });
 $(function(){
-	// 所在地插件
-	$("#ChinaArea").jChinaArea( {
-		aspnet : false,
-		s1 : "上海市",// 默认选中的省名
-		s2 : "上海市",// 默认选中的市名
-		s3 : "黄浦区"// 默认选中的县区名
-	});
+//	// 所在地插件
+//	$("#ChinaArea").jChinaArea( {
+//		aspnet : false,
+//		s1 : "上海市",// 默认选中的省名
+//		s2 : "上海市",// 默认选中的市名
+//		s3 : "黄浦区"// 默认选中的县区名
+//	});
 });
 var flag = false;
 // 验证商品传递的参数
@@ -804,9 +804,13 @@ $(".rm3_pic").click(function(){
 	var sg=$("#selectedguigea").text();
 	//改变相应的页面内容
 	if(sg!=""){
-		$("#selectedguigea").text(sg+this.title);
+		$("#selectedguigea").text("");
+		$("#selectedguigea").text(this.title);
+	}else{
+		
+		$("#selectedguigea").text(this.title);
 	}
-	$("#selectedguigea").text(this.title);
+	
 	return true;
 });
 
@@ -817,9 +821,11 @@ $(".text_current").click(function(){
 	//改变相应的页面内容
 	var sg=$("#selectedguigea").text();
 	if(sg!=""){
-		$("#selectedguigea").text(sg+this.title);
+		$("#selectedguigea").text("");
+		$("#selectedguigea").text(this.title);
+	}else{
+		$("#selectedguigea").text(this.title);
 	}
-	$("#selectedguigea").text(this.title);
 	//发送请求获取货品内容修改页面值
 	var hidgoodsid=$("#hidgoodsid").val();
 	

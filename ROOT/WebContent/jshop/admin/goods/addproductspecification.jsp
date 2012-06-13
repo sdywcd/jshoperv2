@@ -150,6 +150,9 @@
 										规格值参数
 									</th>
 									<th>
+										图片
+									</th>
+									<th>
 										排序
 									</th>
 									<th>
@@ -206,6 +209,9 @@
 			$(selected = this).css('opacity', 1).addClass('colorwell-selected');
 		});
 	});
+	
+ 	
+
 </script>
 
 

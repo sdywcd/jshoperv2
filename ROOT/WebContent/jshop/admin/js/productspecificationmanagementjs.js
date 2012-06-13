@@ -23,6 +23,24 @@ function delParamPChild(rid) {
 	$('#add' + rid).remove();
 
 }
+
+function createUploader(rid){ 
+    var uploader = new qq.FileUploader({
+        element: document.getElementById("uploadguigepc"+rid),
+        action: 'ajaxFileUploads.action',
+        debug: true,
+        minSizeLimit:1024,
+        sizeLimit: 1073741824,
+        allowedExtensions: ['jpeg','jpg','gif','png'],
+        onComplete: function(id, fileName, responseJSON){
+		var pcpath=responseJSON.success;
+		var htm="<img class='attribute' style='width:100px;height:100px' name='showguigepc"+rid+"' id='"+id+"' src='../../.."+pcpath+"' rel='#"+fileName+"'/>"
+		$("#showguigepc"+rid).html(htm);
+        },
+      
+    });           
+}
+
 /*===========================================Gorgeous split-line==============================================*/
 
 
@@ -183,7 +201,8 @@ $(function() {
 		getIdforradom();
 		var html = "<tr id='add"+rid+"'>"
 		+ "<td class='title'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='paramlistname"+rid+"' name='paramlistname"+rid+"' value='' type='text'/></div></div></div></div></td>" 
-		+ "<td class='paraminput'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='attributelists"+rid+"' name='attributelists"+rid+"' type='text' value=''/></div></div></div></div></td>"
+		+ "<td class='paraminput'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><div style='display:none;' id='uploadguigepc"+rid+"'></div><input class='attribute' id='attributelists"+rid+"' name='attributelists"+rid+"' type='text' value=''/></div></div></div></div></td>"
+		+ "<td class='paraminput'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><div id='showguigepc"+rid+"' style='width:100px;height:100px;'></div></div></div></div></div></td>"
 		+ "<td class='paraminput'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='paramlistsort"+rid+"' name='paramlistsort"+rid+"' type='text' value='' /></div></div></div></div></td>"
 		+ "<td class='paraminput'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input  class='attribute' id='delbutton"+rid+"' name='delbutton"+rid+"' type='button' value='删除' onClick='delParamPChild("+rid+")'/></div></div></div></div></td>" + "</tr>";
 		$('.table tbody').append(html);
@@ -197,12 +216,17 @@ $(function() {
 					this.disabled = true;
 				}
 			});
-		} else {
+		} else if(specificationsType=="2"){
 			var attributelists = "attributelists";
 			$('#selectcolordiv').show();
 			$(".attribute").each(function() {
 				if (this.name.substring(0, 14) == attributelists) {
 					this.disabled = false;
+					this.style.display="none";//隐藏显示上传组件
+					$("#uploadguigepc"+rid).show();
+					createUploader(rid);
+					
+					
 				}
 			});
 		}
@@ -222,6 +246,7 @@ $(function() {
 		var attributetype = "attributetype";
 		var attributelists = "attributelists";
 		var paramlistsort = "paramlistsort";
+		var showguigepc="showguigepc";
 		var delbutton = "delbutton";
 		var goodsattributename;
 		var attributeType;
@@ -233,6 +258,7 @@ $(function() {
 		var sub = "";
 		var rjson = "";
 		var id = "";
+		var disflag=false;
 		$(".attribute").each(function() {
 			if (this.name.substring(0, 13) == paramlistname) {
 				if (this.value == "") {
@@ -245,18 +271,27 @@ $(function() {
 			}
 			if (this.name.substring(0, 14) == attributelists) {
 				if (this.disabled) {
+					disflag=true;
 					attributelist = this.value;
 					addflag = 3;
 				} else {
+					disflag=false;
 					attributelist = this.value;
 					addflag = 3;
 				}
 
 			}
+			if(this.name.substring(0,11)==showguigepc){
+				if(!disflag){
+					attributelist = this.src;
+					addflag = 3;
+				}
+			}
 			if (this.name.substring(0, 13) == paramlistsort) {
 				if (this.value == "") {
-					jAlert('商品属性排序必须填写', '信息提示');
-					return false;
+					this.value=0;
+					//jAlert('商品属性排序必须填写', '信息提示');
+					addflag = 4;
 				}
 				sort = this.value;
 				addflag = 4;
@@ -330,14 +365,17 @@ $(function() {
 						+ "<td><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='paramlistsort" + rid + "' name='paramlistsort" + rid + "' value='" + jsonstr.sort + "' type='text'/></div></div></div></div></td>"
 						+ "<input type='hidden' class='attribute' id='paramattributeid' name='paramattributeid' value='" + jsonstr.goodsattributeid + "'></input>" 
 						+ "<td><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input  class='attribute' id='delbutton" + rid+ "' name='delbutton" + rid + "' type='button' value='删除' onClick='delParamPChild(" + rid + ")'/></div></div></div></div></td>" + "</tr>";
-					} else {
+					} else if(data.bean.specificationsType=="2"){
 						rid = jsonstr.id;
 						html += "<tr id='add" + rid + "'>" 
 						+ "<td class='title'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='paramlistname" + rid + "' name='paramlistname" + rid + "' value='" + jsonstr.goodsattributename + "' class='small' type='text'/></div></div></div></div></td>" 
-						+ "<td><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='attributelists" + rid + "' name='attributelists'" + rid + "' value='" + jsonstr.attributelist + "' type='text'></input></div></div></div></div></td>"
+						+ "<td><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><div style='display:none;' id='uploadguigepc"+rid+"'></div><input style='display:none;' class='attribute' id='attributelists" + rid + "' name='attributelists'" + rid + "' value='" + jsonstr.attributelist + "' type='text'></input></div></div></div></div></td>"
+						+ "<td class='paraminput'><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><div id='showguigepc"+rid+"' style='width:100px;height:100px;'><img name='showguigepc"+rid+"' src='"+jsonstr.attributelist+"' class='attribute' style='width:100px;height:100px'/></div></div></div></div></div></td>"
 						+ "<td><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input class='attribute' id='paramlistsort" + rid + "' name='paramlistsort" + rid + "' value='" + jsonstr.sort + "' type='text'/></div></div></div></div></td>"
 						+ "<input type='hidden' class='attribute' id='paramattributeid' name='paramattributeid' value='" + jsonstr.goodsattributeid + "'></input>" 
 						+ "<td><div class='form'><div class='fields'><div class='field field-first'><div class='typeinput'><input  class='attribute' id='delbutton" + rid+ "' name='delbutton" + rid + "' type='button' value='删除' onClick='delParamPChild(" + rid + ")'/></div></div></div></div></td>" + "</tr>";
+						$("#uploadguigepc"+rid).show();
+						//createUploader(rid);
 					}
 				}
 			}
@@ -378,6 +416,7 @@ $(function() {
 		var attributetype = "attributetype";
 		var attributelists = "attributelists";
 		var paramlistsort = "paramlistsort";
+		var showguigepc="showguigepc";
 		var delbutton = "delbutton";
 		var goodsattributename;
 		var attributeType;
@@ -389,6 +428,7 @@ $(function() {
 		var sub = "";
 		var rjson = "";
 		var id = "";
+		var disflag=false;
 		$(".attribute").each(function() {
 			if (this.name.substring(0, 13) == paramlistname) {
 				if (this.value == "") {
@@ -401,18 +441,27 @@ $(function() {
 			}
 			if (this.name.substring(0, 14) == attributelists) {
 				if (this.disabled) {
+					disflag=true;
 					attributelist = this.value;
 					addflag = 3;
 				} else {
+					disflag=false;
 					attributelist = this.value;
 					addflag = 3;
 				}
 
 			}
+			if(this.name.substring(0,11)==showguigepc){
+				if(!disflag){
+					attributelist = this.src;
+					addflag = 3;
+				}
+			}
 			if (this.name.substring(0, 13) == paramlistsort) {
 				if (this.value == "") {
-					jAlert('商品属性排序必须填写', '信息提示');
-					return false;
+					this.value=0;
+					//jAlert('商品属性排序必须填写', '信息提示');
+					addflag = 4;
 				}
 				sort = this.value;
 				addflag = 4;
