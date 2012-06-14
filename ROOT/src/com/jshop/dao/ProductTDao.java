@@ -68,8 +68,12 @@ public interface ProductTDao {
 	 * @return
 	 */
 	public abstract int delProductTByproductid(String productid);
-	
-
+	/**
+	 * 根据商品id获取货品列表
+	 * @param goodsid
+	 * @return
+	 */
+	public abstract List<ProductT> findProductTByGoodsid(String goodsid);
 
 
 }
