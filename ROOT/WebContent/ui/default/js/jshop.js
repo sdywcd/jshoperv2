@@ -318,15 +318,16 @@ function addcart(){
 	if(hidguigeflag=="1"){
 		//检测是否选择了规格
 		if(checkguigebeforeAddcart()==false){
-			alert("你没有选择规格");
+			alert("你选择的规格值产品缺货咯");
 			return false;
 		}
 	}
 	//点击加入购物车
+	var productid=$("#hidproductid").val();
 	var goodsid=$('#hidgoodsid').val();
 	var needquantity=1;//默认只购买一个
 	var hidurl=$('#hidurl').val();
-	$.post("addCart.action",{"goodsid":goodsid,"needquantity":needquantity,"redirecturl":hidurl},function(data){
+	$.post("addCart.action",{"guigeflag":hidguigeflag,"productid":productid,"goodsid":goodsid,"needquantity":needquantity,"redirecturl":hidurl},function(data){
 		if (!data.slogin) {
 			// 跳转到登录页面
 			window.location.href = "user/login.html?redirecturl=" + hidurl;
@@ -891,6 +892,7 @@ function findProductBygoodsid(goodsid,guigevalue){
 					if(data.bean.memberprice!=null){
 						$('#erroring').html("");
 						$("#changingmemberprice").html("￥<cite>"+data.bean.memberprice+"</cite>");
+						$("#hidproductid").attr("value",data.bean.productid);
 					}else{
 						$("#erroring").html(guigevalue+"已经售完请选择其他规格产品或者联系客服");
 					}

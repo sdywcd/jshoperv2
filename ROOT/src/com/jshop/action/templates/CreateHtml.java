@@ -277,19 +277,35 @@ public class CreateHtml extends ActionSupport {
 		if (!alist.isEmpty()) {
 			for (Iterator it = alist.iterator(); it.hasNext();) {
 				ArticleT at = (ArticleT) it.next();
+				if(!"1".equals(at.getIsnotice())){
+					map.put(FreeMarkervariable.ARTICLE, at);
+					String htmlPath = this.createArticleT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORARTICLE, at.getArticleid(), map);
+					this.getArticleTService().updateHtmlPath(at.getArticleid(), htmlPath);
+				}
+			}
+		}
+	}
+	/**
+	 * 生成公告静态页
+	 * 
+	 * @throws IOException
+	 * @throws TemplateException
+	 */
+	public void buildNoticeArticlesPage(Map<String, Object> map) throws IOException, TemplateException {
+		List<ArticleT> alist = this.getDataCollectionTAction().findAllArticleT();
+		if (!alist.isEmpty()) {
+			for (Iterator it = alist.iterator(); it.hasNext();) {
+				ArticleT at = (ArticleT) it.next();
 				if("1".equals(at.getIsnotice())){
 					map.put(FreeMarkervariable.ARTICLE, at);
 					String htmlPath = this.createArticleT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORNOTICE, at.getArticleid(), map);
-					this.getArticleTService().updateHtmlPath(at.getArticleid(), htmlPath);
-				}else{
-					map.put(FreeMarkervariable.ARTICLE, at);
-					String htmlPath = this.createArticleT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORARTICLE, at.getArticleid(), map);
 					this.getArticleTService().updateHtmlPath(at.getArticleid(), htmlPath);
 				}
 				
 			}
 		}
 	}
+	
 
 	
 
@@ -803,7 +819,6 @@ public class CreateHtml extends ActionSupport {
 		for(Iterator it=list.iterator();it.hasNext();){
 			GoodsGroupT ggt = (GoodsGroupT) it.next();
 			map.put(FreeMarkervariable.GOODSGROUPT, ggt);
-			map.put(FreeMarkervariable.JSHOPBASICINFO, this.getDataCollectionTAction().findJshopbasicInfo());
 			String htmlpath = this.createGoodsGroup(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORGOODSGROUPT, ggt.getGroupid(), map);
 			this.getGoodsGroupTService().updateGoodsGroupHtmlPath(htmlpath, ggt.getGroupid());
 		}
