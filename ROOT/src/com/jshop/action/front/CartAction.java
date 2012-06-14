@@ -60,6 +60,8 @@ public class CartAction extends ActionSupport {
 	private String quantity;
 	private String picture;
 	private String id;
+	private String guigeflag;//是否规格商品标记
+	private String productid;//货品id
 	private String sendstring;
 	private Double totalweight = 0.0;
 	private Double totalmemberprice = 0.0;
@@ -277,6 +279,22 @@ public class CartAction extends ActionSupport {
 		this.sendstring = sendstring;
 	}
 
+	public String getGuigeflag() {
+		return guigeflag;
+	}
+
+	public void setGuigeflag(String guigeflag) {
+		this.guigeflag = guigeflag;
+	}
+
+	public String getProductid() {
+		return productid;
+	}
+
+	public void setProductid(String productid) {
+		this.productid = productid;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -335,11 +353,12 @@ public class CartAction extends ActionSupport {
 					//int j=this.getCartserviceimpl().UpdateCartSubtotal(user.getUserid(), this.getGoodsid(), Integer.parseInt(this.getNeedquantity())*cart.getFavorable());
 					this.setSucflag(true);
 				} else {
+					//新曾商品到购物车
 					String[] picturelist = gtlist.getPictureurl().split(",");
 
 					CartT t = new CartT();
 					t.setId(this.getSerial().Serialid(Serial.CARTINFO));
-					t.setCartid(null);
+					t.setCartid(null); 
 					t.setOrderid(null);
 					t.setGoodsid(gtlist.getGoodsid());
 					t.setGoodsname(gtlist.getGoodsname());

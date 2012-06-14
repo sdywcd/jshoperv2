@@ -1,4 +1,4 @@
-package com.jshop.action;
+package com.jshop.action.front;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,6 +8,9 @@ import javax.annotation.Resource;
 
 import org.apache.commons.lang.xwork.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.InterceptorRefs;
+import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
@@ -24,8 +27,10 @@ import com.jshop.service.ProductTService;
 import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage("jshop")
-@Controller("productTAction")
-public class ProductTAction extends ActionSupport {
+@Namespace("")
+@InterceptorRefs( { @InterceptorRef("defaultStack") })
+@Controller("productAction")
+public class ProductAction extends ActionSupport {
 	private Serial serial;
 	private ProductTService productTService;
 	private String productid;
@@ -49,10 +54,10 @@ public class ProductTAction extends ActionSupport {
 	private boolean sucflag;
 	private String sortname;
 	private String sortorder;
-
+	private String guigevalue;
 	private List<ProductT> beanlist = new ArrayList<ProductT>();
 	private ProductT bean = new ProductT();
-
+	private List<String> guigearray;//用来存储规格值的集合
 	@JSON(serialize = false)
 	public ProductTService getProductTService() {
 		return productTService;
@@ -247,6 +252,14 @@ public class ProductTAction extends ActionSupport {
 		this.sortorder = sortorder;
 	}
 
+	public String getGuigevalue() {
+		return guigevalue;
+	}
+
+	public void setGuigevalue(String guigevalue) {
+		this.guigevalue = guigevalue;
+	}
+
 	public ProductT getBean() {
 		return bean;
 	}
@@ -255,6 +268,13 @@ public class ProductTAction extends ActionSupport {
 		this.bean = bean;
 	}
 
+	public List<String> getGuigearray() {
+		return guigearray;
+	}
+
+	public void setGuigearray(List<String> guigearray) {
+		this.guigearray = guigearray;
+	}
 
 	/**
 	 * 清理错误
@@ -265,39 +285,44 @@ public class ProductTAction extends ActionSupport {
 
 	}
 
-	/**
-	 * 根据商品id获取货品信息
-	 * 
-	 * @return
-	 */
-	@Action(value = "findAllProductTByGoodsid", results = { @Result(name = "json", type = "json") })
-	public String findAllProductTByGoodsid() {
-		if (Validate.StrNotNull(this.getGoodsid())) {
-			this.setBeanlist(this.getProductTService().findAllProductTByGoodsid(BaseTools.adminCreateId(), this.getGoodsid()));
-			if (this.getBeanlist() != null) {
-				this.setSucflag(true);
-				return "json";
-			}
-		}
-		this.setSucflag(false);
-		return "json";
 
-	}
-	
 	/**
-	 * 根据产品id删除产品
+	 * 前台根据规格值获取货品记录必定返回单条记录
 	 * @return
 	 */
-	@Action(value = "delProductTByproductid", results = { @Result(name = "json", type = "json") })
-	public String delProductTByproductid(){
-		if(Validate.StrNotNull(this.getProductid())){
-			int i=this.getProductTService().delProductTByproductid(this.getProductid());
+	@Action(value = "findProductTByGoodsid", results = { @Result(name = "json", type = "json") })
+	public String findProductTByGoodsid(){
+		if(Validate.StrNotNull(this.getGoodsid())){
+			List<ProductT>ptlist=this.getProductTService().findProductTByGoodsid(this.getGoodsid().trim());
+			if(!ptlist.isEmpty()){
+				if(Validate.StrNotNull(this.getGuigevalue())){
+					//this.getGuigearray().add(guigevalue);
+					for(Iterator it=ptlist.iterator();it.hasNext();){
+						ProductT pt=(ProductT)it.next();
+						String jsonstrs[]=pt.getSpecificationsValue().split("=");
+						for(String s:jsonstrs){
+							pjsonstr(ptlist,s);
+						}
+					}
+				}
+				
+			}
 			this.setSucflag(true);
 			return "json";
 		}
 		this.setSucflag(false);
 		return "json";
-		
 	}
-
+	
+	
+	public void pjsonstr(List<ProductT>list,String s){
+		JSONArray ja=(JSONArray) JSONValue.parse("["+s+"]");
+		for(int i=0;i<ja.size();i++){
+			JSONObject jo=(JSONObject)ja.get(i);
+			if(jo.get("goodsattributename").equals(this.getGuigevalue())){
+				bean=list.get(i);
+			}
+		}
+	}
+	
 }

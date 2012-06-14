@@ -34,6 +34,7 @@ import com.jshop.entity.TemplateT;
 import com.jshop.entity.TemplatesetT;
 import com.jshop.service.ArticleTService;
 import com.jshop.service.GoodsCategoryTService;
+import com.jshop.service.GoodsGroupTService;
 import com.jshop.service.GoodsTService;
 import com.jshop.service.TemplateTService;
 import com.jshop.service.TemplatesetTService;
@@ -55,10 +56,11 @@ public class CreateHtml extends ActionSupport {
 	private TemplatesetTService templatesetTService;
 	private GoodsTService goodsTService;
 	private ArticleTService articleTService;
-	private GoodsCategoryTService goodsCategoryTService;
+	private GoodsCategoryTService goodsCategoryTService;	
 	private DataCollectionTAction dataCollectionTAction;
 	private GoodsGroupTAction goodsGroupTAction;
 	private GoodsTNAction goodsTNAction;
+	private GoodsGroupTService goodsGroupTService;
 	private Map<String, Object> map = new HashMap<String, Object>();
 	private Map<String, Object> session = new HashMap<String, Object>();
 	private TemplateT bean = new TemplateT();
@@ -138,6 +140,14 @@ public class CreateHtml extends ActionSupport {
 
 	public void setDataCollectionTAction(DataCollectionTAction dataCollectionTAction) {
 		this.dataCollectionTAction = dataCollectionTAction;
+	}
+	@JSON(serialize = false)
+	public GoodsGroupTService getGoodsGroupTService() {
+		return goodsGroupTService;
+	}
+
+	public void setGoodsGroupTService(GoodsGroupTService goodsGroupTService) {
+		this.goodsGroupTService = goodsGroupTService;
 	}
 
 	public Map<String, Object> getSession() {
@@ -267,19 +277,35 @@ public class CreateHtml extends ActionSupport {
 		if (!alist.isEmpty()) {
 			for (Iterator it = alist.iterator(); it.hasNext();) {
 				ArticleT at = (ArticleT) it.next();
+				if(!"1".equals(at.getIsnotice())){
+					map.put(FreeMarkervariable.ARTICLE, at);
+					String htmlPath = this.createArticleT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORARTICLE, at.getArticleid(), map);
+					this.getArticleTService().updateHtmlPath(at.getArticleid(), htmlPath);
+				}
+			}
+		}
+	}
+	/**
+	 * 生成公告静态页
+	 * 
+	 * @throws IOException
+	 * @throws TemplateException
+	 */
+	public void buildNoticeArticlesPage(Map<String, Object> map) throws IOException, TemplateException {
+		List<ArticleT> alist = this.getDataCollectionTAction().findAllArticleT();
+		if (!alist.isEmpty()) {
+			for (Iterator it = alist.iterator(); it.hasNext();) {
+				ArticleT at = (ArticleT) it.next();
 				if("1".equals(at.getIsnotice())){
 					map.put(FreeMarkervariable.ARTICLE, at);
 					String htmlPath = this.createArticleT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORNOTICE, at.getArticleid(), map);
-					this.getArticleTService().updateHtmlPath(at.getArticleid(), htmlPath);
-				}else{
-					map.put(FreeMarkervariable.ARTICLE, at);
-					String htmlPath = this.createArticleT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORARTICLE, at.getArticleid(), map);
 					this.getArticleTService().updateHtmlPath(at.getArticleid(), htmlPath);
 				}
 				
 			}
 		}
 	}
+	
 
 	
 
@@ -789,12 +815,39 @@ public class CreateHtml extends ActionSupport {
 	 * @throws TemplateException
 	 */
 	public void buildGoodsGroupT(Map<String, Object> map) throws IOException, TemplateException{
-		List<GoodsGroupT> list = this.getGoodsGroupTAction().findGoodsGroupByState();
+		List<GoodsGroupT> list = this.getGoodsGroupTService().findGoodsGroupByState("1");
 		for(Iterator it=list.iterator();it.hasNext();){
 			GoodsGroupT ggt = (GoodsGroupT) it.next();
 			map.put(FreeMarkervariable.GOODSGROUPT, ggt);
-			String htmlPath = this.createGoodsT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORGOODSGROUP, ggt.getGroupid(), map);
+			String htmlpath = this.createGoodsGroup(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORGOODSGROUPT, ggt.getGroupid(), map);
+			this.getGoodsGroupTService().updateGoodsGroupHtmlPath(htmlpath, ggt.getGroupid());
 		}
+	}
+	/**
+	 * 生成团购商品静态页
+	 * @param sign
+	 * @param filename
+	 * @param data
+	 * @return
+	 * @throws TemplateException
+	 */
+	public String createGoodsGroup(String sign,String filename,Map<String, Object> data) throws TemplateException{
+		String realhtmlpath="";
+		try {			
+			setbean = this.getTemplatesetTService().findTemplatesetTBysign(sign);
+			if(setbean!=null){
+				String ftl = setbean.getTemplateurl();
+				String folder =setbean.getBuildhtmlpath();
+				String fileName= filename+".html";
+				String relativePath = "";
+				fc.init(ftl, folder, fileName, data, relativePath);
+				realhtmlpath = folder + fileName;
+			}
+			return realhtmlpath;
+		} catch (IOException e) {
+			this.getLogmsg().append("<p style='color:red;'>" + fc.getLogmsg() + "</p>");
+		} 
+		return realhtmlpath;
 	}
 
 }

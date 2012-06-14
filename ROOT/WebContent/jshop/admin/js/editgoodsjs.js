@@ -557,8 +557,8 @@ $(function(){
 				var selecttext="";
 				var selectid="";//连续规格值id
 				var selectsname="";//连续规格值名称
-//				var temparray=new Array();//计算规格值是否重复
-//				var tempcount=0;
+				var temparray=new Array();//计算规格值是否重复
+				var tempcount=0;
 				$("#addproductlistarea tbody tr td .productv").each(function(){
 						if(this.name.substring(0,strproductSn.length)==strproductSn){
 							if(this.value==""){
@@ -677,7 +677,7 @@ $(function(){
 							for(var i=0;i<selectarray.length;i++){
 								if(selectarray[i].selected==true){
 									selecttext=selectarray[i].text;//赋值规格值名称
-									//temparray.push(selectarray[i].text);//把值赋予比较对象
+									temparray.push(selectarray[i].text);//把值赋予比较对象
 								}
 							}
 							array=selectvalue.split(",");
@@ -685,6 +685,7 @@ $(function(){
 							selectid+=array[3]+",";//注入多个规格值id
 							selectsname+=selecttext+",";//注入多个规格值名称
 						}
+					
 						if(this.name.substring(0,strdelbutton.length)==strdelbutton){
 							if(addflag==12)
 							{
@@ -708,16 +709,16 @@ $(function(){
 							}
 						}					
 				});
-//				for(var i=0;i<temparray.length;i++){
-//					if(temparray[i]==selecttext){
-//						tempcount++;
-//						if(tempcount>1){
-//							alert("一种规格值能对应一批货品");
-//							return false;
-//						}
-//						
-//					}
-//				}
+				for(var i=0;i<temparray.length;i++){
+					if(temparray[i]==selecttext){
+						tempcount++;
+						if(tempcount>1){
+							alert("一种规格值能对应一批货品");
+							return false;
+						}
+						
+					}
+				}
 				
 				rejson = sub.toString().substring(0,sub.length-1);
 				_specificationsValue=_specificationsValue.toString().substring(0,_specificationsValue.length-1);
@@ -788,8 +789,8 @@ $(function(){
 				var selecttext="";
 				var selectid="";//连续规格值id
 				var selectsname="";//连续规格值名称
-//				var temparray=new Array();//计算规格值是否重复
-//				var tempcount=0;
+				var temparray=new Array();//计算规格值是否重复
+				var tempcount=0;
 				$("#addproductlistarea tbody tr td .productv").each(function(){
 						if(this.name.substring(0,strproductSn.length)==strproductSn){
 							if(this.value==""){
@@ -908,7 +909,7 @@ $(function(){
 							for(var i=0;i<selectarray.length;i++){
 								if(selectarray[i].selected==true){
 									selecttext=selectarray[i].text;//赋值规格值名称
-									//temparray.push(selectarray[i].text);//把值赋予比较对象
+									temparray.push(selectarray[i].text);//把值赋予比较对象
 								}
 							}
 							array=selectvalue.split(",");
@@ -939,16 +940,16 @@ $(function(){
 							}
 						}					
 				});
-//				for(var i=0;i<temparray.length;i++){
-//					if(temparray[i]==selecttext){
-//						tempcount++;
-//						if(tempcount>1){
-//							alert("一种规格值能对应一批货品");
-//							return false;
-//						}
-//						
-//					}
-//				}
+				for(var i=0;i<temparray.length;i++){
+					if(temparray[i]==selecttext){
+						tempcount++;
+						if(tempcount>1){
+							alert("一种规格值能对应一批货品");
+							return false;
+						}
+						
+					}
+				}
 				rejson = sub.toString().substring(0,sub.length-1);
 				_specificationsValue=_specificationsValue.toString().substring(0,_specificationsValue.length-1);
 				

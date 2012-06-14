@@ -190,6 +190,19 @@ public class ProductTDaoImpl extends HibernateDaoSupport implements ProductTDao 
 			throw re;
 		}
 	}
+
+	@Override
+	public List<ProductT> findProductTByGoodsid(String goodsid) {
+		log.debug("findProductTByGoodsid");
+		try {
+			String queryString = "from ProductT as pt where pt.goodsid=:goodsid";
+			List list = this.getHibernateTemplate().findByNamedParam(queryString,"goodsid",goodsid);
+			return list;
+		} catch (RuntimeException re) {
+			log.error("findProductTByGoodsid error", re);
+			throw re;
+		}
+	}
 	
 	
 	
