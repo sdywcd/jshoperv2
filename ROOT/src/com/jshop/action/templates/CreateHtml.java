@@ -803,6 +803,7 @@ public class CreateHtml extends ActionSupport {
 		for(Iterator it=list.iterator();it.hasNext();){
 			GoodsGroupT ggt = (GoodsGroupT) it.next();
 			map.put(FreeMarkervariable.GOODSGROUPT, ggt);
+			map.put(FreeMarkervariable.JSHOPBASICINFO, this.getDataCollectionTAction().findJshopbasicInfo());
 			String htmlpath = this.createGoodsGroup(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORGOODSGROUPT, ggt.getGroupid(), map);
 			this.getGoodsGroupTService().updateGoodsGroupHtmlPath(htmlpath, ggt.getGroupid());
 		}
