@@ -143,7 +143,7 @@
 									</label>
 								</div>
 								<div class="input">
-									<input type="text" id="begintime" name="begintime" class="small" onfocus="WdatePicker({startDate:'%y-%M 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUserStartDate:true})"/>
+									<input type="text" id="begintime" name="begintime" class="small" not-null=false onfocus="WdatePicker({startDate:'%y-%M 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUserStartDate:true})"/>
 									
 								</div>
 							</div>

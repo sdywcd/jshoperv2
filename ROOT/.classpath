@@ -6,63 +6,67 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v6.0">
+	<classpathentry exported="true" kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v6.0">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
+
+	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.ajdt.core.ASPECTJRT_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/xwork-core-2.1.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/activation.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/antlr-2.7.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/aspectjweaver-1.6.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/backport-util-concurrent.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/c3p0-0.9.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/cglib-2.1_2.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/cglib-nodep-2.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-codec-1.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-collections-3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-dbcp.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-email-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-fileupload-1.2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-io-1.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-io-1.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-lang-2.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-logging.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-pool.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/configdebug-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/dom4j-1.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/dwr.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/ehcache-1.4.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/ejb3-persistence.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/freemarker.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/hibernate3.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/hibernate-annotations.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/hibernate-commons-annotations.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/hibernate-entitymanager.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/hibernate-validator.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/jackson-all-1.7.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/javamail.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/javassist-3.9.0.GA.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/jaxen-1.1-beta-6.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/json_simple-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/json-lib-2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/jta-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/log4j-1.2.15.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/mail.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/mysql-connector-java-5.1.5-bin.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/ognl-2.7.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/slf4j-api-1.5.8.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/slf4j-nop-1.5.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/spring.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/struts2-convention-plugin-2.1.8.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/struts2-core-2.1.8.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/struts2-json-plugin-2.1.8.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/struts2-junit-plugin-2.1.8.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/struts2-spring-plugin-2.1.8.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/ostocy-jshop/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/taobao-sdk-java-jichukaifang-20111205.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.ajdt.core.ASPECTJRT_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/xwork-core-2.1.6.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/activation.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/antlr-2.7.6.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/aspectjweaver-1.6.2.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/backport-util-concurrent.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/c3p0-0.9.1.2.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/cglib-2.1_2.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/cglib-nodep-2.2.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-codec-1.4.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-collections-3.1.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-dbcp.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-email-1.1.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-fileupload-1.2.1.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-io-1.3.2.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-io-1.4.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-lang-2.2.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-logging.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/commons-pool.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/configdebug-1.0.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/dwr.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/ehcache-1.4.1.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/ejb3-persistence.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/freemarker.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/hibernate3.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/hibernate-annotations.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/hibernate-commons-annotations.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/hibernate-entitymanager.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/hibernate-validator.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/jackson-all-1.7.4.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/javamail.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/javassist-3.9.0.GA.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/jaxen-1.1-beta-6.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/json_simple-1.1.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/json-lib-2.1.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/jta-1.1.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/log4j-1.2.15.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/mail.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/mysql-connector-java-5.1.5-bin.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/ognl-2.7.3.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/slf4j-api-1.5.8.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/slf4j-nop-1.5.2.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/spring.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/struts2-convention-plugin-2.1.8.1.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/struts2-core-2.1.8.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/struts2-json-plugin-2.1.8.1.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/struts2-junit-plugin-2.1.8.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/struts2-spring-plugin-2.1.8.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/taobao-sdk-java-jichukaifang-20111205.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
