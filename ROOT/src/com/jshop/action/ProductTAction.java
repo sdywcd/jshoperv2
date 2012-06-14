@@ -1,14 +1,19 @@
 package com.jshop.action;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.xwork.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.springframework.stereotype.Controller;
 
 import com.jshop.action.tools.BaseTools;
@@ -44,8 +49,10 @@ public class ProductTAction extends ActionSupport {
 	private boolean sucflag;
 	private String sortname;
 	private String sortorder;
+	private String guigevalue;
 	private List<ProductT> beanlist = new ArrayList<ProductT>();
-
+	private ProductT bean = new ProductT();
+	private List<String> guigearray;//用来存储规格值的集合
 	@JSON(serialize = false)
 	public ProductTService getProductTService() {
 		return productTService;
@@ -240,6 +247,30 @@ public class ProductTAction extends ActionSupport {
 		this.sortorder = sortorder;
 	}
 
+	public String getGuigevalue() {
+		return guigevalue;
+	}
+
+	public void setGuigevalue(String guigevalue) {
+		this.guigevalue = guigevalue;
+	}
+
+	public ProductT getBean() {
+		return bean;
+	}
+
+	public void setBean(ProductT bean) {
+		this.bean = bean;
+	}
+
+	public List<String> getGuigearray() {
+		return guigearray;
+	}
+
+	public void setGuigearray(List<String> guigearray) {
+		this.guigearray = guigearray;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -283,8 +314,43 @@ public class ProductTAction extends ActionSupport {
 		return "json";
 		
 	}
+	/**
+	 * 前台根据规格值获取货品记录必定返回单条记录
+	 * @return
+	 */
+	@Action(value = "findProductTByGoodsid", results = { @Result(name = "json", type = "json") })
+	public String findProductTByGoodsid(){
+		if(Validate.StrNotNull(this.getGoodsid())){
+			List<ProductT>ptlist=this.getProductTService().findProductTByGoodsid(this.getGoodsid().trim());
+			if(!ptlist.isEmpty()){
+				if(Validate.StrNotNull(this.getGuigevalue())){
+					//this.getGuigearray().add(guigevalue);
+					for(Iterator it=ptlist.iterator();it.hasNext();){
+						ProductT pt=(ProductT)it.next();
+						String jsonstrs[]=pt.getSpecificationsValue().split("=");
+						for(String s:jsonstrs){
+							pjsonstr(ptlist,s);
+						}
+					}
+				}
+				
+			}
+			this.setSucflag(true);
+			return "json";
+		}
+		this.setSucflag(false);
+		return "json";
+	}
 	
 	
-	
+	public void pjsonstr(List<ProductT>list,String s){
+		JSONArray ja=(JSONArray) JSONValue.parse("["+s+"]");
+		for(int i=0;i<ja.size();i++){
+			JSONObject jo=(JSONObject)ja.get(i);
+			if(jo.get("goodsattributename").equals(this.getGuigevalue())){
+				bean=list.get(i);
+			}
+		}
+	}
 	
 }
