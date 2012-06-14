@@ -20,6 +20,7 @@
 										开始时间:
 									</label>
 								</div>
+								<img width="470px" height="470px">
 								<div class="input">
 									<input type="text" id="begintime" name="begintime" class="small" onfocus="WdatePicker({startDate:'%y-%M 00:00:00',dateFmt:'MM/dd/yyyy HH:mm:ss',alwaysUserStartDate:true})"/>
 									
