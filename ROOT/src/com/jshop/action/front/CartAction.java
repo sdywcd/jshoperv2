@@ -338,6 +338,7 @@ public class CartAction extends ActionSupport {
 				GoodsT gtlist = gtlist1.get(i);
 				CartT cart = this.getCartTService().findGoodsInCartOrNot(user.getUserid(), gtlist.getGoodsid(), "1");
 				if (cart != null) {
+					
 					//同状态的商品只能在购物车出现一次
 					//更新对应商品id的数量	//检测商品是否已经在购物车中，如果有责增加数量，没有责加入
 					@SuppressWarnings("unused")
@@ -355,10 +356,9 @@ public class CartAction extends ActionSupport {
 				} else {
 					//新曾商品到购物车
 					String[] picturelist = gtlist.getPictureurl().split(",");
-
 					CartT t = new CartT();
 					t.setId(this.getSerial().Serialid(Serial.CARTINFO));
-					t.setCartid(null); 
+					t.setCartid(null);
 					t.setOrderid(null);
 					t.setGoodsid(gtlist.getGoodsid());
 					t.setGoodsname(gtlist.getGoodsname());
@@ -375,7 +375,11 @@ public class CartAction extends ActionSupport {
 					t.setPicture(picturelist[0]);
 					t.setUsersetnum(gtlist.getUsersetnum());
 					t.setWeight(gtlist.getWeight());
-					t.setState("1");
+					t.setState("1");//新加入购物车的商品
+					if("1".equals(this.getGuigeflag())){
+						t.setProductid(this.getProductid());
+					}
+					t.setHtmlpath(gtlist.getHtmlPath());
 					if (this.getCartTService().addCart(t) > 0) {
 						this.setSucflag(true);
 					}
