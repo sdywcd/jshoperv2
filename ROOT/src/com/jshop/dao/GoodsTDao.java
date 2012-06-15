@@ -485,7 +485,7 @@ public interface GoodsTDao {
 	public abstract int countfindAllGoodsByismobileplatformgoods(String creatorid);
 
 	/**
-	 * 根据顶级分类获取
+	 * 根据顶级分类获取旗下商品不包含规格商品
 	 * 
 	 * @param navid
 	 * @param salestate
@@ -494,14 +494,21 @@ public interface GoodsTDao {
 	public abstract List<GoodsT> findAllGoodsBynavid(String navid, String salestate);
 
 	/**
-	 * 根据一级分类获
+	 * 根据一级分类获旗下商品
 	 * 
 	 * @param ltypeid
 	 * @param salestate
 	 * @return
 	 */
 	public abstract List<GoodsT> findGoodsByLtypeid(String ltypeid, String salestate);
-
+	/**
+	 * 根据二级分类获取旗下商品
+	 * @param stypeid
+	 * @param salestate
+	 * @return
+	 */
+	public abstract List<GoodsT>findGoodsBystypeid(String stypeid,String salestate);
+	
 	/**
 	 * 根据商品id更新htmlpath
 	 * 

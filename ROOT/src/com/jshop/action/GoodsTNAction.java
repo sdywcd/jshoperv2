@@ -152,6 +152,7 @@ public class GoodsTNAction extends ActionSupport {
 	private String sortorder;//排序方式
 	private GoodsT bean = new GoodsT();
 	private GoodsT gt = new GoodsT();
+	private List<GoodsT>beanlist=new ArrayList<GoodsT>();
 	private List rows = new ArrayList();
 	private Map<String, Object> map = new HashMap<String, Object>();
 	private List<GoodsTypeTN>gtnlist=new ArrayList<GoodsTypeTN>();
@@ -1166,6 +1167,14 @@ public class GoodsTNAction extends ActionSupport {
 
 	public void setSpecificationsName(String specificationsName) {
 		this.specificationsName = specificationsName;
+	}
+
+	public List<GoodsT> getBeanlist() {
+		return beanlist;
+	}
+
+	public void setBeanlist(List<GoodsT> beanlist) {
+		this.beanlist = beanlist;
 	}
 
 	/**
@@ -2774,6 +2783,26 @@ public class GoodsTNAction extends ActionSupport {
 			gmllist.add(gml);
 		}
 	
+	}
+	
+	/**
+	 * 根据顶级分类获取商品列表传送到前台给关联商品部分
+	 * @return
+	 */
+	@Action(value = "findAllGoodsBynavidToBelinkedGoods", results = { @Result(name = "json", type = "json") })
+	public String findAllGoodsBynavidToBelinkedGoods(){
+		if(Validate.StrNotNull(this.getNavid())){
+			String navid=this.getNavid().trim();
+			String salestate="1";//上架
+			List<GoodsT>list=this.getGoodsTService().findAllGoodsBynavid(navid, salestate);
+			if(!list.isEmpty()){
+				this.setBeanlist(list);
+			}
+			this.setSucflag(true);
+			return "json";
+		}
+		this.setSucflag(false);
+		return "json";
 	}
 	
 	

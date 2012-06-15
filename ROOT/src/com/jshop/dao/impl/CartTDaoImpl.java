@@ -123,7 +123,7 @@ public class CartTDaoImpl extends HibernateDaoSupport implements CartTDao {
 		log.debug("update cart needquantity");
 		try {
 			final String queryString = "update CartT as c set c.needquantity=:needquantity+c.needquantity where c.userid=:userid and c.goodsid=:goodsid and c.state=:state";
-			this.getHibernateTemplate().execute(new HibernateCallback() {
+			Integer integer=(Integer)this.getHibernateTemplate().execute(new HibernateCallback() {
 
 				public Object doInHibernate(Session session) throws HibernateException, SQLException {
 					int i = 0;
@@ -133,15 +133,14 @@ public class CartTDaoImpl extends HibernateDaoSupport implements CartTDao {
 					query.setParameter("needquantity", needquantity);
 					query.setParameter("state", state);
 					i = query.executeUpdate();
-					++i;
 					return i;
 				}
 			});
+			return integer;
 		} catch (RuntimeException re) {
 			log.error("update  cart needquantity", re);
 			throw re;
 		}
-		return 0;
 	}
 
 	public int reduceCartNeddquantityByGoodsid(final String userid, final String goodsid, final int needquantity) {
@@ -375,6 +374,50 @@ public class CartTDaoImpl extends HibernateDaoSupport implements CartTDao {
 			return list;
 		} catch (RuntimeException re) {
 			log.error("find all findCartByCartid  error", re);
+			throw re;
+		}
+	}
+
+	@Override
+	public CartT findGoodsInCartOrNot(String userid, String goodsid,
+			String productid, String state) {
+		log.debug("findGoodsInCartOrNot ");
+		try {
+			String queryString = "from CartT as c where c.userid=:userid and c.goodsid=:goodsid and c.productid=:productid and c.state=:state order by addtime desc";
+			@SuppressWarnings("unchecked")
+			List<CartT> list = this.getHibernateTemplate().findByNamedParam(queryString, new String[] { "userid", "goodsid","productid", "state" }, new Object[] { userid, goodsid,productid, state });
+			if (list != null && list.size() > 0) {
+				return list.get(0);
+			}
+			return null;
+		} catch (RuntimeException re) {
+			log.error("find good or in CartT error", re);
+			throw re;
+		}
+	}
+
+	@Override
+	public int updateCartNeedquantityByGoodsid(final String userid, final String goodsid,
+			final String productid, final int needquantity, final String state) {
+		log.debug("updateCartNeedquantityByGoodsid cart needquantity");
+		try {
+			final String queryString = "update CartT as c set c.needquantity=:needquantity+c.needquantity where c.userid=:userid and c.goodsid=:goodsid and c.productid=:productid and c.state=:state";
+			Integer integer=(Integer)this.getHibernateTemplate().execute(new HibernateCallback() {
+				public Object doInHibernate(Session session) throws HibernateException, SQLException {
+					int i = 0;
+					Query query = session.createQuery(queryString);
+					query.setParameter("userid", userid);
+					query.setParameter("goodsid", goodsid);
+					query.setParameter("needquantity", needquantity);
+					query.setParameter("state", state);
+					query.setParameter("productid", productid);
+					i = query.executeUpdate();
+					return i;
+				}
+			});
+			return integer;
+		} catch (RuntimeException re) {
+			log.error("updateCartNeedquantityByGoodsid  cart needquantity", re);
 			throw re;
 		}
 	}

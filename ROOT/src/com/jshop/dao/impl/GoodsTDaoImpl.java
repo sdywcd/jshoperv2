@@ -1551,6 +1551,12 @@ public class GoodsTDaoImpl extends HibernateDaoSupport implements GoodsTDao {
 		}
 	}
 
+	@Override
+	public List<GoodsT> findGoodsBystypeid(String stypeid, String salestate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 }

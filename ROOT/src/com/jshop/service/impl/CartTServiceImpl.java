@@ -90,6 +90,18 @@ public class CartTServiceImpl implements CartTService {
 	public List<CartT> findCartByCartid(String cartid, String state) {
 		return this.getCartTDao().findCartByCartid(cartid, state);
 	}
+
+	@Override
+	public CartT findGoodsInCartOrNot(String userid, String goodsid,
+			String productid, String state) {
+		return this.getCartTDao().findGoodsInCartOrNot(userid, goodsid, productid, state);
+	}
+
+	@Override
+	public int updateCartNeedquantityByGoodsid(String userid, String goodsid,
+			String productid, int needquantity, String state) {
+		return this.getCartTDao().updateCartNeedquantityByGoodsid(userid, goodsid, productid, needquantity, state);
+	}
 	
 	
 	

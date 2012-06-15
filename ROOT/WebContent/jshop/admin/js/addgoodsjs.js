@@ -139,6 +139,7 @@ function checkisDefault(){
 		jAlert('请选择一个默认货品', '信息提示');
 		return false;
 	}
+	$('#submit').attr("disabled",false);
 	checkisdefault=true;
 }
 
@@ -1106,11 +1107,18 @@ $(function(){
 	});
 });
 
+
+
 $("#searchbelinkedgoods").click(function(){
-	var navidbelinked = $('#navidbelinked').val();
-	var ltypeidbelinked = $('#ltypeidbelinked').val();
-	var stypeidbelinked = $('#stypeidbelinked').val();
-	//if(stypeidbelinked != )
+	var navid= $('#navidbelinked').val();
+	var ltypeid = $('#ltypeidbelinked').val();
+	var stypeid = $('#stypeidbelinked').val();
+	if(navid!=""){
+		
+	}else{
+		alert("请选择顶级分类进行查询");
+		return false;
+	}
 	
 });
 

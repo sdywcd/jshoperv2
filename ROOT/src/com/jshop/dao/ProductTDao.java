@@ -75,5 +75,4 @@ public interface ProductTDao {
 	 */
 	public abstract List<ProductT> findProductTByGoodsid(String goodsid);
 
-
 }

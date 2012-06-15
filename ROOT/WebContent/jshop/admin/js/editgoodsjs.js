@@ -126,6 +126,7 @@ function checkisDefault(){
 		jAlert('请选择一个默认货品', '信息提示');
 		return false;
 	}
+	$('#submit').attr("disabled",false);
 	checkisdefault=true;
 }
 
@@ -465,7 +466,7 @@ $(function(){
 				$.post("updateGoods.action",{"ismobileplatformgoods":ismobileplatformgoods,"goodsid":goodsid,"goodsname":goodsname,"nname":nname,"lname":lname,"sname":sname,"navid":navid,"ltypeid":ltypeid,"stypeid":stypeid,"price":price,"memberprice":memberprice,"points":points,"pictureurl":pictureurl,"quantity":quantity,"detail":detail,"unitname":unitname,"keywordname":keywordname,"weight":weight,"recommended":recommended,"hotsale":hotsale,"bargainprice":bargainprice,"salestate":salestate,"brandid":brandid,"brandname":brandname,"placeStore":placeStore,"metaKeywords":metaKeywords,"metaDescription":metaDescription,"cost":cost,"saleprice":saleprice,"isNew":isNew,"productSn":productSn,"keywordid":keywordid,"unitnameid":unitnameid,"usersetnum":usersetnum,"isSpecificationsOpen":isSpecificationsOpen,"goodsTypeId":goodsTypeId,"freezeStore":freezeStore,"commoditylist":commoditylist},function(data){
 					if(data.sucflag){
 						jAlert('更新商品成功', '信息提示');
-						window.location.href='goodsmanagement.jsp?session='+sesssion+"#goods";
+						window.location.href='goodsmanagement.jsp?session='+session+"#goods";
 					}
 					return;
 				});
