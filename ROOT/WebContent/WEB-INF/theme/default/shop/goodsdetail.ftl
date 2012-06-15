@@ -91,7 +91,10 @@
             <div class="rm1_2"> 商品编号：${goodsdetail.usersetnum} </div>
             <div class="rm1_3"> 会员价： <span id="changingmemberprice">￥<cite>${goodsdetail.memberprice}</cite> </span> </div>
             <br />
-            <div class="rm1_5"> <span>购买该商品，您可获得</span><span id="integralCell" style="color: black;">${goodsdetail.points}</span> <span>积分!</span> </div>
+            <div class="rm1_5">
+			<span>购买该商品，您可获得</span><span id="integralCell" style="color: black;">${goodsdetail.points}</span> <span>积分!</span> <br><br>
+			<span id="erroring"></span>
+			</div>
           </div>
           <!-- 隐藏的goodsid -->
           <input type="hidden" id="hidgoodsid" name="hidgoodsid" value="${goodsdetail.goodsid}"/>
@@ -103,7 +106,10 @@
           <input type="hidden" id="hidmemberprice" name="hidmemberprice" value="${goodsdetail.memberprice}"/>
           <div class="detail_info_rm3">
 			<#if (goodsspecification??)&&(goodsspecification?size>0)>
-			
+			<!--隐藏的规格标记表示是否开启了规格-->
+			<input type="hidden" id="hidguigeflag" name="hidguigeflag" value="1"/>
+			<!--隐藏的产品id唯一且只有一个值-->
+			<input type="hidden" id="hidproductid" name="hidproductid" value=""/>
 			<#list goodsspecification as gs>
 				<#if gs.specificationsType=='1'>
 				<div class="rm3_4">
@@ -112,7 +118,7 @@
 					<#list gs.specificationsValue?split('-') as scv>
 					<#assign gdata=scv?eval />
 					
-					<a href="#" title="${gs.name}${gdata.goodsattributename}" class="text_current">
+					<a href="#" title="${gdata.goodsattributename}" class="text_current">
 						 ${gdata.goodsattributename}
 					</a>
 					
@@ -127,7 +133,7 @@
 				  <cite>
 				  <#list gs.specificationsValue?split('-') as scv>
 					<#assign gdata=scv?eval />
-					<a  href="#" title="${gs.name}${gdata.goodsattributename}" class="rm3_pic">
+					<a  href="#" title="${gdata.goodsattributename}" class="rm3_pic">
 						<!--<img src="http://img.tao3c.com/601/603/78500/108400/111200/218205_1_pic60_6952.jpg">-->
 						<div style="width:60px;height:60px;background-color:${gdata.attributelist}"></div>
 					</a>
