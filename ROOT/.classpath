@@ -11,6 +11,10 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="con" path="org.eclipse.ajdt.core.ASPECTJRT_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/xwork-core-2.1.6.jar"/>
 	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/activation.jar"/>
 	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/antlr-2.7.6.jar"/>
 	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/aspectjweaver-1.6.2.jar"/>
@@ -60,6 +64,5 @@
 	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/struts2-junit-plugin-2.1.8.jar"/>
 	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/struts2-spring-plugin-2.1.8.jar"/>
 	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/taobao-sdk-java-jichukaifang-20111205.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/xwork-core-2.1.6.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
