@@ -3,16 +3,28 @@ package com.jshop.aspect;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.lang.xwork.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 
 import com.jshop.action.GoodsTNAction;
+import com.jshop.action.tools.BaseTools;
+import com.jshop.action.tools.Serial;
+import com.jshop.action.tools.Validate;
+import com.jshop.entity.GoodsBelinkedT;
 import com.jshop.entity.GoodsSpecificationsRelationshipT;
+import com.jshop.entity.GoodsT;
 
 
 @Aspect
 public class GoodsTAspect {
+	
+	/**
+	 * 在商品增加后增加规格值关系
+	 * @param joinPoint
+	 * @throws IOException
+	 */
 	@After("execution(String com.jshop.action.GoodsTNAction.addGoods())")
 	public void afteraddSpecificationGoods(JoinPoint joinPoint) throws IOException{
 		GoodsTNAction gtn=(GoodsTNAction) joinPoint.getThis();
@@ -25,6 +37,11 @@ public class GoodsTAspect {
 			}
 		}
 	}
+	/**
+	 * 在商品更新后更新规格值关系
+	 * @param joinPoint
+	 * @throws IOException
+	 */
 	@After("execution(String com.jshop.action.GoodsTNAction.updateGoods())")
 	public void afterupdateSpecificationGoods(JoinPoint joinPoint) throws IOException{
 		GoodsTNAction gtn=(GoodsTNAction) joinPoint.getThis();
@@ -50,6 +67,86 @@ public class GoodsTAspect {
 			}
 		}
 	}
+	
+	/**
+	 * 在商品增加时增加关联商品
+	 */
+	@After("execution(String com.jshop.action.GoodsTNAction.addGoods())")
+	public void aftergoodsIaddGoodsBelinkedT(JoinPoint joinPoint){
+		GoodsTNAction gtn=(GoodsTNAction) joinPoint.getThis();
+		if(Validate.StrNotNull(gtn.getBelinkedgoodsid())){
+			//组装json格式的关联商品串
+			String belinkedgoodsid=gtn.getBelinkedgoodsid().trim();
+			String []strs=StringUtils.split(belinkedgoodsid, ',');
+			GoodsT gt=new GoodsT();
+			StringBuilder belinkedjson=new StringBuilder(); 
+			belinkedjson.append("[");
+			for(String s:strs){
+				gt=gtn.getGoodsTService().findGoodsById(s);
+				belinkedjson.append("{");
+				belinkedjson.append("\"goodsid\":\"").append(gt.getGoodsid()).append("\",");
+				belinkedjson.append("\"goodsname\":\"").append(gt.getGoodsname()).append("\"");
+				belinkedjson.append("},");
+			}
+			belinkedjson.deleteCharAt(belinkedjson.length()-1);
+			belinkedjson.append("]");
+			GoodsBelinkedT gbl=new GoodsBelinkedT();
+			gbl.setBelinkedid(gtn.getSerial().Serialid(Serial.GOODSBELINKED));
+			gbl.setMaingoodsid(gtn.getBean().getGoodsid());
+			gbl.setBelinkedgoods(belinkedjson.toString());
+			gbl.setMode("1");//默认单向模式
+			gbl.setState("1");//开启关联
+			gbl.setCreatorid(BaseTools.adminCreateId());
+			gbl.setCreatetime(BaseTools.systemtime());
+			gbl.setUpdatetime(BaseTools.systemtime());
+			gbl.setVersiont(0);
+			gbl.setSxlinkedgoodsid("0");
+			@SuppressWarnings("unused")
+			int i=gtn.getGoodsBelinkedTService().addGoodsBelinkedT(gbl);
+		}
+	}
+	/**
+	 * 在商品增加时增加关联商品
+	 */
+	@After("execution(String com.jshop.action.GoodsTNAction.updateGoods())")
+	public void aftergoodsUaddGoodsBelinkedT(JoinPoint joinPoint){
+		GoodsTNAction gtn=(GoodsTNAction) joinPoint.getThis();
+		if(Validate.StrNotNull(gtn.getBelinkedgoodsid())){
+			//组装json格式的关联商品串
+			String belinkedgoodsid=gtn.getBelinkedgoodsid().trim();
+			String []strs=StringUtils.split(belinkedgoodsid, ',');
+			GoodsT gt=new GoodsT();
+			StringBuilder belinkedjson=new StringBuilder(); 
+			belinkedjson.append("[");
+			for(String s:strs){
+				gt=gtn.getGoodsTService().findGoodsById(s);
+				belinkedjson.append("{");
+				belinkedjson.append("\"goodsid\":\"").append(gt.getGoodsid()).append("\",");
+				belinkedjson.append("\"goodsname\":\"").append(gt.getGoodsname()).append("\"");
+				belinkedjson.append("},");
+			}
+			belinkedjson.deleteCharAt(belinkedjson.length()-1);
+			belinkedjson.append("]");
+			GoodsBelinkedT gbl=new GoodsBelinkedT();
+			List<GoodsBelinkedT>list=gtn.getGoodsBelinkedTService().findGoodsBelinkedBymaingoodsid(gtn.getBean().getGoodsid());
+			if(!list.isEmpty()){
+				gbl.setBelinkedid(list.get(0).getBelinkedid());
+				gbl.setMaingoodsid(gtn.getBean().getGoodsid());
+				gbl.setBelinkedgoods(belinkedjson.toString());
+				gbl.setMode("1");//默认单向模式
+				gbl.setState("1");//开启关联
+				gbl.setCreatorid(BaseTools.adminCreateId());
+				gbl.setCreatetime(list.get(0).getCreatetime());
+				gbl.setUpdatetime(BaseTools.systemtime());
+				gbl.setVersiont(0);
+				gbl.setSxlinkedgoodsid("0");
+				@SuppressWarnings("unused")
+				int i=gtn.getGoodsBelinkedTService().updateGoodsBelinked(gbl);
+			}
+		}
+	}
+	
+	
     
 
 }

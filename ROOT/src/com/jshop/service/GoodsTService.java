@@ -624,5 +624,35 @@ public interface GoodsTService {
 	 * @return
 	 */
 	public abstract List<GoodsT>findGoodsByNavid(String navid,String salestate,String ismobileplatformgoods);
+	/**
+	 * 根据顶级分类获取旗下商品不包含规格值
+	 * 
+	 * @param navid
+	 * @param salestate
+	 * @return
+	 */
+	public abstract List<GoodsT> findAllGoodsBynavid(String navid, String salestate,String isSpecificationsOpen);
+	/**
+	 * 根据传入的商品分类数据查询商品集合不包含规格值
+	 * @param navid
+	 * @param ltypeid
+	 * @param salestate
+	 * @param isSpecificationsOpen
+	 * @return
+	 */
+	public abstract List<GoodsT>findAllGoodsBynavidandltypeid(String navid,String ltypeid,String salestate,String isSpecificationsOpen);
 	
+	/**
+	 * 根据传入的商品分类数据查询商品集合不包含规格值
+	 * @param navid
+	 * @param ltypeid
+	 * @param stypeid
+	 * @param salestate
+	 * @param isSpecificationsOpen
+	 * @return
+	 */
+	public abstract List<GoodsT>findAllGoodsBynavidandltypeidandstypeid(String navid,String ltypeid,String stypeid,String salestate,String isSpecificationsOpen);
+	
+	
+
 }

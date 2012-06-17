@@ -47,7 +47,16 @@ function delProductByproductid(rid){
 		}
 	});
 }
-
+/**
+ * 获取关联商品
+ */
+function getbelinkedGoods(){
+    var belinkedgoodsid=$("#linkedgoodsselect").find("option:selected").val();
+    if(null!=belinkedgoodsid){
+        return belinkedgoodsid;
+    }
+    return "";
+}
 
 /**
  * 再获取一次商品，绑定商品参数和属性。
@@ -321,7 +330,9 @@ $(function(){
 //获取商品导航菜单
 $(function(){
 	$.post("findGoodscategoryNavid.action",function(data){
-		$("#navid").append(data.navidlist); ;
+		$("#navid").append(data.navidlist);
+        //向关联商品tab中注入商品导航
+        $("#navidbelinked").append(data.navidlist);
 		return;
 	});
 });
@@ -341,7 +352,25 @@ $(function(){
 				$("#ltypeid").show();
 			}
 		});
+        
 	});
+    
+    //向关联商品tab中注入商品二级菜单
+    $("#navidbelinked").change(function(){
+        var parentId=$("#navidbelinked").val();
+        if("0"==parentId){
+            return;
+        }
+        $.post("findGoodscategoryLtypeid.action",{"parentId":parentId},function(data){
+            $("#ltypeidbelinked option").remove();
+            if(data.ltypeidlist==""){
+                $("#ltypeidbelinked").hide();
+            }else{
+                $("#ltypeidbelinked").append(data.ltypeidlist); 
+                $("#ltypeidbelinked").show();
+            }
+        });
+    });
 });
 //获取商品三级菜单
 $(function(){
@@ -360,7 +389,23 @@ $(function(){
 			}
 		});
 	});
-	
+	//向关联商品tab中注入商品二级菜单
+    $("#ltypeidbelinked").change(function(){
+        var parentId=$("#ltypeid").val();
+        if("0"==parentId){
+            return;
+        }
+        $.post("findGoodscategoryStypeid.action",{"parentId":parentId},function(data){
+            $("#stypeidbelinked option").remove();
+            if(data.stypeidlist==""){
+                $("#stypeidbelinked").hide();
+            }else{
+                $("#stypeidbelinked").append(data.stypeidlist);
+                $("#stypeidbelinked").show();
+            }
+            
+        });
+    });
 });
 
 //获取商品品牌json
@@ -461,9 +506,11 @@ $(function(){
 			var isSpecificationsOpen=$('#isSpecificationsOpen').val();
 			var goodsTypeId=$('#goodsTypeId').val();
 			var commoditylist=$('#commoditylist').val();
-			if((goodsTypeId=="0"&&isSpecificationsOpen=="0")||(goodsTypeId=="0"&&isSpecificationsOpen=="2")){
+			 //获取关联商品列表
+            var belinkedgoodsid=getbelinkedGoods().toString();
+            if((goodsTypeId=="0"&&isSpecificationsOpen=="0")||(goodsTypeId=="0"&&isSpecificationsOpen=="2")){
 				//如果规格和属性都没起启用，增加的类似充值卡
-				$.post("updateGoods.action",{"ismobileplatformgoods":ismobileplatformgoods,"goodsid":goodsid,"goodsname":goodsname,"nname":nname,"lname":lname,"sname":sname,"navid":navid,"ltypeid":ltypeid,"stypeid":stypeid,"price":price,"memberprice":memberprice,"points":points,"pictureurl":pictureurl,"quantity":quantity,"detail":detail,"unitname":unitname,"keywordname":keywordname,"weight":weight,"recommended":recommended,"hotsale":hotsale,"bargainprice":bargainprice,"salestate":salestate,"brandid":brandid,"brandname":brandname,"placeStore":placeStore,"metaKeywords":metaKeywords,"metaDescription":metaDescription,"cost":cost,"saleprice":saleprice,"isNew":isNew,"productSn":productSn,"keywordid":keywordid,"unitnameid":unitnameid,"usersetnum":usersetnum,"isSpecificationsOpen":isSpecificationsOpen,"goodsTypeId":goodsTypeId,"freezeStore":freezeStore,"commoditylist":commoditylist},function(data){
+				$.post("updateGoods.action",{"belinkedgoodsid":belinkedgoodsid,"ismobileplatformgoods":ismobileplatformgoods,"goodsid":goodsid,"goodsname":goodsname,"nname":nname,"lname":lname,"sname":sname,"navid":navid,"ltypeid":ltypeid,"stypeid":stypeid,"price":price,"memberprice":memberprice,"points":points,"pictureurl":pictureurl,"quantity":quantity,"detail":detail,"unitname":unitname,"keywordname":keywordname,"weight":weight,"recommended":recommended,"hotsale":hotsale,"bargainprice":bargainprice,"salestate":salestate,"brandid":brandid,"brandname":brandname,"placeStore":placeStore,"metaKeywords":metaKeywords,"metaDescription":metaDescription,"cost":cost,"saleprice":saleprice,"isNew":isNew,"productSn":productSn,"keywordid":keywordid,"unitnameid":unitnameid,"usersetnum":usersetnum,"isSpecificationsOpen":isSpecificationsOpen,"goodsTypeId":goodsTypeId,"freezeStore":freezeStore,"commoditylist":commoditylist},function(data){
 					if(data.sucflag){
 						jAlert('更新商品成功', '信息提示');
 						window.location.href='goodsmanagement.jsp?session='+session+"#goods";
@@ -509,7 +556,7 @@ $(function(){
 						goodsParameterValue+="{\"id\":\""+this.name+"\",\"value\":\""+this.value+"\"},"
 					});
 					goodsParameterValue=goodsParameterValue.toString().substring(0,goodsParameterValue.length-1);
-					$.post("updateGoods.action",{"ismobileplatformgoods":ismobileplatformgoods,"goodsid":goodsid,"goodsAttrVal0":goodsAttrVal0,"goodsAttrVal1":goodsAttrVal1,"goodsAttrVal2":goodsAttrVal2,"goodsAttrVal3":goodsAttrVal3,"goodsAttrVal4":goodsAttrVal4,"goodsAttrVal5":goodsAttrVal5,"goodsAttrVal6":goodsAttrVal6,"goodsAttrVal7":goodsAttrVal7,"goodsAttrVal8":goodsAttrVal8,"goodsAttrVal9":goodsAttrVal9,"goodsAttrVal10":goodsAttrVal10,"goodsAttrVal11":goodsAttrVal11,"goodsAttrVal12":goodsAttrVal12,"goodsAttrVal13":goodsAttrVal13,"goodsAttrVal14":goodsAttrVal14,"goodsAttrVal15":goodsAttrVal15,"goodsAttrVal16":goodsAttrVal16,"goodsAttrVal17":goodsAttrVal17,"goodsAttrVal18":goodsAttrVal18,"goodsAttrVal19":goodsAttrVal19,"goodsAttrVal20":goodsAttrVal20,"goodsAttrVal21":goodsAttrVal21,"goodsAttrVal22":goodsAttrVal22,"goodsAttrVal23":goodsAttrVal23,"goodsAttrVal24":goodsAttrVal24,"goodsAttrVal25":goodsAttrVal25,"goodsAttrVal26":goodsAttrVal26,"goodsAttrVal27":goodsAttrVal27,"goodsAttrVal28":goodsAttrVal28,"goodsAttrVal29":goodsAttrVal29,"goodsParameterValue":goodsParameterValue,"goodsTypeName":goodsTypeName,"goodsTypeId":goodsTypeId,"goodsname":goodsname,"nname":nname,"lname":lname,"sname":sname,"navid":navid,"ltypeid":ltypeid,"stypeid":stypeid,"price":price,"memberprice":memberprice,"points":points,"pictureurl":pictureurl,"quantity":quantity,"detail":detail,"unitname":unitname,"keywordname":keywordname,"weight":weight,"recommended":recommended,"hotsale":hotsale,"bargainprice":bargainprice,"salestate":salestate,"brandid":brandid,"brandname":brandname,"placeStore":placeStore,"metaKeywords":metaKeywords,"metaDescription":metaDescription,"cost":cost,"saleprice":saleprice,"isNew":isNew,"productSn":productSn,"keywordid":keywordid,"unitnameid":unitnameid,"usersetnum":usersetnum,"isSpecificationsOpen":isSpecificationsOpen,"freezeStore":freezeStore,"commoditylist":commoditylist},function(data){
+					$.post("updateGoods.action",{"belinkedgoodsid":belinkedgoodsid,"ismobileplatformgoods":ismobileplatformgoods,"goodsid":goodsid,"goodsAttrVal0":goodsAttrVal0,"goodsAttrVal1":goodsAttrVal1,"goodsAttrVal2":goodsAttrVal2,"goodsAttrVal3":goodsAttrVal3,"goodsAttrVal4":goodsAttrVal4,"goodsAttrVal5":goodsAttrVal5,"goodsAttrVal6":goodsAttrVal6,"goodsAttrVal7":goodsAttrVal7,"goodsAttrVal8":goodsAttrVal8,"goodsAttrVal9":goodsAttrVal9,"goodsAttrVal10":goodsAttrVal10,"goodsAttrVal11":goodsAttrVal11,"goodsAttrVal12":goodsAttrVal12,"goodsAttrVal13":goodsAttrVal13,"goodsAttrVal14":goodsAttrVal14,"goodsAttrVal15":goodsAttrVal15,"goodsAttrVal16":goodsAttrVal16,"goodsAttrVal17":goodsAttrVal17,"goodsAttrVal18":goodsAttrVal18,"goodsAttrVal19":goodsAttrVal19,"goodsAttrVal20":goodsAttrVal20,"goodsAttrVal21":goodsAttrVal21,"goodsAttrVal22":goodsAttrVal22,"goodsAttrVal23":goodsAttrVal23,"goodsAttrVal24":goodsAttrVal24,"goodsAttrVal25":goodsAttrVal25,"goodsAttrVal26":goodsAttrVal26,"goodsAttrVal27":goodsAttrVal27,"goodsAttrVal28":goodsAttrVal28,"goodsAttrVal29":goodsAttrVal29,"goodsParameterValue":goodsParameterValue,"goodsTypeName":goodsTypeName,"goodsTypeId":goodsTypeId,"goodsname":goodsname,"nname":nname,"lname":lname,"sname":sname,"navid":navid,"ltypeid":ltypeid,"stypeid":stypeid,"price":price,"memberprice":memberprice,"points":points,"pictureurl":pictureurl,"quantity":quantity,"detail":detail,"unitname":unitname,"keywordname":keywordname,"weight":weight,"recommended":recommended,"hotsale":hotsale,"bargainprice":bargainprice,"salestate":salestate,"brandid":brandid,"brandname":brandname,"placeStore":placeStore,"metaKeywords":metaKeywords,"metaDescription":metaDescription,"cost":cost,"saleprice":saleprice,"isNew":isNew,"productSn":productSn,"keywordid":keywordid,"unitnameid":unitnameid,"usersetnum":usersetnum,"isSpecificationsOpen":isSpecificationsOpen,"freezeStore":freezeStore,"commoditylist":commoditylist},function(data){
 						if(data.sucflag){
 							jAlert('更新商品成功', '信息提示');
 							window.location.href='goodsmanagement.jsp?session='+session+"#goods";
@@ -740,7 +787,7 @@ $(function(){
 					var temparr = specificationsid.split(',');
 					temparr = killrepeat(temparr);
 					specificationsid = temparr.join(",");
-					$.post("updateGoods.action",{"specificationsid":selectid,"specificationsName":selectsname,"specificationsValue":_specificationsValue,"ismobileplatformgoods":ismobileplatformgoods,"goodsid":goodsid,"goodsTypeId":goodsTypeId,"rejson":rejson,"goodsname":goodsname,"nname":nname,"lname":lname,"sname":sname,"navid":navid,"ltypeid":ltypeid,"stypeid":stypeid,"price":price,"memberprice":memberprice,"points":points,"pictureurl":pictureurl,"quantity":quantity,"detail":detail,"unitname":unitname,"keywordname":keywordname,"weight":weight,"recommended":recommended,"hotsale":hotsale,"bargainprice":bargainprice,"salestate":salestate,"brandid":brandid,"brandname":brandname,"placeStore":placeStore,"metaKeywords":metaKeywords,"metaDescription":metaDescription,"cost":cost,"saleprice":saleprice,"isNew":isNew,"productSn":productSn,"keywordid":keywordid,"unitnameid":unitnameid,"usersetnum":usersetnum,"isSpecificationsOpen":isSpecificationsOpen,"freezeStore":freezeStore,"specificationsId":specificationsid,"commoditylist":commoditylist},function(data){
+					$.post("updateGoods.action",{"belinkedgoodsid":belinkedgoodsid,"specificationsid":selectid,"specificationsName":selectsname,"specificationsValue":_specificationsValue,"ismobileplatformgoods":ismobileplatformgoods,"goodsid":goodsid,"goodsTypeId":goodsTypeId,"rejson":rejson,"goodsname":goodsname,"nname":nname,"lname":lname,"sname":sname,"navid":navid,"ltypeid":ltypeid,"stypeid":stypeid,"price":price,"memberprice":memberprice,"points":points,"pictureurl":pictureurl,"quantity":quantity,"detail":detail,"unitname":unitname,"keywordname":keywordname,"weight":weight,"recommended":recommended,"hotsale":hotsale,"bargainprice":bargainprice,"salestate":salestate,"brandid":brandid,"brandname":brandname,"placeStore":placeStore,"metaKeywords":metaKeywords,"metaDescription":metaDescription,"cost":cost,"saleprice":saleprice,"isNew":isNew,"productSn":productSn,"keywordid":keywordid,"unitnameid":unitnameid,"usersetnum":usersetnum,"isSpecificationsOpen":isSpecificationsOpen,"freezeStore":freezeStore,"specificationsId":specificationsid,"commoditylist":commoditylist},function(data){
 						if(data.sucflag){
 							jAlert('更新商品成功', '信息提示');
 							window.location.href="goodsmanagement.jsp?session="+session+"#goods";
@@ -1007,7 +1054,7 @@ $(function(){
 					var temparr = specificationsid.split(',');
 					temparr = killrepeat(temparr);
 					specificationsid = temparr.join(",");
-					$.post("updateGoods.action",{"specificationsid":selectid,"specificationsName":selectsname,"specificationsValue":_specificationsValue,"ismobileplatformgoods":ismobileplatformgoods,"goodsAttrVal0":goodsAttrVal0,"goodsAttrVal1":goodsAttrVal1,"goodsAttrVal2":goodsAttrVal2,"goodsAttrVal3":goodsAttrVal3,"goodsAttrVal4":goodsAttrVal4,"goodsAttrVal5":goodsAttrVal5,"goodsAttrVal6":goodsAttrVal6,"goodsAttrVal7":goodsAttrVal7,"goodsAttrVal8":goodsAttrVal8,"goodsAttrVal9":goodsAttrVal9,"goodsAttrVal10":goodsAttrVal10,"goodsAttrVal11":goodsAttrVal11,"goodsAttrVal12":goodsAttrVal12,"goodsAttrVal13":goodsAttrVal13,"goodsAttrVal14":goodsAttrVal14,"goodsAttrVal15":goodsAttrVal15,"goodsAttrVal16":goodsAttrVal16,"goodsAttrVal17":goodsAttrVal17,"goodsAttrVal18":goodsAttrVal18,"goodsAttrVal19":goodsAttrVal19,"goodsAttrVal20":goodsAttrVal20,"goodsAttrVal21":goodsAttrVal21,"goodsAttrVal22":goodsAttrVal22,"goodsAttrVal23":goodsAttrVal23,"goodsAttrVal24":goodsAttrVal24,"goodsAttrVal25":goodsAttrVal25,"goodsAttrVal26":goodsAttrVal26,"goodsAttrVal27":goodsAttrVal27,"goodsAttrVal28":goodsAttrVal28,"goodsAttrVal29":goodsAttrVal29,"goodsid":goodsid,"goodsParameterValue":goodsParameterValue,"goodsTypeName":goodsTypeName,"goodsTypeId":goodsTypeId,"rejson":rejson,"goodsname":goodsname,"nname":nname,"lname":lname,"sname":sname,"navid":navid,"ltypeid":ltypeid,"stypeid":stypeid,"price":price,"memberprice":memberprice,"points":points,"pictureurl":pictureurl,"quantity":quantity,"detail":detail,"unitname":unitname,"keywordname":keywordname,"weight":weight,"recommended":recommended,"hotsale":hotsale,"bargainprice":bargainprice,"salestate":salestate,"brandid":brandid,"brandname":brandname,"placeStore":placeStore,"metaKeywords":metaKeywords,"metaDescription":metaDescription,"cost":cost,"saleprice":saleprice,"isNew":isNew,"productSn":productSn,"keywordid":keywordid,"unitnameid":unitnameid,"usersetnum":usersetnum,"isSpecificationsOpen":isSpecificationsOpen,"freezeStore":freezeStore,"specificationsId":specificationsid,"commoditylist":commoditylist},function(data){
+					$.post("updateGoods.action",{"belinkedgoodsid":belinkedgoodsid,"specificationsid":selectid,"specificationsName":selectsname,"specificationsValue":_specificationsValue,"ismobileplatformgoods":ismobileplatformgoods,"goodsAttrVal0":goodsAttrVal0,"goodsAttrVal1":goodsAttrVal1,"goodsAttrVal2":goodsAttrVal2,"goodsAttrVal3":goodsAttrVal3,"goodsAttrVal4":goodsAttrVal4,"goodsAttrVal5":goodsAttrVal5,"goodsAttrVal6":goodsAttrVal6,"goodsAttrVal7":goodsAttrVal7,"goodsAttrVal8":goodsAttrVal8,"goodsAttrVal9":goodsAttrVal9,"goodsAttrVal10":goodsAttrVal10,"goodsAttrVal11":goodsAttrVal11,"goodsAttrVal12":goodsAttrVal12,"goodsAttrVal13":goodsAttrVal13,"goodsAttrVal14":goodsAttrVal14,"goodsAttrVal15":goodsAttrVal15,"goodsAttrVal16":goodsAttrVal16,"goodsAttrVal17":goodsAttrVal17,"goodsAttrVal18":goodsAttrVal18,"goodsAttrVal19":goodsAttrVal19,"goodsAttrVal20":goodsAttrVal20,"goodsAttrVal21":goodsAttrVal21,"goodsAttrVal22":goodsAttrVal22,"goodsAttrVal23":goodsAttrVal23,"goodsAttrVal24":goodsAttrVal24,"goodsAttrVal25":goodsAttrVal25,"goodsAttrVal26":goodsAttrVal26,"goodsAttrVal27":goodsAttrVal27,"goodsAttrVal28":goodsAttrVal28,"goodsAttrVal29":goodsAttrVal29,"goodsid":goodsid,"goodsParameterValue":goodsParameterValue,"goodsTypeName":goodsTypeName,"goodsTypeId":goodsTypeId,"rejson":rejson,"goodsname":goodsname,"nname":nname,"lname":lname,"sname":sname,"navid":navid,"ltypeid":ltypeid,"stypeid":stypeid,"price":price,"memberprice":memberprice,"points":points,"pictureurl":pictureurl,"quantity":quantity,"detail":detail,"unitname":unitname,"keywordname":keywordname,"weight":weight,"recommended":recommended,"hotsale":hotsale,"bargainprice":bargainprice,"salestate":salestate,"brandid":brandid,"brandname":brandname,"placeStore":placeStore,"metaKeywords":metaKeywords,"metaDescription":metaDescription,"cost":cost,"saleprice":saleprice,"isNew":isNew,"productSn":productSn,"keywordid":keywordid,"unitnameid":unitnameid,"usersetnum":usersetnum,"isSpecificationsOpen":isSpecificationsOpen,"freezeStore":freezeStore,"specificationsId":specificationsid,"commoditylist":commoditylist},function(data){
 						if(data.sucflag){
 							jAlert('更新商品成功', '信息提示');
 							window.location.href="goodsmanagement.jsp?session="+session+"#goods"
@@ -1259,10 +1306,24 @@ function findgoodsbyid(){
 				});
 
 			}
-			
-			
-			
-			
+            //同步读取关联商品信息
+            $.ajax({
+                url:"findGoodsBelinkedBymaingoodsid.action",
+                type:"post",
+                data:{"maingoodsid":data.bean.goodsid},
+                dataType:"json",
+                async:false,
+                success:function(data){
+                    if(data.sucflag){
+                        var jsonstr=$.parseJSON(data.bean.belinkedgoods);
+                        var temp="";
+                        $.each(jsonstr,function(i,v){
+                            temp+="<option selected value='"+v.goodsid+"'>"+v.goodsname+"</option>"; 
+                        });
+                        $("#linkedgoodsselect").html(temp);
+                    }
+                }
+            });
 		}
 		});
 }
@@ -1381,6 +1442,34 @@ function checkpstspecificationsid(){
      });
 }
 
+
+/**
+ * 关联商品处理部分
+ */
+$("#searchbelinkedgoods").click(function(){
+    var navid= $('#navidbelinked').val();
+    var ltypeid = $('#ltypeidbelinked').val();
+    var stypeid = $('#stypeidbelinked').val();
+    if("0"==navid&&"0"==ltypeid&&"0"==stypeid){
+        jAlert('请选择分类后搜索', '信息提示');
+        return false;
+    }else{
+        $.post("findAllGoodsBelinkedGoods.action",{"navid":navid,"ltypeid":ltypeid,"stypeid":stypeid},function(data){
+            if(data.sucflag){
+                //填充数据到页面
+                var temp="";
+                $.each(data.beanlist,function(i,v){
+                    temp+="<option value='"+v.goodsid+"'>"+v.goodsname+"</option>";
+                });
+                $("#canbelinkedgoodsselect").html(temp);
+            }else{
+                jAlert('搜索异常','信息提示');
+            }
+        });
+        
+    }
+    
+});
 
 
 
