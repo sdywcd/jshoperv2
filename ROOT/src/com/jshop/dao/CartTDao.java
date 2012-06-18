@@ -42,6 +42,15 @@ public interface CartTDao {
 	 */
 	public abstract CartT findGoodsInCartOrNot(String userid,String goodsid,String state);
 	/**
+	 * 查询商品是否已经在购物车中
+	 * @param userid
+	 * @param goodsid
+	 * @param state 1表示新增，2表示删除，3表示已经和订单对应
+	 * @param productid
+	 * @return
+	 */
+	public abstract CartT findGoodsInCartOrNot(String userid,String goodsid,String productid,String state);
+	/**
 	 * 更新购物车中的商品数量
 	 * @param userid
 	 * @param goodsid
@@ -49,6 +58,16 @@ public interface CartTDao {
 	 * @return
 	 */
 	public abstract int updateCartNeedquantityByGoodsid(String userid,String goodsid,int needquantity,String state);
+	/**
+	 * 更新购物车中的商品数量
+	 * @param userid
+	 * @param goodsid
+	 * @param needquantity
+	 * @param productid
+	 * @return
+	 */
+	public abstract int updateCartNeedquantityByGoodsid(String userid,String goodsid,String productid,int needquantity,String state);
+	
 	/**
 	 * 减少需要的商品数量
 	 * @param userid

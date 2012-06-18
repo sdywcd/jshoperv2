@@ -1551,6 +1551,54 @@ public class GoodsTDaoImpl extends HibernateDaoSupport implements GoodsTDao {
 		}
 	}
 
+
+
+	@Override
+	public List<GoodsT> findAllGoodsBynavid(String navid, String salestate,
+			String isSpecificationsOpen) {
+		log.debug("findGoodsByNavidforandroid");
+		try {
+			String queryString = "from GoodsT as gt where gt.navid=:navid and gt.isSpecificationsOpen=:isSpecificationsOpen and gt.salestate=:salestate";
+			List list = this.getHibernateTemplate().findByNamedParam(queryString, new String[]{"navid","isSpecificationsOpen","salestate"}, new Object[]{navid,isSpecificationsOpen,salestate});
+			return list;
+		} catch (RuntimeException re) {
+			log.error(" findGoodsByNavidforandroid", re);
+			throw re;
+		}
+	}
+
+	@Override
+	public List<GoodsT> findAllGoodsBynavidandltypeid(String navid,
+			String ltypeid, String salestate, String isSpecificationsOpen) {
+		log.debug("findAllGoodsBynavidandltypeid");
+		try {
+			String queryString = "from GoodsT as gt where gt.navid=:navid and gt.ltypeid=:ltypeid and gt.isSpecificationsOpen=:isSpecificationsOpen and gt.salestate=:salestate";
+			List list = this.getHibernateTemplate().findByNamedParam(queryString, new String[]{"navid","ltypeid","isSpecificationsOpen","salestate"}, new Object[]{navid,ltypeid,isSpecificationsOpen,salestate});
+			return list;
+		} catch (RuntimeException re) {
+			log.error(" findAllGoodsBynavidandltypeid error ", re);
+			throw re;
+		}
+	}
+
+	@Override
+	public List<GoodsT> findAllGoodsBynavidandltypeidandstypeid(String navid,
+			String ltypeid, String stypeid, String salestate,
+			String isSpecificationsOpen) {
+		log.debug("findAllGoodsBynavidandltypeidandstypeid");
+		try {
+			String queryString = "from GoodsT as gt where gt.navid=:navid and gt.ltypeid=:ltypeid and gt.stypeid=:stypeid and gt.isSpecificationsOpen=:isSpecificationsOpen and gt.salestate=:salestate";
+			List list = this.getHibernateTemplate().findByNamedParam(queryString, new String[]{"navid","ltypeid","stypeid","isSpecificationsOpen","salestate"}, new Object[]{navid,ltypeid,stypeid,isSpecificationsOpen,salestate});
+			return list;
+		} catch (RuntimeException re) {
+			log.error(" findAllGoodsBynavidandltypeidandstypeid error ", re);
+			throw re;
+		}
+	}
+
+
+
+
 	
 	
 }

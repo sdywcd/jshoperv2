@@ -1,19 +1,17 @@
 package com.jshop.action;
 
-import javax.annotation.Resource;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
+
 import com.jshop.action.tools.AllOrderState;
 import com.jshop.alipay.fh.config.AlipayConfig;
 import com.jshop.entity.OrderT;
 import com.jshop.entity.PaymentM;
 import com.jshop.service.OrderTService;
 import com.jshop.service.PaymentMService;
-import com.jshop.service.impl.OrderTServiceImpl;
-import com.jshop.service.impl.PaymentMServiceImpl;
 import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage("jshop")

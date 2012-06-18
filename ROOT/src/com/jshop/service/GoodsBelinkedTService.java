@@ -38,6 +38,7 @@ public interface GoodsBelinkedTService {
 	 * @return
 	 */
 	public abstract int delGoodsBelinkedBymaingoodsidandsxlinkedgoodsid(String maingoodsid,String sxlinkedgoodsid);
+	
 
 
 }

@@ -302,4 +302,23 @@ public class GoodsTServiceImpl implements GoodsTService {
 		return this.getGoodsTDao().findGoodsByNavid(navid, salestate, ismobileplatformgoods);
 	}
 
+	@Override
+	public List<GoodsT> findAllGoodsBynavid(String navid, String salestate,
+			String isSpecificationsOpen) {
+		return this.getGoodsTDao().findAllGoodsBynavid(navid, salestate, isSpecificationsOpen);
+	}
+
+	@Override
+	public List<GoodsT> findAllGoodsBynavidandltypeid(String navid,
+			String ltypeid, String salestate, String isSpecificationsOpen) {
+		return this.getGoodsTDao().findAllGoodsBynavidandltypeid(navid, ltypeid, salestate, isSpecificationsOpen);
+	}
+
+	@Override
+	public List<GoodsT> findAllGoodsBynavidandltypeidandstypeid(String navid,
+			String ltypeid, String stypeid, String salestate,
+			String isSpecificationsOpen) {
+		return this.getGoodsTDao().findAllGoodsBynavidandltypeidandstypeid(navid, ltypeid, stypeid, salestate, isSpecificationsOpen);
+	}
+
 }
