@@ -24,11 +24,12 @@ import com.jshop.entity.GoodsGroupT;
 import com.jshop.entity.GoodsT;
 import com.jshop.service.GoodsGroupTService;
 import com.jshop.service.impl.GoodsGroupTServiceImpl;
+import com.opensymphony.xwork2.ActionSupport;
 
 import edu.emory.mathcs.backport.java.util.Collections;
 @ParentPackage("jshop")
-@Controller("GoodsGroupTAction")
-public class GoodsGroupTAction {
+@Controller("goodsGroupTAction")
+public class GoodsGroupTAction extends ActionSupport {
 	public GoodsGroupTService goodsGroupTService;
 	public Serial serial;
 	private String pictureurl;
@@ -241,6 +242,11 @@ public class GoodsGroupTAction {
 	}
 	public void setHtmlpath(String htmlpath) {
 		this.htmlpath = htmlpath;
+	}
+	@Override
+	public void validate() {
+		this.clearErrorsAndMessages();
+
 	}
 	/**
 	 * 添加团购商品

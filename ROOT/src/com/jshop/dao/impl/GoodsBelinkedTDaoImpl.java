@@ -13,6 +13,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.jshop.dao.GoodsBelinkedTDao;
+import com.jshop.entity.ArticleT;
 import com.jshop.entity.GoodsBelinkedT;
 import com.jshop.entity.TemplateT;
 @Repository("goodsBelinkedTDao")
@@ -104,5 +105,8 @@ public class GoodsBelinkedTDaoImpl extends HibernateDaoSupport implements GoodsB
 			throw re;
 		}
 	}
+
+
+	
 
 }
