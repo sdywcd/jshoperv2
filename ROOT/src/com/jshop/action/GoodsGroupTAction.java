@@ -50,6 +50,8 @@ public class GoodsGroupTAction extends ActionSupport {
 	private double sendpoint;
 	private String priceladder;
 	private String detail;
+	private double memberprice;
+	private double groupprice;
 	private String htmlpath;
 	private int total=0;
 	private int page=1;
@@ -243,6 +245,18 @@ public class GoodsGroupTAction extends ActionSupport {
 	public void setHtmlpath(String htmlpath) {
 		this.htmlpath = htmlpath;
 	}
+	public double getMemberprice() {
+		return memberprice;
+	}
+	public void setMemberprice(double memberprice) {
+		this.memberprice = memberprice;
+	}
+	public double getGroupprice() {
+		return groupprice;
+	}
+	public void setGroupprice(double groupprice) {
+		this.groupprice = groupprice;
+	}
 	@Override
 	public void validate() {
 		this.clearErrorsAndMessages();
@@ -270,7 +284,9 @@ public class GoodsGroupTAction extends ActionSupport {
 		ggt.setBegintime(this.getBegintime());
 		ggt.setEndtime(this.getEndtime());
 		ggt.setSendpoint(this.getSendpoint());
-		ggt.setPriceladder(this.getPriceladder().trim());
+		ggt.setPriceladder("0");
+		ggt.setGroupprice(this.getGroupprice());
+		ggt.setMemberprice(this.getMemberprice());
 		ggt.setDetail(this.getDetail().trim());		
 		ggt.setPictureurl(this.getPictureurl());
 		ggt.setHtmlpath(" ");
@@ -296,7 +312,7 @@ public class GoodsGroupTAction extends ActionSupport {
 			cellMap.put("cell", new Object[]{
 					ggt.getGoodsid(),
 					ggt.getGoodsname(),
-					ggt.getPriceladder(),
+					ggt.getGroupprice(),
 					ggt.getSendpoint(),
 					ggt.getCashlimit(),
 					ggt.getBegintime(),
@@ -375,15 +391,16 @@ public class GoodsGroupTAction extends ActionSupport {
 		ggt.setCashlimit(this.getCashlimit());
 		ggt.setCashstate(this.getCashstate().trim());
 		ggt.setLimitbuy(this.getLimitbuy());
-		ggt.setGoodsid(this.getGoodsid().trim());
+//		ggt.setGoodsid(this.getGoodsid().trim());
 		ggt.setCreatetime(BaseTools.systemtime());
 		ggt.setGoodsname(this.getGoodsname().trim());
 		ggt.setState(this.getState().trim());
 		ggt.setSalequantity(this.getSalequantity());
-		ggt.setSOrderCount(this.getSOrderCount());
-		ggt.setTotalOrderCount(this.getTotalOrderCount());
+//		ggt.setSOrderCount(0);
+//		ggt.setTotalOrderCount(0);
 		ggt.setSendpoint(this.getSendpoint());
-		ggt.setPriceladder(this.getPriceladder().trim());
+		ggt.setGroupprice(this.getGroupprice());
+		ggt.setMemberprice(this.getMemberprice());
 		ggt.setPictureurl(this.getPictureurl());
 		if(this.getGoodsGroupTService().updateGoodsGroupT(ggt)>0){
 			this.setGoodsgroup(true);
