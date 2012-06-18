@@ -91,10 +91,9 @@
             <div class="rm1_2"> 商品编号：${goodsdetail.usersetnum} </div>
             <div class="rm1_3"> 会员价： <span id="changingmemberprice">￥<cite>${goodsdetail.memberprice}</cite> </span> </div>
             <br />
-            <div class="rm1_5">
-			<span>购买该商品，您可获得</span><span id="integralCell" style="color: black;">${goodsdetail.points}</span> <span>积分!</span> <br><br>
-			<span id="erroring"></span>
-			</div>
+            <div class="rm1_5"> <span>购买该商品，您可获得</span><span id="integralCell" style="color: black;">${goodsdetail.points}</span> <span>积分!</span> <br>
+              <br>
+              <span id="erroring"></span> </div>
           </div>
           <!-- 隐藏的goodsid -->
           <input type="hidden" id="hidgoodsid" name="hidgoodsid" value="${goodsdetail.goodsid}"/>
@@ -104,53 +103,199 @@
           <input type="hidden" id="hidpictureurl" name="hidpictureurl" value="${goodsdetail.pictureurl}">
           <input type="hidden" id="hidhtmlpath" name="hidhtmlpath" value="${goodsdetail.htmlPath}">
           <input type="hidden" id="hidmemberprice" name="hidmemberprice" value="${goodsdetail.memberprice}"/>
-          <div class="detail_info_rm3">
-			<#if (goodsspecification??)&&(goodsspecification?size>0)>
-			<!--隐藏的规格标记表示是否开启了规格-->
-			<input type="hidden" id="hidguigeflag" name="hidguigeflag" value="1"/>
-			<!--隐藏的产品id唯一且只有一个值-->
-			<input type="hidden" id="hidproductid" name="hidproductid" value=""/>
-			<#list goodsspecification as gs>
-				<#if gs.specificationsType=='1'>
-				<div class="rm3_4">
-				<p>选择${gs.name}：</p>
-				<cite>
-					<#list gs.specificationsValue?split('-') as scv>
-					<#assign gdata=scv?eval />
-					
-					<a href="#" title="${gdata.goodsattributename}" class="text_current">
-						 ${gdata.goodsattributename}
-					</a>
-					
-					</#list>
-				</cite>
-				</div>
-				</#if>
-				<#if gs.specificationsType=='2'>
-				<div class="rm3_1">
-					
-				  <p>选择${gs.name}：</p>
-				  <cite>
-				  <#list gs.specificationsValue?split('-') as scv>
-					<#assign gdata=scv?eval />
-					<a  href="#" title="${gdata.goodsattributename}" class="rm3_pic">
-						<!--<img src="http://img.tao3c.com/601/603/78500/108400/111200/218205_1_pic60_6952.jpg">-->
-						<div style="width:60px;height:60px;background-color:${gdata.attributelist}"></div>
-					</a>
-				  </#list>
-				  </cite>
-				</div>
-				</#if>
-			</#list>
-			<div class="rm3_2"><!--已选择：<span id="selectedguigea"></span>--></div>
-			</#if>
-            
-
+          <div class="detail_info_rm3"> <#if (goodsspecification??)&&(goodsspecification?size>0)>
+            <!--隐藏的规格标记表示是否开启了规格-->
+            <input type="hidden" id="hidguigeflag" name="hidguigeflag" value="1"/>
+            <!--隐藏的产品id唯一且只有一个值-->
+            <input type="hidden" id="hidproductid" name="hidproductid" value=""/>
+            <#list goodsspecification as gs>
+            <#if gs.specificationsType=='1'>
+            <div class="rm3_4">
+              <p>选择${gs.name}：</p>
+              <cite> <#list gs.specificationsValue?split('-') as scv>
+              <#assign gdata=scv?eval /> <a href="#" title="${gdata.goodsattributename}" class="text_current"> ${gdata.goodsattributename} </a> </#list> </cite> </div>
+            </#if>
+            <#if gs.specificationsType=='2'>
+            <div class="rm3_1">
+              <p>选择${gs.name}：</p>
+              <cite> <#list gs.specificationsValue?split('-') as scv>
+              <#assign gdata=scv?eval /> <a  href="#" title="${gdata.goodsattributename}" class="rm3_pic">
+              <!--<img src="http://img.tao3c.com/601/603/78500/108400/111200/218205_1_pic60_6952.jpg">-->
+              <div style="width:60px;height:60px;background-color:${gdata.attributelist}"></div>
+              </a> </#list> </cite> </div>
+            </#if>
+            </#list>
+            <div class="rm3_2">
+              <!--已选择：<span id="selectedguigea"></span>-->
+            </div>
+            </#if>
             <div class="rm3_3">
               <input onClick="addcart();" type="button" name="addcart" id="addcart" value="" style="cursor:pointer;"/>
               <input onClick="addfav();" type="button" name="addfav" id="addfav" value="" style="cursor:pointer;"/>
               <span id="addfavok"></span> </div>
           </div>
+        </div>
+        <div class="setmeal mt10">
+          <script type="text/javascript" src="/js/jquery.js"></script>
+          <script type="text/javascript" src="/js/tao3c.js"></script>
+          <script type="text/javascript" src="/js/jQZoom/jquery.jqzoom.js"></script>
+          <script type="text/javascript">
+
+
+
+var PACK_PRODUCTS_FLAG = 'pack_product_';
+var pack_products = {'productid':'','data':{},'length':0};
+var total =0;
+
+function submitPack(pid){
+	if(pack_products.data[pid]){
+		jQuery('#pack_product_' + pid).attr("class","");
+		jQuery('#img_pack_product_' + pid).attr("src","../images/shop_1.gif");
+		delete pack_products.data[pid];
+		pack_products['length'] = pack_products['length'] - 1;
+		total = parseInt(total)-parseInt(jQuery('#pp_price_' + pid).val());
+	}else{
+		jQuery('#pack_product_' + pid).attr("class","cur");
+		jQuery('#img_pack_product_' + pid).attr("src","../images/shop_2.gif");
+		pack_products.data[pid] = '1';
+		pack_products['length'] = pack_products['length'] + 1;
+		total = parseInt(total)+parseInt(jQuery('#pp_price_' + pid).val());
+	}
+	if(total>0){
+		var temp  = total/100+888.00;
+		var ex = /^\d+$/;
+		if (ex.test(temp)) {
+			// 则为整数
+			jQuery("#packTotalPrice").html(temp+".00");
+		}
+		else{
+			jQuery("#packTotalPrice").html(temp);
+		}
+		jQuery(".left_div").css("display","");
+	}else{
+		jQuery(".left_div").css("display","none");
+	}
+}
+
+function addPackProducts(){
+	if(pack_products.length <= 0){
+		alert("您没有选择组合套餐商品！");
+		return;
+	}
+	jQuery('#pack_products').val(json2str(pack_products.data));
+	document.getElementById("productForm").submit();
+}
+
+function addPackProductsToCart(url) {
+	createXMLHttpRequest();
+	if (xmlHttp == null) {
+		window.status = "你的浏览器不支持AJAX!";
+		return;
+	}
+	xmlHttp.open("POST", url, true);
+	xmlHttp.onreadystatechange = addPackProductsToCartCallBack;
+	xmlHttp.setRequestHeader("Content-Type",
+					"application/x-www-form.urlencoded");
+	xmlHttp.send(url);
+}
+function addPackProductsToCartCallBack() {
+	if (xmlHttp.readyState == 4) {
+		var obj = xmlHttp.responseText;
+		alert(obj);
+	}
+}
+
+jQuery(function(){
+	var $content= jQuery("#detail_scro1");
+	var i= 4;
+	var m= 4;
+	var l= 0
+	var count=$content.find("li").length;
+	jQuery("#ctrlR_unit").click(function(){
+		if(!$content.is(":animated")){
+			if(m<count){
+				m++;
+				$content.animate({left:l-125},600);
+				l=l-125;
+			}
+		}
+	});
+	jQuery("#ctrlL_unit").click(function(){
+		if(!$content.is(":animated")){
+			if(m>i){
+				m--;
+				$content.animate({left:l+125},600);
+				l=l+125;
+			}
+		}
+	});
+	
+});
+</script>
+          <div class="setmeal_top">
+            <p><img src="${basepath}ui/default/images/setmeal_t_1.gif"></p>
+            <cite><img src="${basepath}ui/default//images/setmeal_t_3.gif"></cite></div>
+          <h1 id="unit_h1">
+            <p>该商品所有的套餐列表</p>
+            <cite>总共有3件可选套餐 </cite></h1>
+          <script type="text/javascript" src="/js/jquery.js"></script>
+          <script type="text/javascript">
+	function noticeShowControl(){
+		if(jQuery('#divPop').css("display")=="none"){
+			jQuery('#divPop').css('display','');
+		}else{
+			jQuery('#divPop').css('display','none');
+		}
+	}
+</script>
+          <div class="set_1" id="div_set1">
+            <div class="set_1_l">
+              <p><img width="160" hight="160" src="http://img.tao3c.com/601/603/51311/51315/51410/196100_1_pic200_2625.jpg" alt="诺基亚（NOKIA）C5-03 标准版 3G手机（白银色）WCDMA/GSM 非定制机"></p>
+              <span>整机已含标配</span> </div>
+            <div class="set_1_r">
+              <div class="pageup"> <img id="ctrlL_unit" src="${basepath}ui/default/images/pageup_1.gif" style="cursor:pointer;"> </div>
+              <div class="set_1_r_unit">
+                <div class="smallunit" id="detail_scro1">
+                  <ul>
+                    <li id="pack_product_206913" class="">
+                      <div class="set_1_r_1"><a href="/product/206913.html" target="_blank;"><img src="http://img.tao3c.com/601/603/51311/51317/51331/206913_2_pic100_9663.jpg" alt="索科特（SOCOT）3G立式全能手机万能座充 "></a></div>
+                      <div class="set_1_r_2"><a href="/product/206913.html" target="_blank;" title="索科特（SOCOT）3G立式全能手机万能座充 ">索科特（SOCOT）3G立式全能手机万能座充 </a></div>
+                      <div class="set_1_r_3">高鸿价:￥25.00 </div>
+                      <div class="set_1_r_4">套餐价:￥22.00</div>
+                      <input type="hidden" id="pp_price_206913" value="2200">
+                      <div class="set_1_r_5"><img id="img_pack_product_206913" src="${basepath}ui/default/images/shop_1.gif" onclick="submitPack(206913);" style="cursor:pointer;"></div>
+                    </li>
+                    <li id="pack_product_248135" class="">
+                      <div class="set_1_r_1"><a href="/product/248135.html" target="_blank;"><img src="http://img.tao3c.com/601/603/51311/51324/51383/248135_1_pic100_2867.jpg" alt="闪迪（SanDisk）8G Micro-SDHC（TF）存储卡 Class4"></a></div>
+                      <div class="set_1_r_2"><a href="/product/248135.html" target="_blank;" title="闪迪（SanDisk）8G Micro-SDHC（TF）存储卡 Class4">闪迪（SanDisk）8G Micro-SDHC（TF）存储卡 Class4</a></div>
+                      <div class="set_1_r_3">高鸿价:￥29.00 </div>
+                      <div class="set_1_r_4">套餐价:￥28.00</div>
+                      <input type="hidden" id="pp_price_248135" value="2800">
+                      <div class="set_1_r_5"><img id="img_pack_product_248135" src="${basepath}ui/default/images/shop_1.gif" onclick="submitPack(248135);" style="cursor:pointer;"></div>
+                    </li>
+                    <li id="pack_product_251646" class="">
+                      <div class="set_1_r_1"><a href="/product/251646.html" target="_blank;"><img src="http://img.tao3c.com/601/603/51311/51317/78100/251646_1_pic100_6547.JPG" alt="爱晶达 数码原色贴膜（诺基亚 C5-03）"></a></div>
+                      <div class="set_1_r_2"><a href="/product/251646.html" target="_blank;" title="爱晶达 数码原色贴膜（诺基亚 C5-03）">爱晶达 数码原色贴膜（诺基亚 C5-03）</a></div>
+                      <div class="set_1_r_3">高鸿价:￥9.00 </div>
+                      <div class="set_1_r_4">套餐价:￥8.00</div>
+                      <input type="hidden" id="pp_price_251646" value="800">
+                      <div class="set_1_r_5"><img id="img_pack_product_251646" src="${basepath}ui/default/images/shop_1.gif" onclick="submitPack(251646);" style="cursor:pointer;"></div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="pagedn" style="z-index:6;"> <img id="ctrlR_unit" src="${basepath}ui/default/images/pagedn_2.gif" style="cursor:pointer;"> </div>
+            </div>
+          </div>
+          <div class="set_2" id="div_set2">
+            <div class="left_div" style="display:none;">
+              <p><cite>套餐选购总金额: <span id="packTotalPrice"></span></cite></p>
+            </div>
+            <div class="right_div"> <img id="addPackProductsToCart" src="${basepath}ui/default/images/setmeal_btn.gif" onclick="addPackProducts();" style="cursor:pointer;"> </div>
+          </div>
+          <div class="setmeal_bottom">
+            <p><img src="${basepath}ui/default/images/setmeal_t_4.gif"></p>
+            <cite><img src="${basepath}ui/default/images/setmeal_t_6.gif"></cite> </div>
         </div>
       </div>
       <div class="prodetailtext mt10">
