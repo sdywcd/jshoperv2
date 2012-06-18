@@ -107,7 +107,18 @@
 									</label>
 								</div>
 								<div class="input">
-									<input type="text" id="priceladder" name="priceladder" class="small" />
+									<input type="text" id="groupprice" name="groupprice" class="small" />
+									
+								</div>
+							</div>
+							<div class="field field-first">
+								<div class="label">
+									<label for="input-small">
+										塔克价:
+									</label>
+								</div>
+								<div class="input">
+									<input type="text" id="memberprice" name="memberprice" class="small" />
 									
 								</div>
 							</div>
