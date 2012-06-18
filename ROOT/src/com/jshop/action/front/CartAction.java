@@ -639,6 +639,30 @@ public class CartAction extends ActionSupport {
 			return "json";
 		}
 	}
+	/**
+	 * 删除购物车中的商品
+	 * 
+	 * @return
+	 */
+	@Action(value = "delCartByid", results = { @Result(name = "json", type = "json") })
+	public String delCartByid() {
+		UserT user = (UserT) ActionContext.getContext().getSession().get(BaseTools.USER_SESSION_KEY);
+		if (user != null) {
+			this.setSlogin(true);
+
+			if(this.getCartTService().delCartByid(this.getId())>0){
+				this.setSucflag(true);
+				return "json";
+			}else{
+				this.setSucflag(false);
+				return "json";
+			}
+			
+		} else {
+			this.setSlogin(false);
+			return "json";
+		}
+	}
 
 	/**
 	 * 暂时删除购物车中商品

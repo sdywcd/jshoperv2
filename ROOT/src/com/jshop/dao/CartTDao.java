@@ -150,6 +150,11 @@ public interface CartTDao {
 	 * @return
 	 */
 	public abstract List<CartT>findCartByCartid(String cartid,String state);
-	
+	/**
+	 * 根据购物车id删除购物车
+	 * @param id
+	 * @return
+	 */
+	public abstract int delCartByid(String id);
 	
 }

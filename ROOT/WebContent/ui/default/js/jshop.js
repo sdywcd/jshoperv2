@@ -516,7 +516,7 @@ function addgoodscomment(){
 
 
 /**
- * 购物车中删除商品
+ * 购物车中删除商品根据商品id
  */
 function delCartBygoodsid(goodsid){
 	var hidurl=$('#hidurl').val();
@@ -532,6 +532,25 @@ function delCartBygoodsid(goodsid){
 			window.location.href = data.hidurl;
 		}
 	});
+}
+/*
+ * 删除购物车商品根据购物车唯一id
+ * */
+
+function delCartByid(id){
+    var hidurl=$('#hidurl').val();
+    $.post("delCartByid.action",{"id":id,"redirecturl":hidurl},function(data){
+        if (!data.slogin) {
+            // 跳转到登录页面
+            window.location.href = "user/login.html?redirecturl=" + hidurl;
+        } else if (data.sucflag) {
+            // 跳转到购物车页面
+            window.location.href = "findAllCartByUserId.action";
+        } else {
+            // 跳转到商品页面
+            window.location.href = data.hidurl;
+        }
+    });
 }
 
 /**
@@ -809,62 +828,65 @@ function showdiv(index) {
 
 }
 
-/**
- * 
- * 在商品详细页面选择规格值时修改边框样式
- */
-
-$(".rm3_pic").click(function(){
-	guigeflagpc=true;
-	$(".rm3_pic").css("border","0px solid #FC5A0A ");
-	$(this).css("border","2px solid #FC5A0A ");
-	var guigevalue=this.title;
-	var goodsid=$("#hidgoodsid").val();
-	//当无货时让点击无效
-	var errormsg=$("#erroring").text();
-	if(errormsg.length>0){
-		return false;
-	}
-	var sg=$("#selectedguigea").text();
-	//改变相应的页面内容
-	if(sg!=""){
-		$("#selectedguigea").text("");
-		$("#selectedguigea").text(this.title);
-	}else{
-		$("#selectedguigea").text(this.title);
-	}
-	//发送请求获取货品内容修改页面值
-	//获取产品信息并填充数据
-	findProductBygoodsid(goodsid,guigevalue);
-	return true;
-});
-
-
-$(".text_current").click(function(){
-	guigeflagword=true;
-	$(".text_current").css("border","0px solid #FC5A0A ");
-	$(this).css("border","2px solid #FC5A0A ");
-	var guigevalue=this.title;
-	var goodsid=$("#hidgoodsid").val();
-	//当无货时让点击无效
-	var errormsg=$("#erroring").text();
-	if(errormsg.length>0){
-		return false;
-	}
-	//改变相应的页面内容
-	var sg=$("#selectedguigea").text();
-	if(sg!=""){
-		$("#selectedguigea").text("");
-		$("#selectedguigea").text(this.title);
-	}else{
-		$("#selectedguigea").text(this.title);
-	}
-	//发送请求获取货品内容修改页面值
-	//获取产品信息并填充数据
-	findProductBygoodsid(goodsid,guigevalue);
+$(function(){
+	/**
+	 * 
+	 * 在商品详细页面选择规格值时修改边框样式
+	 */
 	
-	return true;
+	$(".rm3_pic").click(function(){
+	    guigeflagpc=true;
+	    $(".rm3_pic").css("border","0px solid #FC5A0A ");
+	    $(this).css("border","2px solid #FC5A0A ");
+	    var guigevalue=this.title;
+	    var goodsid=$("#hidgoodsid").val();
+	    //当无货时让点击无效
+	    var errormsg=$("#erroring").text();
+	    if(errormsg.length>0){
+	        return false;
+	    }
+	    var sg=$("#selectedguigea").text();
+	    //改变相应的页面内容
+	    if(sg!=""){
+	        $("#selectedguigea").text("");
+	        $("#selectedguigea").text(this.title);
+	    }else{
+	        $("#selectedguigea").text(this.title);
+	    }
+	    //发送请求获取货品内容修改页面值
+	    //获取产品信息并填充数据
+	    findProductBygoodsid(goodsid,guigevalue);
+	    return true;
+	});
+	
+	
+	$(".text_current").click(function(){
+	    guigeflagword=true;
+	    $(".text_current").css("border","0px solid #FC5A0A ");
+	    $(this).css("border","2px solid #FC5A0A ");
+	    var guigevalue=this.title;
+	    var goodsid=$("#hidgoodsid").val();
+	    //当无货时让点击无效
+	    var errormsg=$("#erroring").text();
+	    if(errormsg.length>0){
+	        return false;
+	    }
+	    //改变相应的页面内容
+	    var sg=$("#selectedguigea").text();
+	    if(sg!=""){
+	        $("#selectedguigea").text("");
+	        $("#selectedguigea").text(this.title);
+	    }else{
+	        $("#selectedguigea").text(this.title);
+	    }
+	    //发送请求获取货品内容修改页面值
+	    //获取产品信息并填充数据
+	    findProductBygoodsid(goodsid,guigevalue);
+	    
+	    return true;
+	});
 });
+
 /**
  * 加入购物车前检查是否选择了规格
  * @returns {Boolean}
@@ -903,24 +925,26 @@ function findProductBygoodsid(goodsid,guigevalue){
 	}
 }
 
-
+$(function(){
+	//控制配送方式的显示和关闭
+	$('#modifylogistics').click(function(){
+	    $('#closelogistics').show();
+	    $('#otherlogistics').show();
+	});
+	$('#closelogistics').click(function(){
+	    $('#otherlogistics').hide();
+	});
+	//控制订单备注显示和修改
+	$('#modifyorderbz').click(function(){
+	    $('#firsttr1').hide();
+	    $('#secondtr2').show();
+	});
+});
 /*
  * ===========================================Gorgeous
  * split-line==============================================
  */
-//控制配送方式的显示和关闭
-$('#modifylogistics').click(function(){
-	$('#closelogistics').show();
-	$('#otherlogistics').show();
-});
-$('#closelogistics').click(function(){
-	$('#otherlogistics').hide();
-});
-//控制订单备注显示和修改
-$('#modifyorderbz').click(function(){
-	$('#firsttr1').hide();
-	$('#secondtr2').show();
-});
+
 
 
 /**
