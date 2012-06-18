@@ -14,8 +14,6 @@
 
 		<title>会员等级管理</title>
 
-	
-
 	</head>
 
 	<body>
@@ -45,82 +43,6 @@
 						</div>
 
 					</div>
-					<div class="title">
-						<h5>
-							增加/编辑会员等级
-						</h5>
-					</div>
-						<div class="form">
-							<div class="fields">
-
-								<div class="field field-first">
-									<div class="label">
-										<label for="select">
-											选择会员类型：
-										</label>
-									</div>
-									<div class="select">
-										<select id="gradevalue" name="gradevalue">
-											<option value="0">
-												---请选择---
-											</option>
-											<option value="1">
-												普通会员
-											</option>
-											<option value="2">
-												银卡会员
-											</option>
-											<option value="3">
-												金卡会员
-											</option>
-											<option value="4">
-												钻石会员
-											</option>
-											<option value="5">
-												至尊会员
-											</option>
-										</select>
-									</div>
-								</div>
-
-								<div class="field">
-									<div class="label">
-										<label for="input-small">
-											升级所需金额：
-										</label>
-									</div>
-									<div class="input">
-										<input id="needcost" name="needcost" type="text" class="small"></input>
-									</div>
-								</div>
-								<div class="field">
-									<div class="label">
-										<label for="input-small">
-											折扣：
-										</label>
-									</div>
-									<div class="input">
-										<input id="discount" name="discount" type="text" class="small"></input>
-									</div>
-								</div>
-								<div class="field">
-									<div class="label">
-										<label for="input-small"></label>
-									</div>
-								
-								</div>
-								<div class="buttons">
-
-									<div class="highlight">
-										<input type="submit" id="submit" name="submit" value="增加" />
-										<input style="display: none;" type="button" id="editgrade" name="editgrade" value="更新" />
-										<input type="hidden" id="gradeid" name="gradeid" value="" />
-									</div>
-								</div>
-
-							</div>
-						</div>
-
 				</div>
 
 			</div>

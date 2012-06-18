@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-6-17 19:20:06 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-6-18 12:25:49 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -28,6 +28,8 @@ public class GoodsGroupT implements java.io.Serializable {
 	private String detail;
 	private String pictureurl;
 	private String htmlpath;
+	private double memberprice;
+	private double groupprice;
 
 	public GoodsGroupT() {
 	}
@@ -36,7 +38,8 @@ public class GoodsGroupT implements java.io.Serializable {
 			String state, Date begintime, Date endtime, String creatorid,
 			Date createtime, String cashstate, int limitbuy, int salequantity,
 			int SOrderCount, int totalOrderCount, double sendpoint,
-			String detail, String pictureurl, String htmlpath) {
+			String detail, String pictureurl, String htmlpath,
+			double memberprice, double groupprice) {
 		this.groupid = groupid;
 		this.goodsid = goodsid;
 		this.goodsname = goodsname;
@@ -54,6 +57,8 @@ public class GoodsGroupT implements java.io.Serializable {
 		this.detail = detail;
 		this.pictureurl = pictureurl;
 		this.htmlpath = htmlpath;
+		this.memberprice = memberprice;
+		this.groupprice = groupprice;
 	}
 
 	public GoodsGroupT(String groupid, String goodsid, String goodsname,
@@ -61,7 +66,8 @@ public class GoodsGroupT implements java.io.Serializable {
 			Date createtime, String cashstate, Double cashlimit, int limitbuy,
 			int salequantity, int SOrderCount, int totalOrderCount,
 			double sendpoint, String priceladder, String detail,
-			String pictureurl, String htmlpath) {
+			String pictureurl, String htmlpath, double memberprice,
+			double groupprice) {
 		this.groupid = groupid;
 		this.goodsid = goodsid;
 		this.goodsname = goodsname;
@@ -81,6 +87,8 @@ public class GoodsGroupT implements java.io.Serializable {
 		this.detail = detail;
 		this.pictureurl = pictureurl;
 		this.htmlpath = htmlpath;
+		this.memberprice = memberprice;
+		this.groupprice = groupprice;
 	}
 
 	public String getGroupid() {
@@ -233,6 +241,22 @@ public class GoodsGroupT implements java.io.Serializable {
 
 	public void setHtmlpath(String htmlpath) {
 		this.htmlpath = htmlpath;
+	}
+
+	public double getMemberprice() {
+		return this.memberprice;
+	}
+
+	public void setMemberprice(double memberprice) {
+		this.memberprice = memberprice;
+	}
+
+	public double getGroupprice() {
+		return this.groupprice;
+	}
+
+	public void setGroupprice(double groupprice) {
+		this.groupprice = groupprice;
 	}
 
 }
