@@ -49,4 +49,6 @@ public class GoodsBelinkedTServiceImpl implements GoodsBelinkedTService {
 		return this.getGoodsBelinkedTDao().delGoodsBelinkedBymaingoodsidandsxlinkedgoodsid(maingoodsid, sxlinkedgoodsid);
 	}
 
+
+
 }

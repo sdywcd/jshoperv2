@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-6-12 16:11:30 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-6-17 19:20:06 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -27,6 +27,7 @@ public class GoodsGroupT implements java.io.Serializable {
 	private String priceladder;
 	private String detail;
 	private String pictureurl;
+	private String htmlpath;
 
 	public GoodsGroupT() {
 	}
@@ -35,7 +36,7 @@ public class GoodsGroupT implements java.io.Serializable {
 			String state, Date begintime, Date endtime, String creatorid,
 			Date createtime, String cashstate, int limitbuy, int salequantity,
 			int SOrderCount, int totalOrderCount, double sendpoint,
-			String detail, String pictureurl) {
+			String detail, String pictureurl, String htmlpath) {
 		this.groupid = groupid;
 		this.goodsid = goodsid;
 		this.goodsname = goodsname;
@@ -52,6 +53,7 @@ public class GoodsGroupT implements java.io.Serializable {
 		this.sendpoint = sendpoint;
 		this.detail = detail;
 		this.pictureurl = pictureurl;
+		this.htmlpath = htmlpath;
 	}
 
 	public GoodsGroupT(String groupid, String goodsid, String goodsname,
@@ -59,7 +61,7 @@ public class GoodsGroupT implements java.io.Serializable {
 			Date createtime, String cashstate, Double cashlimit, int limitbuy,
 			int salequantity, int SOrderCount, int totalOrderCount,
 			double sendpoint, String priceladder, String detail,
-			String pictureurl) {
+			String pictureurl, String htmlpath) {
 		this.groupid = groupid;
 		this.goodsid = goodsid;
 		this.goodsname = goodsname;
@@ -78,6 +80,7 @@ public class GoodsGroupT implements java.io.Serializable {
 		this.priceladder = priceladder;
 		this.detail = detail;
 		this.pictureurl = pictureurl;
+		this.htmlpath = htmlpath;
 	}
 
 	public String getGroupid() {
@@ -222,6 +225,14 @@ public class GoodsGroupT implements java.io.Serializable {
 
 	public void setPictureurl(String pictureurl) {
 		this.pictureurl = pictureurl;
+	}
+
+	public String getHtmlpath() {
+		return this.htmlpath;
+	}
+
+	public void setHtmlpath(String htmlpath) {
+		this.htmlpath = htmlpath;
 	}
 
 }

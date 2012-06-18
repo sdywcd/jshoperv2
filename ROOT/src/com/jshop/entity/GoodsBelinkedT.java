@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-6-12 16:11:30 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-6-17 19:20:06 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ public class GoodsBelinkedT implements java.io.Serializable {
 
 	private String belinkedid;
 	private String maingoodsid;
-	private String belinkedgoodsid;
+	private String belinkedgoods;
 	private String mode;
 	private String state;
 	private String creatorid;
@@ -24,12 +24,12 @@ public class GoodsBelinkedT implements java.io.Serializable {
 	}
 
 	public GoodsBelinkedT(String belinkedid, String maingoodsid,
-			String belinkedgoodsid, String mode, String state,
-			String creatorid, Date createtime, Date updatetime, int versiont,
+			String belinkedgoods, String mode, String state, String creatorid,
+			Date createtime, Date updatetime, int versiont,
 			String sxlinkedgoodsid) {
 		this.belinkedid = belinkedid;
 		this.maingoodsid = maingoodsid;
-		this.belinkedgoodsid = belinkedgoodsid;
+		this.belinkedgoods = belinkedgoods;
 		this.mode = mode;
 		this.state = state;
 		this.creatorid = creatorid;
@@ -55,12 +55,12 @@ public class GoodsBelinkedT implements java.io.Serializable {
 		this.maingoodsid = maingoodsid;
 	}
 
-	public String getBelinkedgoodsid() {
-		return this.belinkedgoodsid;
+	public String getBelinkedgoods() {
+		return this.belinkedgoods;
 	}
 
-	public void setBelinkedgoodsid(String belinkedgoodsid) {
-		this.belinkedgoodsid = belinkedgoodsid;
+	public void setBelinkedgoods(String belinkedgoods) {
+		this.belinkedgoods = belinkedgoods;
 	}
 
 	public String getMode() {

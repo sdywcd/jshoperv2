@@ -1,14 +1,19 @@
 package com.jshop.action;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.xwork.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.springframework.stereotype.Controller;
 
 import com.jshop.action.tools.BaseTools;
@@ -44,7 +49,9 @@ public class ProductTAction extends ActionSupport {
 	private boolean sucflag;
 	private String sortname;
 	private String sortorder;
+
 	private List<ProductT> beanlist = new ArrayList<ProductT>();
+	private ProductT bean = new ProductT();
 
 	@JSON(serialize = false)
 	public ProductTService getProductTService() {
@@ -240,6 +247,15 @@ public class ProductTAction extends ActionSupport {
 		this.sortorder = sortorder;
 	}
 
+	public ProductT getBean() {
+		return bean;
+	}
+
+	public void setBean(ProductT bean) {
+		this.bean = bean;
+	}
+
+
 	/**
 	 * 清理错误
 	 */
@@ -283,8 +299,5 @@ public class ProductTAction extends ActionSupport {
 		return "json";
 		
 	}
-	
-	
-	
-	
+
 }

@@ -8,20 +8,20 @@
 .leftdiv1{width:772px;float:left;}
 .leftdiv1 .top{width:772px;height:8px;float:left; background:url(../images/g_div1_1.gif) no-repeat; overflow:hidden;}
 .leftdiv1 .box{width:772px;float:left; background:url(../images/g_div1_2.gif) repeat-y;}
-.leftdiv1 .box .name{width:702px;overflow:hidden;word-break:break-all;padding:7px 35px 13px 35px;TEXT-ALIGN:left;LINE-HEIGHT:35px;FONT-FAMILY: '微软雅黑','黑体',Hei,'宋体';FONT-SIZE:26px;text-shadow:1px 1px 1px #a3a3a3;color:#222222;}
+.leftdiv1 .box .name{width:702px;overflow:hidden;word-break:break-all;padding:7px 35px 13px 35px;TEXT-ALIGN:left;LINE-HEIGHT:35px;FONT-FAMILY: '寰�蒋���','榛��',Hei,'瀹��';FONT-SIZE:26px;text-shadow:1px 1px 1px #a3a3a3;color:#222222;}
 .leftdiv1 .box .name a{color:#222222;}
 .leftdiv1 .box .name a:hover{color:#222222;}
 .leftdiv1 .box .div1_left{width:287px;float:left;}
 .leftdiv1 .box .div1_left .price1{padding:0 0 0 8px;}
-.leftdiv1 .box .div1_left .price1 a{width:150px;height:55px;float:left;background:url(../images/g_price_bg.gif) no-repeat;font-size:32px; text-align:center; font-weight:bold;font-family:"宋体"; color:#FFFFFF;padding:23px 80px 0 36px; overflow:hidden;}
-.leftdiv1 .box .div1_left .price1 a span{ font-size:18px; font-family:"宋体";color:#FFFFFF}
+.leftdiv1 .box .div1_left .price1 a{width:150px;height:55px;float:left;background:url(../images/g_price_bg.gif) no-repeat;font-size:32px; text-align:center; font-weight:bold;font-family:"瀹��"; color:#FFFFFF;padding:23px 80px 0 36px; overflow:hidden;}
+.leftdiv1 .box .div1_left .price1 a span{ font-size:18px; font-family:"瀹��";color:#FFFFFF}
 .leftdiv1 .box .div1_left .price2{width:260px;height:60px;border:#d5d7d6 solid 1px;margin:12px 0 0 12px;float:left;padding:3px 0 0 0; overflow:hidden;display:inline}
 .leftdiv1 .box .div1_left .price2 .h1{width:220px;float:left;padding:5px 0 0 20px;}
 .leftdiv1 .box .div1_left .price2 .h1 p{width:110px;float:left;font-size:14px; text-align:center; color:#636363;}
 .leftdiv1 .box .div1_left .price2 .h1 cite{width:110px; font-size:18px; font-weight:bold;float:left; text-align:center; color:#373737;}
 .leftdiv1 .box .div1_left .priceend{padding:0 0 0 8px;}
-.leftdiv1 .box .div1_left .priceend a{width:150px;height:55px;float:left;background:url(../images/g_price_end_bg.gif) no-repeat;font-size:32px;text-align:center;font-weight:bold; font-family:"宋体"; color:#FFFFFF;padding:23px 80px 0 36px; overflow:hidden;}
-.leftdiv1 .box .div1_left .priceend a span{ font-size:18px; font-family:"宋体";color:#FFFFFF}
+.leftdiv1 .box .div1_left .priceend a{width:150px;height:55px;float:left;background:url(../images/g_price_end_bg.gif) no-repeat;font-size:32px;text-align:center;font-weight:bold; font-family:"瀹��"; color:#FFFFFF;padding:23px 80px 0 36px; overflow:hidden;}
+.leftdiv1 .box .div1_left .priceend a span{ font-size:18px; font-family:"瀹��";color:#FFFFFF}
 .leftdiv1 .box .div1_left .sale{width:260px;height:210px;border:#d5d7d6 solid 1px;margin:12px 0 0 12px;float:left;padding:3px 0 0 0; overflow:hidden; display:inline}
 .leftdiv1 .box .div1_left .sale .s1{width:260px;}
 .leftdiv1 .box .div1_left .sale .s1 p{width:260px;text-align:center;color:#000000;font-size:16px;margin:2px 0 0 0;}
@@ -32,11 +32,12 @@
 .leftdiv1 .box .div1_left .sale .s2 .amo2{height:12px;background:url(../images/g_amo2.gif) repeat-x;font-size:0}
 .leftdiv1 .box .div1_left .sale .s2 p{width:260px;text-align:center;color:#555555;margin:5px 0 0 0;}
 .leftdiv1 .box .div1_left .sale .s3{width:260px; text-align:center;margin:10px 0 0 0;}
-.leftdiv1 .box .div1_left .sale .s4{width:200px;margin:8px 0 0 0;padding:0 0 0 60px;line-height:20px;  font-weight:bold; color:#dc401b; font-size:18px; font-family:"宋体";}
+.leftdiv1 .box .div1_left .sale .s4{width:200px;margin:8px 0 0 0;padding:0 0 0 60px;line-height:20px;  font-weight:bold; color:#dc401b; font-size:18px; font-family:"瀹��";}
 .leftdiv1 .box .div1_left .sale .s4 p{font-size:12px;color:#555;}
 .leftdiv1 .box .div1_right{width:483px;float:left;}
 .leftdiv1 .box .div1_right .pic{width:470px;height:470px;float:left;text-align:center;border:#dddddd solid 1px;display:inline;cursor:pointer;position:relative;}
-.leftdiv1 .box .div1_right .amount{width:103px;height:57px;background:url(../images/g_amount_bg.gif) no-repeat;position:absolute;color:#FFFFFF;text-align:right;font-family:"宋体";padding:10px 15px 0 20px; bottom:0;right:0;}
+.leftdiv1 .box .div1_right .amount{width:103px;height:57px;background:url(../images/g_amount_bg.gif) no-repeat;position:absolute;color:#FFFFFF;text-align:right;font-family:"瀹��";padding:10px 15px 0 20px; bottom:0;right:0;}
+.leftdiv1 .box .div1_right .amount img{width:470px;height:470px;border:#dddddd solid 1px;}
 .leftdiv1 .box .div1_right .amount p{font-weight:bold;font-size:28px;}
 .leftdiv1 .box .div1_left .sw{width:245px;height:27px;float:left;padding:0 0 0 15px;margin:10px 0 0 10px;}
 .leftdiv1 .box .div1_left .sw A {BORDER-BOTTOM: #fff 0px solid; BORDER-LEFT: #fff 1px solid; LINE-HEIGHT: 28px; PADDING-LEFT: 20px; ZOOM: 1; DISPLAY: inline-block; BACKGROUND: url(../images/icons.png) no-repeat; HEIGHT: 26px; VERTICAL-ALIGN: middle; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid; _line-height: 26px}
@@ -44,7 +45,7 @@
 .leftdiv1 .box .div1_left .sw A.renren {BACKGROUND-POSITION: 0px -27px}
 .leftdiv1 .box .div1_left .sw A.douban {BACKGROUND-POSITION: 0px 5px}
 .leftdiv1 .box .div1_left .sw A.sina {BACKGROUND-POSITION: 0px -60px}
-.leftdiv1 .box .div1_left .sw A.say {FONT-FAMILY: '宋体'; BACKGROUND-POSITION: 0px -284px}
+.leftdiv1 .box .div1_left .sw A.say {FONT-FAMILY: '瀹��'; BACKGROUND-POSITION: 0px -284px}
 .leftdiv1 .box .div1_left .sw A.mail {LINE-HEIGHT: 24px; BACKGROUND-POSITION: 0px -122px; _line-height: 26px}
 .leftdiv1 .box .div1_left .sw A.im {LINE-HEIGHT: 24px; PADDING-LEFT: 30px; PADDING-RIGHT: 5px; BACKGROUND-POSITION: 3px -156px; _line-height: 26px}
 .leftdiv1 .box .div1_left .sw A.hover{Z-INDEX: 2;BORDER-BOTTOM: #d9d9d9 0px solid;POSITION: relative; BORDER-LEFT: #d9d9d9 1px solid; BACKGROUND-COLOR: #fff; BORDER-TOP: #d9d9d9 1px solid; BORDER-RIGHT: #d9d9d9 1px solid; TEXT-DECORATION: none !important}
@@ -57,7 +58,7 @@
 .leftdiv2 .box .text{width:732px;line-height:26px; font-size:14px;padding:15px 20px;overflow:hidden;}
 .leftdiv2 .box .text2{width:732px;padding:15px 20px; overflow:hidden;}
 
-.leftdiv3{width:772px;float:left; font-family:"宋体";}
+.leftdiv3{width:772px;float:left; font-family:"瀹��";}
 .leftdiv3 .top{width:772px;height:8px;float:left; background:url(../images/g_div1_1.gif) no-repeat; overflow:hidden;}
 .leftdiv3 .bottom{width:772px;height:8px;float:left; background:url(../images/g_div1_3.gif) no-repeat;overflow:hidden;}
 .leftdiv3 .box{width:772px;float:left; background:url(../images/g_div1_2.gif) repeat-y;min-height:250px;height:auto !important;height:250px;overflow:visible;}
@@ -114,7 +115,7 @@
 .leftdiv5 .box li .pro_pic{width:120px;height:120px;float:left;border:#E0E0E0 solid 1px;}
 .leftdiv5 .box li .pro_pic a{}
 .leftdiv5 .box li .pro_pic a:hover{}
-.leftdiv5 .box li .pro_price{width:120px;font-size:14px;margin:9px 0 0 0;padding:0 0 0 6px;font:"宋体"; float:left}
+.leftdiv5 .box li .pro_price{width:120px;font-size:14px;margin:9px 0 0 0;padding:0 0 0 6px;font:"瀹��"; float:left}
 .leftdiv5 .box li .pro_price span{font-size:18px;font-weight:bold;color:#FF0000;font:Tahoma;padding:0 0 0 3px;font-family:"Times New Roman"}
 .leftdiv5 .box li .pro_des{width:114px;height:44px;margin:4px 0 0 0;line-height:15px;padding:0 0 0 4px;word-break: break-all;overflow:hidden;float:left}
 .leftdiv5 .box li .pro_select{width:70px;padding:7px 0 0 50px;*padding:3px 0 0 50px; float:left;}
@@ -142,7 +143,7 @@
 .mainright .rightdiv1 .box cite{color:#666;line-height:19px;}
 .mainright .rightdiv1 .bottom{width:200px;height:7px;float:left;}
 .mainright .rightdiv2{width:200px;float:left;margin:8px 0 0 0;}
-.mainright .rightdiv3{width:200px;height:55px;overflow:hidden;background:url(../images/g_right_bg2.gif) no-repeat;float:left;margin:8px 0 0 0; font-family:"宋体";padding:15px 0 0 0;}
+.mainright .rightdiv3{width:200px;height:55px;overflow:hidden;background:url(../images/g_right_bg2.gif) no-repeat;float:left;margin:8px 0 0 0; font-family:"瀹��";padding:15px 0 0 0;}
 .mainright .rightdiv3 p{text-align:center;color:#666666;font-size:12px}
 .mainright .rightdiv3 cite{ display:block;text-align:center;color:#ff0000;font-size:30px}
 .mainright .rightdiv3 span{font-size:18px}
@@ -155,9 +156,9 @@
 .mainright .rightdiv5 .email .left{ float:left}
 .mainright .rightdiv5 .email .right{ float:left;padding:0 0 0 3px;}
 .mainright .rightdiv6{width:194px;height:137px;float:left;margin:8px 0 0 0; overflow:hidden; background:url(../images/g_right_bg4.gif) no-repeat;padding:63px 0 0 6px;}
-.mainright .rightdiv6 .input1{width:180px;height:90px; border:#b1c3cd solid 1px;font-family:"宋体"; font-size:12px;padding:3px;}
+.mainright .rightdiv6 .input1{width:180px;height:90px; border:#b1c3cd solid 1px;font-family:"瀹��"; font-size:12px;padding:3px;}
 .mainright .rightdiv6 .bottom{float:left;margin:2px 0 0 0;}
-.mainright .rightdiv6 .bottom .left{ float:left;padding:3px 0 0 20px; font-family:"宋体"}
+.mainright .rightdiv6 .bottom .left{ float:left;padding:3px 0 0 20px; font-family:"瀹��"}
 .mainright .rightdiv6 .bottom .btn{float:right;padding:0 20px 0 0;}
 .mainright .rightdiv7{width:200px;float:left;position:relative;}
 .mainright .rightdiv7 .rd7_right_icon{Z-INDEX: 1;POSITION: absolute;WIDTH: 67px;HEIGHT: 67px;top:0;BACKGROUND:url(../images/groundbuy_right_icon.png) no-repeat 0px 0px;RIGHT:0;_top:0;_background: none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true', sizingMethod='corp', src='images/groundbuy_right_icon.png');}

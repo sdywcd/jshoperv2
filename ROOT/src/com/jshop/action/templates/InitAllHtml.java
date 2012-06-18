@@ -182,8 +182,11 @@ public class InitAllHtml extends ActionSupport {
 					}else if(tt.getSign().equals(BaseTools.getApplicationthemesig()+"_"+ContentTag.TEMPLATENAMEFORGOODSCATEGORYLIST)){
 						this.getCreateHtml().buildGoodsCategoryPage(map);
 						buildhtmllog.append(this.getCreateHtml().getLogmsg().toString());
+					}else if(tt.getSign().equals(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORGOODSGROUPT)){
+						this.getCreateHtml().buildGoodsGroupT(map);
+						buildhtmllog.append(this.getCreateHtml().getLogmsg().toString());
 					}else if(tt.getSign().equals(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORNOTICE)){
-						this.getCreateHtml().buildGoodsCategoryPage(map);
+						this.getCreateHtml().buildNoticeArticlesPage(map);
 						buildhtmllog.append(this.getCreateHtml().getLogmsg().toString());
 					}else{
 						this.getCreateHtml().createNormalhtml(tt.getSign(), "", map);
@@ -196,8 +199,11 @@ public class InitAllHtml extends ActionSupport {
 			
 			
 		}catch(Exception e){
-			buildhtmllog.append("<p style='color:red;'>"+e.getMessage()+"出现异常请根据反馈信息修复</p>");
-			this.setBuildlog(buildhtmllog.toString());
+			if(e.getMessage()!=null){
+				buildhtmllog.append("<p style='color:red;'>"+e.getMessage()+"出现异常请根据反馈信息修复</p>");
+				this.setBuildlog(buildhtmllog.toString());
+			}
+			
 		}
 		this.setBuildlog(buildhtmllog.toString());
 		this.setStatus("success");

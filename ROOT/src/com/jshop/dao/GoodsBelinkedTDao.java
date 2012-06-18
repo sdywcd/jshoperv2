@@ -39,6 +39,4 @@ public interface GoodsBelinkedTDao {
 	 */
 	public abstract int delGoodsBelinkedBymaingoodsidandsxlinkedgoodsid(String maingoodsid,String sxlinkedgoodsid);
 
-
-
 }

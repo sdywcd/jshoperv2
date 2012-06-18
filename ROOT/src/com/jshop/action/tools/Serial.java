@@ -124,7 +124,8 @@ public class Serial {
 	public static final String GOODSGROUPT="goodsgroupt";
 	//电子菜单订单
 	public static final String ELECTRONICMENUORDER="electronicmenuorder";
-	
+	//关联商品表
+	public static final String GOODSBELINKED="goodsbelinked";
 	
 	private SerialTService serialTService;
 	

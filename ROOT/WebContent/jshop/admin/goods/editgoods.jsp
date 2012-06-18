@@ -693,16 +693,13 @@
  
 									<div class="textarea" style="weight:auto;height:400px;">
 										<div style="float:left;text-align:center;margin: 10px;">  
-										  <select style="width:300px;height:350px" multiple id="select1">  
-											   <option value="1">Option 1</option>  
-											   <option value="2">Option 2</option>  
-											   <option value="3">Option 3</option>  
-											   <option value="4">Option 4</option>  
+										  <select style="width:400px;height:350px" multiple id="canbelinkedgoodsselect">  
+											   <option value="1">商品填充区</option>  
 										  </select>  
   										  <a class="abelinked" href="#" id="addbelinked">add &gt;&gt;</a>  
  										</div>  
 										 <div style="float:left;text-align:center;margin: 10px;">  
-											  <select style="width:300px;height:350px" multiple id="select2"></select>  
+											  <select style="width:400px;height:350px" multiple id="linkedgoodsselect"></select>  
 											  <a class="abelinked" href="#" id="removebelinked">&lt;&lt; remove</a>  
 										 </div>  
 									</div>
@@ -760,10 +757,10 @@
 		});
  		 $().ready(function(){  
  	 		   $('#addbelinked').click(function() {  
- 	 		    return !$('#select1 option:selected').remove().appendTo('#select2');  
+ 	 		    return !$('#canbelinkedgoodsselect option:selected').remove().appendTo('#linkedgoodsselect');  
  	 		   });
  	 		   $('#removebelinked').click(function() {  
- 	 		    return !$('#select2 option:selected').remove().appendTo('#select1');  
+ 	 		    return !$('#linkedgoodsselect option:selected').remove().appendTo('#canbelinkedgoodsselect');  
  	 		   });  
  	 		 });  
  	</script>

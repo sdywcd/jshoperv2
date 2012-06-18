@@ -58,6 +58,11 @@ public class ProductTServiceImpl implements ProductTService {
 	public int delProductTByproductid(String productid) {
 		return this.getProductTDao().delProductTByproductid(productid);
 	}
+
+	@Override
+	public List<ProductT> findProductTByGoodsid(String goodsid) {
+		return this.getProductTDao().findProductTByGoodsid(goodsid);
+	}
 	
 	
 }

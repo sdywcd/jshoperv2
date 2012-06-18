@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2012-6-12 16:11:30 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2012-6-17 19:20:06 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="com.jshop.entity.GoodsBelinkedT" table="goods_belinked_t" catalog="jshopactive">
         <id name="belinkedid" type="string">
@@ -11,8 +11,8 @@
         <property name="maingoodsid" type="string">
             <column name="MAINGOODSID" length="20" not-null="true" />
         </property>
-        <property name="belinkedgoodsid" type="string">
-            <column name="BELINKEDGOODSID" length="200" not-null="true" />
+        <property name="belinkedgoods" type="string">
+            <column name="BELINKEDGOODS" length="500" not-null="true" />
         </property>
         <property name="mode" type="string">
             <column name="MODE" length="1" not-null="true" />

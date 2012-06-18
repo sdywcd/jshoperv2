@@ -24,11 +24,12 @@ import com.jshop.entity.GoodsGroupT;
 import com.jshop.entity.GoodsT;
 import com.jshop.service.GoodsGroupTService;
 import com.jshop.service.impl.GoodsGroupTServiceImpl;
+import com.opensymphony.xwork2.ActionSupport;
 
 import edu.emory.mathcs.backport.java.util.Collections;
 @ParentPackage("jshop")
-@Controller("GoodsGroupTAction")
-public class GoodsGroupTAction {
+@Controller("goodsGroupTAction")
+public class GoodsGroupTAction extends ActionSupport {
 	public GoodsGroupTService goodsGroupTService;
 	public Serial serial;
 	private String pictureurl;
@@ -49,6 +50,7 @@ public class GoodsGroupTAction {
 	private double sendpoint;
 	private String priceladder;
 	private String detail;
+	private String htmlpath;
 	private int total=0;
 	private int page=1;
 	private int rp;
@@ -235,6 +237,17 @@ public class GoodsGroupTAction {
 	public void setPictureurl(String pictureurl) {
 		this.pictureurl = pictureurl;
 	}
+	public String getHtmlpath() {
+		return htmlpath;
+	}
+	public void setHtmlpath(String htmlpath) {
+		this.htmlpath = htmlpath;
+	}
+	@Override
+	public void validate() {
+		this.clearErrorsAndMessages();
+
+	}
 	/**
 	 * 添加团购商品
 	 * @return
@@ -260,6 +273,7 @@ public class GoodsGroupTAction {
 		ggt.setPriceladder(this.getPriceladder().trim());
 		ggt.setDetail(this.getDetail().trim());		
 		ggt.setPictureurl(this.getPictureurl());
+		ggt.setHtmlpath(" ");
 		if(this.getGoodsGroupTService().addGoodsGroupT(ggt)>0){
 			this.setGoodsgroup(true);
 			return "json";			
@@ -409,13 +423,13 @@ public class GoodsGroupTAction {
 	 * 根据团购商品状态是“1”的 获取商品信息
 	 * @return
 	 */
-	
-	public List<GoodsGroupT> findGoodsGroupByState(){
+	@Action(value="findGoodsGroupByState",results={@Result(name="json", type="json")})
+	public String findGoodsGroupByState(){
 		List<GoodsGroupT> list =this.getGoodsGroupTService().findGoodsGroupByState("1");
 		if(!list.isEmpty()){
-			return list;
+			return "json";
 		}
-		return Collections.emptyList();
+		return "json";
 		
 	}
 }

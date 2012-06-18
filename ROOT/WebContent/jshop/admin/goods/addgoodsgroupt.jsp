@@ -74,15 +74,19 @@
 									
 								</div>
 							</div>
-							<div class="field field-first">
-								<div class="label">
+							<div class="field ">
+								<div class="label label-radio">
 									<label for="input-small">
 										状态:
 									</label>
 								</div>
-								<div class="input">
-									<input type="text" id="state" name="state" class="small" />
-									
+								<div class="radios">
+								<div class="radio">									
+									<input type=radio id="state" name="state" class="small" value="1" />	
+									<label>开启</label>
+									<input type=radio id="state" name="state" class="small"  value="0"/>	
+									<label>关闭</label>
+								</div>	
 								</div>
 							</div>
 							<div class="field field-first">
@@ -143,7 +147,7 @@
 									</label>
 								</div>
 								<div class="input">
-									<input type="text" id="begintime" name="begintime" class="small" onfocus="WdatePicker({startDate:'%y-%M 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUserStartDate:true})"/>
+									<input type="text" id="begintime" name="begintime" class="small" not-null=false onfocus="WdatePicker({startDate:'%y-%M 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUserStartDate:true})"/>
 									
 								</div>
 							</div>
@@ -255,6 +259,7 @@
   					var pcpath=responseJSON.success;
   					var htm="<img id='"+id+"' src='"+pcpath+"' rel='#"+fileName+"'/>";
   					var checkpc="<input id='"+id+"' name='pcpath' type='checkbox' value='"+pcpath+"' checked='true'/> "
+  					$("#triggers").html("");
   					$("#triggers").append(htm).append(checkpc);
                  },
                

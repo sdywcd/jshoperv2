@@ -64,4 +64,11 @@ public interface GoodsGroupTDao {
 	 * @return
 	 */
 	public List<GoodsGroupT> findGoodsGroupByState(String state); 
+	/**
+	 * 根据团购商品ID修改htmlPath
+	 * @param htmlpath
+	 * @param groupid
+	 * @return
+	 */
+	public int updateGoodsGroupHtmlPath(String htmlpath,String groupid);
 }

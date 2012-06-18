@@ -5,8 +5,7 @@ function validatethenpostinfotoaddgoodsgroup(){
 	var goodsname=$('#goodsname').val();
 	var cashlimit=$('cashlimit').val();		
 	var sendpoint=$('#sendpoint').val();	
-	var detail=$('#detail').val();
-	var state= $('#state').val();
+	var detail=$('#detail').val();	
 	var begintime=$('#begintime').val();
 	var endtime=$('#endtime').val();
 	var priceladder=$('#priceladder').val();
@@ -22,11 +21,7 @@ function validatethenpostinfotoaddgoodsgroup(){
 	if(""==cashlimit){
 		jAlert('保证金额度不能为空','信息提示');
 		return false;
-	}
-	if(""==state){
-		jAlert('状态不能为空','信息提示');
-		return false;
-	}
+	}	
 	if(""==begintime){
 		jAlert('开始时间不能为空','信息提示');
 		return false;
@@ -79,7 +74,7 @@ $(function(){
 		var cashlimit=$('#cashlimit').val();		
 		var sendpoint=$('#sendpoint').val();	
 		var detail=$('#detail').val();
-		var state= $('#state').val();
+		var state= $("input[name='state']:checked").val();
 		var begintime=$('#begintime').val();
 		var endtime=$('#endtime').val();
 		var priceladder=$('#priceladder').val();
@@ -88,10 +83,10 @@ $(function(){
 		var salequantity=$('#salequantity').val();
 		var limitbuy=$('#limitbuy').val();
 		var cashstate=$('#cashstate').val();		
-		//获取商品图片路径集合
+		//获取商品图片路径
 		var pictureurl="";
 		$(":checkbox[name='pcpath'][checked=true]").each(function(){
-			pictureurl+=this.value+",";
+			pictureurl=this.value;
 		});		
 		$.post("addGoodsGroupT.action",{"pictureurl":pictureurl,"priceladder":priceladder,"salequantity":salequantity,"cashstate":cashstate,"limitbuy":limitbuy,"endtime":endtime,"state":state,"begintime":begintime,"goodsid":goodsid,"goodsname":goodsname,"detail":detail,"sendpoint":sendpoint,"cashlimit":cashlimit},function(data){
 			if(data.goodsgroup){
@@ -120,29 +115,21 @@ $(function(){
 		$('#sendpoint').attr("value",data.groupList.sendpoint);
 		$('#cashlimit').attr("value",data.groupList.cashlimit);
 		$('#cashstate').attr("value",data.groupList.cashstate);
-		$('#limitbuy').attr("value",data.groupList.limitbuy);
-		$('#state').attr("value",data.groupList.state);
+		$('#limitbuy').attr("value",data.groupList.limitbuy);		
+		if("1"==data.groupList.state){
+			$('#state').attr("checked","checked");
+		}else{
+			$('#state').attr("checked","");
+		}
 		$('#salequantity').attr("value",data.groupList.salequantity);
 	//	$('#sordercount').attr("value",data.groupList.sordercount);
 		//$('#totalordercount').attr("value",data.groupList.totalordercount);
 		$('#priceladder').attr("value",data.groupList.priceladder);
-		//图片显示
-		var pcpath="";
+		//图片显示		
 		var pcurl=data.groupList.pictureurl;
-		var htm="";
-		var checkpc="";
-		var temp=pcurl.split(',');
-		var allpcpath="";
-		$.each(temp,function(n,value){
-			if(""==value){
-				return;
-			}
-			pcpath=value;
-			htm="<img id='"+value+"' src='"+pcpath+"'></img>";
-			checkpc="<input id='"+value+"' name='pcpath' type='checkbox' value='"+value+"' checked/>";
-			allpcpath=htm+checkpc;
-			$('#triggers').append(allpcpath);
-		});
+		
+		$('#triggers').html("<img src='"+pcurl+"'/>");
+		
 		$('#update').show();
 		$('#add').hide();
 		return;			
@@ -155,7 +142,7 @@ $(function(){
 			var cashlimit=$('#cashlimit').val();		
 			var sendpoint=$('#sendpoint').val();	
 			var detail=$('#detail').val();
-			var state= $('#state').val();
+			var state= $("input[name='state']:checked").val();
 			var begintime=$('#begintime').val();
 			var endtime=$('#endtime').val();
 			var priceladder=$('#priceladder').val();

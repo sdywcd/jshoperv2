@@ -31,6 +31,7 @@ import com.jshop.entity.GoodsT;
 import com.jshop.entity.ProductT;
 import com.jshop.service.ArticleCategoryTService;
 import com.jshop.service.ArticleTService;
+import com.jshop.service.GoodsBelinkedTService;
 import com.jshop.service.GoodsCommentTService;
 import com.jshop.service.GoodsSpecificationsRelationshipTService;
 import com.jshop.service.GoodsTService;
@@ -55,6 +56,7 @@ public class GoodsTNAction extends ActionSupport {
 	private SiteNavigationTService siteNavigationTService;
 	private GoodsCommentTService goodsCommentTService;
 	private GoodsTypeTNService goodsTypeTNService;
+	private GoodsBelinkedTService goodsBelinkedTService;
 	private CreateHtml createHtml;
 	private DataCollectionTAction dataCollectionTAction;
 	private GoodsSpecificationsRelationshipTService goodsSpecificationsRelationshipTService;
@@ -145,6 +147,7 @@ public class GoodsTNAction extends ActionSupport {
 	private String totalcomment;
 	private String ismobileplatformgoods;
 	private String commoditylist;//清单
+	private String belinkedgoodsid;//关联商品id串
 	private String rejson;
 	private String query;//text
 	private String qtype;//select
@@ -152,6 +155,7 @@ public class GoodsTNAction extends ActionSupport {
 	private String sortorder;//排序方式
 	private GoodsT bean = new GoodsT();
 	private GoodsT gt = new GoodsT();
+	private List<GoodsT>beanlist=new ArrayList<GoodsT>();
 	private List rows = new ArrayList();
 	private Map<String, Object> map = new HashMap<String, Object>();
 	private List<GoodsTypeTN>gtnlist=new ArrayList<GoodsTypeTN>();
@@ -169,7 +173,15 @@ public class GoodsTNAction extends ActionSupport {
 	private boolean sucflag;
 	private String usession;
 	private String specificationsId;
-	
+	@JSON(serialize = false)
+	public GoodsBelinkedTService getGoodsBelinkedTService() {
+		return goodsBelinkedTService;
+	}
+
+	public void setGoodsBelinkedTService(GoodsBelinkedTService goodsBelinkedTService) {
+		this.goodsBelinkedTService = goodsBelinkedTService;
+	}
+
 	@JSON(serialize = false)
 	public GoodsTypeTNService getGoodsTypeTNService() {
 		return goodsTypeTNService;
@@ -1166,6 +1178,22 @@ public class GoodsTNAction extends ActionSupport {
 
 	public void setSpecificationsName(String specificationsName) {
 		this.specificationsName = specificationsName;
+	}
+
+	public List<GoodsT> getBeanlist() {
+		return beanlist;
+	}
+
+	public void setBeanlist(List<GoodsT> beanlist) {
+		this.beanlist = beanlist;
+	}
+
+	public String getBelinkedgoodsid() {
+		return belinkedgoodsid;
+	}
+
+	public void setBelinkedgoodsid(String belinkedgoodsid) {
+		this.belinkedgoodsid = belinkedgoodsid;
 	}
 
 	/**
@@ -2774,6 +2802,52 @@ public class GoodsTNAction extends ActionSupport {
 			gmllist.add(gml);
 		}
 	
+	}
+	
+	/**
+	 * 根据顶级分类获取商品列表传送到前台给关联商品部分
+	 * @return
+	 */
+	@Action(value = "findAllGoodsBelinkedGoods", results = { @Result(name = "json", type = "json") })
+	public String findAllGoodsBelinkedGoods(){
+		if(!"0".equals(this.getNavid())&&"0".equals(this.getLtypeid())&&"0".equals(this.getStypeid())){
+			String navid=this.getNavid().trim();
+			String salestate="1";//上架
+			String isSpecificationsOpen="0";//未开启规格
+			List<GoodsT>list=this.getGoodsTService().findAllGoodsBynavid(navid, salestate,isSpecificationsOpen);
+			if(!list.isEmpty()){
+				this.setBeanlist(list);
+			}
+			this.setSucflag(true);
+			return "json";
+		}
+		if(!"0".equals(this.getNavid())&&!"0".equals(this.getLtypeid())&&"0".equals(this.getStypeid())){
+			String navid=this.getNavid().trim();
+			String ltypeid=this.getLtypeid().trim();
+			String salestate="1";//上架
+			String isSpecificationsOpen="0";//未开启规格
+			List<GoodsT>list=this.getGoodsTService().findAllGoodsBynavidandltypeid(navid, ltypeid, salestate, isSpecificationsOpen);
+			if(!list.isEmpty()){
+				this.setBeanlist(list);
+			}
+			this.setSucflag(true);
+			return "json";
+		}
+		if(!"0".equals(this.getNavid())&&!"0".equals(this.getLtypeid())&&!"0".equals(this.getStypeid())){
+			String navid=this.getNavid().trim();
+			String ltypeid=this.getLtypeid().trim();
+			String stypeid=this.getStypeid().trim();
+			String salestate="1";//上架
+			String isSpecificationsOpen="0";//未开启规格
+			List<GoodsT>list=this.getGoodsTService().findAllGoodsBynavidandltypeidandstypeid(navid, ltypeid, stypeid, salestate, isSpecificationsOpen);
+			if(!list.isEmpty()){
+				this.setBeanlist(list);
+			}
+			this.setSucflag(true);
+			return "json";
+		}
+		this.setSucflag(false);
+		return "json";
 	}
 	
 	

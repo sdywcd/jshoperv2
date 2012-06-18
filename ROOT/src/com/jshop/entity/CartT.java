@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-6-12 16:11:30 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-6-17 19:20:06 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -28,6 +28,8 @@ public class CartT implements java.io.Serializable {
 	private String usersetnum;
 	private String weight;
 	private String state;
+	private String htmlpath;
+	private String productid;
 
 	public CartT() {
 	}
@@ -35,7 +37,7 @@ public class CartT implements java.io.Serializable {
 	public CartT(String id, String goodsid, String goodsname, String userid,
 			String username, int needquantity, double price, double favorable,
 			double points, double subtotal, Date addtime, String picture,
-			String usersetnum, String state) {
+			String usersetnum, String state, String htmlpath, String productid) {
 		this.id = id;
 		this.goodsid = goodsid;
 		this.goodsname = goodsname;
@@ -50,13 +52,16 @@ public class CartT implements java.io.Serializable {
 		this.picture = picture;
 		this.usersetnum = usersetnum;
 		this.state = state;
+		this.htmlpath = htmlpath;
+		this.productid = productid;
 	}
 
 	public CartT(String id, String cartid, String orderid, String goodsid,
 			String goodsname, String userid, String username, int needquantity,
 			double price, double favorable, Double changeprice, double points,
 			double subtotal, Date addtime, Integer quantity, String picture,
-			String usersetnum, String weight, String state) {
+			String usersetnum, String weight, String state, String htmlpath,
+			String productid) {
 		this.id = id;
 		this.cartid = cartid;
 		this.orderid = orderid;
@@ -76,6 +81,8 @@ public class CartT implements java.io.Serializable {
 		this.usersetnum = usersetnum;
 		this.weight = weight;
 		this.state = state;
+		this.htmlpath = htmlpath;
+		this.productid = productid;
 	}
 
 	public String getId() {
@@ -228,6 +235,22 @@ public class CartT implements java.io.Serializable {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public String getHtmlpath() {
+		return this.htmlpath;
+	}
+
+	public void setHtmlpath(String htmlpath) {
+		this.htmlpath = htmlpath;
+	}
+
+	public String getProductid() {
+		return this.productid;
+	}
+
+	public void setProductid(String productid) {
+		this.productid = productid;
 	}
 
 }

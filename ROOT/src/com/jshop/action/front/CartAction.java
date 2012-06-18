@@ -24,9 +24,11 @@ import com.jshop.action.tools.Serial;
 import com.jshop.action.tools.Validate;
 import com.jshop.entity.CartT;
 import com.jshop.entity.GoodsT;
+import com.jshop.entity.ProductT;
 import com.jshop.entity.UserT;
 import com.jshop.service.CartTService;
 import com.jshop.service.GoodsTService;
+import com.jshop.service.ProductTService;
 import com.jshop.service.impl.CartTServiceImpl;
 import com.jshop.service.impl.GoodsTServiceImpl;
 
@@ -40,6 +42,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class CartAction extends ActionSupport {
 	private GoodsTService goodsTService;
 	private CartTService cartTService;
+	private ProductTService productTService;
 	private DataCollectionTAction dataCollectionTAction;
 	@Resource(name = "serial")
 	private Serial serial;
@@ -60,11 +63,23 @@ public class CartAction extends ActionSupport {
 	private String quantity;
 	private String picture;
 	private String id;
+	private String guigeflag;//是否规格商品标记
+	private String productid;//货品id
 	private String sendstring;
 	private Double totalweight = 0.0;
 	private Double totalmemberprice = 0.0;
 	private boolean sucflag = false;
 	private boolean slogin = false;
+	
+	@JSON(serialize = false)
+	public ProductTService getProductTService() {
+		return productTService;
+	}
+
+	public void setProductTService(ProductTService productTService) {
+		this.productTService = productTService;
+	}
+
 	@JSON(serialize = false)
 	public DataCollectionTAction getDataCollectionTAction() {
 		return dataCollectionTAction;
@@ -277,6 +292,22 @@ public class CartAction extends ActionSupport {
 		this.sendstring = sendstring;
 	}
 
+	public String getGuigeflag() {
+		return guigeflag;
+	}
+
+	public void setGuigeflag(String guigeflag) {
+		this.guigeflag = guigeflag;
+	}
+
+	public String getProductid() {
+		return productid;
+	}
+
+	public void setProductid(String productid) {
+		this.productid = productid;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -318,49 +349,98 @@ public class CartAction extends ActionSupport {
 			List<GoodsT> gtlist1 = this.GetGoodsdetailByGoodsidForCart();
 			for (int i = 0; i < gtlist1.size(); i++) {
 				GoodsT gtlist = gtlist1.get(i);
-				CartT cart = this.getCartTService().findGoodsInCartOrNot(user.getUserid(), gtlist.getGoodsid(), "1");
-				if (cart != null) {
-					//同状态的商品只能在购物车出现一次
-					//更新对应商品id的数量	//检测商品是否已经在购物车中，如果有责增加数量，没有责加入
-					@SuppressWarnings("unused")
-					int j = this.getCartTService().updateCartNeedquantityByGoodsid(user.getUserid(), this.getGoodsid().trim(), Integer.parseInt(this.getNeedquantity()), "1");
-
-					//state=1表示更新商品到新增状态，前台可在购物车读取。注意在同一个商品被删除后，通过更新状态到1做到可以再次购买这个商品
-					//					if(cart.getState().equals("2")){
-					//						@SuppressWarnings("unused")
-					//						int k=this.getCartserviceimpl().UpdateCartState(user.getUserid(), this.getGoodsid().trim(), "1");
-					//					
-					//					}
-					//更新商品价格小计subtotal
-					//int j=this.getCartserviceimpl().UpdateCartSubtotal(user.getUserid(), this.getGoodsid(), Integer.parseInt(this.getNeedquantity())*cart.getFavorable());
-					this.setSucflag(true);
-				} else {
-					String[] picturelist = gtlist.getPictureurl().split(",");
-
-					CartT t = new CartT();
-					t.setId(this.getSerial().Serialid(Serial.CARTINFO));
-					t.setCartid(null);
-					t.setOrderid(null);
-					t.setGoodsid(gtlist.getGoodsid());
-					t.setGoodsname(gtlist.getGoodsname());
-					t.setUserid(user.getUserid());
-					t.setUsername(user.getUsername());
-					t.setNeedquantity(Integer.parseInt(this.getNeedquantity()));
-					t.setPrice(gtlist.getPrice());
-					t.setFavorable(gtlist.getMemberprice());
-					t.setChangeprice(0.0);
-					t.setPoints(gtlist.getPoints());
-					t.setSubtotal(Double.parseDouble(this.getNeedquantity()) * gtlist.getMemberprice());
-					t.setAddtime(BaseTools.systemtime());
-					t.setQuantity(gtlist.getQuantity());
-					t.setPicture(picturelist[0]);
-					t.setUsersetnum(gtlist.getUsersetnum());
-					t.setWeight(gtlist.getWeight());
-					t.setState("1");
-					if (this.getCartTService().addCart(t) > 0) {
-						this.setSucflag(true);
+				//如果是货品当且仅当只有一个goodsid时正确
+				if("1".equals(this.getGuigeflag())){
+					//进行根据goodsid，userid，productid的在购物车中的商品查询
+					CartT cart=this.getCartTService().findGoodsInCartOrNot(user.getUserid(), gtlist.getGoodsid(), this.getProductid().trim(), "1");
+					if(cart!=null){
+						if(this.getCartTService().updateCartNeedquantityByGoodsid(user.getUserid(), gtlist.getGoodsid(), this.getProductid(), Integer.parseInt(this.getNeedquantity()), "1")>0){
+							this.setSucflag(true);
+						}else{
+							this.setSucflag(false);
+						}
+					}else{
+						//新增商品到购物车
+						String[] picturelist = gtlist.getPictureurl().split(",");
+						CartT t = new CartT();
+						t.setId(this.getSerial().Serialid(Serial.CARTINFO));
+						t.setCartid(null);
+						t.setOrderid(null);
+						t.setGoodsid(gtlist.getGoodsid());
+						t.setGoodsname(gtlist.getGoodsname());
+						t.setUserid(user.getUserid());
+						t.setUsername(user.getUsername());
+						t.setNeedquantity(Integer.parseInt(this.getNeedquantity()));
+						t.setPrice(gtlist.getPrice());
+						t.setFavorable(gtlist.getMemberprice());
+						t.setChangeprice(0.0);
+						t.setPoints(gtlist.getPoints());
+						t.setSubtotal(Double.parseDouble(this.getNeedquantity()) * gtlist.getMemberprice());
+						t.setAddtime(BaseTools.systemtime());
+						t.setQuantity(gtlist.getQuantity());
+						t.setPicture(picturelist[0]);
+						t.setUsersetnum(gtlist.getUsersetnum());
+						t.setWeight(gtlist.getWeight());
+						t.setState("1");//新加入购物车的商品
+						if("1".equals(this.getGuigeflag())){
+							t.setProductid(this.getProductid());
+						}
+						t.setHtmlpath(gtlist.getHtmlPath());
+						if (this.getCartTService().addCart(t) > 0) {
+							this.setSucflag(true);
+						}
+					}
+				}else{
+					CartT cart = this.getCartTService().findGoodsInCartOrNot(user.getUserid(), gtlist.getGoodsid(), "1");
+					if (cart != null) {
+						
+						//同状态的商品只能在购物车出现一次
+						//更新对应商品id的数量	//检测商品是否已经在购物车中，如果有责增加数量，没有责加入
+						if(this.getCartTService().updateCartNeedquantityByGoodsid(user.getUserid(), this.getGoodsid().trim(), Integer.parseInt(this.getNeedquantity()), "1")>0){
+							this.setSucflag(true);
+						}else{
+							this.setSucflag(false);
+						}
+						//state=1表示更新商品到新增状态，前台可在购物车读取。注意在同一个商品被删除后，通过更新状态到1做到可以再次购买这个商品
+						//					if(cart.getState().equals("2")){
+						//						@SuppressWarnings("unused")
+						//						int k=this.getCartserviceimpl().UpdateCartState(user.getUserid(), this.getGoodsid().trim(), "1");
+						//					
+						//					}
+						//更新商品价格小计subtotal
+						//int j=this.getCartserviceimpl().UpdateCartSubtotal(user.getUserid(), this.getGoodsid(), Integer.parseInt(this.getNeedquantity())*cart.getFavorable());
+						
+					} else {
+						//新曾商品到购物车
+						String[] picturelist = gtlist.getPictureurl().split(",");
+						CartT t = new CartT();
+						t.setId(this.getSerial().Serialid(Serial.CARTINFO));
+						t.setCartid(null);
+						t.setOrderid(null);
+						t.setGoodsid(gtlist.getGoodsid());
+						t.setGoodsname(gtlist.getGoodsname());
+						t.setUserid(user.getUserid());
+						t.setUsername(user.getUsername());
+						t.setNeedquantity(Integer.parseInt(this.getNeedquantity()));
+						t.setPrice(gtlist.getPrice());
+						t.setFavorable(gtlist.getMemberprice());
+						t.setChangeprice(0.0);
+						t.setPoints(gtlist.getPoints());
+						t.setSubtotal(Double.parseDouble(this.getNeedquantity()) * gtlist.getMemberprice());
+						t.setAddtime(BaseTools.systemtime());
+						t.setQuantity(gtlist.getQuantity());
+						t.setPicture(picturelist[0]);
+						t.setUsersetnum(gtlist.getUsersetnum());
+						t.setWeight(gtlist.getWeight());
+						t.setState("1");//新加入购物车的商品				
+						t.setProductid("");//表示非规格商品即为空
+						t.setHtmlpath(gtlist.getHtmlPath());//
+						if (this.getCartTService().addCart(t) > 0) {
+							this.setSucflag(true);
+						}
 					}
 				}
+				
 			}
 			
 			return "json";

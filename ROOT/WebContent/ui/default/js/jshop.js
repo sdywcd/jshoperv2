@@ -1,3 +1,9 @@
+/**
+ * 全局变量
+ */
+var guigeflagword=false;
+var guigeflagpc=false;
+
 $(function() {
 	// 获取url地址用来让用户登录时跳转
 	var windowsurl = window.location;
@@ -307,11 +313,21 @@ function addtofav(goodsid, title, readcount, memberprice) {
  * 商品详细部分点击加入购物车
  */
 function addcart(){
+	//检查是否规格商品
+	var hidguigeflag=$("#hidguigeflag").val();
+	if(hidguigeflag=="1"){
+		//检测是否选择了规格
+		if(checkguigebeforeAddcart()==false){
+			alert("你选择的规格值产品缺货咯");
+			return false;
+		}
+	}
 	//点击加入购物车
+	var productid=$("#hidproductid").val();
 	var goodsid=$('#hidgoodsid').val();
 	var needquantity=1;//默认只购买一个
 	var hidurl=$('#hidurl').val();
-	$.post("addCart.action",{"goodsid":goodsid,"needquantity":needquantity,"redirecturl":hidurl},function(data){
+	$.post("addCart.action",{"guigeflag":hidguigeflag,"productid":productid,"goodsid":goodsid,"needquantity":needquantity,"redirecturl":hidurl},function(data){
 		if (!data.slogin) {
 			// 跳转到登录页面
 			window.location.href = "user/login.html?redirecturl=" + hidurl;
@@ -799,25 +815,42 @@ function showdiv(index) {
  */
 
 $(".rm3_pic").click(function(){
+	guigeflagpc=true;
 	$(".rm3_pic").css("border","0px solid #FC5A0A ");
 	$(this).css("border","2px solid #FC5A0A ");
+	var guigevalue=this.title;
+	var goodsid=$("#hidgoodsid").val();
+	//当无货时让点击无效
+	var errormsg=$("#erroring").text();
+	if(errormsg.length>0){
+		return false;
+	}
 	var sg=$("#selectedguigea").text();
 	//改变相应的页面内容
 	if(sg!=""){
 		$("#selectedguigea").text("");
 		$("#selectedguigea").text(this.title);
 	}else{
-		
 		$("#selectedguigea").text(this.title);
 	}
-	
+	//发送请求获取货品内容修改页面值
+	//获取产品信息并填充数据
+	findProductBygoodsid(goodsid,guigevalue);
 	return true;
 });
 
 
 $(".text_current").click(function(){
+	guigeflagword=true;
 	$(".text_current").css("border","0px solid #FC5A0A ");
 	$(this).css("border","2px solid #FC5A0A ");
+	var guigevalue=this.title;
+	var goodsid=$("#hidgoodsid").val();
+	//当无货时让点击无效
+	var errormsg=$("#erroring").text();
+	if(errormsg.length>0){
+		return false;
+	}
 	//改变相应的页面内容
 	var sg=$("#selectedguigea").text();
 	if(sg!=""){
@@ -827,16 +860,47 @@ $(".text_current").click(function(){
 		$("#selectedguigea").text(this.title);
 	}
 	//发送请求获取货品内容修改页面值
-	var hidgoodsid=$("#hidgoodsid").val();
+	//获取产品信息并填充数据
+	findProductBygoodsid(goodsid,guigevalue);
 	
 	return true;
 });
+/**
+ * 加入购物车前检查是否选择了规格
+ * @returns {Boolean}
+ */
+function checkguigebeforeAddcart(){
+	if(guigeflagpc==true&&guigeflagword==true){
+		//当无货时让点击无效
+		var errormsg=$("#erroring").text();
+		if(errormsg.length>0){
+			return false;
+		}
+		return true;
+	}
+	return false;
+}
 
 /**
  * 根据商品id获取货品值
  */
-function findProductBygoodsid(){
-	
+function findProductBygoodsid(goodsid,guigevalue){
+	if(goodsid!=""&&guigevalue!=""){
+		$.post("findProductTByGoodsid.action",{"goodsid":goodsid,"guigevalue":guigevalue},function(data){
+			if(data.sucflag){
+				if(data.bean!=null){
+					if(data.bean.memberprice!=null){
+						$('#erroring').html("");
+						$("#changingmemberprice").html("￥<cite>"+data.bean.memberprice+"</cite>");
+						$("#hidproductid").attr("value",data.bean.productid);
+					}else{
+						$("#erroring").html(guigevalue+"已经售完请选择其他规格产品或者联系客服");
+					}
+					
+				}
+			}
+		});
+	}
 }
 
 
