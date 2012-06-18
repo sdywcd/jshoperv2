@@ -810,7 +810,7 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 	 * 
 	 * @return
 	 */
-	@Action(value = "adminregister", results = { @Result(name = "success", type = "redirect", location = "/jshop/admin/member/membermanagement.jsp?session=${param}"), @Result(name = "input", type = "redirect", location = "/jshop/admin/member/addmember.jsp?msg=${msg}") })
+	@Action(value = "adminregister", results = { @Result(name = "json", type = "json") })
 	public String adminregister() {
 		MD5Code md5 = new MD5Code();
 		UserT u = new UserT();
@@ -818,17 +818,16 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 		u.setEmail(this.getEmail().trim());
 		u = this.getUsertService().checkUserByUsername(u);
 		if (u != null) {
-			//ActionContext.getContext().put("registermsg", "用户已经存在");
-			this.setMsg("4");
-			return INPUT;
+			this.setMsg("4");//表示用户已经存在
+			return "json";
 		} else {
 			u = new UserT();
 			u.setUsername(this.getUsername().trim());
 			u.setEmail(this.getEmail().trim());
 			u = this.getUsertService().checkUserByEmail(u);
 			if (u != null) {
-				this.setMsg("4");
-				return INPUT;
+				this.setMsg("5");//表示用户邮箱存在
+				return "json";
 			}
 			UserT user = new UserT();
 			user.setUserid(this.getSerial().Serialid(Serial.USER));
@@ -840,7 +839,7 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 			user.setMobile(null);
 			user.setQuestion(null);
 			user.setAnswer(null);
-			user.setPassword(md5.getMD5ofStr("111111"));
+			user.setPassword(md5.getMD5ofStr("111111"));//默认密码6个1
 			user.setUserstate(this.getUserstate());
 			user.setPoints(Double.parseDouble(this.getPoints().trim()));
 			user.setPostingcount(0);
@@ -874,9 +873,11 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 			if (this.getUsertService().save(user) > 0) {
 				//重新获取后台登录时保存的加密session key
 				this.setParam(ActionContext.getContext().getSession().get(BaseTools.BACK_SESSION_KEY).toString());
-				return SUCCESS;
+				this.setSucflag(true);
+				return "json";
 			}
-			return INPUT;
+			this.setSucflag(false);
+			return "json";
 		}
 	}
 
@@ -918,9 +919,10 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 			} else {
 				user.setGradetime(BaseTools.systemtime());
 			}
-			this.getUsertService().updateUserTunpwd(user);
-			this.setSucflag(true);
-			return "json";
+			if(this.getUsertService().updateUserTunpwd(user)>0){
+				this.setSucflag(true);
+				return "json";
+			}
 		}
 		this.setSucflag(false);
 		return "json";

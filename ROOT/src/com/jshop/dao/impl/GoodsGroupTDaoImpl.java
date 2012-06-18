@@ -37,7 +37,7 @@ public class GoodsGroupTDaoImpl extends HibernateDaoSupport implements GoodsGrou
 	@Override
 	public int updateGoodsGroupT(final GoodsGroupT group) {
 		log.debug("update goodsGroupT");
-		final String queryString="update GoodsGroupT as ggt set ggt.cashstate=:cashstate,ggt.cashlimit=:cashlimit,ggt.limitbuy=:limitbuy,ggt.salequantity=:salequantity where ggt.goodsid=:goodsid";
+		final String queryString="update GoodsGroupT as ggt set ggt.memberprice=:memberprice, ggt.groupprice=:groupprice, ggt.pictureurl=:pictureurl, ggt.sendpoint=:sendpoint,ggt.detail=:detail,ggt.endtime=:endtime,ggt.begintime=:begintime, ggt.goodsname=:goodsname,ggt.cashstate=:cashstate,ggt.cashlimit=:cashlimit,ggt.limitbuy=:limitbuy,ggt.salequantity=:salequantity where ggt.groupid=:groupid";
 		try {
 			Integer integer = (Integer) this.getHibernateTemplate().execute(new HibernateCallback() {
 				
@@ -46,11 +46,21 @@ public class GoodsGroupTDaoImpl extends HibernateDaoSupport implements GoodsGrou
 						SQLException {
 					int i = 0;
 					Query query = session.createQuery(queryString);
-					query.setParameter("goodsid", group.getGoodsid());
+					query.setParameter("groupid", group.getGroupid());
 					query.setParameter("cashstate", group.getCashstate());
 					query.setParameter("cashlimit", group.getCashlimit());
 					query.setParameter("limitbuy", group.getLimitbuy());
 					query.setParameter("salequantity", group.getSalequantity());
+					query.setParameter("goodsname", group.getGoodsname());
+					query.setParameter("begintime", group.getBegintime());
+					query.setParameter("endtime",group.getEndtime());
+					query.setParameter("detail", group.getDetail());
+					query.setParameter("sendpoint", group.getSendpoint());
+					query.setParameter("pictureurl", group.getPictureurl());
+					query.setParameter("groupprice", group.getGroupprice());
+					query.setParameter("memberprice", group.getMemberprice());
+//					query.setParameter("totalordercount", group.getTotalOrderCount());
+//					query.setParameter("sordercount", group.getSOrderCount());
 					i= query.executeUpdate();
 					return i;
 				}

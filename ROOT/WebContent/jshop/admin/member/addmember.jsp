@@ -34,7 +34,6 @@
 							增加/编辑会员
 						</h5>
 					</div>
-					<form action="adminregister.action" method="post">
 						<div class="form">
 							<div class="fields">
 								<div class="field field-first">
@@ -79,21 +78,7 @@
 											<option value="0">
 												---请选择---
 											</option>
-											<option value="1">
-												普通会员
-											</option>
-											<option value="2">
-												银卡会员
-											</option>
-											<option value="3">
-												金卡会员
-											</option>
-											<option value="4">
-												钻石会员
-											</option>
-											<option value="5">
-												至尊会员
-											</option>
+											
 										</select>
 
 									</div>
@@ -158,17 +143,15 @@
 									<div class="input">
 										<div class="button highlight">
 											<input style="display: none;" type="button" id="editadminregister" name="editadminregister" value="更新" />
-											<input type="submit" id="submit" name="submit" value="注册" />
-											<s:hidden id="hiduserid" name="hiduserid" value=""></s:hidden>
-											<s:property value="#request.registermsg" />
+											<input type="button" id="submit" name="submit" value="注册" />
+											<input type="hidden" id="hiduserid" name="hiduserid" value=""/>
+											
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</form>
-
-
+					
 
 				</div>
 				<!-- end table -->

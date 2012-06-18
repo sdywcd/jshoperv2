@@ -8,7 +8,8 @@ function validatethenpostinfotoaddgoodsgroup(){
 	var detail=$('#detail').val();	
 	var begintime=$('#begintime').val();
 	var endtime=$('#endtime').val();
-	var priceladder=$('#priceladder').val();
+	var groupprice=$('#groupprice').val();
+	var memberprice=$('#memberprice').val();
 	//var totalordercount=$('#totalordercount').val();
 	
 	var salequantity=$('#salequantity').val();
@@ -16,6 +17,10 @@ function validatethenpostinfotoaddgoodsgroup(){
 	var cashstate=$('#cashstate').val();
 	if(""==goodsid){
 		jAlert('商品id不能为空','信息提示');
+		return false;
+	}
+	if(""==memberprice){
+		jAlert('商品塔克价不能为空','信息提示');
 		return false;
 	}
 	if(""==cashlimit){
@@ -52,7 +57,7 @@ function validatethenpostinfotoaddgoodsgroup(){
 		jAlert('商品积分不能为空','信息提示');
 		return false;
 	}
-	if(""==priceladder){
+	if(""==groupprice){
 		jAlert('商品价格不能为空','信息提示');
 		return false;
 	}
@@ -77,7 +82,8 @@ $(function(){
 		var state= $("input[name='state']:checked").val();
 		var begintime=$('#begintime').val();
 		var endtime=$('#endtime').val();
-		var priceladder=$('#priceladder').val();
+		var memberprice=$('#memberprice').val();
+		var groupprice=$('#groupprice').val();
 	//	var totalordercount=$('#totalordercount').val();
 		//var sordercount=$('#sordercount').val();
 		var salequantity=$('#salequantity').val();
@@ -88,7 +94,7 @@ $(function(){
 		$(":checkbox[name='pcpath'][checked=true]").each(function(){
 			pictureurl=this.value;
 		});		
-		$.post("addGoodsGroupT.action",{"pictureurl":pictureurl,"priceladder":priceladder,"salequantity":salequantity,"cashstate":cashstate,"limitbuy":limitbuy,"endtime":endtime,"state":state,"begintime":begintime,"goodsid":goodsid,"goodsname":goodsname,"detail":detail,"sendpoint":sendpoint,"cashlimit":cashlimit},function(data){
+		$.post("addGoodsGroupT.action",{"memberprice":memberprice,"pictureurl":pictureurl,"groupprice":groupprice,"salequantity":salequantity,"cashstate":cashstate,"limitbuy":limitbuy,"endtime":endtime,"state":state,"begintime":begintime,"goodsid":goodsid,"goodsname":goodsname,"detail":detail,"sendpoint":sendpoint,"cashlimit":cashlimit},function(data){
 			if(data.goodsgroup){
 				jAlert('添加成功','信息提示');
 				window.location.href='goodsgroupmanagement.jsp?session'+session+"#goods";
@@ -124,7 +130,9 @@ $(function(){
 		$('#salequantity').attr("value",data.groupList.salequantity);
 	//	$('#sordercount').attr("value",data.groupList.sordercount);
 		//$('#totalordercount').attr("value",data.groupList.totalordercount);
-		$('#priceladder').attr("value",data.groupList.priceladder);
+
+		$('#groupprice').attr("value",data.groupList.groupprice);
+		$('#memberprice').attr("value",data.groupList.memberprice);
 		//图片显示		
 		var pcurl=data.groupList.pictureurl;
 		
@@ -145,7 +153,8 @@ $(function(){
 			var state= $("input[name='state']:checked").val();
 			var begintime=$('#begintime').val();
 			var endtime=$('#endtime').val();
-			var priceladder=$('#priceladder').val();
+			var memberprice=$('#memberprice').val();
+			var groupprice=$('#groupprice').val();
 			//var totalordercount=$('#totalordercount').val();
 		//	var sordercount=$('#sordercount').val();
 			var salequantity=$('#salequantity').val();
@@ -156,7 +165,7 @@ $(function(){
 			$(":checkbox[name='pcpath'][checked=true]").each(function(){
 				pictureurl+=this.value+",";
 			});		
-		$.post("updateGoodsGroup.action",{"pictureurl":pictureurl,"priceladder":priceladder,"salequantity":salequantity,"cashstate":cashstate,"limitbuy":limitbuy,"endtime":endtime,"state":state,"begintime":begintime,"goodsname":goodsname,"detail":detail,"sendpoint":sendpoint,"cashlimit":cashlimit},function(data){
+		$.post("updateGoodsGroup.action",{"groupprice":groupprice,"pictureurl":pictureurl,"memberprice":memberprice,"salequantity":salequantity,"cashstate":cashstate,"limitbuy":limitbuy,"endtime":endtime,"state":state,"begintime":begintime,"goodsname":goodsname,"detail":detail,"sendpoint":sendpoint,"cashlimit":cashlimit},function(data){
 			if(data.goodsgroup){
 				jAlert('修改成功','信息提示');
 				window.location.href='goodsgroupmanagement.jsp?session'+session+"#goods";
