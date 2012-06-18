@@ -143,7 +143,25 @@ $(function() {
             window.location.href="addgrade.jsp?session="+session+"#member";
             return;
         }else if(com=="删除"){
-            
+            if ($('.trSelected', grid).length > 0) {
+                jConfirm('确定删除此项吗?', '信息提示', function(r) {
+                    if (r) {
+                        var str = "";
+                        $('.trSelected', grid).each(function() {
+                            str += this.id.substr(3) + ",";
+                        });
+                        $.post("delGradet.action", {
+                            "gradeid" : str
+                        }, function(data) {
+                            $('#grademanagement').flexReload();
+                        });
+                    }
+                });
+                return;
+            } else {
+                jAlert('请选择要删除的信息!', '信息提示');
+                return false;
+            }
         }
 	}
 });

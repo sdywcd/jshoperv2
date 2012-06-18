@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
+
+import org.apache.commons.lang.xwork.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
@@ -35,6 +37,7 @@ public class GradeTAction extends ActionSupport {
 	private Date createttime;
 	private String creatorid;
 	private GradeT bean = new GradeT();
+	private List<GradeT>beanlist=new ArrayList<GradeT>();
 	private List rows = new ArrayList();
 	private int rp;
 	private int page = 1;
@@ -180,6 +183,14 @@ public class GradeTAction extends ActionSupport {
 		this.sucflag = sucflag;
 	}
 
+	public List<GradeT> getBeanlist() {
+		return beanlist;
+	}
+
+	public void setBeanlist(List<GradeT> beanlist) {
+		this.beanlist = beanlist;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -223,19 +234,19 @@ public class GradeTAction extends ActionSupport {
 		int currentPage = page;
 		int lineSize = rp;
 		List<GradeT> list = this.getGradeTService().findAllGrade(currentPage,lineSize);
-		if (list != null) {
+		if (!list.isEmpty()) {
 			total = this.getGradeTService().countfindAllGrade();
 			rows.clear();
 			for (Iterator it = list.iterator(); it.hasNext();) {
 				GradeT gt = (GradeT) it.next();
 				Map cellMap = new HashMap();
 				cellMap.put("id", gt.getGradeid());
-				cellMap.put(
-						"cell",
-						new Object[] { gt.getGradename(), gt.getNeedcost(),
-								gt.getDiscount(),
-								BaseTools.formateDbDate(gt.getCreatetime()),
-								gt.getCreatorid() });
+				cellMap.put("cell",new Object[] {
+						gt.getGradename(), 
+						gt.getNeedcost(),
+						gt.getDiscount(),
+						BaseTools.formateDbDate(gt.getCreatetime()),
+						gt.getCreatorid() });
 				rows.add(cellMap);
 			}
 			return "json";
@@ -286,4 +297,40 @@ public class GradeTAction extends ActionSupport {
 		return "json";
 
 	}
+	/**
+	 * 批量删除用户等级设置
+	 * @return
+	 */
+	@Action(value = "delGradet", results = { @Result(name = "json", type = "json") })
+	public String delGradet(){
+		if(Validate.StrNotNull(this.getGradeid())){
+			String []strs=StringUtils.split(this.getGradeid().trim(),',');
+			if(this.getGradeTService().delGradet(strs)>0){
+				this.setSucflag(true);
+				return "json";
+			}else{
+				this.setSucflag(false);
+				return "json";
+			}
+		}
+		this.setSucflag(false);
+		return "json";
+	}
+	/**
+	 * 获取所有等级信息用于select控件
+	 * @return
+	 */
+	@Action(value = "findAllGradeForselect", results = { @Result(name = "json", type = "json") })
+	public String findAllGradeForselect(){
+		List<GradeT>list=this.getGradeTService().findAllGrade();
+		if(!list.isEmpty()){
+			this.setSucflag(true);
+			this.setBeanlist(list);
+			return "json";
+		}
+		this.setSucflag(false);
+		return "json";
+	}
+	
+	
 }
