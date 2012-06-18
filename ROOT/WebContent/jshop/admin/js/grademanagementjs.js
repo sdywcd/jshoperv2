@@ -88,10 +88,18 @@ $(function() {
 			align : 'center'
 		} ],
 		buttons : [ {
+            name : '添加',
+            bclass : 'add',
+            onpress : action
+        }, {
 			name : '编辑',
 			bclass : 'edit',
 			onpress : action
 		}, {
+            name : '删除',
+            bclass : 'delete',
+            onpress : action
+        }, {
 			separator : true
 		} ],
 
@@ -120,31 +128,48 @@ $(function() {
 			if ($('.trSelected', grid).length ==1) {
 				jConfirm('确定编辑此项吗?', '信息提示', function(r) {
 					if (r) {
-						var str = "";
-						$('.trSelected', grid).each(function() {
-							str += this.id.substr(3) + ",";
-						});
-						$('#submit').hide();
-						$('#editgrade').show();
-						$.post("findGradeById.action", {
-							"gradeid" : str
-						}, function(data) {
-							$('#gradevalue').val(data.beanlist.gradevalue);
-							$('#needcost').attr("value", data.beanlist.needcost);
-							$('#discount').attr("value", data.beanlist.discount);
-							$('#gradeid').attr("value", data.beanlist.gradeid);
-							return;
-						});
+						var str =$('.trSelected', grid)[0].id.substr(3);
+						window.location.href="addgrade.jsp?session="+session+"#member&gradeid="+str;
+                        return;
 					}
 				});
 				return;
 			} else {
-				jAlert('请选择要删除的信息!', '信息提示');
-				return false;
+				jAlert('请选择一条信息', '信息提示');
+                return false;
 			}
 
-		}
+		}else if(com=="添加"){
+            window.location.href="addgrade.jsp?session="+session+"#member";
+            return;
+        }else if(com=="删除"){
+            
+        }
 	}
+});
+/*
+ * ===========================================Gorgeous
+ * split-line==============================================
+ */
+/**
+ * Add Function
+ */
+$(function(){
+    $("#submit").click(function(){
+        var gradename = $("#gradename").val();
+        var needcost = $("#needcost").val();
+        var discount = $("#discount").val();
+        
+        $.post("addGradet.action",{
+            "gradename":gradename,
+            "needcost":needcost,
+            "discount":discount
+        },function(data){
+            if(data.sucflag){
+                window.location.href="grademanagement.jsp?session="+session+"#member";
+            }
+        });
+    });
 });
 /*
  * ===========================================Gorgeous
@@ -153,22 +178,38 @@ $(function() {
 /**
  * Update Function
  */
+
 // 点击编辑更新内容
 $(function() {
+    var gradeid=$.query.get("gradeid");
+    if(gradeid==""){
+        return false;
+    }
+    $.post("findGradeById.action",{"gradeid":gradeid},function(data){
+        if(data.sucflag){
+            $("#gradename").val(data.bean.gradename);
+            $("#needcost").val(data.bean.needcost);
+            $("#discount").val(data.bean.discount);
+            $("#gradeid").val(data.bean.gradeid);
+            $("#editgrade").show();
+            $("#submit").hide();
+        }
+    });
+    
 	$("#editgrade").click(function() {
-		var gradevalue = $("#gradevalue").val();
-		var gradename = $("#gradevalue").find("option:selected").text();
-		var needcost = $("#needcost").val();
-		var discount = $("#discount").val();
+		var gradename = $("#gradename").val();
+        var needcost = $("#needcost").val();
+        var discount = $("#discount").val();
 		var gradeid = $("#gradeid").val();
 		$.post("UpdateGradeById.action", {
 			"gradeid" : gradeid,
-			"gradevalue" : gradevalue,
 			"gradename" : gradename,
 			"needcost" : needcost,
 			"discount" : discount
 		}, function(data) {
-			$('#grademanagement').flexReload();
+			 if(data.sucflag){
+                window.location.href="grademanagement.jsp?session="+session+"#member";
+            }
 		});
 	});
 });
