@@ -51,4 +51,12 @@ public class GradeTServiceImpl implements GradeTService {
 	public int updateGradeById(GradeT gt) {
 		return this.getGradeTDao().updateGradeById(gt);
 	}
+
+	@Override
+	public List<GradeT> findAllGrade() {
+		return this.getGradeTDao().findAllGrade();
+	}
+	
+	
+	
 }

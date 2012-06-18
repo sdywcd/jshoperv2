@@ -1,4 +1,5 @@
 package com.jshop.action;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
+
+import org.apache.commons.lang.xwork.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
@@ -19,12 +22,12 @@ import com.jshop.service.GradeTService;
 import com.jshop.service.impl.GradeTServiceImpl;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-@ParentPackage("jshop")
 
+@ParentPackage("jshop")
 @Controller("gradeTAction")
 public class GradeTAction extends ActionSupport {
 	private GradeTService gradeTService;
-	@Resource(name="serial")
+	@Resource(name = "serial")
 	private Serial serial;
 	private String gradeid;
 	private String gradevalue;
@@ -33,14 +36,15 @@ public class GradeTAction extends ActionSupport {
 	private String discount;
 	private Date createttime;
 	private String creatorid;
-	private GradeT  beanlist = new GradeT();
-	private List  rows = new ArrayList();
+	private GradeT bean = new GradeT();
+	private List<GradeT>beanlist=new ArrayList<GradeT>();
+	private List rows = new ArrayList();
 	private int rp;
 	private int page = 1;
 	private int total = 0;
 	private boolean slogin;
 	private String usession;
-
+	private boolean sucflag;
 	@JSON(serialize = false)
 	public GradeTService getGradeTService() {
 		return gradeTService;
@@ -147,12 +151,12 @@ public class GradeTAction extends ActionSupport {
 		this.total = total;
 	}
 
-	public GradeT getBeanlist() {
-		return beanlist;
+	public GradeT getBean() {
+		return bean;
 	}
 
-	public void setBeanlist(GradeT beanlist) {
-		this.beanlist = beanlist;
+	public void setBean(GradeT bean) {
+		this.bean = bean;
 	}
 
 	public boolean isSlogin() {
@@ -163,14 +167,28 @@ public class GradeTAction extends ActionSupport {
 		this.slogin = slogin;
 	}
 
-	
-
 	public String getUsession() {
 		return usession;
 	}
 
 	public void setUsession(String usession) {
 		this.usession = usession;
+	}
+
+	public boolean isSucflag() {
+		return sucflag;
+	}
+
+	public void setSucflag(boolean sucflag) {
+		this.sucflag = sucflag;
+	}
+
+	public List<GradeT> getBeanlist() {
+		return beanlist;
+	}
+
+	public void setBeanlist(List<GradeT> beanlist) {
+		this.beanlist = beanlist;
 	}
 
 	/**
@@ -181,71 +199,54 @@ public class GradeTAction extends ActionSupport {
 		this.clearErrorsAndMessages();
 
 	}
-	
+
 	/**
-	 *增加用户等级信息
+	 * 增加用户等级信息
 	 * 
 	 * @return
 	 */
-	@Action(value = "addGradet", results = { 
-			@Result(name = "success", type="redirect",location = "/jshop/admin/member/grademanagement.jsp?session=${usession}"),
-			@Result(name = "input", type="redirect",location = "/jshop/admin/member/grademanagement.jsp?session=${usession}"),
-			@Result(name = "error",type="redirect",location = "/jshop/admin/member/grademanagement.jsp?session=${usession}")
-	})
+	@Action(value = "addGradet", results = { @Result(name = "json", type = "json") })
 	public String addGradet() {
-			if ("0".equals(this.getGradevalue())) {
-				ActionContext.getContext().put("errormsg", "请选择会员等级类型");
-				return ERROR;
-			}
-			if (Validate.StrisNull(this.getNeedcost())) {
-				ActionContext.getContext().put("errormsg", "升级所需金额必须填写");
-				return ERROR;
-			}
-			if (Validate.StrisNull(this.getDiscount())) {
-				ActionContext.getContext().put("errormsg", "折扣必须填写");
-				return ERROR;
-			}
-			List<GradeT> glist = this.getGradeTService().findAllGradeByValue(this.getGradevalue());
-			if (glist.size() > 0) {
-				ActionContext.getContext().put("errormsg", "该类型用户等级已经设定不能重复插入");
-				return ERROR;
-			}
-			
-			GradeT gt = new GradeT();
-			gt.setGradeid(this.getSerial().Serialid(Serial.GRADE));
-			gt.setGradevalue(this.getGradevalue().trim());
-			gt.setGradename(this.getGradename().trim());
-			gt.setNeedcost(Double.parseDouble(this.getNeedcost().trim()));
-			gt.setDiscount(Double.parseDouble(this.getDiscount().trim()));
-			gt.setCreatetime(BaseTools.systemtime());
-			gt.setCreatorid(BaseTools.adminCreateId());
-			if (this.getGradeTService().addGradet(gt) > 0) {
-				return SUCCESS;
-			}
-			return INPUT;
+		GradeT gt = new GradeT();
+		gt.setGradeid(this.getSerial().Serialid(Serial.GRADE));
+		gt.setGradevalue("0");
+		gt.setGradename(this.getGradename().trim());
+		gt.setNeedcost(Double.parseDouble(this.getNeedcost().trim()));
+		gt.setDiscount(Double.parseDouble(this.getDiscount().trim()));
+		gt.setCreatetime(BaseTools.systemtime());
+		gt.setCreatorid(BaseTools.adminCreateId());
+		if (this.getGradeTService().addGradet(gt) > 0) {
+			this.setSucflag(true);
+			return "json";
+		}
+		this.setSucflag(false);
+		return "json";
 	}
 
 	/**
-	 *查询所有用户等级设定信息
+	 * 查询所有用户等级设定信息
 	 * 
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	@Action(value = "findAllGrade", results = { 
-			@Result(name = "json",type="json")
-	})
+	@Action(value = "findAllGrade", results = { @Result(name = "json", type = "json") })
 	public String findAllGrade() {
 		int currentPage = page;
 		int lineSize = rp;
-		List<GradeT> list = this.getGradeTService().findAllGrade(currentPage, lineSize);
-		if (list != null) {
+		List<GradeT> list = this.getGradeTService().findAllGrade(currentPage,lineSize);
+		if (!list.isEmpty()) {
 			total = this.getGradeTService().countfindAllGrade();
 			rows.clear();
 			for (Iterator it = list.iterator(); it.hasNext();) {
 				GradeT gt = (GradeT) it.next();
 				Map cellMap = new HashMap();
 				cellMap.put("id", gt.getGradeid());
-				cellMap.put("cell", new Object[] {gt.getGradename(), gt.getNeedcost(), gt.getDiscount(), BaseTools.formateDbDate(gt.getCreatetime()), gt.getCreatorid() });
+				cellMap.put("cell",new Object[] {
+						gt.getGradename(), 
+						gt.getNeedcost(),
+						gt.getDiscount(),
+						BaseTools.formateDbDate(gt.getCreatetime()),
+						gt.getCreatorid() });
 				rows.add(cellMap);
 			}
 			return "json";
@@ -260,16 +261,16 @@ public class GradeTAction extends ActionSupport {
 	 * 
 	 * @return
 	 */
-	@Action(value = "findGradeById", results = { 
-			@Result(name = "json",type="json")
-	})
+	@Action(value = "findGradeById", results = { @Result(name = "json", type = "json") })
 	public String findGradeById() {
 		if (Validate.StrNotNull(this.getGradeid())) {
-			beanlist = this.getGradeTService().findGradeById(this.getGradeid().trim());
-			if (beanlist != null) {
+			bean = this.getGradeTService().findGradeById(this.getGradeid().trim());
+			if (bean!= null) {
+				this.setSucflag(true);
 				return "json";
 			}
 		}
+		this.setSucflag(false);
 		return "json";
 	}
 
@@ -278,20 +279,58 @@ public class GradeTAction extends ActionSupport {
 	 * 
 	 * @return
 	 */
-	@Action(value = "UpdateGradeById", results = { 
-			@Result(name = "json",type="json")
-	})
+	@Action(value = "UpdateGradeById", results = { @Result(name = "json", type = "json") })
 	public String UpdateGradeById() {
-			GradeT gt = new GradeT();
-			gt.setGradeid(this.getGradeid().trim());
-			gt.setGradevalue(this.getGradevalue().trim());
-			gt.setGradename(this.getGradename().trim());
-			gt.setNeedcost(Double.parseDouble(this.getNeedcost().trim()));
-			gt.setDiscount(Double.parseDouble(this.getDiscount().trim()));
-			gt.setCreatetime(BaseTools.systemtime());
-			gt.setCreatorid(BaseTools.adminCreateId());
-			this.getGradeTService().updateGradeById(gt);
+		GradeT gt = new GradeT();
+		gt.setGradeid(this.getGradeid().trim());
+		gt.setGradevalue("0");
+		gt.setGradename(this.getGradename().trim());
+		gt.setNeedcost(Double.parseDouble(this.getNeedcost().trim()));
+		gt.setDiscount(Double.parseDouble(this.getDiscount().trim()));
+		gt.setCreatetime(BaseTools.systemtime());
+		gt.setCreatorid(BaseTools.adminCreateId());
+		if(this.getGradeTService().updateGradeById(gt)>0){
+			this.setSucflag(true);
 			return "json";
+		}
+		this.setSucflag(false);
+		return "json";
 
 	}
+	/**
+	 * 批量删除用户等级设置
+	 * @return
+	 */
+	@Action(value = "delGradet", results = { @Result(name = "json", type = "json") })
+	public String delGradet(){
+		if(Validate.StrNotNull(this.getGradeid())){
+			String []strs=StringUtils.split(this.getGradeid().trim(),',');
+			if(this.getGradeTService().delGradet(strs)>0){
+				this.setSucflag(true);
+				return "json";
+			}else{
+				this.setSucflag(false);
+				return "json";
+			}
+		}
+		this.setSucflag(false);
+		return "json";
+	}
+	/**
+	 * 获取所有等级信息用于select控件
+	 * @return
+	 */
+	@Action(value = "findAllGradeForselect", results = { @Result(name = "json", type = "json") })
+	public String findAllGradeForselect(){
+		List<GradeT>list=this.getGradeTService().findAllGrade();
+		if(!list.isEmpty()){
+			this.setSucflag(true);
+			this.setBeanlist(list);
+			return "json";
+		}
+		this.setSucflag(false);
+		return "json";
+	}
+	
+	
 }

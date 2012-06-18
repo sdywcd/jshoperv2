@@ -168,7 +168,7 @@ public class UserTDaoImpl extends HibernateDaoSupport implements UserTDao {
 		try {
 
 			final String queryString = "update UserT as u set u.username=:username,u.email=:email,u.points=:points," + "u.grade=:grade,u.gradetime=:gradetime,u.state=:state,u.userstate=:userstate where u.userid=:userid";
-			this.getHibernateTemplate().execute(new HibernateCallback() {
+			Integer integer=(Integer)this.getHibernateTemplate().execute(new HibernateCallback() {
 
 				public Object doInHibernate(Session session) throws HibernateException, SQLException {
 					int i = 0;
@@ -182,15 +182,14 @@ public class UserTDaoImpl extends HibernateDaoSupport implements UserTDao {
 					query.setParameter("state", u.getState());
 					query.setParameter("userstate", u.getUserstate());
 					i = query.executeUpdate();
-					++i;
 					return i;
 				}
 			});
+			return integer;
 		} catch (RuntimeException re) {
 			log.error("update  UpdateUserTunpwd error", re);
 			throw re;
 		}
-		return 0;
 	}
 
 	public int delUser(final String[] list) {

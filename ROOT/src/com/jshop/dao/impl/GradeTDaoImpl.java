@@ -75,7 +75,7 @@ public class GradeTDaoImpl extends HibernateDaoSupport implements GradeTDao {
 					Query query = session.createQuery(queryString);
 					int i = 0;
 					for (String s : list) {
-						query.setParameter("brandid", s);
+						query.setParameter("gradeid", s);
 						i = query.executeUpdate();
 						i++;
 					}
@@ -109,10 +109,7 @@ public class GradeTDaoImpl extends HibernateDaoSupport implements GradeTDao {
 					return list;
 				}
 			});
-			if (list.size() > 0) {
-				return list;
-			}
-			return null;
+			return list;
 		} catch (RuntimeException re) {
 			log.error("find all GradeT error", re);
 			throw re;
@@ -124,10 +121,7 @@ public class GradeTDaoImpl extends HibernateDaoSupport implements GradeTDao {
 		try {
 			String queryString = "from GradeT as gt where gt.gradevalue=:gradevalue";
 			List<GradeT> list = this.getHibernateTemplate().findByNamedParam(queryString, "gradevalue", gradevalue);
-			if (list != null) {
-				return list;
-			}
-			return null;
+			return list;
 		} catch (RuntimeException re) {
 			log.error("find all VouchersT error", re);
 			throw re;
@@ -154,8 +148,7 @@ public class GradeTDaoImpl extends HibernateDaoSupport implements GradeTDao {
 		try {
 
 			final String queryString = "update GradeT as gt set gt.gradevalue=:gradevalue,gt.gradename=:gradename,gt.needcost=:needcost,gt.discount=:discount,gt.createtime=:createtime,gt.creatorid=:creatorid where gt.gradeid=:gradeid ";
-			this.getHibernateTemplate().execute(new HibernateCallback() {
-
+			Integer integer=(Integer)this.getHibernateTemplate().execute(new HibernateCallback() {
 				public Object doInHibernate(Session session) throws HibernateException, SQLException {
 					int i = 0;
 					Query query = session.createQuery(queryString);
@@ -167,14 +160,31 @@ public class GradeTDaoImpl extends HibernateDaoSupport implements GradeTDao {
 					query.setParameter("createtime", gt.getCreatetime());
 					query.setParameter("creatorid", gt.getCreatorid());
 					i = query.executeUpdate();
-					++i;
 					return i;
 				}
 			});
+			return integer;
 		} catch (RuntimeException re) {
 			log.error("update  GradeT error", re);
 			throw re;
 		}
-		return 0;
 	}
+
+	@Override
+	public List<GradeT> findAllGrade() {
+		log.debug("findAllGrade");
+		try {
+			String queryString = "from GradeT";
+			List<GradeT> list = this.getHibernateTemplate().find(queryString);
+			return list;
+		} catch (RuntimeException re) {
+			log.error("find by id GradeT error", re);
+			throw re;
+		}
+	}
+	
+	
+	
+	
+	
 }
