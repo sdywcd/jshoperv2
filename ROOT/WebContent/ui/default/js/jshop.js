@@ -1071,3 +1071,61 @@ function InitAgAlipayandUpdateOrder(){
 		alert("请选择支付方式");
 	}
 }
+
+
+/**
+ * 关联商品计算
+ * @type String
+ */
+var pack_products = {'isSpecificationsOpen':{},'data':{},'length':0};
+var total =0;
+function submitPack(pid){
+    if(pack_products.data[pid]){
+        $('#pack_product_' + pid).attr("class","");
+        $('#img_pack_product_' + pid).attr("src","../../../ui/default/images/shop_1.gif");
+        delete pack_products.data[pid];
+        pack_products['length'] = pack_products['length'] - 1;
+        //pack_products.productsid[]
+        total = parseInt(total)-parseInt($('#pp_price_' + pid).val());
+    }else{
+        $('#pack_product_' + pid).attr("class","cur");
+        $('#img_pack_product_' + pid).attr("src","../../../ui/default/images/shop_2.gif");
+        pack_products.data[pid] = pid;
+        pack_products.isSpecificationsOpen[pid]="1";
+        pack_products['length'] = pack_products['length'] + 1;
+        total = parseInt(total)+parseInt($('#pp_price_' + pid).val());
+    }
+    if(total>0){
+        //读取商品会员价
+        var memberprice=$("#hidmemberprice").val();
+        var temp  = total/100+parseInt(memberprice);
+        var ex = /^\d+$/;
+        if (ex.test(temp)) {
+            // 则为整数
+            $("#packTotalPrice").html(temp+".00");
+        }
+        else{
+            $("#packTotalPrice").html(temp);
+        }
+        $(".left_div").css("display","");
+    }else{
+        $(".left_div").css("display","none");
+    }
+}
+
+function addPackProducts(){
+    if(pack_products.length <= 0){
+        alert("您没有选择组合套餐商品！");
+        return;
+    }
+    //var a=JSON.stringify(pack_products.isSpecificationsOpen);
+    var b=JSON.stringify(pack_products.data);
+    $.each(pack_products.data,function(i,v){
+        alert(v);
+    });
+    $('#pack_products').val(json2str(pack_products.data));
+    document.getElementById("productForm").submit();
+}
+
+
+
