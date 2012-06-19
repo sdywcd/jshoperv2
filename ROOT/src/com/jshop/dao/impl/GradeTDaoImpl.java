@@ -75,7 +75,7 @@ public class GradeTDaoImpl extends HibernateDaoSupport implements GradeTDao {
 					Query query = session.createQuery(queryString);
 					int i = 0;
 					for (String s : list) {
-						query.setParameter("brandid", s);
+						query.setParameter("gradeid", s);
 						i = query.executeUpdate();
 						i++;
 					}
@@ -109,10 +109,7 @@ public class GradeTDaoImpl extends HibernateDaoSupport implements GradeTDao {
 					return list;
 				}
 			});
-			if (list.size() > 0) {
-				return list;
-			}
-			return null;
+			return list;
 		} catch (RuntimeException re) {
 			log.error("find all GradeT error", re);
 			throw re;
@@ -124,10 +121,7 @@ public class GradeTDaoImpl extends HibernateDaoSupport implements GradeTDao {
 		try {
 			String queryString = "from GradeT as gt where gt.gradevalue=:gradevalue";
 			List<GradeT> list = this.getHibernateTemplate().findByNamedParam(queryString, "gradevalue", gradevalue);
-			if (list != null) {
-				return list;
-			}
-			return null;
+			return list;
 		} catch (RuntimeException re) {
 			log.error("find all VouchersT error", re);
 			throw re;
@@ -175,4 +169,22 @@ public class GradeTDaoImpl extends HibernateDaoSupport implements GradeTDao {
 			throw re;
 		}
 	}
+
+	@Override
+	public List<GradeT> findAllGrade() {
+		log.debug("findAllGrade");
+		try {
+			String queryString = "from GradeT";
+			List<GradeT> list = this.getHibernateTemplate().find(queryString);
+			return list;
+		} catch (RuntimeException re) {
+			log.error("find by id GradeT error", re);
+			throw re;
+		}
+	}
+	
+	
+	
+	
+	
 }

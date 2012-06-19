@@ -52,6 +52,13 @@ public interface GradeTDao {
 	 * @return
 	 */
 	public abstract int updateGradeById(GradeT gt);
+	/**
+	 * 查询所有用户等级信息
+	 * @param currentPage
+	 * @param lineSize
+	 * @return
+	 */
+	public abstract  List<GradeT>findAllGrade();
 
 
 
