@@ -84,7 +84,7 @@
 								<div class="radio">									
 									<input type=radio id="state" name="state" class="small" value="1" />	
 									<label>开启</label>
-									<input type=radio id="state" name="state" class="small"  value="0"/>	
+									<input type=radio id="state" name="state" class="small" checked="checked" value="0"/>	
 									<label>关闭</label>
 								</div>	
 								</div>
@@ -184,15 +184,19 @@
 									
 								</div>
 							</div>							
-							<div class="field field-first">
-								<div class="label">
+							<div class="field ">
+								<div class="label label-radio">
 									<label for="input-small">
 										保证金制度:
 									</label>
 								</div>
-								<div class="input">
-									<input type="text" id="cashstate" name="cashstate" class="small"  />
-									
+								<div class="radios">
+								<div class="radio">									
+									<input type=radio id="cashstate" name="cashstate" class="small" value="1" />	
+									<label>开启</label>
+									<input type=radio id="cashstate" name="cashstate" class="small" checked="checked"  value="0"/>	
+									<label>关闭</label>
+								</div>	
 								</div>
 							</div>
 							<div class="field field-first">
@@ -233,8 +237,8 @@
 							<div class="field field-first">
 								<div class="input">
 									<div class="button highlight">
-										<input type="hidden" id="groupid" name="groupid"/>
-										<input type="button" id="add" name="add" value="提交" />
+										<input type="hidden" id="groupid" name="groupid" />
+										<input type="button" id="add" name="add" value="提交"  />
 										<input type="button" id="update" name="update" value="更新" style="display: none;" />
 									</div>
 								</div>
