@@ -10,6 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/global.css" />
 <link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/category.css" />
+<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/news.css" />
 <link rel="stylesheet" type="text/css" href="${basepath}ui/default/js/easyslider1.7/css/screen.css"/>
 <script type="text/javascript"  src="${basepath}ui/default/js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="${basepath}ui/default/js/easyslider1.7/js/easySlider1.7.js"></script>

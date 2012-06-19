@@ -110,4 +110,10 @@ public class UsertServiceImpl implements UsertService {
 		return this.getUserTDao().updateUserPasswordProtection(userid, question, answer);
 	}
 
+	@Override
+	public int updateUserRoleMByuserid(String userid, String rolemid,
+			String rolemname) {
+		return this.getUserTDao().updateUserRoleMByuserid(userid, rolemid, rolemname);
+	}
+
 }

@@ -102,6 +102,11 @@ public class CartTServiceImpl implements CartTService {
 			String productid, int needquantity, String state) {
 		return this.getCartTDao().updateCartNeedquantityByGoodsid(userid, goodsid, productid, needquantity, state);
 	}
+
+	@Override
+	public int delCartByid(String id) {
+		return this.getCartTDao().delCartByid(id);
+	}
 	
 	
 	

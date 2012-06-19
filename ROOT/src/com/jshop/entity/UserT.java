@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-6-17 19:20:06 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-6-18 17:10:09 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -45,12 +45,16 @@ public class UserT implements java.io.Serializable {
 	private Date gradetime;
 	private String state;
 	private String uid;
+	private String gradename;
+	private String rolemname;
+	private String rolemid;
 
 	public UserT() {
 	}
 
 	public UserT(String userid, String username, String email, String password,
-			String userstate, double points, int postingcount, Date registtime) {
+			String userstate, double points, int postingcount, Date registtime,
+			String rolemid) {
 		this.userid = userid;
 		this.username = username;
 		this.email = email;
@@ -59,6 +63,7 @@ public class UserT implements java.io.Serializable {
 		this.points = points;
 		this.postingcount = postingcount;
 		this.registtime = registtime;
+		this.rolemid = rolemid;
 	}
 
 	public UserT(String userid, String username, String realname, String email,
@@ -70,7 +75,7 @@ public class UserT implements java.io.Serializable {
 			String parttime5, String parttime6, String hobby, String qq,
 			String msn, String othercontract, String address, String postcode,
 			String birthday, String grade, Date gradetime, String state,
-			String uid) {
+			String uid, String gradename, String rolemname, String rolemid) {
 		this.userid = userid;
 		this.username = username;
 		this.realname = realname;
@@ -107,6 +112,9 @@ public class UserT implements java.io.Serializable {
 		this.gradetime = gradetime;
 		this.state = state;
 		this.uid = uid;
+		this.gradename = gradename;
+		this.rolemname = rolemname;
+		this.rolemid = rolemid;
 	}
 
 	public String getUserid() {
@@ -395,6 +403,30 @@ public class UserT implements java.io.Serializable {
 
 	public void setUid(String uid) {
 		this.uid = uid;
+	}
+
+	public String getGradename() {
+		return this.gradename;
+	}
+
+	public void setGradename(String gradename) {
+		this.gradename = gradename;
+	}
+
+	public String getRolemname() {
+		return this.rolemname;
+	}
+
+	public void setRolemname(String rolemname) {
+		this.rolemname = rolemname;
+	}
+
+	public String getRolemid() {
+		return this.rolemid;
+	}
+
+	public void setRolemid(String rolemid) {
+		this.rolemid = rolemid;
 	}
 
 }

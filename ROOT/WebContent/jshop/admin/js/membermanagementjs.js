@@ -45,6 +45,21 @@ $(function(){
 	});
 
 });
+$(function(){
+ //获取用户等级信息
+    $.post("findAllGradeForselect.action",function(data){
+        if(data.sucflag){
+            var temp="<option value='0'>---请选择---</option>";
+            $.each(data.beanlist,function(i,v){
+                temp+="<option value='"+v.gradeid+"'>"+v.gradename+"</option>";
+            });
+            $("#grade").html(temp);
+        }else{
+            jAlert('你还没有录入用户等级相关信息','信息提示');
+        }
+    });
+
+});
 /*===========================================Gorgeous split-line==============================================*/
 
 
@@ -62,61 +77,61 @@ $(function() {
 			name:'username',
 			width:215,
 			sortable:true,
-			align:'center',
+			align:'center'
 		},{ 
 			display:'真名',
 			name:'realname',
 			width:215,
 			sortable:true,
-			align:'center',
+			align:'center'
 		},{ 
 			display:'邮箱',
 			name:'email',
 			width:315,
 			sortable:true,
-			align:'center',
+			align:'center'
 		},{ 
 			display:'性别',
 			name:'sex',
 			width:80,
 			sortable:true,
-			align:'center',
+			align:'center'
 		},{ 
 			display:'累计积分',
 			name:'points',
 			width:215,
 			sortable:true,
-			align:'center',
+			align:'center'
 		},{ 
 			display:'QQ1',
 			name:'qq',
 			width:215,
 			sortable:true,
-			align:'center',
+			align:'center'
 		},{ 
 			display:'MSN1',
 			name:'msn',
 			width:215,
 			sortable:true,
-			align:'center',
+			align:'center'
 		},{ 
 			display:'会员等级',
-			name:'grade',
+			name:'gradename',
 			width:215,
 			sortable:true,
-			align:'center',
+			align:'center'
 		},{ 
 			display:'会员操作状态',
 			name:'userstate',
 			width:215,
 			sortable:true,
-			align:'center',
+			align:'center'
 		},{
 			display : '成为会员时间',
 			name : 'gradetime',
 			width : 214,
 			sortable : true,
-			align : 'center',
+			align : 'center'
 				
 		},{ display:'注册时间',
 			name:'registtime',
@@ -377,16 +392,63 @@ $(function(){
 			jAlert("请选择角色","提示信息");
 			return false;
 		}
+        var rolemname=$('#roleid').find("option:selected").text();
 		var userid=$.query.get('userid');
 		if(userid==""){
 			return false;
 		}
 		$.post("addUserRoleM.action",{"userid":userid,"roleid":roleid},function(data){
 			if(data.sucflag){
-				jAlert("角色设置成功","信息提示");
+                $.post("updateUserRoleMByuserid.action",{"userid":userid,"roleid":roleid,"rolemname":rolemname},function(data){
+                    if(data.sucflag){
+                        jAlert("角色设置成功","信息提示");
+                        return;
+                    }         
+                });
+				
 			}
 		});
 	});
+    
+    /**
+     * 点击增加用户
+     */
+    $("#submit").click(function(){
+        var username=$("#username").val();
+        var email=$("#email").val();
+        var points=$("#points").val();
+        var grade=$("#grade").val();
+        var gradename=$('#grade').find("option:selected").text();
+        var state=$("#state").val();
+        var userstate=$("#userstate").val();
+        if("0"==grade){
+            jAlert('会员等级必须选择','信息提示');
+            return false;
+        }
+        if("0"==state){
+            jAlert('用户类型必须选择','信息提示');
+            return false;
+        }
+        $.post("adminregister.action",{"username":username,"email":email,"points":points,"grade":grade,"gradename":gradename,"state":state,"userstate":userstate},function(data){
+            if(data.msg=="4"){
+                jAlert("用户已经存在","信息提示");
+                return false;
+            }
+            if(data.msg=="5"){
+                jAlert("邮箱已经存在","信息提示");
+                return false;
+            }
+            if(data.sucflag){
+                jAlert("用户添加成功","信息提示");
+                window.location.href="membermanagement.jsp?session="+session+"#member";
+            }else{
+                jAlert("用户添加失败","信息提示");
+                return false;
+            }
+            
+        });
+    });
+    
 });
 /*
  * ===========================================Gorgeous
@@ -397,14 +459,14 @@ $(function(){
  */
 $(function(){
 	
-	var msg=$.query.get("msg");
-	if(msg!=""){
-		switch(msg){
-			case 4:
-				jAlert("用户已经存在","信息提示");
-				break;
-		}
-	}
+//	var msg=$.query.get("msg");
+//	if(msg!=""){
+//		switch(msg){
+//			case 4:
+//				jAlert("用户已经存在","信息提示");
+//				break;
+//		}
+//	}
 	$("#editmember").click(function(){
 		var username=$('#username').val();
 		var newpassword=$('#newpassword').val();
@@ -426,16 +488,18 @@ $(function(){
 	
 	
 	$("#editadminregister").click(function(){
-	
 		var userid=$('#hiduserid').val();
 		var username=$('#username').val();
 		var points=$('#points').val();
 		var grade=$('#grade').val();
+        var gradename=$('#grade').find("option:selected").text();
 		var state=$('#state').val();
 		var userstate=$('#userstate').val();
 		var email=$('#email').val();
-		$.post("UpdateUserTunpwd.action",{"userid":userid,"username":username,"email":email,"points":points,"grade":grade,"userstate":userstate,"state":state},function(data){
-			window.location.href="membermanagement.jsp?session="+session+"#member";
+		$.post("UpdateUserTunpwd.action",{"userid":userid,"username":username,"email":email,"points":points,"grade":grade,"gradename":gradename,"userstate":userstate,"state":state},function(data){
+			if(data.sucflag){
+               window.location.href="membermanagement.jsp?session="+session+"#member";
+            }
 		});
 		
 	});

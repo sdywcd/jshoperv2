@@ -180,10 +180,13 @@
 					<a id="link1" href="<%=basePatha%>jshop/admin/electricmenutable/electablemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#saletools">餐桌设置</a>
 				</li>
 				<li>
+					<a id="link1" href="<%=basePatha%>jshop/admin/electricmenutable/electricordermanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#saletools">电子餐桌订单管理</a>
+				</li>
+				<li>
 					<a id="link2" href="<%=basePatha%>jshop/admin/taobao/tbonsaleItemsmanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#saletools">餐桌设置(淘宝)</a>
 				</li>
 				<li class="last">
-					<a id="link2" href="<%=basePatha%>jshop/admin/taobao/tbtraderdatamanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#saletools">电子订单列表</a>
+					<a id="link3" href="<%=basePatha%>jshop/admin/taobao/tbtraderdatamanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#saletools">电子订单列表</a>
 				</li>
 			</ul>
 			<h6 id="h-menu-settings">
