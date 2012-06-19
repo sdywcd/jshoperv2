@@ -3,7 +3,7 @@ var flag=false;
 function validatethenpostinfotoaddgoodsgroup(){
 	var goodsid=$('#goodsid').val();
 	var goodsname=$('#goodsname').val();
-	var cashlimit=$('cashlimit').val();		
+	var cashlimit=$('#cashlimit').val();		
 	var sendpoint=$('#sendpoint').val();	
 	var detail=$('#detail').val();	
 	var begintime=$('#begintime').val();
@@ -11,22 +11,24 @@ function validatethenpostinfotoaddgoodsgroup(){
 	var groupprice=$('#groupprice').val();
 	var memberprice=$('#memberprice').val();
 	//var totalordercount=$('#totalordercount').val();
-	
+	var cashstate=$("input[name='cashstate']:checked").val();
 	var salequantity=$('#salequantity').val();
-	var limitbuy=$('#limitbuy').val();
-	var cashstate=$('#cashstate').val();
+	var limitbuy=$('#limitbuy').val();	
 	if(""==goodsid){
 		jAlert('商品id不能为空','信息提示');
 		return false;
+	}
+	if("1"==cashstate){
+		if(""==cashlimit){
+			jAlert('保证金额度不能为空','信息提示');
+			return false;
+		}	
 	}
 	if(""==memberprice){
 		jAlert('商品塔克价不能为空','信息提示');
 		return false;
 	}
-	if(""==cashlimit){
-		jAlert('保证金额度不能为空','信息提示');
-		return false;
-	}	
+	
 	if(""==begintime){
 		jAlert('开始时间不能为空','信息提示');
 		return false;
@@ -45,10 +47,10 @@ function validatethenpostinfotoaddgoodsgroup(){
 		jAlert('限购数量不能为空','信息提示');
 		return false;
 	}
-	if(""==cashstate){
-		jAlert('保证金制度不能为空','信息提示');
-		return false;
-	}
+//	if(""==cashstate){
+//		jAlert('保证金制度不能为空','信息提示');
+//		return false;
+//	}
 	if(""==goodsname){
 		jAlert('商品名称不能为空','信息提示');
 		return false;
@@ -88,7 +90,7 @@ $(function(){
 		//var sordercount=$('#sordercount').val();
 		var salequantity=$('#salequantity').val();
 		var limitbuy=$('#limitbuy').val();
-		var cashstate=$('#cashstate').val();		
+		var cashstate=$("input[name='cashstate']:checked").val();	
 		//获取商品图片路径
 		var pictureurl="";
 		$(":checkbox[name='pcpath'][checked=true]").each(function(){
@@ -113,19 +115,23 @@ $(function(){
 		return false;		
 	}
 	$.post("findGoodsGroupById.action",{"groupid":groupid},function(data){
-		
+		$('#groupid').attr("value",data.groupList.groupid);
 		$('#goodsname').attr("value",data.groupList.goodsname);
 		$('#begintime').attr("value",data.groupList.begintime);
 		$('#endtime').attr("value",data.groupList.endtime);
 		KE.html("detail",data.groupList.detail);
 		$('#sendpoint').attr("value",data.groupList.sendpoint);
-		$('#cashlimit').attr("value",data.groupList.cashlimit);
-		$('#cashstate').attr("value",data.groupList.cashstate);
+		$('#cashlimit').attr("value",data.groupList.cashlimit);		
 		$('#limitbuy').attr("value",data.groupList.limitbuy);		
 		if("1"==data.groupList.state){
 			$('#state').attr("checked","checked");
 		}else{
 			$('#state').attr("checked","");
+		}
+		if("1"==data.groupList.cashstate){
+			$('#cashstate').attr("checked","checked");
+		}else{
+			$('#cashstate').attr("checked","");
 		}
 		$('#salequantity').attr("value",data.groupList.salequantity);
 	//	$('#sordercount').attr("value",data.groupList.sordercount);
@@ -145,7 +151,7 @@ $(function(){
 	$('#update').click(function(){
 		validatethenpostinfotoaddgoodsgroup();
 		if(flag){
-			
+			var groupid=$('#groupid').val();
 			var goodsname=$('#goodsname').val();
 			var cashlimit=$('#cashlimit').val();		
 			var sendpoint=$('#sendpoint').val();	
@@ -159,13 +165,13 @@ $(function(){
 		//	var sordercount=$('#sordercount').val();
 			var salequantity=$('#salequantity').val();
 			var limitbuy=$('#limitbuy').val();
-			var cashstate=$('#cashstate').val();
+			var cashstate=$("input[name='cashstate']:checked").val();
 			//获取商品图片路径集合
 			var pictureurl="";
 			$(":checkbox[name='pcpath'][checked=true]").each(function(){
 				pictureurl+=this.value+",";
 			});		
-		$.post("updateGoodsGroup.action",{"groupprice":groupprice,"pictureurl":pictureurl,"memberprice":memberprice,"salequantity":salequantity,"cashstate":cashstate,"limitbuy":limitbuy,"endtime":endtime,"state":state,"begintime":begintime,"goodsname":goodsname,"detail":detail,"sendpoint":sendpoint,"cashlimit":cashlimit},function(data){
+		$.post("updateGoodsGroup.action",{"groupid":groupid,"groupprice":groupprice,"pictureurl":pictureurl,"memberprice":memberprice,"salequantity":salequantity,"cashstate":cashstate,"limitbuy":limitbuy,"endtime":endtime,"state":state,"begintime":begintime,"goodsname":goodsname,"detail":detail,"sendpoint":sendpoint,"cashlimit":cashlimit},function(data){
 			if(data.goodsgroup){
 				jAlert('修改成功','信息提示');
 				window.location.href='goodsgroupmanagement.jsp?session'+session+"#goods";

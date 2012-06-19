@@ -384,7 +384,8 @@ public class GoodsGroupTAction extends ActionSupport {
 	 */
 	@Action(value="updateGoodsGroup",results={@Result(name="json",type="json")})
 	public String updateGoodsGroup(){
-		GoodsGroupT ggt = new GoodsGroupT();	
+		GoodsGroupT ggt = new GoodsGroupT();
+		ggt.setGroupid(this.getGroupid().trim());
 		ggt.setBegintime(this.getBegintime());
 		ggt.setEndtime(this.getEndtime());
 		ggt.setDetail(this.getDetail().trim());
