@@ -148,6 +148,12 @@ public interface CartTService {
 	 * @return
 	 */
 	public abstract int updateCartNeedquantityByGoodsid(String userid,String goodsid,String productid,int needquantity,String state);
+	/**
+	 * 根据购物车id删除购物车
+	 * @param id
+	 * @return
+	 */
+	public abstract int delCartByid(String id);
 	
 	
 	

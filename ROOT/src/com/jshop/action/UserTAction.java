@@ -32,6 +32,7 @@ import com.jshop.action.tools.Serial;
 import com.jshop.action.tools.Validate;
 import com.jshop.entity.FunctionM;
 import com.jshop.entity.RoleFunctionM;
+import com.jshop.entity.UserRoleM;
 import com.jshop.entity.UserT;
 import com.jshop.service.UserRoleMService;
 import com.jshop.service.UsertService;
@@ -101,6 +102,9 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 	private String grade;
 	private String gradetime;
 	private String state;
+	private String gradename;
+	private String rolemname;
+	private String rolemid;
 	private String creatorid;
 	private String msg;
 
@@ -662,6 +666,30 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 		this.baseurl = baseurl;
 	}
 
+	public String getGradename() {
+		return gradename;
+	}
+
+	public void setGradename(String gradename) {
+		this.gradename = gradename;
+	}
+
+	public String getRolemname() {
+		return rolemname;
+	}
+
+	public void setRolemname(String rolemname) {
+		this.rolemname = rolemname;
+	}
+
+	public String getRolemid() {
+		return rolemid;
+	}
+
+	public void setRolemid(String rolemid) {
+		this.rolemid = rolemid;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -748,21 +776,6 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 					if ("1".equals(u.getSex())) {
 						u.setSex("男");
 					}
-					if ("1".equals(u.getGrade())) {
-						u.setGrade("普通会员");
-					}
-					if ("2".equals(u.getGrade())) {
-						u.setGrade("银卡会员");
-					}
-					if ("3".equals(u.getGrade())) {
-						u.setGrade("金卡会员");
-					}
-					if ("4".equals(u.getGrade())) {
-						u.setGrade("钻石会员");
-					}
-					if ("5".equals(u.getGrade())) {
-						u.setGrade("至尊会员");
-					}
 					if ("1".equals(u.getState())) {
 						u.setState("普通用户");
 					}
@@ -794,7 +807,7 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 					}
 					Map cellMap = new HashMap();
 					cellMap.put("id", u.getUserid());
-					cellMap.put("cell", new Object[] { u.getUsername(), u.getRealname(), u.getEmail(), u.getSex(), u.getPoints(), u.getQq(), u.getMsn(), u.getGrade(), u.getUserstate(), u.getGradetime(), BaseTools.formateDbDate(u.getRegisttime()) });
+					cellMap.put("cell", new Object[] { u.getUsername(), u.getRealname(), u.getEmail(), u.getSex(), u.getPoints(), u.getQq(), u.getMsn(), u.getGradename(), u.getUserstate(), u.getGradetime(), BaseTools.formateDbDate(u.getRegisttime()) });
 					rows.add(cellMap);
 				}
 				return "json";
@@ -864,12 +877,15 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 			user.setPostcode(null);
 			user.setBirthday(null);
 			user.setGrade(this.getGrade());
+			user.setGradename(this.getGradename().trim());
 			if (this.getGrade().equals("0")) {
 				user.setGradetime(null);
 			} else {
 				user.setGradetime(BaseTools.systemtime());
 			}
 			user.setState(this.getState());
+			user.setRolemid("0");
+			user.setRolemname("");
 			if (this.getUsertService().save(user) > 0) {
 				//重新获取后台登录时保存的加密session key
 				this.setParam(ActionContext.getContext().getSession().get(BaseTools.BACK_SESSION_KEY).toString());
@@ -913,6 +929,7 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 			user.setPoints(Double.parseDouble(this.getPoints().trim()));
 			user.setUserstate(this.getUserstate());
 			user.setGrade(this.getGrade());
+			user.setGradename(this.getGradename());
 			user.setState(this.getState());
 			if (this.getGrade().equals("0")) {
 				user.setGradetime(null);
@@ -1035,5 +1052,23 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 		this.setSucflag(false);
 		return "json";
 	}
+	
+	/**
+	 * 更新用户表中后台管理者的权限标记，后期可能全面启用写死的userstate模式改成此模式
+	 * @return
+	 */
+	@Action(value = "updateUserRoleMByuserid", results = { @Result(name = "json", type = "json") })
+	public String updateUserRoleMByuserid(){
+		if(Validate.StrNotNull(this.getUserid())&&Validate.StrNotNull(this.getRoleid())&&Validate.StrNotNull(this.getRolemname())){
+			if(this.getUsertService().updateUserRoleMByuserid(this.getUserid(),this.getRoleid(), this.getRolemname())>0){
+				this.setSucflag(true);
+				return "json";
+			}
+		}
+		this.setSucflag(false);
+		return "json";
+	}
+	
+	
 
 }

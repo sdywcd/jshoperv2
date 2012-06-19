@@ -128,5 +128,13 @@ public interface UserTDao {
 	 * @return
 	 */
 	public abstract int updateUserPasswordProtection(String userid,String question,String answer);
-
+	/**
+	 * 管理员赋值管理用户权限标记
+	 * @param userid
+	 * @param rolemid
+	 * @param rolemname
+	 * @return
+	 */
+	public abstract int updateUserRoleMByuserid(String userid,String rolemid,String rolemname);
+	
 }
