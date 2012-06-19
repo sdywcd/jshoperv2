@@ -116,7 +116,7 @@ $(function() {
 			align:'center'
 		},{ 
 			display:'会员等级',
-			name:'grade',
+			name:'gradename',
 			width:215,
 			sortable:true,
 			align:'center'
@@ -392,13 +392,20 @@ $(function(){
 			jAlert("请选择角色","提示信息");
 			return false;
 		}
+        var rolemname=$('#roleid').find("option:selected").text();
 		var userid=$.query.get('userid');
 		if(userid==""){
 			return false;
 		}
 		$.post("addUserRoleM.action",{"userid":userid,"roleid":roleid},function(data){
 			if(data.sucflag){
-				jAlert("角色设置成功","信息提示");
+                $.post("updateUserRoleMByuserid.action",{"userid":userid,"roleid":roleid,"rolemname":rolemname},function(data){
+                    if(data.sucflag){
+                        jAlert("角色设置成功","信息提示");
+                        return;
+                    }         
+                });
+				
 			}
 		});
 	});
@@ -509,15 +516,15 @@ $(function(){
 	
 	
 	$("#editadminregister").click(function(){
-	
 		var userid=$('#hiduserid').val();
 		var username=$('#username').val();
 		var points=$('#points').val();
 		var grade=$('#grade').val();
+        var gradename=$('#grade').find("option:selected").text();
 		var state=$('#state').val();
 		var userstate=$('#userstate').val();
 		var email=$('#email').val();
-		$.post("UpdateUserTunpwd.action",{"userid":userid,"username":username,"email":email,"points":points,"grade":grade,"userstate":userstate,"state":state},function(data){
+		$.post("UpdateUserTunpwd.action",{"userid":userid,"username":username,"email":email,"points":points,"grade":grade,"gradename":gradename,"userstate":userstate,"state":state},function(data){
 			if(data.sucflag){
                window.location.href="membermanagement.jsp?session="+session+"#member";
             }

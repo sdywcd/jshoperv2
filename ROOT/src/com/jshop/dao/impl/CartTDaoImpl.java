@@ -421,6 +421,29 @@ public class CartTDaoImpl extends HibernateDaoSupport implements CartTDao {
 			throw re;
 		}
 	}
+
+	@Override
+	public int delCartByid(final String id) {
+		log.debug("del cart goods");
+		try {
+
+			final String queryString = "delete from CartT as c where c.id=:id";
+			Integer integer=(Integer)this.getHibernateTemplate().execute(new HibernateCallback() {
+
+				public Object doInHibernate(Session session) throws HibernateException, SQLException {
+					Query query = session.createQuery(queryString);
+					int i = 0;
+					query.setParameter("id", id);
+					i = query.executeUpdate();
+					return i;
+				}
+			});
+			return integer;
+		} catch (RuntimeException re) {
+			log.error("del brandt failed", re);
+			throw re;
+		}
+	}
 	
 	
 	
