@@ -177,6 +177,43 @@ $(function(){
         var gradename = $("#gradename").val();
         var needcost = $("#needcost").val();
         var discount = $("#discount").val();
+        var regnotascii = /^[\x00-\xff]$/g ;  //两个字节的字符
+        var regunexpect = /[^a-zA-Z0-9\u4e00-\u9fa5_]/g; //中文英文数字都下划线ok
+        var regvalue = /^[1-9][\d]{1,8}\.[\d]{1,2}|(^0\.)[\d]{1,2}/;//匹配积分10位,两位小数
+        var regdiscount = /(^0\.)[\d]{1,2}|1\.([0]{1,2})/; //匹配积分10位,两位小数
+        if(gradename){
+        	if(gradename.match(regunexpect)){
+        		jAlert('等级名可以以"中文英文数字下划线的组合"','信息提示');
+        		return false;
+        	}
+        	var gnamelength = 0;
+        	for(var i=0;i<gradename.length;i++)
+        		{
+        			var curcode = gradename.substring(i,1); 
+        			if(regnotascii.test(curcode)) 
+        				{
+        					gnamelength += 2;
+        				}
+        			else{
+        					gnamelength++;
+        			}
+        		}
+        	if(gnamelength > 45){
+        		jAlert('字符串不能大于50','信息提示');
+        		return false;
+        	}
+        }else{
+        	jAlert('等级名字不能为空','信息提示');
+        	return false;
+        }
+        if(!regvalue.test(needcost)){
+        	jAlert('所需积分是10位,两位小数','信息提示');
+        	return false;
+        }
+        if(!regdiscount.test(discount)){
+        	jAlert('折扣格式不正确','信息提示');
+        	return false;
+        }
         
         $.post("addGradet.action",{
             "gradename":gradename,
@@ -219,6 +256,44 @@ $(function() {
         var needcost = $("#needcost").val();
         var discount = $("#discount").val();
 		var gradeid = $("#gradeid").val();
+        var regnotascii = /^[\x00-\xff]$/g ;  //两个字节的字符
+        var regunexpect = /[^a-zA-Z0-9\u4e00-\u9fa5_]/g; //中文英文数字都下划线ok
+        var regvalue = /^[1-9][\d]{1,8}\.[\d]{1,2}|(^0\.)[\d]{1,2}/;//匹配积分10位,两位小数
+        var regdiscount = /(^0\.)[\d]{1,2}|1\.([0]{1,2})/; //匹配积分10位,两位小数
+        if(gradename){
+        	if(gradename.match(regunexpect)){
+        		jAlert('等级名可以以"中文英文数字下划线的组合"','信息提示');
+        		return false;
+        	}
+        	var gnamelength = 0;
+        	for(var i=0;i<gradename.length;i++)
+        		{
+        			var curcode = gradename.substring(i,1); 
+        			if(regnotascii.test(curcode)) 
+        				{
+        					gnamelength += 2;
+        				}
+        			else{
+        					gnamelength++;
+        			}
+        		}
+        	if(gnamelength > 45){
+        		jAlert('字符串不能大于50','信息提示');
+        		return false;
+        	}
+        }else{
+        	jAlert('等级名字不能为空','信息提示');
+        	return false;
+        }
+        if(!regvalue.test(needcost)){
+        	jAlert('所需积分是10位,两位小数','信息提示');
+        	return false;
+        }
+        if(!regdiscount.test(discount)){
+        	jAlert('折扣格式不正确','信息提示');
+        	return false;
+        }
+        
 		$.post("UpdateGradeById.action", {
 			"gradeid" : gradeid,
 			"gradename" : gradename,
