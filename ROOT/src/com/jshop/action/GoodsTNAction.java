@@ -19,12 +19,12 @@ import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 
+import com.jshop.action.model.GoodsparameterlistModel;
 import com.jshop.action.templates.CreateHtml;
 import com.jshop.action.templates.DataCollectionTAction;
 import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.ContentTag;
 import com.jshop.action.tools.FreeMarkervariable;
-import com.jshop.action.tools.GoodsparameterlistModel;
 import com.jshop.action.tools.Serial;
 import com.jshop.action.tools.Validate;
 import com.jshop.entity.GoodsT;

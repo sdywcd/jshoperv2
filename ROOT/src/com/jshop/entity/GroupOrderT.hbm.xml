@@ -3,16 +3,16 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2012-6-20 8:15:37 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.jshop.entity.ElectronicMenuOrderT" table="electronic_menu_order_t" catalog="jshopactive">
-        <id name="electronicMenuOrderid" type="string">
-            <column name="ELECTRONIC_MENU_ORDERID" length="20" />
+    <class name="com.jshop.entity.GroupOrderT" table="`group_order _t`" catalog="jshopactive">
+        <id name="orderid" type="string">
+            <column name="ORDERID" length="20" />
             <generator class="assigned" />
         </id>
         <property name="userid" type="string">
-            <column name="USERID" length="20" />
+            <column name="USERID" length="20" not-null="true" />
         </property>
         <property name="username" type="string">
-            <column name="USERNAME" length="50" />
+            <column name="USERNAME" length="50" not-null="true" />
         </property>
         <property name="paymentid" type="string">
             <column name="PAYMENTID" length="20" not-null="true" />
@@ -21,25 +21,25 @@
             <column name="PAYMENTNAME" length="50" not-null="true" />
         </property>
         <property name="delivermode" type="string">
-            <column name="DELIVERMODE" length="50" />
+            <column name="DELIVERMODE" length="50" not-null="true" />
         </property>
         <property name="deliverynumber" type="string">
             <column name="DELIVERYNUMBER" length="50" />
         </property>
-        <property name="electronicorderstate" type="string">
-            <column name="ELECTRONICORDERSTATE" length="1" not-null="true" />
+        <property name="orderstate" type="string">
+            <column name="ORDERSTATE" length="1" not-null="true" />
         </property>
         <property name="logisticsid" type="string">
-            <column name="LOGISTICSID" length="20" />
+            <column name="LOGISTICSID" length="20" not-null="true" />
         </property>
         <property name="freight" type="double">
-            <column name="FREIGHT" precision="10" not-null="true" />
+            <column name="FREIGHT" precision="22" scale="0" not-null="true" />
         </property>
         <property name="amount" type="double">
             <column name="AMOUNT" precision="10" not-null="true" />
         </property>
         <property name="points" type="java.lang.Double">
-            <column name="POINTS" precision="10" />
+            <column name="POINTS" precision="22" scale="0" />
         </property>
         <property name="purchasetime" type="timestamp">
             <column name="PURCHASETIME" length="0" not-null="true" />
@@ -51,10 +51,10 @@
             <column name="INVOICE" length="1" not-null="true" />
         </property>
         <property name="shippingaddressid" type="string">
-            <column name="SHIPPINGADDRESSID" length="20" />
+            <column name="SHIPPINGADDRESSID" length="20" not-null="true" />
         </property>
         <property name="customernotes" type="string">
-            <column name="CUSTOMERNOTES" length="2000" />
+            <column name="CUSTOMERNOTES" length="100" />
         </property>
         <property name="logisticswebaddress" type="string">
             <column name="LOGISTICSWEBADDRESS" length="225" />
@@ -93,13 +93,13 @@
             <column name="SHIPPINGSTATE" length="1" />
         </property>
         <property name="deliveraddressid" type="string">
-            <column name="DELIVERADDRESSID" length="1" />
+            <column name="DELIVERADDRESSID" length="20" />
         </property>
         <property name="shippingusername" type="string">
             <column name="SHIPPINGUSERNAME" length="50" />
         </property>
         <property name="createtime" type="timestamp">
-            <column name="CREATETIME" length="0" not-null="true" />
+            <column name="CREATETIME" length="0" />
         </property>
         <property name="hasprintexpress" type="string">
             <column name="HASPRINTEXPRESS" length="1" />
@@ -115,15 +115,6 @@
         </property>
         <property name="tradeNo" type="string">
             <column name="TRADE_NO" length="45" />
-        </property>
-        <property name="tableNumber" type="string">
-            <column name="TABLE_NUMBER" length="20" not-null="true" />
-        </property>
-        <property name="roomName" type="string">
-            <column name="ROOM_NAME" length="45" />
-        </property>
-        <property name="tablestate" type="string">
-            <column name="TABLESTATE" length="1" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

@@ -1119,12 +1119,28 @@ function addPackProducts(){
         return;
     }
     //var a=JSON.stringify(pack_products.isSpecificationsOpen);
-    var b=JSON.stringify(pack_products.data);
+    var goodsid="";
+    var hidurl = $('#hidurl').val();
     $.each(pack_products.data,function(i,v){
-        alert(v);
+        goodsid+=v;
     });
-    $('#pack_products').val(json2str(pack_products.data));
-    document.getElementById("productForm").submit();
+    $.post("addCart.action", {
+        "goodsid" : goodsid,
+        "needquantity" : needquantity,
+        "hidurl" : hidurl
+    }, function(data) {
+        if (!data.slogin) {
+            // 跳转到登录页面
+            window.location.href = "user/login.html?redirecturl=" + hidurl;
+        } else if (data.sucflag) {
+            // 跳转到购物车页面
+            window.location.href = "findAllCartByUserId.action";
+        } else {
+            // 跳转到商品页面
+            window.location.href = data.hidurl;
+        }
+    });
+  
 }
 
 

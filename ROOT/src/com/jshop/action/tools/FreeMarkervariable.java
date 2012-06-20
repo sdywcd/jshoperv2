@@ -101,4 +101,8 @@ public class FreeMarkervariable {
 	 * 团购商品
 	 */
 	public static final String GOODSGROUPT="goodsgroupt";
+	/**
+	 * 关联商品
+	 */
+	public static final String GOODSBELINKED="goodsbelinked";
 }

@@ -1,11 +1,10 @@
 package com.jshop.action.templates;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Resource;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -13,13 +12,18 @@ import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.json.annotations.JSON;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.springframework.stereotype.Controller;
+
+import com.jshop.action.model.GoodsBelinkedModel;
 import com.jshop.action.tools.BaseTools;
-import com.jshop.action.tools.FreeMarkervariable;
 import com.jshop.entity.ArticleCategoryT;
 import com.jshop.entity.ArticleT;
 import com.jshop.entity.BrandT;
 import com.jshop.entity.GoodsAttributeT;
+import com.jshop.entity.GoodsBelinkedT;
 import com.jshop.entity.GoodsCategoryT;
 import com.jshop.entity.GoodsCommentT;
 import com.jshop.entity.GoodsSpecificationsRelationshipT;
@@ -34,6 +38,7 @@ import com.jshop.service.ArticleCategoryTService;
 import com.jshop.service.ArticleTService;
 import com.jshop.service.BrandTService;
 import com.jshop.service.GoodsAttributeTService;
+import com.jshop.service.GoodsBelinkedTService;
 import com.jshop.service.GoodsCategoryTService;
 import com.jshop.service.GoodsCommentTService;
 import com.jshop.service.GoodsSpecificationsRelationshipTService;
@@ -44,13 +49,6 @@ import com.jshop.service.PageEditareaTService;
 import com.jshop.service.ProductSpecificationsTService;
 import com.jshop.service.SiteNavigationTService;
 import com.jshop.service.TemplatethemeTService;
-import com.jshop.service.impl.ArticleCategoryTServiceImpl;
-import com.jshop.service.impl.ArticleTServiceImpl;
-import com.jshop.service.impl.GoodsCategoryTServiceImpl;
-import com.jshop.service.impl.GoodsTServiceImpl;
-import com.jshop.service.impl.JshopbasicInfoTServiceImpl;
-import com.jshop.service.impl.PageEditareaTServiceImpl;
-import com.jshop.service.impl.SiteNavigationTServiceImpl;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -83,9 +81,18 @@ public class DataCollectionTAction extends ActionSupport {
 	private GoodsAttributeTService goodsAttributeTService;
 	private GoodsCommentTService goodsCommentTService;
 	private TemplatethemeTService templatethemeTService;
+	private GoodsBelinkedTService goodsBelinkedTService;
 	private TemplatethemeT tt;
 	private String logmsg;
-	
+	@JSON(serialize = false)
+	public GoodsBelinkedTService getGoodsBelinkedTService() {
+		return goodsBelinkedTService;
+	}
+
+	public void setGoodsBelinkedTService(GoodsBelinkedTService goodsBelinkedTService) {
+		this.goodsBelinkedTService = goodsBelinkedTService;
+	}
+
 	@JSON(serialize = false)
 	public GoodsSpecificationsRelationshipTService getGoodsSpecificationsRelationshipTService() {
 		return goodsSpecificationsRelationshipTService;
@@ -631,6 +638,35 @@ public class DataCollectionTAction extends ActionSupport {
 				list.add(pst);
 			}
 			return list;
+		}
+		return Collections.emptyList();
+	}
+	
+	/**
+	 * 根据商品id获取关联商品信息
+	 * @param gt
+	 * @return
+	 */
+	public List<GoodsBelinkedModel>findGoodsBelinkedTBygoodsid(GoodsT gt){
+		List<GoodsBelinkedT>list=this.getGoodsBelinkedTService().findGoodsBelinkedBymaingoodsid(gt.getGoodsid());
+		if(!list.isEmpty()){
+			List<GoodsBelinkedModel> gbmlist=new ArrayList<GoodsBelinkedModel>();
+			JSONArray ja = (JSONArray) JSONValue.parse(list.get(0).getBelinkedgoods().toString());
+			GoodsBelinkedModel gbm=new GoodsBelinkedModel();
+			for(int i=0;i<ja.size();i++){
+				JSONObject jo = (JSONObject) ja.get(i);
+				if(jo.get("goodsid").toString()!=null){
+					gbm.setBelinkedgoodsid(jo.get("goodsid").toString());
+				}
+				if(jo.get("goodsname").toString()!=null){
+					gbm.setGoodsname(jo.get("goodsname").toString());
+				}
+				gbm.setMemberprice(jo.get("memberprice").toString());
+				gbm.setPrice(jo.get("price").toString());
+				gbm.setPictureurl(jo.get("pictureurl").toString());
+				gbmlist.add(gbm);
+			}
+			return gbmlist;
 		}
 		return Collections.emptyList();
 	}

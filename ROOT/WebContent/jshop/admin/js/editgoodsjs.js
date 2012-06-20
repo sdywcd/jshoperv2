@@ -51,7 +51,7 @@ function delProductByproductid(rid){
  * 获取关联商品
  */
 function getbelinkedGoods(){
-    var belinkedgoodsid=$("#linkedgoodsselect").find("option:selected").val();
+    var belinkedgoodsid=$("#linkedgoodsselect").val();
     if(null!=belinkedgoodsid){
         return belinkedgoodsid;
     }

@@ -73,6 +73,8 @@ public class CreateStaticHtmlAspect {
 			map.put(FreeMarkervariable.GOODSCOMMENTS, gtn.getDataCollectionTAction().findGoodsCommentBygoodsid(gtn.getBean()));
 			//获取规格值
 			map.put(FreeMarkervariable.GOODSSPECIFICATION, gtn.getDataCollectionTAction().findProductSpecificationsTByspecificationsid(gtn.getBean()));
+			//获取关联商品
+			map.put(FreeMarkervariable.GOODSBELINKED, gtn.getDataCollectionTAction().findGoodsBelinkedTBygoodsid(gtn.getBean()));
 			
 			String htmlPath = gtn.getCreateHtml().createGoodsT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORGOODSDETAIL, gtn.getBean().getGoodsid(), map);
 			if (Validate.StrNotNull(htmlPath)) {

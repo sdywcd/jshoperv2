@@ -83,9 +83,13 @@ public class GoodsTAspect {
 			belinkedjson.append("[");
 			for(String s:strs){
 				gt=gtn.getGoodsTService().findGoodsById(s);
+				String temp[]=StringUtils.split(gt.getPictureurl(), ',');
 				belinkedjson.append("{");
 				belinkedjson.append("\"goodsid\":\"").append(gt.getGoodsid()).append("\",");
-				belinkedjson.append("\"goodsname\":\"").append(gt.getGoodsname()).append("\"");
+				belinkedjson.append("\"goodsname\":\"").append(gt.getGoodsname()).append("\",");
+				belinkedjson.append("\"memberprice\":\"").append(gt.getMemberprice()).append("\",");
+				belinkedjson.append("\"price\":\"").append(gt.getPrice()).append("\",");
+				belinkedjson.append("\"pictureurl\":\"").append(temp[0]).append("\"");
 				belinkedjson.append("},");
 			}
 			belinkedjson.deleteCharAt(belinkedjson.length()-1);
@@ -120,9 +124,13 @@ public class GoodsTAspect {
 			belinkedjson.append("[");
 			for(String s:strs){
 				gt=gtn.getGoodsTService().findGoodsById(s);
+				String temp[]=StringUtils.split(gt.getPictureurl(), ',');
 				belinkedjson.append("{");
 				belinkedjson.append("\"goodsid\":\"").append(gt.getGoodsid()).append("\",");
-				belinkedjson.append("\"goodsname\":\"").append(gt.getGoodsname()).append("\"");
+				belinkedjson.append("\"goodsname\":\"").append(gt.getGoodsname()).append("\",");
+				belinkedjson.append("\"memberprice\":\"").append(gt.getMemberprice()).append("\",");
+				belinkedjson.append("\"price\":\"").append(gt.getPrice()).append("\",");
+				belinkedjson.append("\"pictureurl\":\"").append(temp[0]).append("\"");
 				belinkedjson.append("},");
 			}
 			belinkedjson.deleteCharAt(belinkedjson.length()-1);
@@ -142,6 +150,19 @@ public class GoodsTAspect {
 				gbl.setSxlinkedgoodsid("0");
 				@SuppressWarnings("unused")
 				int i=gtn.getGoodsBelinkedTService().updateGoodsBelinked(gbl);
+			}else{
+				gbl.setBelinkedid(gtn.getSerial().Serialid(Serial.GOODSBELINKED));
+				gbl.setMaingoodsid(gtn.getBean().getGoodsid());
+				gbl.setBelinkedgoods(belinkedjson.toString());
+				gbl.setMode("1");//默认单向模式
+				gbl.setState("1");//开启关联
+				gbl.setCreatorid(BaseTools.adminCreateId());
+				gbl.setCreatetime(BaseTools.systemtime());
+				gbl.setUpdatetime(BaseTools.systemtime());
+				gbl.setVersiont(0);
+				gbl.setSxlinkedgoodsid("0");
+				@SuppressWarnings("unused")
+				int i=gtn.getGoodsBelinkedTService().addGoodsBelinkedT(gbl);
 			}
 		}
 	}

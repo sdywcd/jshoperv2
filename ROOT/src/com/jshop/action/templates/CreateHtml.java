@@ -260,7 +260,8 @@ public class CreateHtml extends ActionSupport {
 			map.put(FreeMarkervariable.GOODSCOMMENTS, this.getDataCollectionTAction().findGoodsCommentBygoodsid(gt));
 			//获取规格值
 			map.put(FreeMarkervariable.GOODSSPECIFICATION, this.getDataCollectionTAction().findProductSpecificationsTByspecificationsid(gt));
-			
+			//获取关联商品
+			map.put(FreeMarkervariable.GOODSBELINKED, this.getDataCollectionTAction().findGoodsBelinkedTBygoodsid(gt));
 			String htmlPath = this.createGoodsT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORGOODSDETAIL, gt.getGoodsid(), map);
 			this.getGoodsTService().updateHtmlPath(gt.getGoodsid(), htmlPath);
 		}
