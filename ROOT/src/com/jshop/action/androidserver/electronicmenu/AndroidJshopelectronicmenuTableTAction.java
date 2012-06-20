@@ -218,6 +218,7 @@ public class AndroidJshopelectronicmenuTableTAction extends ActionSupport implem
 		int lineSize=20;
 		List<TableT>list=this.getTableTService().findAllTableT(currentPage, lineSize);
 		StringBuilder json=new StringBuilder();
+		json.append("[");
 		for(Iterator it=list.iterator();it.hasNext();){
 			TableT t=(TableT)it.next();
 			json.append("{");
@@ -231,9 +232,10 @@ public class AndroidJshopelectronicmenuTableTAction extends ActionSupport implem
 			json.append("\"tablestate\":\"").append(t.getTablestate()).append("\",");
 			json.append("\"floor\":\"").append(t.getFloor()).append("\",");
 			json.append("\"rnop\":\"").append(t.getRnop()).append("\"");
-			json.append("}").append("--");
+			json.append("},");
 		}
 		json.deleteCharAt(json.length()-1);
+		json.append("]");
 		this.setResponsejsonstr(json.toString());
 		response.setContentType("text/html");
 		response.setCharacterEncoding("utf-8");

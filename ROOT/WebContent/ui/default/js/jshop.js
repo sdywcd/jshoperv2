@@ -1098,7 +1098,8 @@ function submitPack(pid){
     if(total>0){
         //读取商品会员价
         var memberprice=$("#hidmemberprice").val();
-        var temp  = total/100+parseInt(memberprice);
+        var m=parseInt(memberprice);
+        var temp  = total+parseInt(memberprice);
         var ex = /^\d+$/;
         if (ex.test(temp)) {
             // 则为整数
@@ -1113,13 +1114,14 @@ function submitPack(pid){
     }
 }
 
-function addPackProducts(){
+function addbelinkedGoodsTocart(){
     if(pack_products.length <= 0){
         alert("您没有选择组合套餐商品！");
         return;
     }
     //var a=JSON.stringify(pack_products.isSpecificationsOpen);
     var goodsid="";
+    var needquantity="1";
     var hidurl = $('#hidurl').val();
     $.each(pack_products.data,function(i,v){
         goodsid+=v;

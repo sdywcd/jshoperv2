@@ -1,25 +1,19 @@
 package com.jshop.android.table;
 
 import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,14 +23,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jshop.android.index.R;
-import com.jshop.android.shop.JshopActivityGoodsList;
-import com.jshop.android.shop.JshopActivityGoodsCategoryList;
-import com.jshop.android.shop.JshopActivityGoodsCategoryList.ItemClickListener;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
 import com.jshop.android.util.JshopMPostActionList;
@@ -73,12 +63,7 @@ public class JshopMtable extends Activity {
 		gv=(GridView) this.findViewById(R.id.tablegridView);
 		gv.setOnItemClickListener(new ItemClickListener());
 		//获取table信息
-		try {
-			getTablelist();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		getTablelist();
 		gv.setAdapter(new ImageAdapter(this));
 	}
 	
@@ -105,23 +90,23 @@ public class JshopMtable extends Activity {
 	 * 处理服务器端返回的json数据
 	 * @throws JSONException 
 	 */
-	private void getTablelist() throws JSONException{
+	private void getTablelist(){
 		requestjsonstr=this.queryTableForJshop();
 		if(requestjsonstr!=null){
-			String []strs=requestjsonstr.split("--");
-			for(int i=0;i<strs.length;i++){
+			JSONArray ja=(JSONArray)JSONValue.parse(requestjsonstr);
+			for(int i=0;i<ja.size();i++){
 				Map<String,Object>map=new HashMap<String,Object>();
-				JSONObject jo=new JSONObject(strs[i].toString());
-				map.put("tableid", jo.getString("tableid"));
-				map.put("tableNumber", jo.getString("tableNumber"));
-				map.put("roomName", jo.getString("roomName"));
-				map.put("androidDevicesCount", jo.getString("androidDevicesCount"));
-				map.put("note", jo.getString("note"));
-				map.put("createtime", jo.getString("createtime"));
-				map.put("nop", jo.getString("nop"));
-				map.put("tablestate", jo.getString("tablestate"));
-				map.put("floor", jo.getString("floor"));
-				map.put("rnop", jo.getString("rnop"));
+				JSONObject jo=(JSONObject)(ja.get(i));
+				map.put("tableid", jo.get("tableid").toString());
+				map.put("tableNumber", jo.get("tableNumber").toString());
+				map.put("roomName", jo.get("roomName").toString());
+				map.put("androidDevicesCount", jo.get("androidDevicesCount").toString());
+				map.put("note", jo.get("note").toString());
+				map.put("createtime", jo.get("createtime").toString());
+				map.put("nop", jo.get("nop").toString());
+				map.put("tablestate", jo.get("tablestate").toString());
+				map.put("floor", jo.get("floor").toString());
+				map.put("rnop", jo.get("rnop").toString());
 				tableList.add(map);
 			}
 		}

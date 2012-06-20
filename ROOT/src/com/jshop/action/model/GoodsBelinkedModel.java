@@ -11,6 +11,16 @@ public class GoodsBelinkedModel {
 	private String pictureurl;//主图片
 	
 	private String goodsname;
+	
+	private String htmlpath;
+
+	public String getHtmlpath() {
+		return htmlpath;
+	}
+
+	public void setHtmlpath(String htmlpath) {
+		this.htmlpath = htmlpath;
+	}
 
 	public String getBelinkedgoodsid() {
 		return belinkedgoodsid;

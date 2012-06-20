@@ -87,6 +87,7 @@ public class GoodsTAspect {
 				belinkedjson.append("{");
 				belinkedjson.append("\"goodsid\":\"").append(gt.getGoodsid()).append("\",");
 				belinkedjson.append("\"goodsname\":\"").append(gt.getGoodsname()).append("\",");
+				belinkedjson.append("\"htmlpath\":\"").append(gt.getHtmlPath()).append("\",");
 				belinkedjson.append("\"memberprice\":\"").append(gt.getMemberprice()).append("\",");
 				belinkedjson.append("\"price\":\"").append(gt.getPrice()).append("\",");
 				belinkedjson.append("\"pictureurl\":\"").append(temp[0]).append("\"");
@@ -128,9 +129,11 @@ public class GoodsTAspect {
 				belinkedjson.append("{");
 				belinkedjson.append("\"goodsid\":\"").append(gt.getGoodsid()).append("\",");
 				belinkedjson.append("\"goodsname\":\"").append(gt.getGoodsname()).append("\",");
+				belinkedjson.append("\"htmlpath\":\"").append(gt.getHtmlPath()).append("\",");
 				belinkedjson.append("\"memberprice\":\"").append(gt.getMemberprice()).append("\",");
 				belinkedjson.append("\"price\":\"").append(gt.getPrice()).append("\",");
 				belinkedjson.append("\"pictureurl\":\"").append(temp[0]).append("\"");
+				
 				belinkedjson.append("},");
 			}
 			belinkedjson.deleteCharAt(belinkedjson.length()-1);

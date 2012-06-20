@@ -652,18 +652,16 @@ public class DataCollectionTAction extends ActionSupport {
 		if(!list.isEmpty()){
 			List<GoodsBelinkedModel> gbmlist=new ArrayList<GoodsBelinkedModel>();
 			JSONArray ja = (JSONArray) JSONValue.parse(list.get(0).getBelinkedgoods().toString());
-			GoodsBelinkedModel gbm=new GoodsBelinkedModel();
+			
 			for(int i=0;i<ja.size();i++){
+				GoodsBelinkedModel gbm=new GoodsBelinkedModel();
 				JSONObject jo = (JSONObject) ja.get(i);
-				if(jo.get("goodsid").toString()!=null){
-					gbm.setBelinkedgoodsid(jo.get("goodsid").toString());
-				}
-				if(jo.get("goodsname").toString()!=null){
-					gbm.setGoodsname(jo.get("goodsname").toString());
-				}
+				gbm.setBelinkedgoodsid(jo.get("goodsid").toString());
+				gbm.setGoodsname(jo.get("goodsname").toString());
 				gbm.setMemberprice(jo.get("memberprice").toString());
 				gbm.setPrice(jo.get("price").toString());
 				gbm.setPictureurl(jo.get("pictureurl").toString());
+				gbm.setHtmlpath(jo.get("htmlpath").toString());
 				gbmlist.add(gbm);
 			}
 			return gbmlist;
