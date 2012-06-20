@@ -37,7 +37,7 @@
 					
 					<div class="name">
 										
-					<a target="_blank" href="/product/240603.html">鸿粉团 特价团购769 直接便宜70元 三星（SAMSUNG）S5360 3G手机 WCDMA/GSM Android OS v2.3系统（金属灰）   现货发售，当天发货。全网最低的行货正品手机，快快下手吧~ </a>
+					鸿粉团 特价团购769 直接便宜70元 三星（SAMSUNG）S5360 3G手机 WCDMA/GSM Android OS v2.3系统（金属灰）   现货发售，当天发货。全网最低的行货正品手机，快快下手吧~
 					</div>
 					<div id="pp" class="div1_left">
 					   
@@ -49,24 +49,26 @@
 
                                                <a onclick="goTeamBuy(-339725863, 92274137, 400215,302905,240603,0,50,0);return false;" href="javascript:;">
                                                <span>￥</span>
-                                               <b id="customerPrice_240603">${goodsgroupt.priceladder}</b>
+                                               <b id="customerPrice_240603">${goodsgroupt.groupprice}</b>
                                                </a>
 					   </div>
 
 					<div class="price2">
 					   <div class="h1">
-						<p>高鸿价</p>
+						<p>塔克价</p>
 						<p>节省</p>
 					   </div>
 					   <div class="h1">
 						<cite>
 						<span id="memberprice400215_240603" class="t2">		
-						839.00
-  
+						${goodsgroupt.memberprice}
+						
 						</span>
 						</cite>
-						<cite>						
-						<span id="memberprice2400215_240603" class="t2">839 -${goodsgroupt.priceladder}  </span>
+							<#assign x="${goodsgroupt.memberprice}"/>
+                            <#assign y="${goodsgroupt.groupprice}"/>
+						<cite>					
+						<span id="memberprice2400215_240603" class="t2">${(x?number-y?number)}</span>
 						</cite>
 					   </div>
 					</div>
@@ -91,7 +93,10 @@
 
 					     <span id="ratio"><div style="width:0.0%" class="amo2"></div></span>
 					     </div>
-					   <p>共有<span id="salequantity" name="salequantity">${goodsgroupt.salequantity}</span>份，还剩<span id="peoplecountplux" name="peoplecountplux">${goodsgroupt.salequantity}-${goodsgroupt.SOrderCount}</span>份</p>
+						 <#assign a="${goodsgroupt.salequantity}"/>
+                         <#assign b="${goodsgroupt.SOrderCount}"/>
+					   <p>共有<span id="salequantity" name="salequantity">${goodsgroupt.salequantity}</span>份，
+					   还剩<span id="peoplecountplux" name="peoplecountplux">${(a?number-b?number)}</span>份</p>
 					</div>
 					       
 
@@ -164,11 +169,8 @@
 
 
 				<a style="text-decoration: none" target="_blank" href="/product/240603.html">
-				<div class="div1_right">
-				   <div class="pic">
-					<div class="amount">
-					    <p><span id="totalordercount" name="totalordercount"></span>${goodsgroupt.totalOrderCount}</p>人想购买
-					</div>
+				<div class="div1_right">				   <div class="pic">
+					
 					<img src="${goodsgroupt.pictureurl}" width="470px" height="470px">
 				   </div>
 				</div>
@@ -176,21 +178,6 @@
 			    </div>
 			    <div class="bottom"></div>
 			   </div>
-
-			
-
-     <div class="leftdiv2">
-	
-	        <div class="top"></div>
-		<div class="box">
-		<div class="title">本期活动规则</div>
-		<div class="text">&nbsp;</div>
-		</div>
-		<div class="bottom"></div>
-	
-     </div>
-
-
      <div class="leftdiv2">
 		<div class="top"></div>
 		<div class="box">

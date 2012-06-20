@@ -429,6 +429,49 @@ $(function(){
             jAlert('用户类型必须选择','信息提示');
             return false;
         }
+        var regnotascii = /^[\x00-\xff]$/g ;  //两个字节的字符
+        var regunexpect = /[^a-zA-Z0-9\u4e00-\u9fa5_]/g; //中文英文数字都下划线ok
+        var regemail = /\w+([-]?\w)*@([-]?\w)*[\.]?[\w]{2,3}([\.]?[\w]{2,3})?/; //匹配伊妹儿地址
+        var regpoints = /^[1-9][\d]{1,8}\.[\d]{1,2}|(^0\.)[\d]{1,2}/;//匹配积分10位,两位小数
+        if(username){
+        	if(username.match(regunexpect)){
+        		jAlert('用户名可以以"中文英文数字下划线的组合"','信息提示');
+        		return false;
+        	}
+        	var unamelength = 0;
+        	for(var i=0;i<username.length;i++)
+        		{
+        			var curcode = username.substring(i,1); 
+        			if(regnotascii.test(curcode)) 
+        				{
+        					unamelength += 2;
+        				}
+        			else{
+        					unamelength++;
+        			}
+        		}
+        	if(unamelength > 50){
+        		jAlert('字符串不能大于50','信息提示');
+        		return false;
+        	}
+        }else{
+        	jAlert('用户名字不能为空','信息提示');
+        	return false;
+        }
+        if(email){       	
+        	if(!regemail.test(email)){
+        		jAlert('不是标准的email格式','信息提示');
+        		return false;
+        	}
+        }else{
+        	jAlert('email地址不能为空','信息提示');
+        	return false;
+        }
+        if(!regpoints.test(points)){
+        	jAlert('积分是10位,两位小数','信息提示');
+        	return false;
+        } 
+        
         $.post("adminregister.action",{"username":username,"email":email,"points":points,"grade":grade,"gradename":gradename,"state":state,"userstate":userstate},function(data){
             if(data.msg=="4"){
                 jAlert("用户已经存在","信息提示");
@@ -479,7 +522,48 @@ $(function(){
 			JAlert("请输入原始密码","信息提示");
 			return false;
 		}
-		
+        var regnotascii = /^[\x00-\xff]$/g ;  //两个字节的字符
+        var regunexpect = /[^a-zA-Z0-9\u4e00-\u9fa5_]/g; //中文英文数字都下划线ok
+        var regemail = /\w+([-]?\w)*@([-]?\w)*[\.]?[\w]{2,3}([\.]?[\w]{2,3})?/; //匹配伊妹儿地址
+        var regpoints = /^[1-9][\d]{1,8}\.[\d]{1,2}|(^0\.)[\d]{1,2}/;//匹配积分10位,两位小数
+        if(username){
+        	if(username.match(regunexpect)){
+        		jAlert('用户名可以以"中文英文数字下划线的组合"','信息提示');
+        		return false;
+        	}
+        	var unamelength = 0;
+        	for(var i=0;i<username.length;i++)
+        		{
+        			var curcode = username.substring(i,1); 
+        			if(regnotascii.test(curcode)) 
+        				{
+        					unamelength += 2;
+        				}
+        			else{
+        					unamelength++;
+        			}
+        		}
+        	if(unamelength > 50){
+        		jAlert('字符串不能大于50','信息提示');
+        		return false;
+        	}
+        }else{
+        	jAlert('用户名字不能为空','信息提示');
+        	return false;
+        }
+        if(email){       	
+        	if(!regemail.test(email)){
+        		jAlert('不是标准的email格式','信息提示');
+        		return false;
+        	}
+        }else{
+        	jAlert('email地址不能为空','信息提示');
+        	return false;
+        }
+        if(!regpoints.test(points)){
+        	jAlert('积分是10位,两位小数','信息提示');
+        	return false;
+        } 
 		$.post("UpdateUserMember.action",{"username":username,"password":password,"newpassword":newpassword},function(data){
 			
 			window.location.href="membermanagement.jsp?session="+session+"#member";
@@ -496,6 +580,48 @@ $(function(){
 		var state=$('#state').val();
 		var userstate=$('#userstate').val();
 		var email=$('#email').val();
+        var regnotascii = /^[\x00-\xff]$/g ;  //两个字节的字符
+        var regunexpect = /[^a-zA-Z0-9\u4e00-\u9fa5_]/g; //中文英文数字都下划线ok
+        var regemail = /\w+([-]?\w)*@([-]?\w)*[\.]?[\w]{2,3}([\.]?[\w]{2,3})?/; //匹配伊妹儿地址
+        var regpoints = /^[1-9][\d]{1,8}\.[\d]{1,2}|(^0\.)[\d]{1,2}/;//匹配积分10位,两位小数
+        if(username){
+        	if(username.match(regunexpect)){
+        		jAlert('用户名可以以"中文英文数字下划线的组合"','信息提示');
+        		return false;
+        	}
+        	var unamelength = 0;
+        	for(var i=0;i<username.length;i++)
+        		{
+        			var curcode = username.substring(i,1); 
+        			if(regnotascii.test(curcode)) 
+        				{
+        					unamelength += 2;
+        				}
+        			else{
+        					unamelength++;
+        			}
+        		}
+        	if(unamelength > 50){
+        		jAlert('字符串不能大于50','信息提示');
+        		return false;
+        	}
+        }else{
+        	jAlert('用户名字不能为空','信息提示');
+        	return false;
+        }
+        if(email){       	
+        	if(!regemail.test(email)){
+        		jAlert('不是标准的email格式','信息提示');
+        		return false;
+        	}
+        }else{
+        	jAlert('email地址不能为空','信息提示');
+        	return false;
+        }
+        if(!regpoints.test(points)){
+        	jAlert('积分是10位,两位小数','信息提示');
+        	return false;
+        } 
 		$.post("UpdateUserTunpwd.action",{"userid":userid,"username":username,"email":email,"points":points,"grade":grade,"gradename":gradename,"userstate":userstate,"state":state},function(data){
 			if(data.sucflag){
                window.location.href="membermanagement.jsp?session="+session+"#member";

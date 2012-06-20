@@ -226,118 +226,13 @@
           </div>
         </div>
         <div class="setmeal mt10">
-          <script type="text/javascript" src="/js/jquery.js"></script>
-          <script type="text/javascript" src="/js/tao3c.js"></script>
-          <script type="text/javascript" src="/js/jQZoom/jquery.jqzoom.js"></script>
-          <script type="text/javascript">
 
-
-
-var PACK_PRODUCTS_FLAG = 'pack_product_';
-var pack_products = {'productid':'','data':{},'length':0};
-var total =0;
-
-function submitPack(pid){
-	if(pack_products.data[pid]){
-		jQuery('#pack_product_' + pid).attr("class","");
-		jQuery('#img_pack_product_' + pid).attr("src","../images/shop_1.gif");
-		delete pack_products.data[pid];
-		pack_products['length'] = pack_products['length'] - 1;
-		total = parseInt(total)-parseInt(jQuery('#pp_price_' + pid).val());
-	}else{
-		jQuery('#pack_product_' + pid).attr("class","cur");
-		jQuery('#img_pack_product_' + pid).attr("src","../images/shop_2.gif");
-		pack_products.data[pid] = '1';
-		pack_products['length'] = pack_products['length'] + 1;
-		total = parseInt(total)+parseInt(jQuery('#pp_price_' + pid).val());
-	}
-	if(total>0){
-		var temp  = total/100+888.00;
-		var ex = /^\d+$/;
-		if (ex.test(temp)) {
-			// 则为整数
-			jQuery("#packTotalPrice").html(temp+".00");
-		}
-		else{
-			jQuery("#packTotalPrice").html(temp);
-		}
-		jQuery(".left_div").css("display","");
-	}else{
-		jQuery(".left_div").css("display","none");
-	}
-}
-
-function addPackProducts(){
-	if(pack_products.length <= 0){
-		alert("您没有选择组合套餐商品！");
-		return;
-	}
-	jQuery('#pack_products').val(json2str(pack_products.data));
-	document.getElementById("productForm").submit();
-}
-
-function addPackProductsToCart(url) {
-	createXMLHttpRequest();
-	if (xmlHttp == null) {
-		window.status = "你的浏览器不支持AJAX!";
-		return;
-	}
-	xmlHttp.open("POST", url, true);
-	xmlHttp.onreadystatechange = addPackProductsToCartCallBack;
-	xmlHttp.setRequestHeader("Content-Type",
-					"application/x-www-form.urlencoded");
-	xmlHttp.send(url);
-}
-function addPackProductsToCartCallBack() {
-	if (xmlHttp.readyState == 4) {
-		var obj = xmlHttp.responseText;
-		alert(obj);
-	}
-}
-
-jQuery(function(){
-	var $content= jQuery("#detail_scro1");
-	var i= 4;
-	var m= 4;
-	var l= 0
-	var count=$content.find("li").length;
-	jQuery("#ctrlR_unit").click(function(){
-		if(!$content.is(":animated")){
-			if(m<count){
-				m++;
-				$content.animate({left:l-125},600);
-				l=l-125;
-			}
-		}
-	});
-	jQuery("#ctrlL_unit").click(function(){
-		if(!$content.is(":animated")){
-			if(m>i){
-				m--;
-				$content.animate({left:l+125},600);
-				l=l+125;
-			}
-		}
-	});
-	
-});
-</script>
           <div class="setmeal_top">
             <p><img src="/ui/default/images/setmeal_t_1.gif"></p>
             <cite><img src="/ui/default//images/setmeal_t_3.gif"></cite></div>
           <h1 id="unit_h1">
             <p>该商品所有的套餐列表</p>
             <cite>总共有3件可选套餐 </cite></h1>
-          <script type="text/javascript" src="/js/jquery.js"></script>
-          <script type="text/javascript">
-	function noticeShowControl(){
-		if(jQuery('#divPop').css("display")=="none"){
-			jQuery('#divPop').css('display','');
-		}else{
-			jQuery('#divPop').css('display','none');
-		}
-	}
-</script>
           <div class="set_1" id="div_set1">
             <div class="set_1_l">
               <p><img width="160" hight="160" src="http://img.tao3c.com/601/603/51311/51315/51410/196100_1_pic200_2625.jpg" alt="诺基亚（NOKIA）C5-03 标准版 3G手机（白银色）WCDMA/GSM 非定制机"></p>
