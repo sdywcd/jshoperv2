@@ -18,7 +18,6 @@
 <link rel="stylesheet" type="text/css" href="${basepath}ui/default/js/easyslider1.7/css/screen.css"/>
 <script type="text/javascript"  src="${basepath}ui/default/js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="${basepath}ui/default/js/easyslider1.7/js/easySlider1.7.js">
-<script type="text/javascript" src="${basepath}js/jquery.query.js"></script>
 
 </script>
 <script type="text/javascript">	
@@ -59,7 +58,7 @@
 
 <!--载入公共头文件-->
 <#include "/WEB-INF/theme/default/shop/header.ftl">
-
+<input type="hidden" id="hidurl" name="hidurl" value=""/>
 <div class="wrap">
 
 	    <div style="background:url(${basepath}ui/default/images/g_topbanner.jpg) no-repeat top center; width: 100%;">
@@ -71,7 +70,7 @@
 				<div class="top"></div>
 				<div class="box">
 					<#if (goodsgroupt??)&&(goodsgroupt?size>0) >
-					<#setting number_format="0.00">
+							<#setting number_format="0.00">
 					<#assign x="${goodsgroupt.memberprice}"/>
                             <#assign y="${goodsgroupt.groupprice}"/>
 					<form method="post" enctype="multipart/form-data" id="buyForm">
@@ -88,11 +87,11 @@
 					       <div class="price1" id="scareBuyBtn">
 					       
 
-                                               <a onclick="goTeamBuy(-339725863, 92274137, 400215,302905,240603,0,50,0);return false;" href="javascript:;">
+                                              <a onClick="addtogroupcart(${goodsgroupt.groupid});" href="#"> 
                                                <span>￥</span>
                                                <b id="customerPrice_240603">${goodsgroupt.groupprice}</b>
                                                </a>
-					   </div>
+							</div>
 
 					<div class="price2">
 					   <div class="h1">
@@ -107,7 +106,8 @@
 						</span>
 						</cite>
 							
-						<cite>					
+						<cite>		
+												
 						<span id="memberprice2400215_240603" class="t2">${(x?number-y?number)}</span>
 						</cite>
 					   </div>
@@ -133,6 +133,7 @@
 
 					     <span id="ratio"><div style="width:0.0%" class="amo2"></div></span>
 					     </div>
+
 						 <#assign a="${goodsgroupt.salequantity}"/>
                          <#assign b="${goodsgroupt.SOrderCount}"/>
 					   <p>共有<span id="salequantity" name="salequantity">${goodsgroupt.salequantity}</span>份，
@@ -160,12 +161,14 @@
 						</span>		
 					    </div>
 					</div>
-           		  <div class="wrapjiathis" style="float: left;margin: 20px 0 0 10px;width: 95%;">
-                  <!-- JiaThis Button BEGIN -->
-                  <div id="ckepop"> <span class="jiathis_txt">分享到：</span> <a class="jiathis_button_qzone">QQ空间</a> <a class="jiathis_button_tsina">新浪微博</a> <a class="jiathis_button_renren">人人网</a> <a class="jiathis_button_kaixin001">开心网</a> <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a> <a class="jiathis_counter_style"></a> </div>
-                  </div>
-                  <script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
-                  <!-- JiaThis Button END -->
+                                        <div class="sw">
+						<a style="background:url(${basepath}ui/default/images/icon02.gif) no-repeat;" class="kaixin" href="javascript:window.open('http://www.kaixin001.com/repaste/share.php?rtitle='+encodeURIComponent(document.getElementById('contenttt').value)+'&amp;rurl='+encodeURIComponent(document.location.href)+'&amp;rcontent='+encodeURIComponent(document.getElementById('contenttt').value.substring(0,76)));void(0)">开心网</a>
+						<a style="background:url(${basepath}ui/default/images/icon04.gif) no-repeat;" class="renren" href="javascript:window.open('http://share.renren.com/share/buttonshare.do?title='+encodeURIComponent(document.getElementById('contenttt').value)+'&amp;link='+encodeURIComponent(document.location.href),'favit','');void(0)">人人网</a>
+						<a style="background:url(${basepath}ui/default/images/icon03.gif) no-repeat;" class="douban" href="javascript:window.open('http://www.douban.com/recommend/?title='+encodeURIComponent(document.getElementById('contenttt').value)+'&amp;url='+encodeURIComponent(location.href),'favit','');void(0)">豆瓣</a>
+						<a style="background:url(${basepath}ui/default/images/icon05.gif) no-repeat;" class="sina" href="javascript:(function(){window.open('http://v.t.sina.com.cn/share/share.php?title='+encodeURIComponent(document.getElementById('contenttt').value)+'&amp;url='+encodeURIComponent(location.href)+'&amp;source=bookmark','_blank','width=450,height=400');})()">微博</a>
+						<a class="im" title="分享到QQ微博" href="javascript:void(window.open('http://v.t.qq.com/share/share.php?title='+encodeURIComponent(document.getElementById('contenttt').value)+'&amp;rurl='+encodeURIComponent(document.location.href)));">qq微博</a>
+						<a class="mail" title="邮件" href="mailto:?subject=塔克团购&amp;body=哈喽，我看塔克商城在团购这个东东：三星（SAMSUNG）S5360 3G手机 WCDMA/GSM Android OS v2.3系统（金属灰）……。我觉得挺不错的，价格还很便宜。建议你也来看看哦 ">邮件</a>
+					</div>
 				      </div>
 				      <input type="hidden" value="塔克团购三星（SAMSUNG）S5360 3G手机 WCDMA/GSM Android OS v2.3系统（金属灰），建议你也来看看http://www.tao3c.com/teamBuy/302905.html" name="contenttt" id="contenttt">
 				  </form>
@@ -231,6 +234,7 @@
 
 <#include "/WEB-INF/theme/default/shop/footer.ftl">
 <script type="text/javascript" src="${basepath}ui/default/js/jshop.js"></script>
+<script type="text/javascript" src="${basepath}ui/default/js/jquery.query.js"></script>
 			
 </body>
 </html>
