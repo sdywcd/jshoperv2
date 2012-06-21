@@ -1,45 +1,30 @@
 package com.jshop.android.shop;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jshop.android.index.JshopMIndex;
 import com.jshop.android.index.R;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMPostActionList;
-import com.jshop.android.shop.JshopActivityGoodsList;
 public class JshopActivityGoodsCategoryList extends Activity{
 	private GridView gv;
 	private String requestjsonstr;
@@ -53,12 +38,8 @@ public class JshopActivityGoodsCategoryList extends Activity{
 		this.setContentView(R.layout.jshop_m_goodscategory);
 		gv=(GridView)this.findViewById(R.id.goodscategorygridView);
 		gv.setOnItemClickListener(new ItemClickListener());
-		try {
-			this.getGoodsCategoryList();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
+		this.getGoodsCategoryList();
 		gv.setAdapter(new ImageAdapter(this));
 		
 	}
@@ -75,19 +56,19 @@ public class JshopActivityGoodsCategoryList extends Activity{
 	 * 处理服务器端返回的json数据
 	 * @throws JSONException 
 	 */
-	private void getGoodsCategoryList() throws JSONException{
+	private void getGoodsCategoryList(){
 		requestjsonstr=this.queryGoodsCategoryForJshop();
 		if(requestjsonstr!=null){
-			String []strs=requestjsonstr.split("--");
-			for(int i=0;i<strs.length;i++){
-				JSONObject jo=new JSONObject(strs[i].toString());
-				if(jo.getString("grade").equals("0")){
-					Map<String,Object>map=new HashMap<String,Object>();
-					map.put("goodsCategoryTid", jo.getString("goodsCategoryTid"));
-					map.put("grade", jo.getString("grade"));
-					map.put("name", jo.getString("name"));
-					map.put("goodsTypeId", jo.getString("goodsTypeId"));
-					map.put("sort", jo.getString("sort"));
+			JSONArray ja=(JSONArray)JSONValue.parse(requestjsonstr);
+			for(int i=0;i<ja.size();i++){
+				JSONObject jo=(JSONObject)(ja.get(i));
+				if(jo.get("grade").toString().equals("0")){
+					HashMap<String,Object>map=new HashMap<String,Object>();
+					map.put("goodsCategoryTid", jo.get("goodsCategoryTid").toString());
+					map.put("grade", jo.get("grade").toString());
+					map.put("name", jo.get("name").toString());
+					map.put("goodsTypeId", jo.get("goodsTypeId").toString());
+					map.put("sort", jo.get("sort").toString());
 					goodscategoryList.add(map);
 				}
 			}

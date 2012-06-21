@@ -7,53 +7,27 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.http.util.EncodingUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 import android.app.Activity;
-import android.app.ListActivity;
-import android.app.LocalActivityManager;
-import android.app.TabActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 import android.widget.SimpleAdapter.ViewBinder;
-import android.widget.TabHost;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.jshop.android.index.JshopActivityIndexMenu;
-import com.jshop.android.index.JshopMIndex;
-import com.jshop.android.index.JshopMIndexbottom;
-import com.jshop.android.index.JshopMIndexcenter;
-import com.jshop.android.index.JshopMIndexmsgconfirm;
 import com.jshop.android.index.R;
-import com.jshop.android.login.JshopActivityLogin;
-import com.jshop.android.register.JshopActivityRegister;
-import com.jshop.android.table.JshopMtable;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
 import com.jshop.android.util.JshopMPostActionList;
@@ -97,13 +71,11 @@ public class JshopMelectroorder extends Activity{
 			String tableNumber=temp[1].toString();
 			try {
 				this.findGoodstoElectrocart(tablestate,tableNumber);
-			} catch (JSONException e) {
+			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block    
-				e.printStackTrace();
 			}
+			
 		}
 			
 		SimpleAdapter listItemAdapter=new SimpleAdapter(this,electrocartgoodslists,R.layout.jshop_m_goodselectrocartitem,new String[]{"picture","goodsname","memberprice","needquantity"},new int[]{R.id.pictureurl,R.id.goodsname,R.id.memberprice,R.id.needquantity});
@@ -149,19 +121,19 @@ public class JshopMelectroorder extends Activity{
 	
 	
 	
-	private void findGoodstoElectrocart(String tablestate,String tableNumber) throws IOException, JSONException{
+	private void findGoodstoElectrocart(String tablestate,String tableNumber) throws IOException{
 		//进入到读取电子菜单购物车列表
 		requestjsonstr=findelectrocartForJshop(tablestate,tableNumber);
 		if(requestjsonstr!=null){
-			String []strs=requestjsonstr.split("--");
-			for(int i=0;i<strs.length;i++){
+			JSONArray ja=(JSONArray)JSONValue.parse(requestjsonstr);
+			for(int i=0;i<ja.size();i++){
 				HashMap<String,Object>map=new HashMap<String,Object>();
-				JSONObject jo=new JSONObject(strs[i].toString());
-				map.put("picture", getPictureurlImg(JshopActivityUtil.BASE_URL+jo.getString("picture")));
-				map.put("goodsname", jo.getString("goodsname"));
-				map.put("memberprice", "￥"+jo.getString("memberprice"));
-				map.put("goodsid", jo.getString("goodsid"));
-				map.put("needquantity", jo.getString("needquantity").toString()+"份");
+				JSONObject jo=(JSONObject)(ja.get(i));
+				map.put("picture", getPictureurlImg(JshopActivityUtil.BASE_URL+jo.get("picture").toString()));
+				map.put("goodsname", jo.get("goodsname").toString());
+				map.put("memberprice", "￥"+jo.get("memberprice").toString());
+				map.put("goodsid", jo.get("goodsid")).toString();
+				map.put("needquantity", jo.get("needquantity").toString()+"份");
 				electrocartgoodslists.add(map);
 			}
 		}

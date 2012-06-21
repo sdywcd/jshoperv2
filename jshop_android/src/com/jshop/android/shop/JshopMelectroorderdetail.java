@@ -6,32 +6,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.http.util.EncodingUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.jshop.android.index.JshopMIndex;
-import com.jshop.android.index.R;
-import com.jshop.android.shop.JshopActivityGoodsCategoryList;
-import com.jshop.android.shop.JshopActivityGoodsList;
-import com.jshop.android.shop.JshopMelectrocart;
-import com.jshop.android.table.JshopMtable;
-import com.jshop.android.util.Arith;
-import com.jshop.android.util.JshopActivityUtil;
-import com.jshop.android.util.JshopMParams;
-import com.jshop.android.util.JshopMPostActionList;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.jshop.android.index.R;
+import com.jshop.android.util.Arith;
+import com.jshop.android.util.JshopActivityUtil;
+import com.jshop.android.util.JshopMParams;
+import com.jshop.android.util.JshopMPostActionList;
 
 /**
  * 餐饮系统主界面
@@ -81,15 +75,7 @@ public class JshopMelectroorderdetail extends Activity {
 			Toast t=Toast.makeText(getApplicationContext(), "您还没有消费", Toast.LENGTH_LONG);
 			t.show();
 		}else{
-			try {
-				findelectrocart(temp[0],temp[1]);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			findelectrocart(temp[0],temp[1]);
 		}
 		//向页面注入订单详细信息
 		orderdetail=(TextView)this.findViewById(R.id.orderdetail);
@@ -150,19 +136,19 @@ public class JshopMelectroorderdetail extends Activity {
 	 * @throws JSONException
 	 * @throws IOException
 	 */
-	public void findelectrocart(String tablestate,String tableNumber) throws JSONException, IOException{
+	public void findelectrocart(String tablestate,String tableNumber){
 		electrocartgoodslists.clear();
 		requestjsonstr=findelectrocartForJshop(tablestate,tableNumber);
-		String []strs=requestjsonstr.split("--");
-		for(int i=0;i<strs.length;i++){
+		JSONArray ja=(JSONArray)JSONValue.parse(requestjsonstr);
+		for(int i=0;i<ja.size();i++){
 			HashMap<String,Object>map=new HashMap<String,Object>();
-			JSONObject jo=new JSONObject(strs[i].toString());
-			map.put("goodsname", jo.getString("goodsname"));
-			map.put("memberprice", "￥"+jo.getString("memberprice"));
-			map.put("goodsid", jo.getString("goodsid"));
-			map.put("needquantity", jo.getString("needquantity").toString());
-			totalneedquantity=Arith.add(totalneedquantity, Double.parseDouble(jo.getString("needquantity")));
-			totalprice=Arith.add(totalprice, Arith.mul(Double.parseDouble(jo.getString("memberprice")), Double.parseDouble(jo.getString("needquantity"))));
+			JSONObject jo=(JSONObject)(ja.get(i));
+			map.put("goodsname", jo.get("goodsname").toString());
+			map.put("memberprice", "￥"+jo.get("memberprice").toString());
+			map.put("goodsid", jo.get("goodsid").toString());
+			map.put("needquantity", jo.get("needquantity").toString());
+			totalneedquantity=Arith.add(totalneedquantity, Double.parseDouble(jo.get("needquantity").toString()));
+			totalprice=Arith.add(totalprice, Arith.mul(Double.parseDouble(jo.get("memberprice").toString()), Double.parseDouble(jo.get("needquantity").toString())));
 			electrocartgoodslists.add(map);
 		}
 	}
