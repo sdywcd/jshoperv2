@@ -13,7 +13,7 @@
 <#include "/WEB-INF/theme/default/shop/header.ftl">
 
 <div id="main">
-
+<input id="hidurl" name="hidurl" type="hidden" value=""/>
   <div id="errorMsgDiv" style="padding-left: 20px; "> <font color="red">&nbsp;&nbsp;&nbsp;&nbsp;温馨提示：</font>请输入正确的商品数量！ </div>
   <div class="head_nav">
 				<div class="head_shopcar_step">
@@ -67,8 +67,9 @@
 			</td>
               <td class="td3"><span>￥${cart.price}</span><br>
               ￥${cart.favorable} </td>
+			<#if cart.productid=="0"||cart.productid=="">
             <td class="td4">
-               <a id="reduceamount" onclick="changereduceamount(${cart.goodsid},${cart.weight},${cart.favorable?string('0')})">
+			   <a id="reduceamount" onclick="changereduceamount(${cart.goodsid},${cart.weight},${cart.favorable?string('0')})">
 				<img src="${basepath}ui/default/images/bag_close.gif" alt="" />
 			</a>
 			<input onblur="changeinfo(${cart.goodsid},${cart.weight},${cart.favorable?string('0')})" type="text" name="amount,${cart.favorable?string('0')},${cart.weight}" id="amount${cart.goodsid}" value="${cart.needquantity}" size="2"/>
@@ -78,9 +79,25 @@
 			<!-- 隐藏的goodsid -->
 			<input type="hidden" id="hidgoodsid" name="hidgoodsid" value="${cart.goodsid}"/>
 			</td>
+			<#else>
+			<td class="td4">
+			   <a id="reduceamount" onclick="changereduceamount(${cart.productid},${cart.weight},${cart.favorable?string('0')})">
+				<img src="${basepath}ui/default/images/bag_close.gif" alt="" />
+			</a>
+			<input onblur="changeinfo(${cart.productid},${cart.weight},${cart.favorable?string('0')})" type="text" name="amount,${cart.favorable?string('0')},${cart.weight}" id="amount${cart.productid}" value="${cart.needquantity}" size="2"/>
+			<a id="plusamount"  onclick="changeplusamount(${cart.productid},${cart.weight},${cart.favorable?string('0')})">
+				<img src="${basepath}ui/default/images/bag_open.gif" alt="" />
+			</a>
+			<!-- 隐藏的goodsid -->
+			<input type="hidden" id="hidproductid" name="hidproductid" value="${cart.productid}"/>
+			</td>
+			</#if>
             <td class="td5"><span id="integral">${cart.points}</span></td>
             <td class="td7">
-              <a href="javascript:void(0)" onclick="delCartBygoodsid(${cart.goodsid});">删除</a></td>
+				
+              <a href="javascript:void(0)" onclick="delCartByid(${cart.id});">删除</a>
+			
+			  </td>
           </tr>
           </#list>
 		 </#if>

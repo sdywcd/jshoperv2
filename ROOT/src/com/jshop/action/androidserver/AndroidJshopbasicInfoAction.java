@@ -121,6 +121,7 @@ ServletRequestAware, ServletResponseAware {
 		beanlist=this.getJshopbasicInfoTService().findAllJshopbasicInfoNoParam(currentPage, lineSize, state);
 		if(beanlist!=null){
 			StringBuilder json=new StringBuilder();
+			json.append("[");
 			for(Iterator it=beanlist.iterator();it.hasNext();){
 				JshopbasicInfoT jbi=(JshopbasicInfoT)it.next();
 				String []strs=jbi.getSitelogo().split(",");
@@ -128,9 +129,10 @@ ServletRequestAware, ServletResponseAware {
 				json.append("{");
 				json.append("\"sitelogo\":\"").append(jbi.getSitelogo()).append("\",");
 				json.append("\"creatorid\":\"").append(jbi.getCreatorid()).append("\"");
-				json.append("}").append("-");
+				json.append("},");
 			}
 			json.deleteCharAt(json.length()-1);
+			json.append("]");
 			this.setJsonstr(json.toString());
 			response.setContentType("text/html");
 			response.setCharacterEncoding("utf-8");

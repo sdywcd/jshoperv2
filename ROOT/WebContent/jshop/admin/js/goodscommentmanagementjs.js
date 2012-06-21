@@ -137,54 +137,24 @@ $(function() {
 		dataType : 'json',
 		cache : false,
 		colModel : [{
-			display : '评论的商品',
+			display : '被评论的商品',
 			name : 'goodsname',
-			width : 200,
+			width : 500,
 			sortable : true,
 			align : 'center'
-		}, {
-			display : '评论/回复内容',
-			name : 'commentcontent',
-			width : 300,
-			sortable : true,
-			align : 'center'
-		}, {
-			display : '评论人/回复人',
-			name : 'replyorcommentusername',
-			width : 150,
-			sortable : true,
-			align : 'center'
-		}, {
-			display : '发表时间',
-			name : 'posttime',
-			width : 150,
-			sortable : true,
-			align : 'center'
-		}, {
+		},{
 			display : '状态',
 			name : 'state',
 			width : 100,
 			sortable : true,
 			align : 'center'
-		}, {
-			display : '评论类型',
-			name : 'replyorcomment',
-			width : 100,
-			sortable : true,
-			align : 'center'
-		}, {
-			display : '提醒',
-			name : 'emailable',
-			width : 100,
-			sortable : true,
-			align : 'center'
-		}, {
-			display : '备注状态',
-			name : 'virtualadd',
-			width : 100,
-			sortable : true,
-			align : 'center'
-		} ],
+		},{
+            display : '操作',
+            name : 'operating',
+            width : 200,
+            sortable : true,
+            align : 'center'
+        }],
 		buttons : [ {
 			name : '设置商品分值和评论数据',
 			bclass : 'add',
@@ -322,3 +292,34 @@ $(function(){
 })
 /*===========================================Gorgeous split-line==============================================*/
 
+/**
+获取商品详细的评论数据
+*/
+$(function(){
+    var goodsid=$.query.get("goodsid");
+    if(goodsid==""){
+        return false;
+    }
+    $.post("getGoodscommentDetails.action",{"goodsid":goodsid},function(data){
+        if(data.sucflag){
+            var temp="";
+            $(".title h5").text(data.beanlist[0].goodsname);
+            $.each(data.beanlist,function(i,v){
+                temp+="<h4>"+v.commentcontent+"</h4>";
+                temp+="<ul class='square'>";
+                temp+="<li>"+v.replyorcommentusername+"于"+v.posttime+"对"+v.goodsname+"进行评论</li>";
+                temp+="<li>评分等级"+v.score+"</li>";
+                if(v.state=="1"){
+                    temp+="<li><input type='button' id='hidecomment'+"+v.commentid+" name='hidecomment'+"+v.commentid+" value='隐藏'/></li>";
+                }else{
+                    temp+="<li><input type='button' id='showcomment'+"+v.commentid+" name='showcomment'+"+v.commentid+" value='显示'/></li>";
+                }
+                temp+="<input type='hidden' id='hidecommentid'+"+v.commentid+" name='hidecommentid'+"+v.commentid+" value='"+v.commentid+"'/>";
+                temp+="<li><input type='button' id='reply'+"+v.commentid+" name='reply'+"+v.commentid+" value='回复'/></li>";
+                temp+="</ul>";
+            });
+            $("#detailcomments").html(temp);
+        }
+    });
+    
+});

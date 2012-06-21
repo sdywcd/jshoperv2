@@ -1142,8 +1142,34 @@ function addbelinkedGoodsTocart(){
             window.location.href = data.hidurl;
         }
     });
+
   
 }
+/**
+ * 团购商品页面
+ * 
+ */
+// 点击加入团购购物车
+function addtogroupcart(groupid) {
+	var needquantity = 1;
+	var hidurl = $('#hidurl').val();
+	$.post("addGroupCart.action", {
+		"groupid" : groupid,
+		"needquantity" : needquantity,
+		"hidurl" : hidurl
+	}, function(data) {
+		if (!data.slogin) {
+			// 跳转到登录页面
+			window.location.href = "user/login.html?redirecturl=" + hidurl;
+		} else if (data.sucflag) {
+			// 跳转到团购订单页面
+			window.location.href = "InitGroupOrder.action";
+		} else {
+			// 跳转到商品页面
+			window.location.href = data.hidurl;
+		}
+	});
 
+}
 
 

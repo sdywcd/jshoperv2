@@ -46,7 +46,8 @@ public class GoodsCommentTAction extends ActionSupport {
 	private GoodsT g = new GoodsT();
 	private String query;//text
 	private String qtype;//select
-	private GoodsCommentT beanlist = new GoodsCommentT();
+	private GoodsCommentT bean = new GoodsCommentT();
+	private List<GoodsCommentT>beanlist=new ArrayList<GoodsCommentT>();
 	private List rows = new ArrayList();
 	private int rp;
 	private int page = 1;
@@ -192,12 +193,13 @@ public class GoodsCommentTAction extends ActionSupport {
 		this.qtype = qtype;
 	}
 
-	public GoodsCommentT getBeanlist() {
-		return beanlist;
+
+	public GoodsCommentT getBean() {
+		return bean;
 	}
 
-	public void setBeanlist(GoodsCommentT beanlist) {
-		this.beanlist = beanlist;
+	public void setBean(GoodsCommentT bean) {
+		this.bean = bean;
 	}
 
 	public List getRows() {
@@ -264,6 +266,14 @@ public class GoodsCommentTAction extends ActionSupport {
 		this.sucflag = sucflag;
 	}
 
+	public List<GoodsCommentT> getBeanlist() {
+		return beanlist;
+	}
+
+	public void setBeanlist(List<GoodsCommentT> beanlist) {
+		this.beanlist = beanlist;
+	}
+
 	/**
 	 * 去除查询所有商品类别的错误
 	 */
@@ -325,26 +335,9 @@ public class GoodsCommentTAction extends ActionSupport {
 			} else {
 				gctt.setState("禁止");
 			}
-			if (gctt.getReplyorcomment().equals("1")) {
-				gctt.setReplyorcomment("商品评论");
-			} else {
-				gctt.setReplyorcomment("回复评论");
-			}
-			if (gctt.getEmailable().equals("1")) {
-				gctt.setEmailable("邮件提醒");
-			} else if (gctt.getEmailable().equals("2")) {
-				gctt.setEmailable("站内信提醒");
-			} else {
-				gctt.setEmailable("缺省行为");
-			}
-			if (gctt.getVirtualadd().equals("1")) {
-				gctt.setVirtualadd("虚拟");
-			} else {
-				gctt.setVirtualadd("正常");
-			}
 			Map cellMap = new HashMap();
 			cellMap.put("id", gctt.getCommentid());
-			cellMap.put("cell", new Object[] { gctt.getGoodsname(), gctt.getCommentcontent(), gctt.getReplyorcommentusername(), BaseTools.formateDbDate(gctt.getPosttime()), gctt.getState(), gctt.getReplyorcomment(), gctt.getEmailable(), gctt.getVirtualadd() });
+			cellMap.put("cell", new Object[] { gctt.getGoodsname(), gctt.getState(), "<a id='showgoodscomment' href='showdetailcomment.jsp?goodsid=" + gctt.getGoodsid() + "' name='showgoodscomment'>[查看详细]</a>"});
 			rows.add(cellMap);
 		}
 	}
@@ -395,6 +388,28 @@ public class GoodsCommentTAction extends ActionSupport {
 		}
 		return "json";
 	}
+	
+	/**
+	 * 后台获取商品的详细评论数据
+	 * @return
+	 */
+	@Action(value = "getGoodscommentDetails", results = { @Result(name = "json", type = "json") })
+	public String getGoodscommentDetails(){
+		if(Validate.StrNotNull(this.getGoodsid())){
+			String goodsid=this.getGoodsid().trim();
+			int currentPage=1;
+			int lineSize=65535;
+			List<GoodsCommentT>list=this.getGoodsCommentTService().findGoodsCommentByGoodsid(goodsid, currentPage, lineSize);
+			if(!list.isEmpty()){
+				this.setBeanlist(list);
+				this.setSucflag(true);
+				return "json";
+			}
+		}
+		this.setSucflag(false);
+		return "json";
+	}
+	
 	
 
 	

@@ -183,6 +183,7 @@ ServletRequestAware, ServletResponseAware {
 				String temp=null;
 				String []temparray=null;
 				StringBuilder json=new StringBuilder();
+				json.append("[");
 				for(Iterator it=list.iterator();it.hasNext();){
 					GoodsT gt=(GoodsT)it.next();
 					temparray=StringUtil.split(gt.getPictureurl(), ',');
@@ -272,9 +273,10 @@ ServletRequestAware, ServletResponseAware {
 					json.append("\"ismobileplatformgoods\":\"").append(gt.getIsmobileplatformgoods()).append("\",");
 					json.append("\"sales\":\"").append(gt.getSales()).append("\",");
 					json.append("\"realsales\":\"").append(gt.getRealsales()).append("\"");
-					json.append("}").append("--");
+					json.append("},");
 				}
 				json.deleteCharAt(json.length()-1);
+				json.append("]");
 				this.setResponsejsonstr(json.toString());
 				response.setContentType("text/html");
 				response.setCharacterEncoding("utf-8");
@@ -296,6 +298,7 @@ ServletRequestAware, ServletResponseAware {
 		String state="1";//表示显示的商品分类
 		List<GoodsCategoryT>list=this.getGoodsCategoryTService().findAllGoodsCategoryT(state);
 		StringBuilder json=new StringBuilder();
+		json.append("[");
 		for(Iterator it=list.iterator();it.hasNext();){
 			GoodsCategoryT gct=(GoodsCategoryT)it.next();
 			json.append("{");
@@ -314,9 +317,10 @@ ServletRequestAware, ServletResponseAware {
 			json.append("\"creatorid\":\"").append(gct.getCreatorid()).append("\",");
 			json.append("\"parentName\":\"").append(gct.getParentName()).append("\",");
 			json.append("\"htmlpath\":\"").append(gct.getHtmlpath()).append("\"");
-			json.append("}").append("--");
+			json.append("},");
 		}
 		json.deleteCharAt(json.length()-1);
+		json.append("]");
 		this.setResponsejsonstr(json.toString());
 		response.setContentType("text/html");
 		response.setCharacterEncoding("utf-8");
@@ -338,6 +342,7 @@ ServletRequestAware, ServletResponseAware {
 				String temp=null;
 				String []temparray=null;
 				StringBuilder json=new StringBuilder();
+				json.append("[");
 				for(Iterator it=beanlist.iterator();it.hasNext();){
 					GoodsT gt=(GoodsT)it.next();
 					temparray=StringUtil.split(gt.getPictureurl(), ',');
@@ -427,9 +432,10 @@ ServletRequestAware, ServletResponseAware {
 					json.append("\"ismobileplatformgoods\":\"").append(gt.getIsmobileplatformgoods()).append("\",");
 					json.append("\"sales\":\"").append(gt.getSales()).append("\",");
 					json.append("\"realsales\":\"").append(gt.getRealsales()).append("\"");
-					json.append("}").append("--");
+					json.append("},");
 				}
 				json.deleteCharAt(json.length()-1);
+				json.append("]");
 				this.setResponsejsonstr(json.toString());
 				response.setContentType("text/html");
 				response.setCharacterEncoding("utf-8");
@@ -454,12 +460,13 @@ ServletRequestAware, ServletResponseAware {
 			GoodsT gt=new GoodsT();
 			gt=this.getGoodsTService().findGoodsById(this.getGoodsid().trim());
 			if(gt!=null){
+				StringBuilder json=new StringBuilder();
 				String temp=null;
 				String []temparray=null;
 				temparray=gt.getPictureurl().split(",");
 				temp=temparray[0];
 				gt.setPictureurl(temp);
-				StringBuilder json=new StringBuilder();
+				json.append("[");
 				json.append("{");
 				json.append("\"goodsid\":\"").append(gt.getGoodsid()).append("\",");
 				json.append("\"goodsname\":\"").append(gt.getGoodsname()).append("\",");
@@ -544,7 +551,7 @@ ServletRequestAware, ServletResponseAware {
 				json.append("\"ismobileplatformgoods\":\"").append(gt.getIsmobileplatformgoods()).append("\",");
 				json.append("\"sales\":\"").append(gt.getSales()).append("\",");
 				json.append("\"realsales\":\"").append(gt.getRealsales()).append("\"");
-				json.append("}");
+				json.append("}]");
 				this.setResponsejsonstr(json.toString());
 				response.setContentType("text/html");
 				response.setCharacterEncoding("utf-8");

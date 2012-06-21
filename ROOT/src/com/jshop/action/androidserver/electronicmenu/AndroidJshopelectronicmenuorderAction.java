@@ -255,7 +255,7 @@ ServletRequestAware, ServletResponseAware {
 			emo=this.getElectronicMenuOrderTService().findElectronicMenuOrderTByelectronicMenuOrderid(emorderid);
 			if(emo!=null){
 				StringBuilder json=new StringBuilder();
-				json.append("{");
+				json.append("[{");
 				json.append("\"electronicMenuOrderid\":\"").append(emo.getElectronicMenuOrderid()).append("\",");
 				json.append("\"userid\":\"").append(emo.getUserid()).append("\",");
 				json.append("\"username\":\"").append(emo.getUsername()).append("\",");
@@ -296,7 +296,7 @@ ServletRequestAware, ServletResponseAware {
 				json.append("\"tableNumber\":\"").append(emo.getTableNumber()).append("\",");
 				json.append("\"roomName\":\"").append(emo.getRoomName()).append("\",");
 				json.append("\"tablestate\":\"").append(emo.getTablestate()).append("\"");
-				json.append("}");
+				json.append("}]");
 				this.setResponsejsonstr(json.toString());
 				response.setContentType("text/html");
 				response.setCharacterEncoding("utf-8");

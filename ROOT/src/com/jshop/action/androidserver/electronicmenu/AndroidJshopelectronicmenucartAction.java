@@ -231,6 +231,7 @@ ServletRequestAware, ServletResponseAware{
 				String temp=null;
 				String []temparray=null;
 				StringBuilder json=new StringBuilder();
+				json.append("[");
 				for(Iterator it=list.iterator();it.hasNext();){
 					ElectronicMenuCartT emt=(ElectronicMenuCartT)it.next();
 					this.setTotalmemberprice(Arith.add(this.getTotalmemberprice(), Arith.mul(emt.getMemberprice(), Double.parseDouble(String.valueOf(emt.getNeedquantity())))));
@@ -267,9 +268,10 @@ ServletRequestAware, ServletResponseAware{
 					json.append("\"electronicMenuCartid\":\"").append(emt.getElectronicMenuCartid()).append("\",");
 					//总价格
 					json.append("\"totalmemberprice\":\"").append(this.getTotalmemberprice()).append("\"");
-					json.append("}").append("--");
+					json.append("},");
 				}
 				json.deleteCharAt(json.length()-1);
+				json.append("]");
 				this.setResponsejsonstr(json.toString());
 				response.setContentType("text/html");
 				response.setCharacterEncoding("utf-8");
