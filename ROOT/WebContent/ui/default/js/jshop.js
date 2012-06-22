@@ -972,7 +972,7 @@ function InitAlipayandAddOrder(){
 		return;
 	}
 	if(paymentid!=null){
-		$.post("InitAlipayneedInfo.action",{"cartneedquantity":cartneedquantity,"cartgoodsname":cartgoodsname,"cartgoodsid":cartgoodsid,"totalpoints":totalpoints,"total":total,"freight":freight,"cartid":cartid,"paymentid":paymentid,"logisticsid":logisticsid,"addressid":deliveraddressid,"logisticswebaddress":logisticswebaddress,"customernotes":customernotes,"orderTag":"1"},function(data){
+		$.post("InitAlipayneedInfoGroup.action",{"cartneedquantity":cartneedquantity,"cartgoodsname":cartgoodsname,"cartgoodsid":cartgoodsid,"totalpoints":totalpoints,"total":total,"freight":freight,"cartid":cartid,"paymentid":paymentid,"logisticsid":logisticsid,"addressid":deliveraddressid,"logisticswebaddress":logisticswebaddress,"customernotes":customernotes,"orderTag":"1"},function(data){
 			if(!data.slogin){
 				window.location.href="user/login.html";
 				return false;
@@ -1172,4 +1172,65 @@ function addtogroupcart(groupid) {
 
 }
 
-
+/**
+ * 初始化支付宝所需的资料信息并增加团购订单
+ */
+function InitAlipayandAddGroupOrder(){
+	var paymentid=$('input[name="paymentid"]:checked').val(); 
+	var logisticsid=$('input[name="logisticsid"]:checked').val(); 
+	var freight=$('#goodsfreightprice').html();
+	var deliveraddressid=$('input[name="checkaddress"]:checked').val(); 
+	var customernotes=$('#customernotes').val();
+	var logisticswebaddress=$('#hd'+logisticsid).val();
+	var cartid=$('#cartid').val();//购物车id
+	var total=$('#goodstotalprice').html();//表示商品总金额，不包含运费
+	var totalpoints=$("#goodstotalpoints").html();//总积分
+	var cartgoodsid=$("#cartgoodsid").val();//购物车中商品id
+	var cartgoodsname=$("#cartgoodsname").val();//-购物车中商品名称集合cartgoodsname
+	var cartneedquantity=$("#cartneedquantity").val();//购物车中所有商品数量总和
+	if(logisticsid==null){
+		alert("请选择配送方式");
+		return;
+	}
+	if(deliveraddressid==null){
+		alert("请选择 收获地址");
+		return;
+	}
+	if(paymentid!=null){
+		$.post("InitAlipayneedInfo.action",{"cartneedquantity":cartneedquantity,"cartgoodsname":cartgoodsname,"cartgoodsid":cartgoodsid,"totalpoints":totalpoints,"total":total,"freight":freight,"cartid":cartid,"paymentid":paymentid,"logisticsid":logisticsid,"addressid":deliveraddressid,"logisticswebaddress":logisticswebaddress,"customernotes":customernotes,"orderTag":"1"},function(data){
+			if(!data.slogin){
+				window.location.href="user/login.html";
+				return false;
+			}
+			if(!data.spayment){
+				alert("支付方式获取失败");
+				return;
+			}
+			if(!data.saddorder){
+				alert("订单生成出错");
+				window.location.href="user/login.html";
+			}else{
+				//增加发票到发票记录表
+				var inv_Payee=$('#inv_payee').val();
+				var orderid=data.serialidorderid;
+				var inv_Type=$('#inv_type').val();
+				var amount=$('#shouldtotalprice').text();
+				if(inv_Payee==""){
+					window.location.href="/alipay/alipayto.jsp";
+				}else{
+					$.post("addOrderInvoice.action",{"orderid":orderid,"invType":inv_Type,"invPayee":inv_Payee,"amount":amount,"invContent":"0"},function(data){
+						if(data.saddflag){
+							window.location.href="/alipay/alipayto.jsp";
+						}else{
+							alert("发票提交有误请联系客服处理开发票事宜");
+							window.location.href="/alipay/alipayto.jsp";
+						}
+					});
+				}
+			}
+			
+		});
+	}else{
+		alert("请选择支付方式");
+	}
+}
