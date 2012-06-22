@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
@@ -49,6 +51,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class GroupOrderAction extends ActionSupport {
 	private GroupOrderTService groupOrderTService;
 	private LogisticsbusinessareaTService logisticsbusinessareaTService;
+	@Resource(name = "serial")
 	private Serial serial;
 	private PaymentMService paymentMService;
 	private LogisticsBusinessTService logisticsBusinessTService;
@@ -583,11 +586,11 @@ public class GroupOrderAction extends ActionSupport {
 		ActionContext.getContext().put("payments", list);
 	}
 	public void initGroupOrder(UserT user){
-		
+		user = (UserT) ActionContext.getContext().getSession().get(BaseTools.USER_SESSION_KEY);
 		GoodsGroupT ggt = new GoodsGroupT();
 		if(user!=null){
 			
-			got.setOrderid(this.getSerial().Serialid(serial.GROUPORDER));		
+			got.setOrderid(this.getSerialidorderid());		
 			got.setUserid(user.getUserid());
 			got.setUsername(user.getUsername());
 			//未来需要在这里处理是平邮还是快递或者是ems，这样物流商需要选择是平邮还是快递还是ems
@@ -602,17 +605,17 @@ public class GroupOrderAction extends ActionSupport {
 			got.setShippingstate("0");//未发货
 			got.setLogisticsid(this.getLogisticsid().trim());
 			got.setLogisticswebaddress(this.getLogisticswebaddress());
-			got.setGoodid(this.getGoodid());
-			got.setGoodsname(this.getGoodsname());
-			got.setNeedquantity(this.getNeedquantity());
+			got.setGoodid(this.getCartgoodsid());
+			got.setGoodsname(this.getCartgoodsname());
+			got.setNeedquantity(this.getCartneedquantity());
 			got.setFreight(this.getFreight());//运费，在request中也有
 			//		if(!this.isSvoucher()){
 
-			got.setAmount(this.getNeedquantity()*ggt.getGroupprice());
+			got.setAmount(Arith.sub(Arith.add(this.getTotal(), this.getFreight()), this.getVouchercontent()));
 			//		}else{
 			//			order.setAmount(this.getTotal()+this.getFreight());//金额，含运费
 			//		}
-			got.setPoints(this.getPoints());
+			got.setPoints(this.getTotalpoints());
 			got.setPurchasetime(BaseTools.systemtime());
 			got.setDeliverytime(null);
 			got.setDeliverynumber(null);
@@ -722,7 +725,7 @@ public class GroupOrderAction extends ActionSupport {
 			s.setState("1");
 			s.setDeliveraddressid(list.getAddressid());
 			s.setIssend("0");//未发送到这个地址过
-			s.setOrderid(this.getSerial().Serialid(serial.GROUPORDER));//设置订单号
+			s.setOrderid(this.getSerialidorderid());//设置订单号
 			if (this.getShippingAddressTService().addShoppingAddress(s) > 0) {
 				this.setSshoppingaddress(false);
 				got.setShippingaddressid(s.getShippingaddressid());//设置发货地址到订单中
@@ -745,7 +748,7 @@ public class GroupOrderAction extends ActionSupport {
 	 */
 	public void GetSerialidorder() {
 		
-		this.setSerialidorderid(this.getSerial().Serialid(Serial.ORDER));
+		this.setSerialidorderid(this.getSerial().Serialid(Serial.GROUPORDER));
 	}
 
 	/**
@@ -753,10 +756,10 @@ public class GroupOrderAction extends ActionSupport {
 	 * 
 	 * @return
 	 */
-	@Action(value = "InitAlipayneedInfo", results = { 
+	@Action(value = "InitAlipayneedInfoGroup", results = { 
 			@Result(name = "json",type="json")
 	})
-	public String InitAlipayneedInfo() {
+	public String InitAlipayneedInfoGroup() {
 		UserT user = (UserT) ActionContext.getContext().getSession().get(BaseTools.USER_SESSION_KEY);
 		if (user != null) {
 			this.setSlogin(true);
@@ -804,11 +807,11 @@ public class GroupOrderAction extends ActionSupport {
 			//获取支付方式
 			GetDefaultPayment();
 //			//获取购物车中的商品作为订单商品处理
-//			GetMyCart(user);
+			GetMyCart(user);
 			//计算运费
 			GetLogisticsPrice();
 			//获取总金额+运费
-			Double totalfreight =0.0;
+			Double totalfreight =this.getTotal() + this.getFreight();
 			ActionContext.getContext().put("totalfreight", totalfreight);
 			//路径获取
 			ActionContext.getContext().put(FreeMarkervariable.BASEPATH, this.getDataCollectionTAction().getBasePath());
@@ -832,15 +835,16 @@ public class GroupOrderAction extends ActionSupport {
 	 * @param user
 	 */
 	public void GetMyCart(UserT user) {
-		List<GroupCartT> list = this.getGroupCartService().findAllGroupCartByUserId(userid);
-		if (list != null) {
+		List<GroupCartT> list = this.getGroupCartService().findAllGroupCartByUserId(user.getUserid());
+		GroupCartT gct = list.get(0);
+		if (gct != null) {
 			this.setTotal(0.0);
 			this.setTotalweight(0.0);
 			this.setTotalpoints(0.0);
 			this.setCartgoodsname("");
 			this.setCartgoodsid("");
 			this.setCartneedquantity(0);
-			GroupCartT gct = new GroupCartT();
+			
 			
 				total = Arith.add(total, Arith.mul(gct.getGroupprice(), Double.parseDouble(String.valueOf(gct.getNeedquantity()))));
 				totalweight = Arith.add(totalweight, Arith.mul(Double.parseDouble(gct.getWeight()), Double.parseDouble(String.valueOf(gct.getNeedquantity()))));
@@ -850,7 +854,7 @@ public class GroupOrderAction extends ActionSupport {
 				cartneedquantity = gct.getNeedquantity();
 				cartid = gct.getCartid();
 			}
-			ActionContext.getContext().put("groupcart", list);
+			ActionContext.getContext().put("groupcart", gct);
 			ActionContext.getContext().put("totalprice", total);
 			ActionContext.getContext().put("totalpoints", totalpoints);
 			ActionContext.getContext().put("cartid", cartid);
