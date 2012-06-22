@@ -243,15 +243,15 @@ public class GroupCartAction extends ActionSupport{
 	 */
 	@Action(value = "addGroupCart", results = { @Result(name = "json", type = "json") })
 	public String addGroupCart(){
-		UserT user = (UserT)ActionContext.getContext().get(BaseTools.USER_SESSION_KEY);
-		
+		UserT user = (UserT)ActionContext.getContext().getSession().get(BaseTools.USER_SESSION_KEY);
+		if(user!=null){
 			GoodsGroupT ggt = this.GetGoodsGroupTForGroupCart();
 			GroupCartT gct = new GroupCartT();
 			gct.setId(this.getSerial().Serialid(serial.GROUPCARTINFO));
 			gct.setCartid(null);
 			gct.setOrderid(null);
 			gct.setGoodsid(ggt.getGroupid());
-			gct.setUserid(user.getUserid());
+			gct.setUserid(user.getUserid()	);
 			gct.setUsername(user.getUsername());
 			gct.setUsersetnum("0");
 			gct.setNeedquantity(1);
@@ -263,19 +263,21 @@ public class GroupCartAction extends ActionSupport{
 			gct.setAddtime(BaseTools.systemtime());
 			gct.setQuantity(ggt.getSalequantity());
 			gct.setPicture(ggt.getPictureurl());
-			gct.setWeight("");
+			gct.setWeight("0");
 			gct.setState("1");
 			gct.setHtmlpath(ggt.getHtmlpath());
 			gct.setProductid("0");
 			gct.setGoodsname(ggt.getGoodsname());
 			if(this.getGroupCartService().addgroupcart(gct)>0){
 				this.setSucflag(true);
-			
-			return "json";
+				this.setSlogin(true);
+				return "json";
+				}else{
+					this.setSlogin(false);
+					return "json";
+				}
 	}
-		this.setSlogin(false);
 		return "json";
-		
 	}
 	
 	
