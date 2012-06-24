@@ -1,5 +1,6 @@
 package com.jshop.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -319,6 +320,11 @@ public class GoodsTServiceImpl implements GoodsTService {
 			String ltypeid, String stypeid, String salestate,
 			String isSpecificationsOpen) {
 		return this.getGoodsTDao().findAllGoodsBynavidandltypeidandstypeid(navid, ltypeid, stypeid, salestate, isSpecificationsOpen);
+	}
+
+	@Override
+	public int updateHtmlPath(String goodsid, String htmlPath, Date updatetime) {
+		return this.getGoodsTDao().updateHtmlPath(goodsid, htmlPath, updatetime);
 	}
 
 }
