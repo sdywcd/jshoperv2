@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-6-20 8:15:37 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-6-25 20:29:58 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -26,13 +26,16 @@ public class GoodsCategoryT implements java.io.Serializable {
 	private String htmlpath;
 	private Date updatetime;
 	private int versiont;
+	private String logo;
+	private String mobilesync;
 
 	public GoodsCategoryT() {
 	}
 
 	public GoodsCategoryT(String goodsCategoryTid, String grade, String name,
 			String state, String path, String sign, String goodsTypeId,
-			Date createtime, String creatorid, Date updatetime, int versiont) {
+			Date createtime, String creatorid, Date updatetime, int versiont,
+			String logo, String mobilesync) {
 		this.goodsCategoryTid = goodsCategoryTid;
 		this.grade = grade;
 		this.name = name;
@@ -44,13 +47,16 @@ public class GoodsCategoryT implements java.io.Serializable {
 		this.creatorid = creatorid;
 		this.updatetime = updatetime;
 		this.versiont = versiont;
+		this.logo = logo;
+		this.mobilesync = mobilesync;
 	}
 
 	public GoodsCategoryT(String goodsCategoryTid, String grade,
 			String metaKeywords, String metaDes, String name, String state,
 			String path, Integer sort, String sign, String goodsTypeId,
 			String parentId, Date createtime, String creatorid,
-			String parentName, String htmlpath, Date updatetime, int versiont) {
+			String parentName, String htmlpath, Date updatetime, int versiont,
+			String logo, String mobilesync) {
 		this.goodsCategoryTid = goodsCategoryTid;
 		this.grade = grade;
 		this.metaKeywords = metaKeywords;
@@ -68,6 +74,8 @@ public class GoodsCategoryT implements java.io.Serializable {
 		this.htmlpath = htmlpath;
 		this.updatetime = updatetime;
 		this.versiont = versiont;
+		this.logo = logo;
+		this.mobilesync = mobilesync;
 	}
 
 	public String getGoodsCategoryTid() {
@@ -204,6 +212,22 @@ public class GoodsCategoryT implements java.io.Serializable {
 
 	public void setVersiont(int versiont) {
 		this.versiont = versiont;
+	}
+
+	public String getLogo() {
+		return this.logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public String getMobilesync() {
+		return this.mobilesync;
+	}
+
+	public void setMobilesync(String mobilesync) {
+		this.mobilesync = mobilesync;
 	}
 
 }
