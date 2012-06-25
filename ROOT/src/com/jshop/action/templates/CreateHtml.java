@@ -281,11 +281,14 @@ public class CreateHtml extends ActionSupport {
 		if (!alist.isEmpty()) {
 			for (Iterator it = alist.iterator(); it.hasNext();) {
 				ArticleT at = (ArticleT) it.next();
-				if(!"1".equals(at.getIsnotice())){
-					map.put(FreeMarkervariable.ARTICLE, at);
-					String htmlPath = this.createArticleT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORARTICLE, at.getArticleid(), map);
-					this.getArticleTService().updateHtmlPath(at.getArticleid(), htmlPath);
+				if(!at.getCreatetime().equals(at.getUpdatetime())){
+					if(!"1".equals(at.getIsnotice())){
+						map.put(FreeMarkervariable.ARTICLE, at);
+						String htmlPath = this.createArticleT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORARTICLE, at.getArticleid(), map);
+						this.getArticleTService().updateHtmlPath(at.getArticleid(), htmlPath,at.getCreatetime());
+					}
 				}
+				
 			}
 		}
 	}
@@ -300,12 +303,13 @@ public class CreateHtml extends ActionSupport {
 		if (!alist.isEmpty()) {
 			for (Iterator it = alist.iterator(); it.hasNext();) {
 				ArticleT at = (ArticleT) it.next();
-				if("1".equals(at.getIsnotice())){
-					map.put(FreeMarkervariable.ARTICLE, at);
-					String htmlPath = this.createArticleT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORNOTICE, at.getArticleid(), map);
-					this.getArticleTService().updateHtmlPath(at.getArticleid(), htmlPath);
+				if(!at.getCreatetime().equals(at.getUpdatetime())){
+					if("1".equals(at.getIsnotice())){
+						map.put(FreeMarkervariable.ARTICLE, at);
+						String htmlPath = this.createArticleT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORNOTICE, at.getArticleid(), map);
+						this.getArticleTService().updateHtmlPath(at.getArticleid(), htmlPath,at.getCreatetime());
+					}
 				}
-				
 			}
 		}
 	}
