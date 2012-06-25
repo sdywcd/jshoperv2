@@ -7,6 +7,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>商品分类管理</title>
+				<style type="text/css">
+#triggers img {
+	cursor: pointer;
+	margin: 0 5px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	padding: 2px;
+	width: 200px;
+	height: 150px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+</style>
 	</head>
 
 	<body>
@@ -86,6 +99,29 @@
 							</div>
 							<div class="field">
 								<div class="label">
+									<label for="file">
+										LOGO:
+									</label>
+								</div>
+								<div class="input input-file">
+									<button id="delpc" name="delpc">
+										删除图片
+									</button>
+									<div id="file-uploader-demo1">
+										<noscript>
+											<p>
+												Please enable JavaScript to use file uploader.
+											</p>
+											<!-- or put a simple form for upload here -->
+										</noscript>
+									</div>
+									<!-- trigger elements -->
+									<div id="triggers">
+									</div>
+								</div>
+							</div>
+							<div class="field">
+								<div class="label">
 									<label for="input-small">
 										标示:
 									</label>
@@ -107,6 +143,19 @@
 
 								</div>
 
+							</div>
+							<div class="field">
+								<div class="label label-checkbox">
+									<label>
+										同步移动平台:
+									</label>
+								</div>
+								<div class="checkboxes">
+									<input id="mobilesync" name="mobilesync" type="checkbox" checked="checked" />
+									<label>
+										是
+									</label>
+								</div>
 							</div>
 							<div class="field">
 								<div class="label">
@@ -160,7 +209,28 @@
 		<!-- footer -->
 		<%@include file="/jshop/admin/footer.jsp"%>
 		<!-- end footert -->
+		
 		<script type="text/javascript" src="<%=basePath%>jshop/admin/js/goodscategorymanagementjs.js"></script>
-	
+	<script type="text/javascript">
+ 		 function createUploader(){ 
+             var uploader = new qq.FileUploader({
+                 element: document.getElementById('file-uploader-demo1'),
+                 action: '<%=basePath%>/ajaxFileUploads.action;jsessionid=<%=session.getId()%>',
+                 debug: true,
+                 minSizeLimit:1024,
+                 sizeLimit: 1073741824,
+                 allowedExtensions: ['jpeg','jpg','gif','png'],
+                 onComplete: function(id, fileName, responseJSON){
+                	//var pcpath="<%=basePath%>"+responseJSON.success;
+  					var pcpath=responseJSON.success;
+  					var htm="<img id='"+id+"' src='"+pcpath+"' rel='#"+fileName+"'/>";
+  					var checkpc="<input id='"+id+"' name='pcpath' type='checkbox' value='"+pcpath+"' checked='true'/> "
+  					$("#triggers").append(htm).append(checkpc);
+                 },
+               
+             });           
+         }
+ 		window.onload = createUploader; 
+ 	</script>
 	</body>
 </html>

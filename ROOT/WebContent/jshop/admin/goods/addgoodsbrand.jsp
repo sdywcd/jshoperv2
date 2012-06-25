@@ -160,7 +160,8 @@
                  sizeLimit: 1073741824,
                  allowedExtensions: ['jpeg','jpg','gif','png'],
                  onComplete: function(id, fileName, responseJSON){
-                	var pcpath="<%=basePath%>"+responseJSON.success;
+                	//var pcpath="<%=basePath%>"+responseJSON.success;
+                	var pcpath=responseJSON.success;
   					var htm="<img id='"+id+"' src='"+pcpath+"' rel='#"+fileName+"'/>";
   					var checkpc="<input id='"+id+"' name='pcpath' type='checkbox' value='"+pcpath+"' checked='true'/> "
   					$("#triggers").append(htm).append(checkpc);
