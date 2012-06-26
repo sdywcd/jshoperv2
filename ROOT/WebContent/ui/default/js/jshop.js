@@ -1234,3 +1234,48 @@ function InitAlipayandAddGroupOrder(){
 		alert("请选择支付方式");
 	}
 }
+
+/**
+ * 读取商品cookie和设置商品cookie
+ */
+var history=new Array();//商品浏览记录
+$(function(){
+    var COOKIE_NAME='historygoods';
+    var options={path:'/',expires:10};
+    var goodsid=$("#hidgoodsid").val();
+    var goodsname=$("#hidgoodsname").val();
+    var pcpath=$("#hidpictureurl").val();
+    if(goodsid!=""&&goodsname!=""&&pcpath!=""){
+        if($.cookie(COOKIE_NAME)!=null){
+             displaygoodshistory();
+        }
+        var jsonstr="{goodsid:"+goodsid+",goodsname:"+goodsname+",pcpath:"+pcpath+"}";
+        history.push(jsonstr);
+        $.cookie(COOKIE_NAME, history.toString(),options);
+       
+        
+        
+    }
+    
+});
+
+/**
+ * 显示商品cookie历史记录
+ */
+function displaygoodshistory(){
+    var h_istory="";
+    var historyvalue=$.cookie("history");  
+    var jsonsarray=$.parseJSON(historyvalue);
+    $.each(jsonarray,function(i,v){
+        h_istory+="<div class='m_leftdiv02 mt7'>";
+        h_istory+="<a href='#' target='_blank'><img src="+v.pcpath+"  width='200' height='240' alt='' border='0' /></a>";
+        h_istory+="</div>";
+        if(i==5){
+           return;
+        }
+    });
+    $("#history").html(h_istory);
+}
+
+
+
