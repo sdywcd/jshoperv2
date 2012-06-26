@@ -1160,7 +1160,7 @@ function addtogroupcart(groupid) {
 	}, function(data) {
 		if (!data.slogin) {
 			// 跳转到登录页面
-			window.location.href = "user/login.html?redirecturl=" + hidurl;
+			window.location.href = "../../shop/user/login.html?redirecturl=" + hidurl;
 		} else if (data.sucflag) {
 			// 跳转到团购订单页面
 			window.location.href = "InitGroupOrder.action";
@@ -1199,7 +1199,7 @@ function InitAlipayandAddGroupOrder(){
 	if(paymentid!=null){
 		$.post("InitAlipayneedInfo.action",{"cartneedquantity":cartneedquantity,"cartgoodsname":cartgoodsname,"cartgoodsid":cartgoodsid,"totalpoints":totalpoints,"total":total,"freight":freight,"cartid":cartid,"paymentid":paymentid,"logisticsid":logisticsid,"addressid":deliveraddressid,"logisticswebaddress":logisticswebaddress,"customernotes":customernotes,"orderTag":"1"},function(data){
 			if(!data.slogin){
-				window.location.href="user/login.html";
+				window.location.href="../../shop/user/login.html";
 				return false;
 			}
 			if(!data.spayment){
@@ -1208,7 +1208,7 @@ function InitAlipayandAddGroupOrder(){
 			}
 			if(!data.saddorder){
 				alert("订单生成出错");
-				window.location.href="user/login.html";
+				window.location.href="../../shop/user/login.html" ;
 			}else{
 				//增加发票到发票记录表
 				var inv_Payee=$('#inv_payee').val();
