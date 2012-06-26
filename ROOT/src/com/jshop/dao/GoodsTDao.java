@@ -1,5 +1,6 @@
 package com.jshop.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.jshop.entity.GoodsT;
@@ -510,6 +511,15 @@ public interface GoodsTDao {
 	 * @return
 	 */
 	public abstract int updateHtmlPath(String goodsid, String htmlPath);
+	/**
+	 * 根据商品id更新htmlpath避免重复生成无修改页面
+	 * 
+	 * @param goodsid
+	 * @param htmlPath
+	 * @param updatetime
+	 * @return
+	 */
+	public abstract int updateHtmlPath(String goodsid, String htmlPath,Date updatetime);
 
 	/**
 	 * 获取所有商品用于安装程序生成静态页

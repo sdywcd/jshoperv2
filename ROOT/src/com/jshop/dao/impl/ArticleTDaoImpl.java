@@ -1,6 +1,7 @@
 package com.jshop.dao.impl;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -154,6 +155,32 @@ public class ArticleTDaoImpl extends HibernateDaoSupport implements ArticleTDao 
 					query.setParameter("articleid", articleid);
 					query.setParameter("htmlPath", htmlPath);
 
+					i = query.executeUpdate();
+					return i;
+				}
+			});
+		} catch (RuntimeException re) {
+			log.error("updateHtmlPath error", re);
+			throw re;
+		}
+		return 0;
+	}
+
+	@Override
+	public int updateHtmlPath(final String articleid, final String htmlPath,
+			final Date updatetime) {
+		log.debug("updateHtmlPath");
+		try {
+
+			final String queryString = "update ArticleT as at set at.htmlPath=:htmlPath,updatetime=:updatetime where at.articleid=:articleid ";
+			this.getHibernateTemplate().execute(new HibernateCallback() {
+
+				public Object doInHibernate(Session session) throws HibernateException, SQLException {
+					int i = 0;
+					Query query = session.createQuery(queryString);
+					query.setParameter("articleid", articleid);
+					query.setParameter("htmlPath", htmlPath);
+					query.setParameter("updatetime", updatetime);
 					i = query.executeUpdate();
 					return i;
 				}

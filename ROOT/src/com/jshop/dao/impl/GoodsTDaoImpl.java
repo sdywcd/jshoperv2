@@ -1,6 +1,7 @@
 package com.jshop.dao.impl;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -288,6 +289,7 @@ public class GoodsTDaoImpl extends HibernateDaoSupport implements GoodsTDao {
 	public List<GoodsT> findGoodsByNavid(final String navid, final String salestate, final int currentPage, final int lineSize) {
 		log.debug("find all findGoodsByLtypeid");
 		try {
+			@SuppressWarnings("unchecked")
 			List<GoodsT> list = this.getHibernateTemplate().executeFind(new HibernateCallback() {
 
 				String queryString = "from GoodsT as gt where gt.salestate=:salestate and gt.navid=:navid order by createtime asc";
@@ -1214,6 +1216,31 @@ public class GoodsTDaoImpl extends HibernateDaoSupport implements GoodsTDao {
 					query.setParameter("goodsid", goodsid);
 					query.setParameter("htmlPath", htmlPath);
 
+					i = query.executeUpdate();
+					return i;
+				}
+			});
+		} catch (RuntimeException re) {
+			log.error("updateHtmlPath error", re);
+			throw re;
+		}
+		return 0;
+	}
+
+	@Override
+	public int updateHtmlPath(final String goodsid, final String htmlPath, final Date updatetime) {
+		log.debug("updateHtmlPath");
+		try {
+
+			final String queryString = "update GoodsT as gt set gt.htmlPath=:htmlPath, gt.updatetime=:updatetime where gt.goodsid=:goodsid ";
+			this.getHibernateTemplate().execute(new HibernateCallback() {
+
+				public Object doInHibernate(Session session) throws HibernateException, SQLException {
+					int i = 0;
+					Query query = session.createQuery(queryString);
+					query.setParameter("goodsid", goodsid);
+					query.setParameter("htmlPath", htmlPath);
+					query.setParameter("updatetime", updatetime);
 					i = query.executeUpdate();
 					return i;
 				}

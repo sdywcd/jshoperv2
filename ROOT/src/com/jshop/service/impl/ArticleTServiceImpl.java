@@ -1,5 +1,6 @@
 package com.jshop.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -69,6 +70,12 @@ public class ArticleTServiceImpl implements ArticleTService {
 
 	public int updateArticlepositionByarticleCategoryTid(String articleCategoryTid, String position) {
 		return this.getArticleTDao().updateArticlepositionByarticleCategoryTid(articleCategoryTid, position);
+	}
+
+	@Override
+	public int updateHtmlPath(String articleid, String htmlPath,
+			Date updatetime) {
+		return this.getArticleTDao().updateHtmlPath(articleid, htmlPath, updatetime);
 	}
 	
 	
