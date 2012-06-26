@@ -1243,18 +1243,28 @@ $(function(){
     var COOKIE_NAME='historygoods';
     var options={path:'/',expires:10};
     var goodsid=$("#hidgoodsid").val();
-    var goodsname=$("#hidgoodsname").val();
+    var htmlpath=$("#hidhtmlpath").val();
     var pcpath=$("#hidpictureurl").val();
-    if(goodsid!=""&&goodsname!=""&&pcpath!=""){
+    var pcpatharray=pcpath.split(",");
+    if(goodsid!=""&&htmlpath!=""&&pcpath!=""){
         if($.cookie(COOKIE_NAME)!=null){
-             displaygoodshistory();
+            var historyvalue=$.cookie(COOKIE_NAME);
+            var historyarray=historyvalue.split("=");
+            for(var i=0;i<historyarray.length;i++){
+                history.push(historyarray[i]);
+            }
         }
-        var jsonstr="{goodsid:"+goodsid+",goodsname:"+goodsname+",pcpath:"+pcpath+"}";
+        var jsonstr="{\"goodsid\":\""+goodsid+"\",\"htmlpath\":\""+htmlpath+"\",\"pcpath\":\""+pcpatharray[0]+"\"}";
         history.push(jsonstr);
-        $.cookie(COOKIE_NAME, history.toString(),options);
-       
-        
-        
+	    if(history!=null&&history.length>0){
+            var temp="";
+	        for(var i=0;i<history.length;i++){
+	           temp+=history[i]+"=";
+            }
+        }
+       $.cookie(COOKIE_NAME, temp.substring(0,temp.length-1).toString(),options);
+       displaygoodshistory(COOKIE_NAME);
+    
     }
     
 });
@@ -1262,20 +1272,34 @@ $(function(){
 /**
  * 显示商品cookie历史记录
  */
-function displaygoodshistory(){
+function displaygoodshistory(COOKIE_NAME){
     var h_istory="";
-    var historyvalue=$.cookie("history");  
-    var jsonsarray=$.parseJSON(historyvalue);
-    $.each(jsonarray,function(i,v){
+    var historyvalue=$.cookie(COOKIE_NAME);
+    var historyarray=historyvalue.split("=");
+    historyarray=districtArray(historyarray);
+    //historyarray.reverse();
+    
+    for(var i=0;i<historyarray.length;i++){
+        var jsonsarray=$.parseJSON(historyarray[i].toString());
+        
         h_istory+="<div class='m_leftdiv02 mt7'>";
-        h_istory+="<a href='#' target='_blank'><img src="+v.pcpath+"  width='200' height='240' alt='' border='0' /></a>";
+        h_istory+="<a href='../../../"+jsonsarray.htmlpath+"' target='_blank'><img src="+jsonsarray.pcpath+"  width='200' height='240' alt='' border='0' /></a>";
         h_istory+="</div>";
-        if(i==5){
-           return;
-        }
-    });
-    $("#history").html(h_istory);
+    }
+    $("#goodshistory").html(h_istory);
 }
 
+/**
+ * 去除重复数组
+ */
+function districtArray(array){
+    var result = new Array();
+    for(var i in array){
+        if(result.indexOf(array[i]) == -1){  
+            result.push(array[i]);  
+        }  
+    }
+    return result;  
+}
 
 
