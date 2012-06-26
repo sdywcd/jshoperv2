@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent" android:orientation="vertical" android:background="@drawable/index_menu_background">
+    <TableLayout android:layout_width="fill_parent" android:id="@+id/tableLayout1" android:layout_height="wrap_content"  android:collapseColumns="2" android:stretchColumns="1">
+        <TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView android:layout_width="wrap_content" android:id="@+id/username" android:layout_height="wrap_content" android:text="@string/username"></TextView>
+            <EditText android:id="@+id/registerusername" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <requestFocus></requestFocus>
+            </EditText>
+        </TableRow>
+        <TableRow android:id="@+id/tableRow2" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView android:layout_width="wrap_content" android:id="@+id/userpassword" android:layout_height="wrap_content" android:text="@string/password"></TextView>
+            <EditText android:id="@+id/registeruserpassword" android:layout_width="wrap_content" android:layout_height="wrap_content" android:password="true"></EditText>
+        </TableRow>
+        <TableRow android:id="@+id/tableRow3" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView android:layout_width="wrap_content" android:id="@+id/confirmpassword" android:layout_height="wrap_content" android:text="@string/confirmpassword"></TextView>
+            <EditText android:id="@+id/confirmregisterpassword" android:layout_width="wrap_content" android:layout_height="wrap_content" android:password="true"></EditText>
+        </TableRow>
+        <TableRow android:id="@+id/tableRow4" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView android:layout_width="wrap_content" android:id="@+id/email" android:layout_height="wrap_content" android:text="@string/email"></TextView>
+            <EditText android:id="@+id/registeremail" android:layout_width="wrap_content" android:layout_height="wrap_content"></EditText>
+        </TableRow>
+        <TableRow android:id="@+id/tableRow5" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <Button android:id="@+id/login" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/login"></Button>
+            <Button android:id="@+id/register" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/register"></Button>
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>
