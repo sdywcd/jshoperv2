@@ -487,7 +487,6 @@ public class DataCollectionTAction extends ActionSupport {
 
 	/**
 	 * 获取所有文章数据
-	 * 
 	 * @return
 	 */
 	public List<ArticleT> findAllArticleT() {

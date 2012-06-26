@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2012-6-20 8:15:37 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2012-6-25 20:29:58 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.jshop.entity.GoodsCategoryT" table="goods_category_t"   >
+    <class name="com.jshop.entity.GoodsCategoryT" table="goods_category_t" catalog="jshopactive">
         <id name="goodsCategoryTid" type="string">
             <column name="GOODS_CATEGORY_TID" length="20" />
             <generator class="assigned" />
@@ -55,6 +55,12 @@
         </property>
         <property name="versiont" type="int">
             <column name="VERSIONT" not-null="true" />
+        </property>
+        <property name="logo" type="string">
+            <column name="LOGO" not-null="true" />
+        </property>
+        <property name="mobilesync" type="string">
+            <column name="MOBILESYNC" length="1" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>
