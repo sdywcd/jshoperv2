@@ -1290,7 +1290,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setGoodsAttrVal28(this.getGoodsAttrVal28());
 		gt.setGoodsAttrVal29(this.getGoodsAttrVal29());
 		gt.setUsersetnum(this.getUsersetnum());
-		gt.setUpdatetime(BaseTools.systemtime());
+		gt.setUpdatetime(BaseTools.defaulttime());
 		gt.setVersiont(0);
 		gt.setIsSpecificationsOpen(this.getIsSpecificationsOpen());
 		gt.setStar(1);
@@ -1343,7 +1343,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setHotsale(this.getHotsale());
 		gt.setBargainprice(this.getBargainprice());
 		gt.setSort(bean.getSort());
-		gt.setCreatetime(BaseTools.systemtime());
+		gt.setCreatetime(bean.getCreatetime());
 		gt.setCreatorid(BaseTools.adminCreateId());
 		gt.setReplycount(bean.getReplycount());
 		gt.setBrandid(this.getBrandid());
@@ -1491,7 +1491,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setGoodsAttrVal28(this.getGoodsAttrVal28());
 		gt.setGoodsAttrVal29(this.getGoodsAttrVal29());
 		gt.setUsersetnum(this.getUsersetnum());
-		gt.setUpdatetime(BaseTools.systemtime());
+		gt.setUpdatetime(BaseTools.defaulttime());
 		gt.setVersiont(0);
 		gt.setIsSpecificationsOpen(this.getIsSpecificationsOpen());
 		gt.setStar(1);
@@ -1544,7 +1544,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setHotsale(this.getHotsale());
 		gt.setBargainprice(this.getBargainprice());
 		gt.setSort(bean.getSort());
-		gt.setCreatetime(BaseTools.systemtime());
+		gt.setCreatetime(bean.getCreatetime());
 		gt.setCreatorid(BaseTools.adminCreateId());
 		gt.setReplycount(bean.getReplycount());
 		gt.setBrandid(this.getBrandid());
@@ -1693,7 +1693,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setGoodsAttrVal28(this.getGoodsAttrVal28());
 		gt.setGoodsAttrVal29(this.getGoodsAttrVal29());
 		gt.setUsersetnum(this.getUsersetnum());
-		gt.setUpdatetime(BaseTools.systemtime());
+		gt.setUpdatetime(BaseTools.defaulttime());
 		gt.setVersiont(0);
 		gt.setIsSpecificationsOpen(this.getIsSpecificationsOpen());
 		gt.setStar(1);
@@ -1824,7 +1824,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setHotsale(this.getHotsale());
 		gt.setBargainprice(this.getBargainprice());
 		gt.setSort(bean.getSort());
-		gt.setCreatetime(BaseTools.systemtime());
+		gt.setCreatetime(bean.getCreatetime());
 		gt.setCreatorid(BaseTools.adminCreateId());
 		gt.setReplycount(bean.getReplycount());
 		gt.setBrandid(this.getBrandid());
@@ -2060,7 +2060,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setGoodsAttrVal28(this.getGoodsAttrVal28());
 		gt.setGoodsAttrVal29(this.getGoodsAttrVal29());
 		gt.setUsersetnum(this.getUsersetnum());
-		gt.setUpdatetime(BaseTools.systemtime());
+		gt.setUpdatetime(BaseTools.defaulttime());
 		gt.setVersiont(0);
 		gt.setIsSpecificationsOpen(this.getIsSpecificationsOpen());
 		gt.setStar(1);
@@ -2192,7 +2192,7 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setHotsale(this.getHotsale());
 		gt.setBargainprice(this.getBargainprice());
 		gt.setSort(bean.getSort());
-		gt.setCreatetime(BaseTools.systemtime());
+		gt.setCreatetime(bean.getCreatetime());
 		gt.setCreatorid(BaseTools.adminCreateId());
 		gt.setReplycount(bean.getReplycount());
 		gt.setBrandid(this.getBrandid());

@@ -1,5 +1,6 @@
 package com.jshop.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.jshop.entity.ArticleT;
@@ -50,6 +51,15 @@ public interface ArticleTService {
 	 * @param htmlPath
 	 */
 	public abstract int updateHtmlPath(String articleid,String htmlPath);
+	/**
+	 * 更新文章静态页避免重复生成
+	 * @param articleid
+	 * @param htmlPath
+	 * @param updatetime
+	 * @return
+	 */
+	public abstract int updateHtmlPath(String articleid,String htmlPath,Date updatetime);
+	
 	/**
 	 * 根据用户id获取文章列表
 	 * @param creatorid
