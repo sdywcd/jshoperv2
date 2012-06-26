@@ -8,6 +8,42 @@ var session ="true";
 /**
  * Required to initialize the page data
  */
+
+/*
+ * 删除图片按钮
+ */
+$(function() {
+    $("#delpc").click(function() {
+        var str = "";
+        var sum = 0;
+        $(":checkbox[name='pcpath'][checked=true]").each(function() {
+            sum++;
+            str = this.id;
+        });
+        if (sum == 0) {
+            jAlert('只有在选择图片后才能删除', '信息提示');
+            return false;
+        }
+        if (sum > 1) {
+            jAlert('不能选择多个图片', '信息提示');
+            return false;
+        }
+        $('#triggers img').each(function() {
+            if (this.id == str) {
+                this.style.display = "none";
+                $(":checkbox[name='pcpath'][checked=true]").each(function() {
+                    if (this.id == str) {
+                        this.style.display = "none";
+                        this.name = "dispcpath";
+                    }
+
+                });
+            }
+
+        });
+
+    });
+});
 /**
  * 读取商品一级分类
  */
@@ -275,6 +311,16 @@ $(function() {
 		}
 		var metaKeywords = $('#metaKeywords').val();
 		var metaDes = $('#metaDes').val();
+        // 获logo路径集合
+        var logoPath = "";
+        $(":checkbox[name='pcpath'][checked=true]").each(function() {
+            logoPath = this.value
+        });
+        if($("#mobilesync").attr('checked')){
+            var mobilesync="1";
+        }else{
+            var mobilesync="0";
+        }
 		if (parentId == "0") {
 			$.post("addGoodsCategory.action", {
 				"grade" : grade,
@@ -283,7 +329,9 @@ $(function() {
 				"name" : name,
 				"sort" : sort,
 				"sign" : sign,
-				"goodsTypeId" : goodsTypeId
+				"goodsTypeId" : goodsTypeId,
+                "logo":logoPath,
+                "mobilesync":mobilesync
 			}, function(data) {
 				if (data.sucflag) {
 					window.location.href = "goodscategorymanagement.jsp?session="+session+"#goods";
@@ -302,7 +350,9 @@ $(function() {
 				"name" : name,
 				"sort" : sort,
 				"sign" : sign,
-				"goodsTypeId" : goodsTypeId
+				"goodsTypeId" : goodsTypeId,
+                "logo":logoPath,
+                "mobilesync":mobilesync
 			}, function(data) {
 				if (data.sucflag) {
 					window.location.href = "goodscategorymanagement.jsp?session="+session+"#goods";
@@ -322,7 +372,9 @@ $(function() {
 				"name" : name,
 				"sort" : sort,
 				"sign" : sign,
-				"goodsTypeId" : goodsTypeId
+				"goodsTypeId" : goodsTypeId,
+                "logo":logoPath,
+                "mobilesync":mobilesync
 			}, function(data) {
 				if (data.sucflag) {
 					window.location.href = "goodscategorymanagement.jsp?session="+session+"#goods";
@@ -363,6 +415,14 @@ $(function() {
 			$('#metaKeywords').attr("value", data.bean.metaKeywords);
 			$('#metaDes').attr("value", data.bean.metaDes);
 			$('#hidgoodsCategoryTid').attr("value", data.bean.goodsCategoryTid);
+            var htm = "<img id='logo' src='" + data.bean.logo + "'/>";
+            var checkpc = "<input id='logo' name='pcpath' type='checkbox' value='" + data.bean.logo+ "' checked='true' />";
+            $("#triggers").html(htm).append(checkpc);
+            if(data.bean.mobilesync=="1"){
+                $("#mobilesync").attr("checked",true);
+            }else{
+                $("#mobilesync").attr("checked",false);
+            }
 		}
 	});
 
@@ -382,6 +442,15 @@ $(function() {
 		var metaKeywords = $('#metaKeywords').val();
 		var metaDes = $('#metaDes').val();
 		var goodsCategoryTid = $('#hidgoodsCategoryTid').val();
+        var logoPath = "";
+        $(":checkbox[name='pcpath'][checked=true]").each(function() {
+            logoPath = this.value
+        });
+        if($("#mobilesync").attr('checked')){
+            var mobilesync="1";
+        }else{
+            var mobilesync="0";
+        }
 		$.post("updateGoodscategoryT.action", {
 			"metaKeywords" : metaKeywords,
 			"metaDes" : metaDes,
@@ -389,7 +458,9 @@ $(function() {
 			"sort" : sort,
 			"sign" : sign,
 			"goodsTypeId" : goodsTypeId,
-			"goodsCategoryTid" : goodsCategoryTid
+			"goodsCategoryTid" : goodsCategoryTid,
+            "logo":logoPath,
+            "mobilesync":mobilesync
 		}, function(data) {
 			if (data.sucflag) {
 				window.location.href = "goodscategorymanagement.jsp?session="+session+"#goods";

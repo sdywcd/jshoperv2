@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/payway" />
+
+    <RadioGroup
+        android1:id="@+id/radioGrouppayway"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content" >
+
+        <RadioButton
+            android1:id="@+id/cash1radioButton"
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:checked="true"
+            android1:text="@string/cash1" />
+
+        <RadioButton
+            android1:id="@+id/creditcard2radioButton"
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:text="@string/creditcard2" />
+
+    </RadioGroup>
+
+</LinearLayout>
