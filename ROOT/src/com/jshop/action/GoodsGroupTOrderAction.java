@@ -21,7 +21,7 @@ import com.jshop.entity.GroupOrderT;
 import com.jshop.service.GroupOrderTService;
 import com.opensymphony.xwork2.ActionSupport;
 @ParentPackage("jshop")
-@Controller("orderTAction")
+@Controller("goodsGroupTOrderAction")
 public class GoodsGroupTOrderAction extends ActionSupport {
 	private GroupOrderTService groupOrderTService;
 	private String orderid;
@@ -353,8 +353,22 @@ public class GoodsGroupTOrderAction extends ActionSupport {
 			Map cellmap=new HashMap();
 			cellmap.put("id", grouporder.getOrderid());
 			cellmap.put("cell",new Object[]{
-					grouporder.getAmount(), grouporder.getNeedquantity(), grouporder.getUsername(), grouporder.getShippingusername(), grouporder.getPaymentname(), grouporder.getDelivermode(), grouporder.getOrderstate(), grouporder.getPaystate(), grouporder.getShippingstate(), BaseTools.formateDbDate(grouporder.getPurchasetime()),  grouporder.getInvoice(), grouporder.getOrderTag() 
+					grouporder.getOrderid(),
+					grouporder.getGoodsname(),
+					grouporder.getAmount(),
+					grouporder.getNeedquantity(), 
+					grouporder.getUsername(), 
+					grouporder.getShippingusername(), 
+					grouporder.getPaymentname(), 
+					grouporder.getDelivermode(), 
+					grouporder.getOrderstate(), 
+					grouporder.getPaystate(), 
+					grouporder.getShippingstate(), 
+					BaseTools.formateDbDate(grouporder.getPurchasetime()),  
+					grouporder.getInvoice(), 
+					grouporder.getOrderTag() 
 			});
+			
 			rows.add(cellmap);
 			}
 	}
@@ -364,10 +378,10 @@ public class GoodsGroupTOrderAction extends ActionSupport {
 	public void  finddefaultGroupOrder(){
 		int currentPage = page;
 		int lineSize= rp;
-		total = this.getGroupOrderTService().countAllGroupOrder();
+		total = this.getGroupOrderTService().countfindAllGroupOrderT();
 		if(Validate.StrNotNull(sortname)&& Validate.StrNotNull(sortorder)){
 			String queryString ="from GroupOrderT order by "+ sortname +" "+ sortorder +"";
-			List<GroupOrderT> order = this.getGroupOrderTService().sortAllGroupOrder(currentPage, lineSize, queryString);
+			List<GroupOrderT> order = this.getGroupOrderTService().sortAllGroupOrderT(currentPage, lineSize, queryString);
 			if(order!=null){
 				this.processGroupOrder(order);
 			}
