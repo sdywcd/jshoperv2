@@ -15,6 +15,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
 <title>Insert title here</title>
 		<style type="text/css">
 #triggers img {
@@ -229,7 +230,9 @@
 									</label>
 								</div>
 								<div style="margin: 0 0 0 200px;">
+									<div id="cssrefuse">
 										<textarea id="detail" name="detail" cols="50" rows="12" style="width: 100%; height: 600px; visibility: hidden;"><%=htmlspecialchars(htmlData)%></textarea>
+									</div>
 								</div>
 							</div>
 							<div class="form">
@@ -256,6 +259,7 @@
 		</div>
 		<!-- end content -->
 		<!-- footer -->
+		<script type="text/javascript" src="<%=basePath%>/jshop/admin/js/regme.js"></script>
 		<script type="text/javascript" src="<%=basePath%>/jshop/admin/js/addgoodsgroupjs.js"></script>
 		<script type="text/javascript" src="<%=basePath %>/My97DatePicker/WdatePicker.js"></script>
 		<%@include file="/jshop/admin/footer.jsp"%>
