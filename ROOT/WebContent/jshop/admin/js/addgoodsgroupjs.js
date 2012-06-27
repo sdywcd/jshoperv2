@@ -67,7 +67,7 @@ function validatethenpostinfotoaddgoodsgroup(){
 		jAlert('商品说明不能为空','信息提示');
 		return false;
 	}
-	flag=true;
+	flag = true;
 }
 
 
@@ -95,7 +95,58 @@ $(function(){
 		var pictureurl="";
 		$(":checkbox[name='pcpath'][checked=true]").each(function(){
 			pictureurl=this.value;
-		});		
+		});
+		//正则验证
+		var regFlag = $(this).regme([{
+			regid : "goodsname",
+			type : "text",
+			textvalue : goodsname,
+			regular : "EnChNum_",
+			refillname:"商品名称",
+			onSuccess : true,			
+			codelimit : 100			
+		},{
+			regid : "sendpoint",
+			type : "value",
+			textvalue : sendpoint,
+			regular : 'floatordouble',
+			refillname : '商品积分',
+			onSuccess : true,
+		},{
+			regid : "cashlimit",
+			type : "value",
+			textvalue : cashlimit,
+			regular : 'nosigninteger',
+			refillname : '保证金额度 ',
+			onSuccess : true,
+		},{
+			regid : "groupprice",
+			type : "compare",
+			textvalue : groupprice,
+			uplimit : memberprice,
+			refillname : '团购价',
+			onSuccess : true,
+			upregion : false,
+		},{
+			regid : "salequantity",
+			type : "value",
+			textvalue : salequantity,
+			refillname : '可售数量',
+			regular : 'nosigninteger',
+			onSuccess : true,
+		},{
+			regid : "limitbuy",
+			type : "value",
+			textvalue : limitbuy,
+			refillname : '限购数量',
+			regular : 'nosigninteger',
+			onSuccess : true,
+		}
+		]);
+		if(!regFlag){
+			return false;
+		}
+		
 		$.post("addGoodsGroupT.action",{"memberprice":memberprice,"pictureurl":pictureurl,"groupprice":groupprice,"salequantity":salequantity,"cashstate":cashstate,"limitbuy":limitbuy,"endtime":endtime,"state":state,"begintime":begintime,"goodsid":goodsid,"goodsname":goodsname,"detail":detail,"sendpoint":sendpoint,"cashlimit":cashlimit},function(data){
 			if(data.goodsgroup){
 				jAlert('添加成功','信息提示');
@@ -170,7 +221,56 @@ $(function(){
 			var pictureurl="";
 			$(":checkbox[name='pcpath'][checked=true]").each(function(){
 				pictureurl=this.value;
-			});		
+			});	
+			var regFlag = $(this).regme([{
+				regid : "goodsname",
+				type : "text",
+				textvalue : goodsname,
+				regular : "EnChNum_",
+				refillname:"商品名称",
+				onSuccess : true,			
+				codelimit : 100			
+			},{
+				regid : "sendpoint",
+				type : "value",
+				textvalue : sendpoint,
+				regular : 'floatordouble',
+				refillname : '商品积分',
+				onSuccess : true,
+			},{
+				regid : "cashlimit",
+				type : "value",
+				textvalue : cashlimit,
+				regular : 'nosigninteger',
+				refillname : '保证金额度 ',
+				onSuccess : true,
+			},{
+				regid : "groupprice",
+				type : "compare",
+				textvalue : groupprice,
+				uplimit : memberprice,
+				refillname : '团购价',
+				onSuccess : true,
+				upregion : false,
+			},{
+				regid : "salequantity",
+				type : "value",
+				textvalue : salequantity,
+				refillname : '可售数量',
+				regular : 'nosigninteger',
+				onSuccess : true,
+			},{
+				regid : "limitbuy",
+				type : "value",
+				textvalue : limitbuy,
+				refillname : '限购数量',
+				regular : 'nosigninteger',
+				onSuccess : true,
+			}
+			]);
+			if(!regFlag){
+				return false;
+			}
 		$.post("updateGoodsGroup.action",{"groupid":groupid,"groupprice":groupprice,"pictureurl":pictureurl,"memberprice":memberprice,"salequantity":salequantity,"cashstate":cashstate,"limitbuy":limitbuy,"endtime":endtime,"state":state,"begintime":begintime,"goodsname":goodsname,"detail":detail,"sendpoint":sendpoint,"cashlimit":cashlimit},function(data){
 			if(data.goodsgroup){
 				jAlert('修改成功','信息提示');
