@@ -437,10 +437,11 @@
 										</label>
 									</div>
 									<div style="margin: 0 0 0 200px;">
+										
 										<textarea id="detail" name="detail" cols="50" rows="12" style="width: 100%; height: 600px; visibility: hidden;"><%=htmlspecialchars(htmlData)%></textarea>
+										
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>

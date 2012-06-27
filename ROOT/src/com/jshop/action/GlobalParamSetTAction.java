@@ -26,6 +26,7 @@ public class GlobalParamSetTAction extends ActionSupport {
 	private String stockwarning;
 	private String integralconversionratio;
 	private String mobilehost;
+	private String freemarkerfilter;
 	private Map<String, Object> map = new HashMap<String, Object>();
 	private boolean slogin;
 	private boolean sucflag;
@@ -95,6 +96,14 @@ public class GlobalParamSetTAction extends ActionSupport {
 		this.mobilehost = mobilehost;
 	}
 
+	public String getFreemarkerfilter() {
+		return freemarkerfilter;
+	}
+
+	public void setFreemarkerfilter(String freemarkerfilter) {
+		this.freemarkerfilter = freemarkerfilter;
+	}
+
 	/**
 	 * 获取所有全局参数
 	 * 
@@ -117,6 +126,9 @@ public class GlobalParamSetTAction extends ActionSupport {
 				}
 				if(gm.getGkey().equals(GlobalParam.MOBILEHOST)){
 					map.put(GlobalParam.MOBILEHOST, gm.getGvalue());
+				}
+				if(gm.getGkey().equals(GlobalParam.FREEMARKERFILTER)){
+					map.put(GlobalParam.FREEMARKERFILTER, gm.getGvalue());
 				}
 			}
 			
@@ -144,6 +156,8 @@ public class GlobalParamSetTAction extends ActionSupport {
 		gm.setGkey(GlobalParam.MOBILEHOST);
 		gm.setGvalue(this.getMobilehost().trim());
 		this.getGlobalParamService().updateGolbalParamByKey(gm);
+		gm.setGkey(GlobalParam.FREEMARKERFILTER);
+		gm.setGvalue(this.getFreemarkerfilter().trim());
 		this.setSucflag(true);
 		return "json";
 	}
