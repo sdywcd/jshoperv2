@@ -254,7 +254,7 @@ public class CreateHtml extends ActionSupport {
 		List<GoodsT> glist = this.getDataCollectionTAction().findAllGoodsT();
 		for (Iterator it = glist.iterator(); it.hasNext();) {
 			GoodsT gt = (GoodsT) it.next();
-			if(!gt.getCreatetime().equals(gt.getUpdatetime())){
+//			if(!gt.getCreatetime().equals(gt.getUpdatetime())){
 				map.put(FreeMarkervariable.GOODSDETAIL, gt);
 				//获取商品参数
 				map.put(FreeMarkervariable.GOODSPARAMETERS,this.getGoodsTNAction().processGoodsparameters(gt));
@@ -266,7 +266,7 @@ public class CreateHtml extends ActionSupport {
 				map.put(FreeMarkervariable.GOODSBELINKED, this.getDataCollectionTAction().findGoodsBelinkedTBygoodsid(gt));
 				String htmlPath = this.createGoodsT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORGOODSDETAIL, gt.getGoodsid(), map);
 				this.getGoodsTService().updateHtmlPath(gt.getGoodsid(), htmlPath,gt.getCreatetime());
-			}
+//			}
 		}
 	}
 
@@ -281,13 +281,13 @@ public class CreateHtml extends ActionSupport {
 		if (!alist.isEmpty()) {
 			for (Iterator it = alist.iterator(); it.hasNext();) {
 				ArticleT at = (ArticleT) it.next();
-				if(!at.getCreatetime().equals(at.getUpdatetime())){
+//				if(!at.getCreatetime().equals(at.getUpdatetime())){
 					if(!"1".equals(at.getIsnotice())){
 						map.put(FreeMarkervariable.ARTICLE, at);
 						String htmlPath = this.createArticleT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORARTICLE, at.getArticleid(), map);
 						this.getArticleTService().updateHtmlPath(at.getArticleid(), htmlPath,at.getCreatetime());
 					}
-				}
+//				}
 				
 			}
 		}
@@ -303,13 +303,13 @@ public class CreateHtml extends ActionSupport {
 		if (!alist.isEmpty()) {
 			for (Iterator it = alist.iterator(); it.hasNext();) {
 				ArticleT at = (ArticleT) it.next();
-				if(!at.getCreatetime().equals(at.getUpdatetime())){
+//				if(!at.getCreatetime().equals(at.getUpdatetime())){
 					if("1".equals(at.getIsnotice())){
 						map.put(FreeMarkervariable.ARTICLE, at);
 						String htmlPath = this.createArticleT(BaseTools.getApplicationthemesig() + "_" + ContentTag.TEMPLATENAMEFORNOTICE, at.getArticleid(), map);
 						this.getArticleTService().updateHtmlPath(at.getArticleid(), htmlPath,at.getCreatetime());
 					}
-				}
+//				}
 			}
 		}
 	}
