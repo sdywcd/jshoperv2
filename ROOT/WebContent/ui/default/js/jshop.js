@@ -1245,6 +1245,9 @@ $(function(){
     var goodsid=$("#hidgoodsid").val();
     var htmlpath=$("#hidhtmlpath").val();
     var pcpath=$("#hidpictureurl").val();
+    if(pcpath==null){
+    	return ;
+    }
     var pcpatharray=pcpath.split(",");
     if(goodsid!=""&&htmlpath!=""&&pcpath!=""){
         if($.cookie(COOKIE_NAME)!=null){
