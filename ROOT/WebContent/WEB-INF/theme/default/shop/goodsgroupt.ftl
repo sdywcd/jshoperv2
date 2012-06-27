@@ -102,7 +102,7 @@
 					   <div class="h1">
 						<cite>
 						<span id="memberprice400215_240603" class="t2">		
-						${goodsgroupt.memberprice}
+						${goodsgroupt.memberprice?c}
 						
 						</span>
 						</cite>
@@ -175,13 +175,13 @@
 				  </form>
 
 
-				<a style="text-decoration: none" target="_blank" href="/product/240603.html">
+				
 				<div class="div1_right">				   <div class="pic">
 					
 					<img src="${goodsgroupt.pictureurl}" width="470px" height="470px">
 				   </div>
 				</div>
-				</a>
+				
 			    </div>
 			    <div class="bottom"></div>
 			   </div>
