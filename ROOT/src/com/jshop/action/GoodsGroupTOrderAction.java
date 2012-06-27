@@ -378,6 +378,16 @@ public class GoodsGroupTOrderAction extends ActionSupport {
 	public void  finddefaultGroupOrder(){
 		int currentPage = page;
 		int lineSize= rp;
+
+//		total = this.getGroupOrderTService().countAllGroupOrder();
+//		if(Validate.StrNotNull(sortname)&& Validate.StrNotNull(sortorder)){
+//			String queryString ="from GroupOrderT order by "+ sortname +" "+ sortorder +"";
+//			List<GroupOrderT> order = this.getGroupOrderTService().sortAllGroupOrder(currentPage, lineSize, queryString);
+//			if(order!=null){
+//				this.processGroupOrder(order);
+//			}
+//		}
+
 		total = this.getGroupOrderTService().countfindAllGroupOrderT();
 		if(Validate.StrNotNull(sortname)&& Validate.StrNotNull(sortorder)){
 			String queryString ="from GroupOrderT order by "+ sortname +" "+ sortorder +"";
@@ -386,6 +396,7 @@ public class GoodsGroupTOrderAction extends ActionSupport {
 				this.processGroupOrder(order);
 			}
 		}
+
 	}
 	/**
 	 * 查询所有团购订单信息

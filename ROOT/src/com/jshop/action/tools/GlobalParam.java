@@ -29,5 +29,8 @@ public class GlobalParam {
 	
 	//是否允许用户注册多个商城信息
 	public static final String CANUSERREGISTERMORESHOPINFO="canuserregistermoreshopinfo";
+	//智能过滤可生成对象
+	public static final String FREEMARKERFILTER="freemarkerfilter";
+	
 	
 }
