@@ -48,6 +48,9 @@
 				<li>
 					<a id="link18" href="<%=basePatha%>jshop/admin/goods/goodsgroupmanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#goods">团购商品</a>
 				</li>
+				<li>
+					<a id="link19" href="<%=basePatha%>jshop/admin/goods/groupordermanage.jsp?session=6584359BA964336B9BDE75737952F5AA#goods">团购订单管理</a>
+				</li>
 				
 				<li class="collapsible">
 					<a href="#" class="plus">商品列表</a>
