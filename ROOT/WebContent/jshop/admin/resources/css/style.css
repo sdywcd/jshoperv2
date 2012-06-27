@@ -2054,6 +2054,10 @@ div.form div.fields div.buttons div.highlight .ui-state-hover
 	border-bottom: 1px solid #cdcdcd;*/
 }
 
+#content div.box #cssrefuse table td{
+	padding: 5px;
+}
+
 #content div.box table td.last
 {
 	border-right: none;	
