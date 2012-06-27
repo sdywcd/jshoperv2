@@ -23,7 +23,6 @@
 <script type="text/javascript" src="${basepath}ui/default/js/jquery.jqzoom.js"></script>
 <script type="text/javascript" src="${basepath}ui/default/js/jquery.dimensions.js"></script>
 <script type="text/javascript" src="${basepath}ui/default/js/jquery.sexy-vote.js"></script>
-<script type="text/javascript" src="${basepath}ui/default/js/jquery.cookie.js"></script>
 <script type="text/javascript" src="${basepath}jshop/admin/js/kindeditor-min.js"></script>
 </head><body>
 <input type="hidden" id="hidurl" name="hidurl" value=""/>
@@ -60,15 +59,7 @@
       <div class="m_leftdiv02 mt7"> <a href=""><a href='#' target='_blank'><img src='${basepath}ui/default/images/20120302084354280.jpg'  width='200' height='240' alt='' border='0' /></a></a> </div>
       <div class="m_leftdiv02 mt7"> <a href=""><a href='#' target='_blank'><img src='${basepath}ui/default/images/20120302084447454.jpg'  width='200' height='240' alt='' border='0' /></a></a> </div>
       <div class="m_leftdiv02 mt7"> <a href=""><a href='#' target='_blank'><img src='${basepath}ui/default/images/20120302084732989.jpg'  width='200' height='240' alt='' border='0' /></a></a> </div>
-	  <div class="m_leftdiv02 mt7">
-		<h1> 浏览记录 </h1>
-	   </div>
-	  <div id="goodshistory">
-	  <div class="m_leftdiv02 mt7"> 
-	  <a href='#' target='_blank'><img src='${basepath}ui/default/images/20120302084732989.jpg'  width='200' height='240' alt='' border='0' /></a>
-	  </div>
-	  </div>
-	</div>
+    </div>
     <#if (goodsdetail??)&&(goodsdetail?size>0)>
     <div id="mainright">
       <div class="detail_info">
@@ -362,6 +353,5 @@
 <#include "/WEB-INF/theme/default/shop/footer.ftl">
 <script type="text/javascript" src="${basepath}ui/default/js/jshopeasyslider.js"></script>
 <script type="text/javascript" src="${basepath}ui/default/js/jshop.js"></script>
-
 </body>
 </html>
