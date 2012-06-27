@@ -169,7 +169,7 @@ $(function(){
 			//获取商品图片路径集合
 			var pictureurl="";
 			$(":checkbox[name='pcpath'][checked=true]").each(function(){
-				pictureurl+=this.value+",";
+				pictureurl=this.value;
 			});		
 		$.post("updateGoodsGroup.action",{"groupid":groupid,"groupprice":groupprice,"pictureurl":pictureurl,"memberprice":memberprice,"salequantity":salequantity,"cashstate":cashstate,"limitbuy":limitbuy,"endtime":endtime,"state":state,"begintime":begintime,"goodsname":goodsname,"detail":detail,"sendpoint":sendpoint,"cashlimit":cashlimit},function(data){
 			if(data.goodsgroup){

@@ -1160,7 +1160,7 @@ function addtogroupcart(groupid) {
 	}, function(data) {
 		if (!data.slogin) {
 			// 跳转到登录页面
-			window.location.href = "user/login.html?redirecturl=" + hidurl;
+			window.location.href = "../../shop/user/login.html?redirecturl=" + hidurl;
 		} else if (data.sucflag) {
 			// 跳转到团购订单页面
 			window.location.href = "InitGroupOrder.action";
@@ -1199,7 +1199,7 @@ function InitAlipayandAddGroupOrder(){
 	if(paymentid!=null){
 		$.post("InitAlipayneedInfo.action",{"cartneedquantity":cartneedquantity,"cartgoodsname":cartgoodsname,"cartgoodsid":cartgoodsid,"totalpoints":totalpoints,"total":total,"freight":freight,"cartid":cartid,"paymentid":paymentid,"logisticsid":logisticsid,"addressid":deliveraddressid,"logisticswebaddress":logisticswebaddress,"customernotes":customernotes,"orderTag":"1"},function(data){
 			if(!data.slogin){
-				window.location.href="user/login.html";
+				window.location.href="../../shop/user/login.html";
 				return false;
 			}
 			if(!data.spayment){
@@ -1208,7 +1208,7 @@ function InitAlipayandAddGroupOrder(){
 			}
 			if(!data.saddorder){
 				alert("订单生成出错");
-				window.location.href="user/login.html";
+				window.location.href="../../shop/user/login.html" ;
 			}else{
 				//增加发票到发票记录表
 				var inv_Payee=$('#inv_payee').val();
@@ -1234,3 +1234,72 @@ function InitAlipayandAddGroupOrder(){
 		alert("请选择支付方式");
 	}
 }
+
+/**
+ * 读取商品cookie和设置商品cookie
+ */
+var history=new Array();//商品浏览记录
+$(function(){
+    var COOKIE_NAME='historygoods';
+    var options={path:'/',expires:10};
+    var goodsid=$("#hidgoodsid").val();
+    var htmlpath=$("#hidhtmlpath").val();
+    var pcpath=$("#hidpictureurl").val();
+    var pcpatharray=pcpath.split(",");
+    if(goodsid!=""&&htmlpath!=""&&pcpath!=""){
+        if($.cookie(COOKIE_NAME)!=null){
+            var historyvalue=$.cookie(COOKIE_NAME);
+            var historyarray=historyvalue.split("=");
+            for(var i=0;i<historyarray.length;i++){
+                history.push(historyarray[i]);
+            }
+        }
+        var jsonstr="{\"goodsid\":\""+goodsid+"\",\"htmlpath\":\""+htmlpath+"\",\"pcpath\":\""+pcpatharray[0]+"\"}";
+        history.push(jsonstr);
+	    if(history!=null&&history.length>0){
+            var temp="";
+	        for(var i=0;i<history.length;i++){
+	           temp+=history[i]+"=";
+            }
+        }
+       $.cookie(COOKIE_NAME, temp.substring(0,temp.length-1).toString(),options);
+       displaygoodshistory(COOKIE_NAME);
+    
+    }
+    
+});
+
+/**
+ * 显示商品cookie历史记录
+ */
+function displaygoodshistory(COOKIE_NAME){
+    var h_istory="";
+    var historyvalue=$.cookie(COOKIE_NAME);
+    var historyarray=historyvalue.split("=");
+    historyarray=districtArray(historyarray);
+    //historyarray.reverse();
+    
+    for(var i=0;i<historyarray.length;i++){
+        var jsonsarray=$.parseJSON(historyarray[i].toString());
+        
+        h_istory+="<div class='m_leftdiv02 mt7'>";
+        h_istory+="<a href='../../../"+jsonsarray.htmlpath+"' target='_blank'><img src="+jsonsarray.pcpath+"  width='200' height='240' alt='' border='0' /></a>";
+        h_istory+="</div>";
+    }
+    $("#goodshistory").html(h_istory);
+}
+
+/**
+ * 去除重复数组
+ */
+function districtArray(array){
+    var result = new Array();
+    for(var i in array){
+        if(result.indexOf(array[i]) == -1){  
+            result.push(array[i]);  
+        }  
+    }
+    return result;  
+}
+
+

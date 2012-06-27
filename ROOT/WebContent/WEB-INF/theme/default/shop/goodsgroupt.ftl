@@ -70,14 +70,14 @@
 				<div class="top"></div>
 				<div class="box">
 					<#if (goodsgroupt??)&&(goodsgroupt?size>0) >
-							<#setting number_format="0.00">
-					<#assign x="${goodsgroupt.memberprice}"/>
-                            <#assign y="${goodsgroupt.groupprice}"/>
+							
+					<#assign x="${goodsgroupt.memberprice?c}"/>
+                            <#assign y="${goodsgroupt.groupprice?c}"/>
 					<form method="post" enctype="multipart/form-data" id="buyForm">
 					
 					<div class="name">
 										
-					塔克团 特价团购${goodsgroupt.groupprice} 直接便宜${(x?number-y?number)}元 ${goodsgroupt.goodsname}   现货发售，当天发货。全网最低的行货正品，快快下手吧~
+					塔克团 特价团购${goodsgroupt.groupprice?c} 直接便宜${(x?number-y?number)}元 ${goodsgroupt.goodsname}   现货发售，当天发货。全网最低的行货正品，快快下手吧~
 					</div>
 					<div id="pp" class="div1_left">
 					   
@@ -89,7 +89,8 @@
 
                                               <a onClick="addtogroupcart(${goodsgroupt.groupid});" href="#"> 
                                                <span>￥</span>
-                                               <b id="customerPrice_240603">${goodsgroupt.groupprice}</b>
+											   
+                                               <b id="customerPrice_240603">${goodsgroupt.groupprice?c}</b>
                                                </a>
 							</div>
 
@@ -101,7 +102,7 @@
 					   <div class="h1">
 						<cite>
 						<span id="memberprice400215_240603" class="t2">		
-						${goodsgroupt.memberprice}
+						${goodsgroupt.memberprice?c}
 						
 						</span>
 						</cite>
@@ -174,13 +175,13 @@
 				  </form>
 
 
-				<a style="text-decoration: none" target="_blank" href="/product/240603.html">
+				
 				<div class="div1_right">				   <div class="pic">
 					
 					<img src="${goodsgroupt.pictureurl}" width="470px" height="470px">
 				   </div>
 				</div>
-				</a>
+				
 			    </div>
 			    <div class="bottom"></div>
 			   </div>

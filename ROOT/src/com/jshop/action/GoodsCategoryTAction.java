@@ -77,6 +77,8 @@ public class GoodsCategoryTAction extends ActionSupport {
 	private String parentName1;
 	private Date createtime;
 	private String creatorid;
+	private String logo;
+	private String mobilesync;
 	private String goodscategoryzero = null;
 	private String goodscategorythree = null;
 	private String goodscategorytwo = null;
@@ -480,6 +482,22 @@ public class GoodsCategoryTAction extends ActionSupport {
 		return usession;
 	}
 
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public String getMobilesync() {
+		return mobilesync;
+	}
+
+	public void setMobilesync(String mobilesync) {
+		this.mobilesync = mobilesync;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -585,6 +603,8 @@ public class GoodsCategoryTAction extends ActionSupport {
 				gct.setUpdatetime(BaseTools.systemtime());
 				gct.setVersiont(0);
 				gct.setParentName("");
+				gct.setLogo(this.getLogo());
+				gct.setMobilesync(this.getMobilesync());
 				this.getGoodsCategoryTService().addGoodsCategory(gct);
 				this.setSucflag(true);
 				return "json";
@@ -625,6 +645,8 @@ public class GoodsCategoryTAction extends ActionSupport {
 				gct.setVersiont(0);
 				gct.setParentId(this.getParentId());
 				gct.setParentName(this.getParentName());
+				gct.setLogo(this.getLogo());
+				gct.setMobilesync(this.getMobilesync());
 				this.getGoodsCategoryTService().addGoodsCategory(gct);
 				this.setSucflag(true);
 				return "json";
@@ -665,6 +687,8 @@ public class GoodsCategoryTAction extends ActionSupport {
 				gct.setVersiont(0);
 				gct.setParentId(this.getParentId1());
 				gct.setParentName(this.getParentName1());
+				gct.setLogo(this.getLogo());
+				gct.setMobilesync(this.getMobilesync());
 				this.getGoodsCategoryTService().addGoodsCategory(gct);
 				this.setSucflag(true);
 				return "json";
@@ -770,6 +794,8 @@ public class GoodsCategoryTAction extends ActionSupport {
 			gct.setCreatorid(BaseTools.adminCreateId());
 			gct.setUpdatetime(BaseTools.systemtime());
 			gct.setVersiont(0);
+			gct.setLogo(this.getLogo());
+			gct.setMobilesync(this.getMobilesync());
 			this.getGoodsCategoryTService().updateGoodscategoryT(gct);
 			this.setSucflag(true);
 			bean=gct;

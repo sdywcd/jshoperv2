@@ -227,7 +227,7 @@ public class GoodsCategoryTDaoImpl extends HibernateDaoSupport implements GoodsC
 		log.debug(" updateGoodscategoryT");
 		try {
 
-			final String queryString = "update GoodsCategoryT as gct set gct.metaKeywords=:metaKeywords,gct.metaDes=:metaDes,gct.name=:name,gct.sort=:sort,gct.sign=:sign,gct.goodsTypeId=:goodsTypeId,gct.createtime=:createtime,gct.creatorid=:creatorid where gct.goodsCategoryTid=:goodsCategoryTid ";
+			final String queryString = "update GoodsCategoryT as gct set gct.metaKeywords=:metaKeywords,gct.metaDes=:metaDes,gct.name=:name,gct.sort=:sort,gct.sign=:sign,gct.goodsTypeId=:goodsTypeId,gct.createtime=:createtime,gct.creatorid=:creatorid,gct.logo=:logo,gct.mobilesync=:mobilesync where gct.goodsCategoryTid=:goodsCategoryTid ";
 			this.getHibernateTemplate().execute(new HibernateCallback() {
 
 				public Object doInHibernate(Session session) throws HibernateException, SQLException {
@@ -242,6 +242,8 @@ public class GoodsCategoryTDaoImpl extends HibernateDaoSupport implements GoodsC
 					query.setParameter("goodsTypeId", gct.getGoodsTypeId());
 					query.setParameter("createtime", gct.getCreatetime());
 					query.setParameter("creatorid", gct.getCreatorid());
+					query.setParameter("logo", gct.getLogo());
+					query.setParameter("mobilesync", gct.getMobilesync());
 					i = query.executeUpdate();
 					return i;
 				}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_height="match_parent" android:layout_width="match_parent" android:orientation="vertical" android:background="#E5E5E5">
+    <TableLayout android:layout_width="fill_parent" android:id="@+id/tableLayout1" android:layout_height="wrap_content">
+	    <TableRow android:layout_height="wrap_content" android:id="@+id/tableRow1" android:layout_width="wrap_content" android:layout_gravity="fill_horizontal">
+	        <Button android:id="@+id/aboutus" android:width="@dimen/btn_width" android:height="@dimen/btn_height" android:text="@string/aboutus" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="fill_horizontal"></Button>
+	        <Button android:id="@+id/service" android:width="@dimen/btn_width" android:height="@dimen/btn_height" android:text="@string/service" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="fill_horizontal"></Button>
+	        <Button android:id="@+id/contact" android:width="@dimen/btn_width" android:height="@dimen/btn_height" android:text="@string/contact" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="fill_horizontal"></Button>
+	    </TableRow>
+	</TableLayout>
+    <TextView android:layout_width="match_parent" android:text="" android:layout_height="wrap_content" android:id="@+id/contactTextView" android:gravity="center"></TextView>
+    <TableLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/tableLayout2">
+        <TableRow android:id="@+id/tableRow2" android:layout_width="wrap_content" android:layout_height="wrap_content">
+           
+        </TableRow>
+        <TableRow android:id="@+id/tableRow3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="50px">
+            <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/register" android:text="@string/register" android:width="@dimen/btn_width" android:height="@dimen/btn_height" android:gravity="center"></TextView>
+            <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/login" android:text="@string/login" android:width="@dimen/btn_width" android:height="@dimen/btn_height" android:gravity="center"></TextView>
+        </TableRow>
+    </TableLayout>
+    <TableLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/tableLayout3"  android:collapseColumns="4" >
+        <TableRow android:id="@+id/tableRow5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="center|center_vertical">
+  			<ImageButton android:id="@+id/boutiques" android:layout_height="100px" android:layout_width="100px" android:src="@drawable/jpsd" android:layout_marginRight="20px" android:layout_marginLeft="20px"></ImageButton>
+            <ImageButton android:id="@+id/searchgoods" android:src="@drawable/searchgoods" android:layout_width="100px" android:layout_height="100px" android:layout_marginRight="20px"></ImageButton>
+            <ImageButton android:id="@+id/usercenter" android:src="@drawable/usercenter" android:layout_width="100px" android:layout_height="100px" android:layout_marginRight="20px"></ImageButton>
+        </TableRow>
+        <TableRow android:id="@+id/tableRow6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:collapseColumns="4">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceSmall" android:id="@+id/textView1" android:text="@string/boutiquestextview" android:layout_marginLeft="20px"></TextView>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceSmall" android:id="@+id/textView2" android:text="@string/searchgoodstextview"></TextView>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceSmall" android:id="@+id/textView3" android:text="@string/usercentertextview"></TextView>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceSmall" android:id="@+id/textView4" android:text="@string/sharetextview"></TextView>
+        </TableRow>
+        <TableRow android:id="@+id/tableRow7" android:layout_width="wrap_content" android:layout_height="wrap_content"></TableRow>
+    </TableLayout>
+  
+</LinearLayout>
