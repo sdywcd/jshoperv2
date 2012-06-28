@@ -602,7 +602,7 @@ public class FrontOrderAction extends ActionSupport {
 				cartgoodsname += ct.getGoodsname();
 				cartgoodsid += ct.getGoodsid() + ",";
 				cartneedquantity += ct.getNeedquantity();
-				cartid = ct.getCartid();
+				cartid = ct.getCartid();//获取购物车中的cartid表示同一个cartid即在同一个订单中
 			}
 			ActionContext.getContext().put("cart", list);
 			ActionContext.getContext().put("totalprice", total);
