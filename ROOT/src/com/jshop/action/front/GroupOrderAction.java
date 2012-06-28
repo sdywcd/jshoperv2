@@ -585,6 +585,10 @@ public class GroupOrderAction extends ActionSupport {
 		List<PaymentM> list = this.getPaymentMService().findAllPaymentWithoutPage();
 		ActionContext.getContext().put("payments", list);
 	}
+	/**
+	 * 增加订单
+	 * @param user
+	 */
 	public void initGroupOrder(UserT user){
 		user = (UserT) ActionContext.getContext().getSession().get(BaseTools.USER_SESSION_KEY);
 		GoodsGroupT ggt = new GoodsGroupT();
@@ -776,15 +780,15 @@ public class GroupOrderAction extends ActionSupport {
 //				//String []tempgoodsid=order.getGoodid().split(",");
 //				//检查如果购物已经有对应的订单号则不更新
 //				//3表示加入订单的购物车
-//				List<CartT>list=this.getCartTService().findCartByCartid(this.getCartid(), "3");
-//				if(!list.isEmpty()){
-//					return "json";
-//				}
-//				this.getCartTService().updateCartStateandOrderidByGoodsidList(this.getCartid().trim(), this.getSerialidorderid(), user.getUserid(), "3");
-//			}
-			return "json";
+			List<GroupCartT>list=this.getGroupCartService().findgroupCartByCartid(this.getCartid(), "3");
+				if(!list.isEmpty()){
+					return "json";
+				}
+				this.getGroupCartService().updateGroupCartStateandOrderidByGoodsidList(this.getCartid().trim(), this.getSerialidorderid(), this.getUserid(), "3");
+			}
+			
 
-		}
+//		}
 		this.setSlogin(false);
 		return "json";
 	}

@@ -15,15 +15,31 @@ import org.apache.struts2.json.annotations.JSON;
 import org.hibernate.classic.Validatable;
 import org.springframework.stereotype.Controller;
 
+import com.jshop.action.tools.AllOrderState;
 import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.Validate;
+import com.jshop.entity.CartT;
+import com.jshop.entity.GroupCartT;
 import com.jshop.entity.GroupOrderT;
+import com.jshop.entity.LogisticsBusinessT;
+import com.jshop.entity.OrderT;
+import com.jshop.entity.ShippingAddressT;
+import com.jshop.entity.UserT;
+import com.jshop.service.GroupCartService;
 import com.jshop.service.GroupOrderTService;
+import com.jshop.service.LogisticsBusinessTService;
+import com.jshop.service.ShippingAddressTService;
+import com.jshop.service.UsertService;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 @ParentPackage("jshop")
 @Controller("goodsGroupTOrderAction")
 public class GoodsGroupTOrderAction extends ActionSupport {
 	private GroupOrderTService groupOrderTService;
+	private UsertService usertService;
+	private ShippingAddressTService shippingAddressTService;
+	private GroupCartService groupCartService;
+	private LogisticsBusinessTService logisticsBusinessTService;
 	private String orderid;
 	private String userid;
 	private String username;
@@ -68,7 +84,60 @@ public class GoodsGroupTOrderAction extends ActionSupport {
 	private String sortname;
 	private String sortorder;
 	private String qtype;
+	private String Invoicenumber;
+	private String tradeno;
+	private String logisticsname;
+	private String formatedeliverytime;//格式化的发货时间
+	Map<String, Object> map = new HashMap<String, Object>();
+	@JSON(serialize=false)
+	public LogisticsBusinessTService getLogisticsBusinessTService() {
+		return logisticsBusinessTService;
+	}
+	public void setLogisticsBusinessTService(
+			LogisticsBusinessTService logisticsBusinessTService) {
+		this.logisticsBusinessTService = logisticsBusinessTService;
+	}
+	@JSON(serialize=false)
+	public GroupCartService getGroupCartService() {
+		return groupCartService;
+	}
+	public void setGroupCartService(GroupCartService groupCartService) {
+		this.groupCartService = groupCartService;
+	}
+	@JSON(serialize=false)
+	public ShippingAddressTService getShippingAddressTService() {
+		return shippingAddressTService;
+	}
+	public void setShippingAddressTService(
+			ShippingAddressTService shippingAddressTService) {
+		this.shippingAddressTService = shippingAddressTService;
+	}
+	@JSON(serialize=false)
+	public UsertService getUsertService() {
+		return usertService;
+	}
+	public void setUsertService(UsertService usertService) {
+		this.usertService = usertService;
+	}
 	
+	public String getTradeno() {
+		return tradeno;
+	}
+	public void setTradeno(String tradeno) {
+		this.tradeno = tradeno;
+	}
+	public String getLogisticsname() {
+		return logisticsname;
+	}
+	public void setLogisticsname(String logisticsname) {
+		this.logisticsname = logisticsname;
+	}
+	public Map<String, Object> getMap() {
+		return map;
+	}
+	public void setMap(Map<String, Object> map) {
+		this.map = map;
+	}
 	public String getQtype() {
 		return qtype;
 	}
@@ -341,6 +410,19 @@ public class GoodsGroupTOrderAction extends ActionSupport {
 	public void setSortorder(String sortorder) {
 		this.sortorder = sortorder;
 	}
+	
+	public String getInvoicenumber() {
+		return Invoicenumber;
+	}
+	public void setInvoicenumber(String invoicenumber) {
+		Invoicenumber = invoicenumber;
+	}
+	public String getFormatedeliverytime() {
+		return formatedeliverytime;
+	}
+	public void setFormatedeliverytime(String formatedeliverytime) {
+		this.formatedeliverytime = formatedeliverytime;
+	}
 	/**
 	 * 迭代显示数据
 	 * @param list
@@ -350,11 +432,72 @@ public class GoodsGroupTOrderAction extends ActionSupport {
 		rows.clear();
 		for(Iterator it = list.iterator();it.hasNext();){
 			GroupOrderT grouporder = (GroupOrderT) it.next();
+			if (grouporder.getOrderstate().equals("0")) {
+				grouporder.setOrderstate(AllOrderState.ORDERSTATE_ZERO);
+			} else if (grouporder.getOrderstate().equals("1")) {
+				grouporder.setOrderstate(AllOrderState.ORDERSTATE_ONE);
+			} else if (grouporder.getOrderstate().equals("2")) {
+				grouporder.setOrderstate(AllOrderState.ORDERSTATE_TWO);
+			} else if (grouporder.getOrderstate().equals("3")) {
+				grouporder.setOrderstate(AllOrderState.ORDERSTATE_THREE);
+			} else if (grouporder.getOrderstate().equals("4")) {
+				grouporder.setOrderstate(AllOrderState.ORDERSTATE_FOUR);
+			} else if (grouporder.getOrderstate().equals("5")) {
+				grouporder.setOrderstate(AllOrderState.ORDERSTATE_FIVE);
+			} else if (grouporder.getOrderstate().equals("6")) {
+				grouporder.setOrderstate(AllOrderState.ORDERSTATE_SIX);
+			} else if (grouporder.getOrderstate().equals("7")) {
+				grouporder.setOrderstate(AllOrderState.ORDERSTATE_SEVEN);
+			} else if (grouporder.getOrderstate().equals("8")) {
+				grouporder.setOrderstate(AllOrderState.ORDERSTATE_EIGHT);
+			} else {
+				grouporder.setOrderstate(AllOrderState.ORDERSTATE_NINE);
+			}
+
+			if (grouporder.getPaystate().equals("0")) {
+				grouporder.setPaystate(AllOrderState.PAYSTATE_ZERO);
+			} else if (grouporder.getPaystate().equals("1")) {
+				grouporder.setPaystate(AllOrderState.PAYSTATE_ONE);
+			} else {
+				grouporder.setPaystate(AllOrderState.PAYSTATE_TWO);
+			}
+
+			if (grouporder.getShippingstate().equals("0")) {
+				grouporder.setShippingstate(AllOrderState.SHIPPINGSTATE_ZERO);
+			} else if (grouporder.getShippingstate().equals("1")) {
+				grouporder.setShippingstate(AllOrderState.SHIPPINGSTATE_ONE);
+			} else {
+				grouporder.setShippingstate(AllOrderState.SHIPPINGSTATE_TWO);
+			}
+
+			if (grouporder.getInvoice().equals("0")) {
+				grouporder.setInvoice(AllOrderState.INVOICE_ZERO);
+			} else {
+				grouporder.setInvoice(AllOrderState.INVOICE_ONE);
+			}
+			if (grouporder.getDelivermode().equals("EXPRESS")) {
+				grouporder.setDelivermode(AllOrderState.EXPRESS);
+			} else if (grouporder.getDelivermode().equals("POST")) {
+				grouporder.setDelivermode(AllOrderState.POST);
+			} else {
+				grouporder.setDelivermode(AllOrderState.EMS);
+			}
+			if (grouporder.getOrderTag().equals("1")) {
+				grouporder.setOrderTag(AllOrderState.ORDERTAG_ONE);
+			} else if (grouporder.getOrderTag().equals("2")) {
+				grouporder.setOrderTag(AllOrderState.ORDERTAG_TWO);
+			}
+			if(grouporder.getDeliverytime()!=null){
+				this.setFormatedeliverytime(BaseTools.formateDbDate(grouporder.getDeliverytime()));
+			}else{
+				this.setFormatedeliverytime("");
+			}
 			Map cellmap=new HashMap();
 			cellmap.put("id", grouporder.getOrderid());
 			cellmap.put("cell",new Object[]{
 					grouporder.getOrderid(),
-					grouporder.getGoodsname(),
+					"<a id='orderdetial'href='InitgroupOrdersDetail?orderid=" + grouporder.getOrderid() + "' name='orderdetail'>" + grouporder.getGoodsname() + "</a>",
+					
 					grouporder.getAmount(),
 					grouporder.getNeedquantity(), 
 					grouporder.getUsername(), 
@@ -412,4 +555,244 @@ public class GoodsGroupTOrderAction extends ActionSupport {
 		}
 		return "json";
 	}
+	/**
+	 * 获取订单详细
+	 */
+	public void GetGroupOrderDetail(String orderid) {
+		GroupOrderT o = this.getGroupOrderTService().findgroupOrderDetailByorderid(orderid);
+		if (o != null) {
+			if (o.getOrderstate().equals("0")) {
+				o.setOrderstate(AllOrderState.ORDERSTATE_ZERO);
+			} else if (o.getOrderstate().equals("1")) {
+				o.setOrderstate(AllOrderState.ORDERSTATE_ONE);
+			} else if (o.getOrderstate().equals("2")) {
+				o.setOrderstate(AllOrderState.ORDERSTATE_TWO);
+			} else if (o.getOrderstate().equals("3")) {
+				o.setOrderstate(AllOrderState.ORDERSTATE_THREE);
+			} else if (o.getOrderstate().equals("4")) {
+				o.setOrderstate(AllOrderState.ORDERSTATE_FOUR);
+			} else if (o.getOrderstate().equals("5")) {
+				o.setOrderstate(AllOrderState.ORDERSTATE_FIVE);
+			} else if (o.getOrderstate().equals("6")) {
+				o.setOrderstate(AllOrderState.ORDERSTATE_SIX);
+			} else if (o.getOrderstate().equals("7")) {
+				o.setOrderstate(AllOrderState.ORDERSTATE_SEVEN);
+			} else if (o.getOrderstate().equals("8")) {
+				o.setOrderstate(AllOrderState.ORDERSTATE_EIGHT);
+			} else {
+				o.setOrderstate(AllOrderState.ORDERSTATE_NINE);
+			}
+
+			if (o.getPaystate().equals("0")) {
+				o.setPaystate(AllOrderState.PAYSTATE_ZERO);
+			} else if (o.getPaystate().equals("1")) {
+				o.setPaystate(AllOrderState.PAYSTATE_ONE);
+			} else {
+				o.setPaystate(AllOrderState.PAYSTATE_TWO);
+			}
+
+			if (o.getShippingstate().equals("0")) {
+				o.setShippingstate(AllOrderState.SHIPPINGSTATE_ZERO);
+			} else if (o.getShippingstate().equals("1")) {
+				o.setShippingstate(AllOrderState.SHIPPINGSTATE_ONE);
+			} else {
+				o.setShippingstate(AllOrderState.SHIPPINGSTATE_TWO);
+			}
+
+			if (o.getInvoice().equals("0")) {
+				o.setInvoice(AllOrderState.INVOICE_ZERO);
+			} else {
+				o.setInvoice(AllOrderState.INVOICE_ONE);
+			}
+			if (o.getDelivermode().equals("EXPRESS")) {
+				o.setDelivermode(AllOrderState.EXPRESS);
+			} else if (o.getDelivermode().equals("POST")) {
+				o.setDelivermode(AllOrderState.POST);
+			} else {
+				o.setDelivermode(AllOrderState.EMS);
+			}
+			if (o.getOrderTag().equals("1")) {
+				o.setOrderTag(AllOrderState.ORDERTAG_ONE);
+			} else if (o.getOrderTag().equals("2")) {
+				o.setOrderTag(AllOrderState.ORDERTAG_TWO);
+			}
+
+			map.put("orderdetail", o);
+
+			//获取买家信息
+			GetUserBuyerInfo(o.getUserid());
+		}
+	}
+	/**
+	 * 获取买家信息
+	 * 
+	 * @param userid
+	 */
+	public void GetUserBuyerInfo(String userid) {
+		UserT user = this.getUsertService().findById(userid);
+		if (user != null) {
+			map.put("orderbuyerinfo", user);
+		}
+	}
+	/**
+	 * 获取订单发货地址
+	 * 
+	 * @param orderid
+	 */
+	public void GetgroupOrderShippingAddress(String orderid) {
+		ShippingAddressT st = this.getShippingAddressTService().findShippingAddressByOrderid(orderid, "1");
+		if (st != null) {
+			map.put("shipping", st);
+		}
+	}
+	/**
+	 * 获取订单详细信息
+	 * 
+	 * @return
+	 */
+	@Action(value = "InitgroupOrdersDetail", results = { 
+			@Result(name = "success",type="dispatcher",location = "/jshop/admin/order/grouporderdetail.jsp?session=${usession}"),
+			@Result(name = "input",type="dispatcher",location = "/jshop/admin/order/grouporderdetail.jsp?session=${usession}")
+	})
+	public String InitgroupOrdersDetail() {
+		map.clear();
+		String orderid = this.getOrderid().trim();
+		//获取订单详细
+		GetGroupOrderDetail(orderid);
+		//获取订单中的商品列表
+		GetGroupOrderGoodsList(orderid);
+		//获取发货地址信息
+		GetgroupOrderShippingAddress(orderid);
+		ActionContext.getContext().put("order", map);
+		return SUCCESS;
+	}
+	/**
+	 * 获取订单中的商品列表
+	 * 
+	 * @param orderid
+	 */
+	public void GetGroupOrderGoodsList(String orderid) {
+		List<GroupCartT> list = this.getGroupCartService().findGroupCartGoodsByOrderid(orderid);
+		if (list != null) {
+			map.put("ordergoods", list);
+		}
+	}
+	/**
+	 * 更新订单到关闭状态
+	 * 
+	 * @return
+	 */
+	@Action(value="UpdateOrderToClose",results={
+			@Result(name="json",type="json")
+	})
+	public String UpdateOrderToClose() {
+		String orderid = this.getOrderid().trim();
+		String orderstate = AllOrderState.ORDERSTATE_FIVE_NUM;//关闭
+		String paystate = AllOrderState.PAYSTATE_TWO_NUM;//表示关闭订单后的付款状态制空
+		String shippingstate = AllOrderState.SHIPPINGSTATE_TWO_NUM;//表示关闭订单后的发货状态制空
+		this.getGroupOrderTService().updateGroupOrderPayShippingState(orderid, orderstate, paystate, shippingstate);
+		//InitOrdersDetail();
+		return "json";
+	}
+	/**
+	 * 更新订单到确认状态（当订单被关闭或者货到付款模式需要确认订单）
+	 * 
+	 * @return
+	 */
+	@Action(value="UpdateOrderToConfirm",results={
+			@Result(name="json",type="json")
+	})
+	public String UpdateOrderToConfirm() {
+		String orderid = this.getOrderid().trim();
+		String orderstate = AllOrderState.ORDERSTATE_ONE_NUM;//已确认
+		String paystate = AllOrderState.PAYSTATE_ZERO_NUM;//未付款
+		String shippingstate = AllOrderState.SHIPPINGSTATE_ZERO_NUM;//配货，未发货
+		int i = this.getGroupOrderTService().updateGroupOrderPayShippingState(orderid, orderstate, paystate, shippingstate);
+		//InitOrdersDetail();
+		return "json";
+	}
+	/**
+	 * 更新订单到发货状态（需要判断订单是否已经付款）
+	 * 
+	 * @return
+	 */
+	@Action(value="UpdateOrderToDelivery",results={
+			@Result(name="json",type="json")
+	})
+	public String UpdateOrderToDelivery() {
+		String orderid = this.getOrderid().trim();
+		String orderstate = AllOrderState.ORDERSTATE_THREE_NUM;//等待确认收获
+		String paystate = this.getPaystate().trim();//付款状态
+		String shippingstate = AllOrderState.SHIPPINGSTATE_ONE_NUM;//发货
+		int i = this.getGroupOrderTService().updateGroupOrderPayShippingState(orderid, orderstate, paystate, shippingstate);
+		//InitOrdersDetail();
+		return "json";
+	}
+	/**
+	 * 更新订单到付款状态（货到付款使用）
+	 * 
+	 * @return
+	 */
+	@Action(value="UpdateOrderToPay",results={
+			@Result(name="json",type="json")
+	})
+	public String UpdateOrderToPay() {
+		String orderid = this.getOrderid().trim();
+		String orderstate = AllOrderState.ORDERSTATE_ONE_NUM;//已确认
+		String paystate = AllOrderState.PAYSTATE_ONE_NUM;//付款
+		String shippingstate = AllOrderState.SHIPPINGSTATE_ONE_NUM;//发货
+		int i = this.getGroupOrderTService().updateGroupOrderPayShippingState(orderid, orderstate, paystate, shippingstate);
+		//InitOrdersDetail();
+		return "json";
+	}
+	/**
+	 *更新订单快递单号
+	 * 
+	 * @return
+	 */
+	@Action(value="UpdateExpressnumberByOrderId",results={
+			@Result(name="json",type="json")
+	})
+	public String UpdateExpressnumberByOrderId() {
+		if (Validate.StrNotNull(this.getExpressnumber())&&Validate.StrNotNull(this.getOrderid())) {
+			int i = this.getGroupOrderTService().updateExpressnumberByGroupOrderId(this.getOrderid().trim(), this.getExpressnumber().trim());
+			return "json";
+		}
+		return "json";		
+	}
+	/**
+	 * 更新发货单号
+	 * 
+	 * @return
+	 */
+	@Action(value="UpdateInvoicenumberByOrderId",results={
+			@Result(name="json",type="json")
+	})
+	public String UpdateInvoicenumberByOrderId() {
+		if (Validate.StrNotNull(this.getInvoicenumber())&&Validate.StrNotNull(this.getOrderid())) {
+			int i = this.getGroupOrderTService().updateInvoicenumberByOrderId(this.getOrderid().trim(), this.getInvoicenumber().trim(), BaseTools.systemtime());
+			return "json";
+		}
+		return "json";
+
+	}
+	/**
+	 * 获取同步发货必要参数
+	 * 
+	 * @return
+	 */
+	@Action(value="GetAlipayFhNeedParams",results={
+			@Result(name="json",type="json")
+	})
+	public String GetAlipayFhNeedParams() {
+		GroupOrderT o = this.getGroupOrderTService().findgroupOrderDetailByorderid(this.getOrderid().trim());
+		this.setTradeno(o.getTradeNo());//支付宝交易号
+		this.setExpressnumber(o.getExpressnumber());//快递单号，发货单号
+		this.setDelivermode(o.getDelivermode());
+		this.setPaymentid(o.getPaymentid());
+		LogisticsBusinessT lt = this.getLogisticsBusinessTService().findLogisticsBusinessById(o.getLogisticsid());
+		this.setLogisticsname(lt.getLogisticsname());
+		return "json";
+	}
+	
 }

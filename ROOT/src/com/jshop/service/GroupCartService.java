@@ -2,6 +2,7 @@ package com.jshop.service;
 
 import java.util.List;
 
+import com.jshop.entity.CartT;
 import com.jshop.entity.GroupCartT;
 
 public interface GroupCartService {
@@ -29,4 +30,27 @@ public interface GroupCartService {
 	 * @return
 	 */
 	public abstract List<GroupCartT>findAllGroupCartByUserId(String userid);
+	/**检查被加入订单的购物车商品是否已经有订单号，如果有则不再更新订单号，防止多次提交订单操作，导致订单异常
+	 * @param state =3
+	 * @param cartid
+	 * @return
+	 */
+	public abstract List<GroupCartT>findgroupCartByCartid(String cartid,String state);
+	/**
+	 * 更新购物车中的商品状态，根据商品id集合,并作订单更新
+	 * @param userid
+	 * @param goodsid
+	 * @param state
+	 * @param orderid
+	 * @param cartid
+	 * @returnString []goodsid
+	 */
+	public abstract int updateGroupCartStateandOrderidByGoodsidList(String cartid,String orderid,String userid,String state);
+	/**
+	 * 根据订单号在购物车中查询对应的商品记录
+	 * @param orderid
+	 * @return
+	 */
+	public abstract List<GroupCartT>findGroupCartGoodsByOrderid(String orderid);
+
 }
