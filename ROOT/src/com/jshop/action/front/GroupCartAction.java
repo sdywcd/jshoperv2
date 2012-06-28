@@ -308,7 +308,7 @@ public class GroupCartAction extends ActionSupport {
 			GoodsGroupT ggt = this.GetGoodsGroupTForGroupCart();
 			GroupCartT gct = new GroupCartT();
 			gct.setId(this.getSerial().Serialid(serial.GROUPCARTINFO));
-			gct.setCartid(null);
+			gct.setCartid(this.getSerial().Serialid(serial.GROUPCART));
 			gct.setOrderid(null);
 			gct.setGoodsid(ggt.getGroupid());
 			gct.setUserid(user.getUserid());
