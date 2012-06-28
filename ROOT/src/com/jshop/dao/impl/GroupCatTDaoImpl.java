@@ -88,4 +88,60 @@ public class GroupCatTDaoImpl extends HibernateDaoSupport implements GroupCartDa
 		}
 	}
 
+
+	@Override
+	public List<GroupCartT> findgroupCartByCartid(String cartid, String state) {
+		try {
+			String queryString="from GroupCartT as gct where gct.cartid=:cartid and gct.state=:state ";
+			List<GroupCartT> list = this.getHibernateTemplate().findByNamedParam(queryString, new String[]{"cartid","state"}, new Object[]{cartid,state});
+			return list;
+		} catch (DataAccessException e) {
+			throw e;
+		}
+	}
+
+
+	public int updateGroupCartStateandOrderidByGoodsidList(final String cartid,
+			final String orderid, final String userid, final String state) {
+		
+		try {
+
+			final String queryString = "update GroupCartT as c set c.state=:state,c.orderid=:orderid where c.userid=:userid  and c.cartid=:cartid";
+			this.getHibernateTemplate().execute(new HibernateCallback() {
+
+				public Object doInHibernate(Session session) throws HibernateException, SQLException {
+					Query query = session.createQuery(queryString);
+					int i = 0;
+					query.setParameter("orderid", orderid);
+					query.setParameter("userid", userid);
+					query.setParameter("cartid", cartid);
+					query.setParameter("state", state);
+					i = query.executeUpdate();
+					return i;
+				}
+			});
+		} catch (RuntimeException re) {
+			log.error("UpdateCartStateandOrderidByGoodsidList cart failed", re);
+			throw re;
+		}
+		return 0;
+	}
+
+
+	@Override
+	public List<GroupCartT> findGroupCartGoodsByOrderid(String orderid) {
+		log.debug("find all findGroupCartGoodsByOrderid ");
+		try {
+			String queryString = "from GroupCartT as c where c.orderid=:orderid and c.state='3' order by addtime desc";
+			List<GroupCartT> list = this.getHibernateTemplate().findByNamedParam(queryString, "orderid", orderid);
+			if (list != null && list.size() > 0) {
+				return list;
+			}
+			return null;
+		} catch (RuntimeException re) {
+			log.error("find all findGroupCartGoodsByOrderid  error", re);
+			throw re;
+		}
+	}
+
 }

@@ -1,5 +1,6 @@
 package com.jshop.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.context.annotation.Scope;
@@ -44,6 +45,33 @@ public class GroupOrderTServiceImpl implements GroupOrderTService {
 			String queryString) {
 		
 		return this.getGroupOrderTDao().sortAllGroupOrderT(currentPage, lineSize, queryString);
+	}
+
+	@Override
+	public GroupOrderT findgroupOrderDetailByorderid(String orderid) {
+		
+		return this.getGroupOrderTDao().findgroupOrderDetailByorderid(orderid);
+	}
+
+	@Override
+	public int updateGroupOrderPayShippingState(String orderid,
+			String orderstate, String paystate, String shippingstate) {
+		
+		return this.getGroupOrderTDao().updateGroupOrderPayShippingState(orderid, orderstate, paystate, shippingstate);
+	}
+
+	@Override
+	public int updateExpressnumberByGroupOrderId(String orderid,
+			String expressnumber) {
+		
+		return this.getGroupOrderTDao().updateExpressnumberByGroupOrderId(orderid, expressnumber);
+	}
+
+	@Override
+	public int updateInvoicenumberByOrderId(String orderid,
+			String invoicenumber, Date deliverytime) {
+		
+		return this.getGroupOrderTDao().updateInvoicenumberByOrderId(orderid, invoicenumber, deliverytime);
 	}
 
 }
