@@ -125,7 +125,7 @@ public class GoodsCommentTDaoImpl extends HibernateDaoSupport implements GoodsCo
 		try {
 			List<GoodsCommentT> list = this.getHibernateTemplate().executeFind(new HibernateCallback() {
 
-				String queryString = "from GoodsCommentT as gct where gct.goodsid=:goodsid and gct.replyid='0' and gct.replyorcomment='1' and gct.state='1' order by posttime desc";
+				String queryString = "from GoodsCommentT as gct where gct.goodsid=:goodsid and gct.replyid='0' and gct.replyorcomment='1'  order by posttime desc";
 
 				public Object doInHibernate(Session session) throws HibernateException, SQLException {
 					Query query = session.createQuery(queryString);
@@ -165,7 +165,7 @@ public class GoodsCommentTDaoImpl extends HibernateDaoSupport implements GoodsCo
 		log.debug("del GoodsCommentT");
 		try {
 
-			final String queryString = "update GoodsCommentT  as gct gct.state=:state where gct.commentid=:commentid";
+			final String queryString = "update GoodsCommentT  as gct set gct.state=:state where gct.commentid=:commentid";
 			this.getHibernateTemplate().execute(new HibernateCallback() {
 
 				public Object doInHibernate(Session session) throws HibernateException, SQLException {

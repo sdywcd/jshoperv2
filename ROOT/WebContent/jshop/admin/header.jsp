@@ -19,6 +19,7 @@
 		<script type="text/javascript" src="<%=basePathb%>jshop/admin/resources/scripts/smooth.js"></script>
 		<script type="text/javascript" src="<%=basePathb%>jshop/admin/resources/scripts/smooth.menu.js" ></script>
 		<script type="text/javascript" src="<%=basePathb%>jshop/admin/resources/scripts/smooth.table.js" ></script>
+		<script type="text/javascript" src="<%=basePathb%>jshop/admin/resources/scripts/smooth.dialog.js" ></script>
 
 		<script type="text/javascript" src="<%=basePathb%>jshop/admin/js/easyvalidator/js/easy_validator.pack.js"></script>
 		<script type="text/javascript" src="<%=basePathb%>jshop/admin/js/easyvalidator/js/jquery.bgiframe.min.js"></script>
