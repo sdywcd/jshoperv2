@@ -642,6 +642,7 @@ public class GroupOrderAction extends ActionSupport {
 			got.setHasprintfpinvoice("0");//未开具发票
 			got.setExpressnumber(null);//快递单号
 			if (this.getGroupOrderTService().addGroupOrder(got) > 0) {
+			//	this.getGroupCartService().updateGroupCartStateByGoodsId(this.getCartgoodsid(), "3");
 				AlipayConfig.out_trade_no = got.getOrderid();
 				AlipayConfig.subject = got.getGoodsname();
 				AlipayConfig.body = got.getGoodsname();
@@ -784,8 +785,9 @@ public class GroupOrderAction extends ActionSupport {
 				if(!list.isEmpty()){
 					return "json";
 				}
-				this.getGroupCartService().updateGroupCartStateandOrderidByGoodsidList(this.getCartid().trim(), this.getSerialidorderid(), this.getUserid(), "3");
-			}
+				this.getGroupCartService().updateGroupCartStateandOrderidByGoodsidList(this.getCartid().trim(), this.getSerialidorderid(), user.getUserid(), "3");
+				return "json";
+		}
 			
 
 //		}
