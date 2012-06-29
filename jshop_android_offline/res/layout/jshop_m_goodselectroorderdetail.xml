@@ -74,7 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#00000000"
-                    android:src="@drawable/checkouthover" />
+                    android:src="@drawable/checkoutnormal" />
 
             </LinearLayout>
         </TableRow>
