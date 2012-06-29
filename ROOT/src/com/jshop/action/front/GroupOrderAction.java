@@ -1,8 +1,18 @@
 package com.jshop.action.front;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -13,8 +23,16 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
+import org.json.JSONArray;
 import org.springframework.stereotype.Controller;
 
+import cn.edu.ctgu.ghl.fetion.Contact;
+import cn.edu.ctgu.ghl.fetion.Fetion;
+import cn.edu.ctgu.ghl.fetion.FetionAppEvent;
+import cn.edu.ctgu.ghl.fetion.IFetionAppEventListener;
+
+import com.google.api.translate.Language;
+import com.google.api.translate.Translate;
 import com.jshop.action.templates.DataCollectionTAction;
 import com.jshop.action.tools.Arith;
 import com.jshop.action.tools.BaseTools;
@@ -648,7 +666,16 @@ public class GroupOrderAction extends ActionSupport {
 				AlipayConfig.body = got.getGoodsname();
 				AlipayConfig.price = String.valueOf(got.getShouldpay());
 				AlipayConfig.logistics_fee = String.valueOf(got.getFreight());
-
+				//测试发短信
+//		         boolean b = fetchToSendSMS("18721337900", "TAO601238880", new String[] { "18721337900" },
+//		                 "TestMessage");
+//		         System.out.println("Send Message result:" + b);
+				try {
+					sendmessage();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				this.setSaddorder(true);
 			} else {
 				this.setSaddorder(false);
@@ -768,6 +795,7 @@ public class GroupOrderAction extends ActionSupport {
 		UserT user = (UserT) ActionContext.getContext().getSession().get(BaseTools.USER_SESSION_KEY);
 		if (user != null) {
 			this.setSlogin(true);
+			
 			//预先生成订单编号
 			GetSerialidorder();
 			//获取支付信息
@@ -868,6 +896,37 @@ public class GroupOrderAction extends ActionSupport {
 			ActionContext.getContext().put("cartgoodsname", cartgoodsname);
 			ActionContext.getContext().put("cartneedquantity", cartneedquantity);
 		}
+	/**
+	 * 通过飞信发送短信	 
+	 * @return
+	 * @throws IOException 
+	 */
+	public void sendmessage() throws IOException{
+		String sUrl="http://fetionAPI.appspot.com/api/?";
+		String fromNo="18721337900";
+		String password="TAO601238880";
+		String toNo="18721337900";
+		String msg="您好！";
+		sUrl+="from="+fromNo+"&pwd="+password+"&toNo="+toNo+"&msg="+msg;
+		System.out.print(sUrl);
+		URL url = new URL(sUrl);
+		URLConnection urlconn= url.openConnection();
+		BufferedReader in = new BufferedReader(new InputStreamReader(urlconn.getInputStream(),"UTF-8"));
+		String rets="";
+		if(in!=null){
+			for(String s="";(s=in.readLine())!=null;){
+				rets = rets+s;
+			}
+		}
+		in.close();
+		System.out.print("Result:"+rets);
+		System.out.print("发送成功");
 	}
+}
+	
+	
+	
+	
+	
 
 
