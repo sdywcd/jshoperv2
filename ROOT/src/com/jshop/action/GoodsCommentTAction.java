@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
+
+import org.apache.commons.lang.xwork.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
@@ -410,7 +412,23 @@ public class GoodsCommentTAction extends ActionSupport {
 		return "json";
 	}
 	
-	
+	/**
+	 * 更新评论或者回复的显示状态
+	 * @return
+	 */
+	@Action(value = "updateGoodsCommentorReplyByState", results = { @Result(name = "json", type = "json") })
+	public String updateGoodsCommentorReplyByState(){
+		if(Validate.StrNotNull(this.getCommentid())){
+			String []strs=StringUtils.split(this.getCommentid().trim(), ',');
+			String state=this.getState().trim();
+			this.getGoodsCommentTService().updateGoodsCommentorReplyByState(state, strs);
+			this.setSucflag(true);
+			return "json";
+		
+		}
+		this.setSucflag(false);
+		return "json";
+	}
 
 	
 	

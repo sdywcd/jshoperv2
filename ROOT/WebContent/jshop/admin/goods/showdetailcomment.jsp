@@ -38,11 +38,30 @@
 					<div id="detailcomments">
 					
 					</div>
+					
+					
 				</div>
 
 			</div>
-			<!-- end content / right -->
+			
 		</div>
+		<div id="dialog-form" title="回复评论">
+			<div class="form">
+				<div class="fields">
+					<div class="field field-first">
+						<div class="label label-textarea">
+							<label for="textarea">
+								内容:
+							</label>
+						</div>
+						<div class="textarea textarea-editor">
+							<textarea id="commentcontent" name="commentcontent" cols="50" rows="30"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 		<!-- end content -->
 		<!-- footer -->
 		<%@include file="/jshop/admin/footer.jsp"%>

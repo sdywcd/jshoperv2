@@ -310,16 +310,119 @@ $(function(){
                 temp+="<li>"+v.replyorcommentusername+"于"+v.posttime+"对"+v.goodsname+"进行评论</li>";
                 temp+="<li>评分等级"+v.score+"</li>";
                 if(v.state=="1"){
-                    temp+="<li><input type='button' id='hidecomment'+"+v.commentid+" name='hidecomment'+"+v.commentid+" value='隐藏'/></li>";
+                    temp+="<li id='hideview"+v.commentid+"'><input onclick='hidcomment("+v.commentid+");' type='button' id='hidecomment"+v.commentid+"' name='hidecomment"+v.commentid+"' value='隐藏'/></li>";
                 }else{
-                    temp+="<li><input type='button' id='showcomment'+"+v.commentid+" name='showcomment'+"+v.commentid+" value='显示'/></li>";
+                    temp+="<li id='showview"+v.commentid+"'><input onclick='showcomment("+v.commentid+");' type='button' id='showcomment"+v.commentid+"' name='showcomment"+v.commentid+"' value='显示'/></li>";
                 }
                 temp+="<input type='hidden' id='hidecommentid'+"+v.commentid+" name='hidecommentid'+"+v.commentid+" value='"+v.commentid+"'/>";
-                temp+="<li><input type='button' id='reply'+"+v.commentid+" name='reply'+"+v.commentid+" value='回复'/></li>";
+                temp+="<li><input onclick='openDialog("+v.commentid+");' type='button' id='reply"+v.commentid+"' name='reply"+v.commentid+"' value='回复'/></li>";
                 temp+="</ul>";
             });
             $("#detailcomments").html(temp);
         }
     });
-    
 });
+
+//这里开始写隐藏和显示评论
+function hidcomment(commentid){
+    var state="0";
+    $.post("updateGoodsCommentorReplyByState.action",{"state":state,"commentid":commentid+","},function(data){
+        $("#hidecomment"+commentid).hide();
+        $("#hideview"+commentid).html("<li id='showview"+commentid+"'><input onclick='showcomment("+commentid+");' type='button' id='showcomment"+commentid+"' name='showcomment"+commentid+"' value='显示'/></li>");
+    });
+}
+function showcomment(commentid){
+    var state="1";
+    $.post("updateGoodsCommentorReplyByState.action",{"state":state,"commentid":commentid+","},function(data){
+        $("#showcomment"+commentid).hide();
+        $("#showview"+commentid).html("<li id='hideview"+commentid+"'><input onclick='hidcomment("+commentid+");' type='button' id='hidecomment"+commentid+"' name='hidecomment"+commentid+"' value='隐藏'/></li>");
+
+    });
+}
+$(function() {
+        // a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
+        $( "#dialog:ui-dialog" ).dialog( "destroy" );
+        
+        var name = $( "#name" ),
+            email = $( "#email" ),
+            password = $( "#password" ),
+            allFields = $( [] ).add( name ).add( email ).add( password ),
+            tips = $( ".validateTips" );
+
+        function updateTips( t ) {
+            tips
+                .text( t )
+                .addClass( "ui-state-highlight" );
+            setTimeout(function() {
+                tips.removeClass( "ui-state-highlight", 1500 );
+            }, 500 );
+        }
+
+        function checkLength( o, n, min, max ) {
+            if ( o.val().length > max || o.val().length < min ) {
+                o.addClass( "ui-state-error" );
+                updateTips( "Length of " + n + " must be between " +
+                    min + " and " + max + "." );
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function checkRegexp( o, regexp, n ) {
+            if ( !( regexp.test( o.val() ) ) ) {
+                o.addClass( "ui-state-error" );
+                updateTips( n );
+                return false;
+            } else {
+                return true;
+            }
+        }
+        
+        $( "#dialog-form" ).dialog({
+            autoOpen: false,
+            height: 300,
+            width: 350,
+            modal: true,
+            buttons: {
+                "提交回复": function() {
+                    var bValid = true;
+                    allFields.removeClass( "ui-state-error" );
+
+                    bValid = bValid && checkLength( name, "username", 3, 16 );
+                    bValid = bValid && checkLength( email, "email", 6, 80 );
+                    bValid = bValid && checkLength( password, "password", 5, 16 );
+
+                    bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
+                    // From jquery.validate.js (by joern), contributed by Scott Gonzalez: http://projects.scottsplayground.com/email_address_validation/
+                    bValid = bValid && checkRegexp( email, /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i, "eg. ui@jquery.com" );
+                    bValid = bValid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9" );
+
+                    if ( bValid ) {
+                        $( "#users tbody" ).append( "<tr>" +
+                            "<td>" + name.val() + "</td>" + 
+                            "<td>" + email.val() + "</td>" + 
+                            "<td>" + password.val() + "</td>" +
+                        "</tr>" ); 
+                        $( this ).dialog( "close" );
+                    }
+                },
+                "取消": function() {
+                    $( this ).dialog( "close" );
+                }
+            },
+            close: function() {
+                allFields.val( "" ).removeClass( "ui-state-error" );
+            }
+        });
+
+        
+    });
+    
+function openDialog(commentid){
+    $( "#reply"+commentid)
+            .button()
+            .click(function() {
+                $( "#dialog-form" ).dialog( "open" );
+            });
+}

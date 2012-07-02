@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:orientation="vertical" >
-
+
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="709dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
+        android:layout_gravity="top|center"
         android:layout_marginTop="5dp"
         android:orientation="vertical" >
 
@@ -18,14 +18,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:baselineAligned="true" >
-
+
             <ImageButton
                 android:id="@+id/imageButton1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="left"
                 android:background="#00000000"
                 android:src="@drawable/floorleftbutton" />
-
+
             <Button
                 android:id="@+id/button1"
                 android:layout_width="match_parent"
@@ -34,14 +35,14 @@
                 android:background="@drawable/floortitlebg"
                 android:text="@string/tablefloor"
                 android:textColor="#FFFFFF" />
-
+
             <ImageButton
                 android:id="@+id/imageButton3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
                 android:background="#00000000"
                 android:src="@drawable/floorrightbutton" />
+
         </TableRow>
     </LinearLayout>
 
@@ -51,11 +52,11 @@
         android:layout_gravity="center"
         android:background="@drawable/border"
         android:orientation="vertical" >
-
+
         <GridView
             android:id="@+id/tablegridView"
-            android:layout_width="275dp"
-            android:layout_height="386dp"
+            android:layout_width="705dp"
+            android:layout_height="1094dp"
             android:layout_gravity="center"
             android:background="#000000"
             android:numColumns="4" >

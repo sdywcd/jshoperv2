@@ -62,9 +62,9 @@ public class JshopMelectrocart extends Activity{
 	private String requestjsonstr;
 	private ArrayList<HashMap<String, Object>> electrocartgoodslists = new ArrayList<HashMap<String, Object>>();
 	private ListView listViews;
-	private String needquantity="1";//默认�?��
-	private Double totalprice=0.0;//购物车�?�?
-	private String paymentid="1";//选择的支付方�?
+	private String needquantity="1";//默认
+	private Double totalprice=0.0;//购物车
+	private String paymentid="1";//选择的支付
 	private String paymentname="现金";
 	private boolean tag;
 	@Override

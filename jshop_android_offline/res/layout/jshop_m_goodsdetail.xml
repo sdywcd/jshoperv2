@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:baselineAligned="false" >
-
+
             <Button
                 android:id="@+id/addtoelectrocartconfirm"
                 android:layout_width="wrap_content"
@@ -34,10 +34,10 @@
                 android:text="@string/back" />
         </TableRow>
     </LinearLayout>
-
+
     <LinearLayout
-        android:layout_width="310dp"
-        android:layout_height="404dp"
+        android:layout_width="708dp"
+        android:layout_height="1024dp"
         android:layout_gravity="center"
         android:background="@drawable/borderbottom"
         android:orientation="vertical" >
@@ -47,16 +47,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center" >
-
+
             <ImageView
                 android:id="@+id/mainimageView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/indextopimg" />
+                android:layout_height="400dp"
+                android:src="@drawable/indextopimg"
+                />
 
         </TableRow>
-
+
         <TextView
             android:id="@+id/goodsname"
             android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
             android:text="这里是菜品的名称"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="15dp" />
-
+
         <TextView
             android:id="@+id/memberprice"
             android:layout_width="wrap_content"
@@ -74,14 +74,14 @@
             android:layout_marginTop="10dp"
             android:text="49.9/份"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
         <TextView
             android:id="@+id/weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:text="TextView" />
-
+
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
@@ -89,7 +89,6 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:text="可选风味：" />
-
     </LinearLayout>
 
 </LinearLayout>

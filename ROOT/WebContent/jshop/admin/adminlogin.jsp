@@ -115,10 +115,10 @@
                                                                                 </div>
                                                                       </div>
                                                                       <div class="buttons">
-                                                                               <input  style=" width: 165px" id="taobaologin" name="taobaologin" class="iLogin ui-button ui-widget ui-state-default ui-corner-all" type="button" value="使用淘宝账号登录"/>
-                                                                                <input class="iLogin" type="submit" value="登录"/>
+                                                                              <!-- <input  style=" width: 165px" id="taobaologin" name="taobaologin" class="iLogin ui-button ui-widget ui-state-default ui-corner-all" type="button" value="使用淘宝账号登录"/> -->
+                                                                                <input  style=" width: 190px" class="iLogin" type="submit" value="登录"/>
                                                                                 
-                                                                                <input id="taobaoregister" name="taobaoregister" class="iLogin ui-button ui-widget ui-state-default ui-corner-all" type="button" value="注册"/>
+                                                                               <!--  <input id="taobaoregister" name="taobaoregister" class="iLogin ui-button ui-widget ui-state-default ui-corner-all" type="button" value="注册"/>-->
                                                                       </div>
                                                             </div>
                                                             <!-- end fields -->
