@@ -47,35 +47,56 @@ public class JshopActivityGoodsCategoryList extends Activity{
 	/**
 	 * 向服务器发�?请求获取商品分类信息
 	 */
-	private String queryGoodsCategoryForJshop(){
-		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.FINDALLGOODSCATEGORYTFORANDROID;
-		return JshopActivityUtil.queryStringForPost(posturl);
-	}
+//	private String queryGoodsCategoryForJshop(){
+//		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.FINDALLGOODSCATEGORYTFORANDROID;
+//		return JshopActivityUtil.queryStringForPost(posturl);
+//	}
 	
 	/**
 	 * 处理服务器端返回的json数据
 	 * @throws JSONException 
 	 */
 	private void getGoodsCategoryList(){
-		requestjsonstr=this.queryGoodsCategoryForJshop();
-		if(requestjsonstr!=null){
-			JSONArray ja=(JSONArray)JSONValue.parse(requestjsonstr);
-			for(int i=0;i<ja.size();i++){
-				JSONObject jo=(JSONObject)(ja.get(i));
-				if(jo.get("grade").toString().equals("0")){
-					HashMap<String,Object>map=new HashMap<String,Object>();
-					map.put("goodsCategoryTid", jo.get("goodsCategoryTid").toString());
-					map.put("grade", jo.get("grade").toString());
-					map.put("name", jo.get("name").toString());
-					map.put("goodsTypeId", jo.get("goodsTypeId").toString());
-					map.put("sort", jo.get("sort").toString());
-					goodscategoryList.add(map);
-				}
-			}
-		}
+		HashMap<String,Object>map=new HashMap<String,Object>();
+		map.put("goodsCategoryTid", "001");
+		map.put("grade", "0");
+		map.put("name","冷菜");
+		map.put("goodsTypeId", "1");
+		map.put("sort", "1");
+		HashMap<String,Object>map1=new HashMap<String,Object>();
+		map1.put("goodsCategoryTid", "002");
+		map1.put("grade", "0");
+		map1.put("name","点心");
+		map1.put("goodsTypeId", "1");
+		map1.put("sort", "2");
+		HashMap<String,Object>map2=new HashMap<String,Object>();
+		map2.put("goodsCategoryTid", "003");
+		map2.put("grade", "0");
+		map2.put("name","热菜");
+		map2.put("goodsTypeId", "1");
+		map2.put("sort", "1");
+		HashMap<String,Object>map3=new HashMap<String,Object>();
+		map3.put("goodsCategoryTid", "004");
+		map3.put("grade", "0");
+		map3.put("name","饮料");
+		map3.put("goodsTypeId", "1");
+		map3.put("sort", "1");
+		
+		goodscategoryList.add(map);
+		goodscategoryList.add(map1);
+		goodscategoryList.add(map2);
+		goodscategoryList.add(map3);
+		
+		
 	}
 	
 	public class ImageAdapter extends BaseAdapter{
+		private Integer[]imgs={
+				R.drawable.colddish,
+				R.drawable.hotdish,
+				R.drawable.dessert,
+				R.drawable.drink
+		};
 		private Context mContext;
 		
 		public ImageAdapter(Context mContext) {
@@ -108,6 +129,7 @@ public class JshopActivityGoodsCategoryList extends Activity{
 				textView.setLayoutParams(new GridView.LayoutParams(100,100));
 				textView.setPadding(22,8,10,10);
 				textView.setText(goodscategoryList.get(position).get("name").toString());
+				textView.setBackgroundResource(imgs[position]);
 			}else{
 				textView=(TextView)convertView;
 			}
@@ -122,7 +144,7 @@ public class JshopActivityGoodsCategoryList extends Activity{
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-			//此处进入商品程序读取商品列表传�?分类信息
+			//此处进入商品程序读取商品列表
 			Intent intent = new Intent(JshopActivityGoodsCategoryList.this,JshopActivityGoodsList.class);
 			intent.putExtra("goodsCategoryTid", goodscategoryList.get(arg2).get("goodsCategoryTid").toString());
 			startActivity(intent);
