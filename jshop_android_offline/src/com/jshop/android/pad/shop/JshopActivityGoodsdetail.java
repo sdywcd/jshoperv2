@@ -40,6 +40,7 @@ public class JshopActivityGoodsdetail extends Activity {
 	private Button addtoelectrocartconfirm,back;
 	private String requestjsonstr;
 	private ArrayList<HashMap<String, Object>> goodsdetail = new ArrayList<HashMap<String, Object>>();
+	private ArrayList<HashMap<String, Object>> goodslists = new ArrayList<HashMap<String, Object>>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -57,15 +58,16 @@ public class JshopActivityGoodsdetail extends Activity {
 		Intent intent=this.getIntent();
 		String goodsid=intent.getStringExtra("goodsid");
 		try {
+			getGoodsList();
 			getGoodsdetail(goodsid);
 		}  catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//想页面注入�?
+		//想页面注入
 		goodsname.setText(goodsdetail.get(0).get("goodsname").toString());
 		memberprice.setText(goodsdetail.get(0).get("memberprice").toString());
-		mainimageView.setImageBitmap((Bitmap) goodsdetail.get(0).get("pictureurl"));
+		mainimageView.setImageResource((Integer) goodsdetail.get(0).get("pictureurl"));
 		weight.setText("份量"+goodsdetail.get(0).get("weight").toString()+"g");
 		
 		addtoelectrocartconfirm.setOnClickListener(new OnClickListener(){
@@ -77,7 +79,7 @@ public class JshopActivityGoodsdetail extends Activity {
 					Toast t=Toast.makeText(getApplicationContext(), "您还没有就座无法点菜", Toast.LENGTH_LONG);
 					t.show();
 				}else{
-					//进入购物车处理页�?
+					//进入购物车处理页
 					Intent intent=new Intent(JshopActivityGoodsdetail.this,JshopMelectrocart.class);
 					intent.putExtra("goodsid", goodsdetail.get(0).get("goodsid").toString());
 					intent.putExtra("tablestate", temp[0].toString());
@@ -89,32 +91,106 @@ public class JshopActivityGoodsdetail extends Activity {
 		});
 	}
 	
-	
+	private void getGoodsList() throws IOException{
+		Integer[]lc={
+				R.drawable.lc001,
+				R.drawable.lc002
+		};
+		Integer[]rc={
+				R.drawable.rc001,
+				R.drawable.rc002
+		};
+		Integer[]dx={
+				R.drawable.dx001,
+				R.drawable.dx002
+		};
+		Integer[]yl={
+				R.drawable.yl001,
+				R.drawable.yl002
+		};
+		HashMap<String,Object>map=new HashMap<String,Object>();
+		map.put("pictureurl", lc[0]);
+		map.put("goodsname", "钵钵鸡");
+		map.put("memberprice", "￥32");
+		map.put("goodsid", "001");	
+		
+		HashMap<String,Object>map1=new HashMap<String,Object>();
+		map1.put("pictureurl", lc[1]);
+		map1.put("goodsname", "冷拌翡翠豆芽");
+		map1.put("memberprice", "￥16");
+		map1.put("goodsid", "002");	
+		
+		HashMap<String,Object>map2=new HashMap<String,Object>();
+		map2.put("pictureurl", rc[0]);
+		map2.put("goodsname", "丰收日红烧肉");
+		map2.put("memberprice", "￥28");
+		map2.put("goodsid", "003");	
+		
+		HashMap<String,Object>map3=new HashMap<String,Object>();
+		map3.put("pictureurl", rc[1]);
+		map3.put("goodsname", "椒盐龙头烤");
+		map3.put("memberprice", "￥58");
+		map3.put("goodsid", "004");	
+		
+		HashMap<String,Object>map4=new HashMap<String,Object>();
+		map4.put("pictureurl", dx[0]);
+		map4.put("goodsname", "芒果芝士慕斯");
+		map4.put("memberprice", "￥28");
+		map4.put("goodsid", "005");	
+		
+		HashMap<String,Object>map5=new HashMap<String,Object>();
+		map5.put("pictureurl", dx[1]);
+		map5.put("goodsname", "抹茶欧培拉");
+		map5.put("memberprice", "￥28");
+		map5.put("goodsid", "006");	
+		
+		HashMap<String,Object>map6=new HashMap<String,Object>();
+		map6.put("pictureurl", yl[0]);
+		map6.put("goodsname", "桂圆红枣茶");
+		map6.put("memberprice", "￥12");
+		map6.put("goodsid", "007");	
+		
+		HashMap<String,Object>map7=new HashMap<String,Object>();
+		map7.put("pictureurl", yl[1]);
+		map7.put("goodsname", "招牌手工咖啡");
+		map7.put("memberprice", "￥18");
+		map7.put("goodsid", "008");	
+		
+		goodslists.add(map);
+		goodslists.add(map1);
+		goodslists.add(map2);
+		goodslists.add(map3);
+		goodslists.add(map4);
+		goodslists.add(map5);
+		goodslists.add(map6);
+		goodslists.add(map7);
+		
+	}
 	/**
 	 * 向服务器发�?请求获取goodsdetail信息
 	 * @param goodsid
 	 * @return
 	 */
-	private String queryGoodsdetailForJshop(String goodsid){
-		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.FINDGOODSBYGOODSIDFORANDROID+"?goodsid="+goodsid;
-		return JshopActivityUtil.queryStringForPost(posturl);
-	}
+//	private String queryGoodsdetailForJshop(String goodsid){
+//		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.FINDGOODSBYGOODSIDFORANDROID+"?goodsid="+goodsid;
+//		return JshopActivityUtil.queryStringForPost(posturl);
+//	}
 	
 	private void getGoodsdetail(String goodsid) throws  IOException{
-		requestjsonstr=this.queryGoodsdetailForJshop(goodsid);
-		if(requestjsonstr!=null){
-			JSONArray ja=(JSONArray)JSONValue.parse(requestjsonstr);
-			for(int i=0;i<ja.size();i++){
-				HashMap<String,Object>map=new HashMap<String,Object>();
-				JSONObject jo=(JSONObject)(ja.get(i));
-				map.put("pictureurl", getPictureurlImg(JshopActivityUtil.BASE_URL+jo.get("pictureurl").toString()));
-				map.put("goodsname", jo.get("goodsname").toString());
-				map.put("memberprice", "￥"+jo.get("memberprice").toString()+"/份");
-				map.put("goodsid", jo.get("goodsid").toString());	
-				map.put("weight", jo.get("weight").toString());
+		
+		HashMap<String,Object>map=new HashMap<String,Object>();
+		for(int i=0;i<goodslists.size();i++){
+			if(goodslists.get(i).get("goodsid").equals(goodsid)){
+				map.put("pictureurl",goodslists.get(i).get("pictureurl"));
+				map.put("goodsname", goodslists.get(i).get("goodsname"));
+				map.put("memberprice", goodslists.get(i).get("memberprice").toString()+"/份");
+				map.put("goodsid",goodslists.get(i).get("goodsid").toString());	
+				map.put("weight", "300g");
 				goodsdetail.add(map);
 			}
 		}
+		
+		
 	}
 	
 	private Bitmap getPictureurlImg(String pictureurl) throws IOException{

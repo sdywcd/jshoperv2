@@ -299,7 +299,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<th>商品名称</th>
 									<th>商品自定义编号</th>
 									
-									<th>soipay价</th>
+									<th>会员价</th>
 									<th>赠送积分</th>
 									<th>数量</th>
 									<th>商品毛重</th>
