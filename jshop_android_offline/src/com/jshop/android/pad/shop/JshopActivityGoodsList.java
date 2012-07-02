@@ -76,6 +76,7 @@ public class JshopActivityGoodsList extends Activity{
 				//点击进入商品详细页面
 				Intent intent=new Intent(JshopActivityGoodsList.this,JshopActivityGoodsdetail.class);
 				intent.putExtra("goodsid", goodslists.get(arg2).get("goodsid").toString());
+				
 				startActivity(intent);
 			}
 		});
@@ -86,26 +87,86 @@ public class JshopActivityGoodsList extends Activity{
 	 * 向服务器端发送请求获取goodslist信息
 	 * @return
 	 */
-	private String queryGoodsListForJshop(String goodsCategoryTid){
-		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.FINDGOODSBYGOODSCATEGORYIDFORANDROID+"?goodsCategoryTid="+goodsCategoryTid;
-		return JshopActivityUtil.queryStringForPost(posturl);
-	}
+//	private String queryGoodsListForJshop(String goodsCategoryTid){
+//		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.FINDGOODSBYGOODSCATEGORYIDFORANDROID+"?goodsCategoryTid="+goodsCategoryTid;
+//		return JshopActivityUtil.queryStringForPost(posturl);
+//	}
 	
 	
 	private void getGoodsList(String goodsCategoryTid) throws IOException{
-		requestjsonstr=this.queryGoodsListForJshop(goodsCategoryTid);
-		if(requestjsonstr!=null){
-			JSONArray ja=(JSONArray)JSONValue.parse(requestjsonstr);
-			for(int i=0;i<ja.size();i++){
-				HashMap<String,Object>map=new HashMap<String,Object>();
-				JSONObject jo=(JSONObject)(ja.get(i));
-				map.put("pictureurl", getPictureurlImg(JshopActivityUtil.BASE_URL+jo.get("pictureurl").toString()));
-				map.put("goodsname", jo.get("goodsname").toString());
-				map.put("memberprice", "￥"+jo.get("memberprice").toString());
-				map.put("goodsid", jo.get("goodsid").toString());	
-				goodslists.add(map);
-			}
-		}
+		Integer[]lc={
+				R.drawable.lc001,
+				R.drawable.lc002
+		};
+		Integer[]rc={
+				R.drawable.rc001,
+				R.drawable.rc002
+		};
+		Integer[]dx={
+				R.drawable.dx001,
+				R.drawable.dx002
+		};
+		Integer[]yl={
+				R.drawable.yl001,
+				R.drawable.yl002
+		};
+		HashMap<String,Object>map=new HashMap<String,Object>();
+		map.put("pictureurl", lc[0]);
+		map.put("goodsname", "钵钵鸡");
+		map.put("memberprice", "￥32");
+		map.put("goodsid", "001");	
+		
+		HashMap<String,Object>map1=new HashMap<String,Object>();
+		map1.put("pictureurl", lc[1]);
+		map1.put("goodsname", "冷拌翡翠豆芽");
+		map1.put("memberprice", "￥16");
+		map1.put("goodsid", "002");	
+		
+		HashMap<String,Object>map2=new HashMap<String,Object>();
+		map2.put("pictureurl", rc[0]);
+		map2.put("goodsname", "丰收日红烧肉");
+		map2.put("memberprice", "￥28");
+		map2.put("goodsid", "003");	
+		
+		HashMap<String,Object>map3=new HashMap<String,Object>();
+		map3.put("pictureurl", rc[1]);
+		map3.put("goodsname", "椒盐龙头烤");
+		map3.put("memberprice", "￥58");
+		map3.put("goodsid", "004");	
+		
+		HashMap<String,Object>map4=new HashMap<String,Object>();
+		map4.put("pictureurl", dx[0]);
+		map4.put("goodsname", "芒果芝士慕斯");
+		map4.put("memberprice", "￥28");
+		map4.put("goodsid", "005");	
+		
+		HashMap<String,Object>map5=new HashMap<String,Object>();
+		map5.put("pictureurl", dx[1]);
+		map5.put("goodsname", "抹茶欧培拉");
+		map5.put("memberprice", "￥28");
+		map5.put("goodsid", "006");	
+		
+		HashMap<String,Object>map6=new HashMap<String,Object>();
+		map6.put("pictureurl", yl[0]);
+		map6.put("goodsname", "桂圆红枣茶");
+		map6.put("memberprice", "￥12");
+		map6.put("goodsid", "007");	
+		
+		HashMap<String,Object>map7=new HashMap<String,Object>();
+		map7.put("pictureurl", yl[1]);
+		map7.put("goodsname", "招牌手工咖啡");
+		map7.put("memberprice", "￥18");
+		map7.put("goodsid", "008");	
+		
+		goodslists.add(map);
+		goodslists.add(map1);
+		goodslists.add(map2);
+		goodslists.add(map3);
+		goodslists.add(map4);
+		goodslists.add(map5);
+		goodslists.add(map6);
+		goodslists.add(map7);
+		
 	}
 	
 	
