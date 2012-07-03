@@ -64,7 +64,5 @@
 	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/struts2-junit-plugin-2.1.8.jar"/>
 	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/struts2-spring-plugin-2.1.8.jar"/>
 	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/taobao-sdk-java-jichukaifang-20111205.jar"/>
-	<classpathentry kind="lib" path="C:/Documents and Settings/Administrator/桌面/FetionTest/lib/fetion-java-api.jar"/>
-	<classpathentry kind="lib" path="C:/Documents and Settings/Administrator/桌面/FetionTest/lib/com.google.api.translate.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
