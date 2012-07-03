@@ -4,7 +4,7 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="15" />
+    <uses-sdk android:minSdkVersion="8" />
 
     <application
         android:icon="@drawable/icon"
@@ -16,15 +16,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
 		<activity android:name="com.jshop.android.util.JshopActivityUtil" />
-		<activity android:name="com.jshop.android.pad.JshopActivity" />
+		<activity android:name="com.jshop.android.pad.shop.JshopActivity" />
 		<activity android:name="com.jshop.android.pad.shop.JshopMIndex" />
 		<activity android:name="com.jshop.android.pad.shop.JshopMtable" />
 		<activity android:name="com.jshop.android.pad.shop.JshopActivityGoodsCategoryList"></activity>
 		<activity android:name="com.jshop.android.pad.shop.JshopActivityGoodsList"></activity>
 		<activity android:name="com.jshop.android.pad.shop.JshopActivityGoodsdetail"></activity>
 		<activity android:name="com.jshop.android.pad.shop.JshopMGoodsdetail"></activity>
-		<activity android:name="com.jshop.android.pad.shop.JshopActivityGoodsCategoryList"></activity>
 		<activity android:name="com.jshop.android.pad.shop.JshopMelectrocart"/>
 		<activity android:name="com.jshop.android.pad.shop.JshopMelectroorder"/>
 		<activity android:name="com.jshop.android.pad.shop.JshopMelectroorderdetail"/>

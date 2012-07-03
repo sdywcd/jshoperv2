@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
     <script type="text/javascript" src="<%=basePath %>jshop/admin/js/jquery1.4.2.js"></script>
     <script type="text/javascript" src="<%=basePath %>jshop/admin/js/flexigrid/flexigrid.js"></script>
-	<script type="text/javascript" src="<%=basePath %>jshop/admin/js/ordersdetailjs.js"></script>
+	<script type="text/javascript" src="<%=basePath %>jshop/admin/js/grouporderdetailjs.js"></script>
 	<style type="text/css">
 		td{font-size:9pt;line-height:120%;color:#353535} 
 		body{font-size:9pt;line-height:120%} 

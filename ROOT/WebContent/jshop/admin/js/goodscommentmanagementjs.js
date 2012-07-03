@@ -315,7 +315,7 @@ $(function(){
                     temp+="<li id='showview"+v.commentid+"'><input onclick='showcomment("+v.commentid+");' type='button' id='showcomment"+v.commentid+"' name='showcomment"+v.commentid+"' value='显示'/></li>";
                 }
                 temp+="<input type='hidden' id='hidecommentid'+"+v.commentid+" name='hidecommentid'+"+v.commentid+" value='"+v.commentid+"'/>";
-                temp+="<li><input onclick="openDialog()" type='button' id='reply"+v.commentid+"' name='reply"+v.commentid+"' value='回复'/></li>";
+                temp+="<li><input onclick='openDialog("+v.commentid+");' type='button' id='reply"+v.commentid+"' name='reply"+v.commentid+"' value='回复'/></li>";
                 temp+="</ul>";
             });
             $("#detailcomments").html(temp);
@@ -385,7 +385,7 @@ $(function() {
             width: 350,
             modal: true,
             buttons: {
-                "Create an account": function() {
+                "提交回复": function() {
                     var bValid = true;
                     allFields.removeClass( "ui-state-error" );
 
@@ -407,7 +407,7 @@ $(function() {
                         $( this ).dialog( "close" );
                     }
                 },
-                Cancel: function() {
+                "取消": function() {
                     $( this ).dialog( "close" );
                 }
             },
@@ -420,7 +420,7 @@ $(function() {
     });
     
 function openDialog(commentid){
-    $( "#create-user" )
+    $( "#reply"+commentid)
             .button()
             .click(function() {
                 $( "#dialog-form" ).dialog( "open" );

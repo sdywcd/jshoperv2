@@ -51,7 +51,7 @@ public class OrderTAction extends ActionSupport {
 	private String tradeno;
 	private String logisticsname;
 	private String delivermode;
-	private String paymentid;
+	private String paymentid; 
 	private List rows = new ArrayList();
 	private int rp;
 	private int page = 1;

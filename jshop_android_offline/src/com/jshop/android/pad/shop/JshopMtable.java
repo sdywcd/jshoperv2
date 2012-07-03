@@ -3,6 +3,7 @@ package com.jshop.android.pad.shop;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -72,18 +73,24 @@ public class JshopMtable extends Activity {
 	 * 向服务器端发送请求获取table信息
 	 * @return
 	 */
-	private String queryTableForJshop(){
-		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.FINDALLTABLETFORANDROID;
-		return JshopActivityUtil.queryStringForPost(posturl);
-	}
+//	private String queryTableForJshop(){
+//		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.FINDALLTABLETFORANDROID;
+//		return JshopActivityUtil.queryStringForPost(posturl);
+//	}
 	/**
-	 * 更新餐桌使用状�?
+	 * 更新餐桌使用状
 	 * @return
 	 */
 	private String updateTableTtablestateBytableNo(String tableid,String tablestate){
-		String queryString="?tableid="+tableid+"&tablestate="+tablestate;
-		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.UPDATETABLETABLESTATEBYTABLENO+queryString;
-		return JshopActivityUtil.queryStringForPost(posturl);
+		String tag="";
+		for(int i=0;i<tableList.size();i++){
+			if(tableList.get(i).get("tableid").toString().equals(tableid)){
+				tableList.get(i).remove("tablestate");
+				tableList.get(i).put("tablestate", "1");
+				tag="success";
+			}
+		}
+		return tag;
 	}
 	
 	
@@ -92,24 +99,19 @@ public class JshopMtable extends Activity {
 	 * @throws JSONException 
 	 */
 	private void getTablelist(){
-		requestjsonstr=this.queryTableForJshop();
-		if(requestjsonstr!=null){
-			JSONArray ja=(JSONArray)JSONValue.parse(requestjsonstr);
-			for(int i=0;i<ja.size();i++){
-				Map<String,Object>map=new HashMap<String,Object>();
-				JSONObject jo=(JSONObject)(ja.get(i));
-				map.put("tableid", jo.get("tableid").toString());
-				map.put("tableNumber", jo.get("tableNumber").toString());
-				map.put("roomName", jo.get("roomName").toString());
-				map.put("androidDevicesCount", jo.get("androidDevicesCount").toString());
-				map.put("note", jo.get("note").toString());
-				map.put("createtime", jo.get("createtime").toString());
-				map.put("nop", jo.get("nop").toString());
-				map.put("tablestate", jo.get("tablestate").toString());
-				map.put("floor", jo.get("floor").toString());
-				map.put("rnop", jo.get("rnop").toString());
-				tableList.add(map);
-			}
+		for(int i=0;i<8;i++){
+			Map<String,Object>map=new HashMap<String,Object>();
+			map.put("tableid", "1"+i);
+			map.put("tableNumber", 1+i);
+			map.put("roomName", "");
+			map.put("androidDevicesCount","4");
+			map.put("note", "");
+			map.put("createtime", "");
+			map.put("nop", "4");
+			map.put("tablestate", "0");
+			map.put("floor", "1楼");
+			map.put("rnop", "1");
+			tableList.add(map);
 		}
 	}
 	
@@ -150,13 +152,7 @@ public class JshopMtable extends Activity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			TextView textView;
-			//ImageView imageView;
 			if(convertView==null){
-				//imageView=new ImageView(mContext);
-				//imageView.setLayoutParams(new GridView.LayoutParams(85,85));
-				//imageView.setAdjustViewBounds(false);
-				//imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				//imageView.setPadding(8, 8, 8, 8);
 				textView=new TextView(mContext);
 				textView.setLayoutParams(new GridView.LayoutParams(63,48));
 				textView.setPadding(22,8,10,10);
@@ -244,7 +240,7 @@ public class JshopMtable extends Activity {
 				
 			}
 		}).setNegativeButton(R.string.changetable, new DialogInterface.OnClickListener(){
-			//这里判断当这个作为是使用状�?就不能更�?
+			//这里判断当这个作为是使用
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
@@ -262,7 +258,7 @@ public class JshopMtable extends Activity {
 		alert.show();
 	}
 	/**
-	 * 写文件，保存服务器地�?
+	 * 写文件，保存服务器地
 	 * @param content
 	 */
 	private void writeJmtable(String content){

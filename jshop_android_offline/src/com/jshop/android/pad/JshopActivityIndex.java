@@ -1,4 +1,4 @@
-package com.jshop.android.pad.shop;
+package com.jshop.android.pad;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -26,7 +26,9 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.jshop.android.pad.R;
+import com.jshop.android.pad.shop.JshopMIndex;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
 /**

@@ -128,7 +128,10 @@ public class Serial {
 	public static final String GOODSBELINKED="goodsbelinked";
 	//团购购物车主键生成
 	public static final String GROUPCARTINFO="groupcartinfo";
+	//团购订单主键生成
 	public static final String GROUPORDER="grouporder";	
+	//团购购物车cartid生成
+	public static final String GROUPCART="groupcart";
 	private SerialTService serialTService;
 	
 	

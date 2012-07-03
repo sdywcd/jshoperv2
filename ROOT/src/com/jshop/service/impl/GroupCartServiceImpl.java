@@ -40,4 +40,23 @@ public class GroupCartServiceImpl implements GroupCartService {
 		return this.getGroupCartDao().findAllGroupCartByUserId(userid);
 	}
 
+	@Override
+	public List<GroupCartT> findgroupCartByCartid(String cartid, String state) {
+		// TODO Auto-generated method stub
+		return this.getGroupCartDao().findgroupCartByCartid(cartid, state);
+	}
+
+	@Override
+	public int updateGroupCartStateandOrderidByGoodsidList(String cartid,
+			String orderid, String userid, String state) {
+		// TODO Auto-generated method stub
+		return this.getGroupCartDao().updateGroupCartStateandOrderidByGoodsidList(cartid, orderid, userid, state);
+	}
+
+	@Override
+	public List<GroupCartT> findGroupCartGoodsByOrderid(String orderid) {
+		// TODO Auto-generated method stub
+		return this.getGroupCartDao().findGroupCartGoodsByOrderid(orderid);
+	}
+
 }

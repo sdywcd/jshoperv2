@@ -39,11 +39,7 @@
 					
 					</div>
 					
-					<!-- 回复弹出框 -->
-					<div id="box-dialogs">
 					
-						<p><a id="dialog-form-open" href="#">Open Form Dialog</a></p>
-					</div>
 				</div>
 
 			</div>
@@ -55,7 +51,7 @@
 					<div class="field field-first">
 						<div class="label label-textarea">
 							<label for="textarea">
-								页面描述:
+								内容:
 							</label>
 						</div>
 						<div class="textarea textarea-editor">
