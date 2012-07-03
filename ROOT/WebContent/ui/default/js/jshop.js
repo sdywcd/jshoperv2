@@ -972,7 +972,7 @@ function InitAlipayandAddOrder(){
 		return;
 	}
 	if(paymentid!=null){
-		$.post("InitAlipayneedInfoGroup.action",{"cartneedquantity":cartneedquantity,"cartgoodsname":cartgoodsname,"cartgoodsid":cartgoodsid,"totalpoints":totalpoints,"total":total,"freight":freight,"cartid":cartid,"paymentid":paymentid,"logisticsid":logisticsid,"addressid":deliveraddressid,"logisticswebaddress":logisticswebaddress,"customernotes":customernotes,"orderTag":"1"},function(data){
+		$.post("InitAlipayneedInfo.action",{"cartneedquantity":cartneedquantity,"cartgoodsname":cartgoodsname,"cartgoodsid":cartgoodsid,"totalpoints":totalpoints,"total":total,"freight":freight,"cartid":cartid,"paymentid":paymentid,"logisticsid":logisticsid,"addressid":deliveraddressid,"logisticswebaddress":logisticswebaddress,"customernotes":customernotes,"orderTag":"1"},function(data){
 			if(!data.slogin){
 				window.location.href="user/login.html";
 				return false;
@@ -1279,7 +1279,7 @@ function displaygoodshistory(COOKIE_NAME){
     var h_istory="";
     var historyvalue=$.cookie(COOKIE_NAME);
     var historyarray=historyvalue.split("=");
-    historyarray=districtArray(historyarray);
+    historyarray=districtArray(historyarray.toString());
     //historyarray.reverse();
     
     for(var i=0;i<historyarray.length;i++){

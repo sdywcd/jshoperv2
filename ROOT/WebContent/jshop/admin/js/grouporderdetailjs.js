@@ -52,8 +52,8 @@ $(function() {
 	$('#updateinvoicenumber').click(function(){
 		var orderid=$('#hidorderid').val();
 		var invoicenumber=$('#invoicenumber').val();
-		$.post("UpdateInvoicenumberByOrderId.action",{"orderid":orderid,"invoicenumber":invoicenumber},function(data){
-			window.location.href="InitOrdersDetail.action?orderid="+data.orderid;
+		$.post("UpdateInvoicenumberByGroupOrderId.action",{"orderid":orderid,"invoicenumber":invoicenumber},function(data){
+			window.location.href="InitgroupOrdersDetail.action?orderid="+data.orderid;
 		});
 	});
 	/**
@@ -62,8 +62,8 @@ $(function() {
 	$('#updateexpressnumber').click(function(){
 		var orderid=$('#hidorderid').val();
 		var expressnumber=$('#expressnumber').val();
-		$.post("UpdateExpressnumberByOrderId.action",{"orderid":orderid,"expressnumber":expressnumber},function(data){
-			window.location.href="InitOrdersDetail.action?orderid="+data.orderid;
+		$.post("UpdateExpressnumberByGroupOrderId.action",{"orderid":orderid,"expressnumber":expressnumber},function(data){
+			window.location.href="InitgroupOrdersDetail.action?orderid="+data.orderid;
 		});
 	});
 	
@@ -117,9 +117,9 @@ $(function() {
 	 */
 	$('#close_order').click(function(){
 		var orderid=$('#hidorderid').val();
-		$.post("UpdateOrderToClose.action",{"orderid":orderid},function(data){
+		$.post("UpdateGroupOrderToClose.action",{"orderid":orderid},function(data){
 			
-			window.location.href="InitOrdersDetail.action?orderid="+data.orderid;			
+			window.location.href="InitgroupOrdersDetail.action?orderid="+data.orderid;			
 				jAlert('订单关闭成功','信息提示');			
 		});
 	});
@@ -128,8 +128,8 @@ $(function() {
 	 */
 	$('#confirm_order').click(function(){
 		var orderid=$('#hidorderid').val();
-		$.post("UpdateOrderToConfirm.action",{"orderid":orderid},function(data){
-			window.location.href="InitOrdersDetail.action?orderid="+data.orderid;
+		$.post("UpdateGroupOrderToConfirm.action",{"orderid":orderid},function(data){
+			window.location.href="InitgroupOrdersDetail.action?orderid="+data.orderid;
 			jAlert('订单确认成功','信息提示');	
 			
 		});
@@ -158,7 +158,7 @@ $(function() {
 	 */
 	$('#shipping_order').click(function(){
 		var orderid=$('#hidorderid').val();
-		$.post("GetAlipayFhNeedParams.action",{"orderid":orderid},function(data){
+		$.post("GetAlipayFhNeedParamsGroup.action",{"orderid":orderid},function(data){
 			$('#trade_no').attr("value",data.tradeno);
 			$('#transprot_type').val(data.delivermode);
 			$('#logistics_name').attr("value",data.logisticsname);
@@ -175,8 +175,8 @@ $(function() {
 	 */
 	$('#pay_order').click(function(){
 		var orderid=$('#hidorderid').val();
-		$.post("UpdateOrderToPay.action",{"orderid":orderid},function(data){
-			window.location.href="InitOrdersDetail.action?orderid="+data.orderid;
+		$.post("UpdateGroupOrderToPay.action",{"orderid":orderid},function(data){
+			window.location.href="InitgroupOrdersDetail.action?orderid="+data.orderid;
 			jAlert('订单付款成功','信息提示');
 			
 		});
