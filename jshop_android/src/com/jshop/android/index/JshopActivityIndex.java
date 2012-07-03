@@ -71,7 +71,7 @@ public class JshopActivityIndex extends Activity{
 		LayoutInflater inflater=getLayoutInflater();
 		//这里开始从服务器获取通讯地址
 		mi=new MenuInflater(this);
-		
+
 		
 		pageViews=new ArrayList<View>();
 		pageViews.add(inflater.inflate(R.layout.item01, null));
@@ -81,6 +81,8 @@ public class JshopActivityIndex extends Activity{
 		pageViews.add(inflater.inflate(R.layout.item05, null));
 		pageViews.add(inflater.inflate(R.layout.item06, null));
 		//pageViews.add(inflater.inflate(R.layout.jshop_activity_register, null));//只要把有数据的布局放入即可滑动
+		//服务器地址
+//		write("192.168.1.103:8088");
 		imageViews=new ImageView[pageViews.size()];
 		maingroup=(ViewGroup)inflater.inflate(R.layout.jshop_activity_index, null);
 		dotgroup=(ViewGroup)maingroup.findViewById(R.id.dotviewGroup);
