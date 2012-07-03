@@ -604,12 +604,14 @@ public class CartAction extends ActionSupport {
 			String[] tempstring = this.getSendstring().split(":");
 			String temp = null;
 			String[] ttemp = null;
-			String cartid = this.getSerial().Serialid(Serial.CART);//获取购物车信息id是可重复的。一次提交只有一个购物车信息id
+			String cartid = this.getSerial().Serialid(Serial.CART);//获取购物车信息id是可重复的。一次提交只有一个购物车信息id,标记这批商品被标记在同一个订单中
 			for (int k = 0; k < tempstring.length; k++) {
 				temp = tempstring[k];
 				ttemp = temp.split(",");
 				j = this.getCartTService().updateCartNeedquantity(user.getUserid(), ttemp[0], Integer.parseInt(ttemp[1]));
-				this.getCartTService().updateCartId(cartid, user.getUserid(), ttemp[0], "1");
+				if(this.getCartTService().updateCartIdBygoodsid(cartid, user.getUserid(), ttemp[0], "1")==0){
+					this.getCartTService().updateCartIdByproductid(cartid, user.getUserid(), ttemp[0], "1");
+				}
 			}
 			this.setSucflag(true);
 			return "json";
