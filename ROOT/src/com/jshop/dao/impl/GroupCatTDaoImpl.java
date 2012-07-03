@@ -144,4 +144,29 @@ public class GroupCatTDaoImpl extends HibernateDaoSupport implements GroupCartDa
 		}
 	}
 
+
+	@Override
+	public int updateGroupCartStateByGoodsId(final String goodsid,final String state) {
+		try {
+			final String queryString ="update GroupCartT as gct set gct.state=:state where gct.goodsid=:goodsid";
+			this.getHibernateTemplate().executeFind(new HibernateCallback() {
+				
+				@Override
+				public Object doInHibernate(Session session) throws HibernateException,
+						SQLException {
+					int i=0;
+					Query query = session.createQuery(queryString);
+					query.setParameter("state", state);
+					query.setParameter("goodsid",goodsid);
+					i=query.executeUpdate();
+					i++;
+					return i;
+				}
+			});
+		} catch (DataAccessException e) {
+			throw e;
+		}
+		return 0;
+	}
+
 }

@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jshop.android.index.JshopActivityIndex;
+import com.jshop.android.index.JshopMIndex;
 import com.jshop.android.index.R;
+import com.jshop.android.shop.JshopActivityGoodsCategoryList;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
 import com.jshop.android.util.JshopMPostActionList;
@@ -232,7 +236,10 @@ public class JshopMtable extends Activity {
 					if("success".equals(tag)){
 						Toast t=Toast.makeText(getApplicationContext(), "就座成功", Toast.LENGTH_LONG);
 						t.show();
-
+						Intent intent = new Intent(JshopMtable.this,JshopActivityGoodsCategoryList.class);
+						startActivity(intent);
+						
+						
 						//携带餐桌号和餐桌状态传递给商品分类开始点菜
 						writeJmtable("1"+","+tablenumber);
 					}else{
