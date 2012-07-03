@@ -137,13 +137,24 @@ public interface CartTDao {
 	public abstract List<CartT>findCartGoodsByOrderid(String orderid);
 
 	/**
-	 * 更新购物车id，表示次购物车下的商品同属一个购物车
+	 * 根据goodsid更新购物车id，表示次购物车下的商品同属一个购物车
 	 * @param userid
 	 * @param goodsid
 	 * @param state
 	 * @return
 	 */
-	public abstract int updateCartId(String cartid,String userid,String goodsid,String state);
+	public abstract int updateCartIdBygoodsid(String cartid,String userid,String goodsid,String state);
+	/**
+	 * 根据productid更新购物车id，表示次购物车下的商品同属一个购物车
+	 * @param cartid
+	 * @param userid
+	 * @param productid
+	 * @param state
+	 * @return
+	 */
+	public abstract int updateCartIdByproductid(String cartid,String userid,String productid,String state);
+	
+	
 	/**检查被加入订单的购物车商品是否已经有订单号，如果有则不再更新订单号，防止多次提交订单操作，导致订单异常
 	 * @param state =3
 	 * @param cartid
