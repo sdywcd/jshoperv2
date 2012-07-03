@@ -59,4 +59,10 @@ public class GroupCartServiceImpl implements GroupCartService {
 		return this.getGroupCartDao().findGroupCartGoodsByOrderid(orderid);
 	}
 
+	@Override
+	public int updateGroupCartStateByGoodsId(String goodsid, String state) {
+		// TODO Auto-generated method stub
+		return this.getGroupCartDao().updateGroupCartStateByGoodsId(goodsid, state);
+	}
+
 }

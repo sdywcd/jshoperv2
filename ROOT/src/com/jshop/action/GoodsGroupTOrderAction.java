@@ -682,10 +682,10 @@ public class GoodsGroupTOrderAction extends ActionSupport {
 	 * 
 	 * @return
 	 */
-	@Action(value="UpdateOrderToClose",results={
+	@Action(value="UpdateGroupOrderToClose",results={
 			@Result(name="json",type="json")
 	})
-	public String UpdateOrderToClose() {
+	public String UpdateGroupOrderToClose() {
 		String orderid = this.getOrderid().trim();
 		String orderstate = AllOrderState.ORDERSTATE_FIVE_NUM;//关闭
 		String paystate = AllOrderState.PAYSTATE_TWO_NUM;//表示关闭订单后的付款状态制空
@@ -699,10 +699,10 @@ public class GoodsGroupTOrderAction extends ActionSupport {
 	 * 
 	 * @return
 	 */
-	@Action(value="UpdateOrderToConfirm",results={
+	@Action(value="UpdateGroupOrderToConfirm",results={
 			@Result(name="json",type="json")
 	})
-	public String UpdateOrderToConfirm() {
+	public String UpdateGroupOrderToConfirm() {
 		String orderid = this.getOrderid().trim();
 		String orderstate = AllOrderState.ORDERSTATE_ONE_NUM;//已确认
 		String paystate = AllOrderState.PAYSTATE_ZERO_NUM;//未付款
@@ -733,10 +733,10 @@ public class GoodsGroupTOrderAction extends ActionSupport {
 	 * 
 	 * @return
 	 */
-	@Action(value="UpdateOrderToPay",results={
+	@Action(value="UpdateGroupOrderToPay",results={
 			@Result(name="json",type="json")
 	})
-	public String UpdateOrderToPay() {
+	public String UpdateGroupOrderToPay() {
 		String orderid = this.getOrderid().trim();
 		String orderstate = AllOrderState.ORDERSTATE_ONE_NUM;//已确认
 		String paystate = AllOrderState.PAYSTATE_ONE_NUM;//付款
@@ -750,10 +750,10 @@ public class GoodsGroupTOrderAction extends ActionSupport {
 	 * 
 	 * @return
 	 */
-	@Action(value="UpdateExpressnumberByOrderId",results={
+	@Action(value="UpdateExpressnumberByGroupOrderId",results={
 			@Result(name="json",type="json")
 	})
-	public String UpdateExpressnumberByOrderId() {
+	public String UpdateExpressnumberByGroupOrderId() {
 		if (Validate.StrNotNull(this.getExpressnumber())&&Validate.StrNotNull(this.getOrderid())) {
 			int i = this.getGroupOrderTService().updateExpressnumberByGroupOrderId(this.getOrderid().trim(), this.getExpressnumber().trim());
 			return "json";
@@ -765,10 +765,10 @@ public class GoodsGroupTOrderAction extends ActionSupport {
 	 * 
 	 * @return
 	 */
-	@Action(value="UpdateInvoicenumberByOrderId",results={
+	@Action(value="UpdateInvoicenumberByGroupOrderId",results={
 			@Result(name="json",type="json")
 	})
-	public String UpdateInvoicenumberByOrderId() {
+	public String UpdateInvoicenumberByGroupOrderId() {
 		if (Validate.StrNotNull(this.getInvoicenumber())&&Validate.StrNotNull(this.getOrderid())) {
 			int i = this.getGroupOrderTService().updateInvoicenumberByOrderId(this.getOrderid().trim(), this.getInvoicenumber().trim(), BaseTools.systemtime());
 			return "json";
@@ -781,10 +781,10 @@ public class GoodsGroupTOrderAction extends ActionSupport {
 	 * 
 	 * @return
 	 */
-	@Action(value="GetAlipayFhNeedParams",results={
+	@Action(value="GetAlipayFhNeedParamsGroup",results={
 			@Result(name="json",type="json")
 	})
-	public String GetAlipayFhNeedParams() {
+	public String GetAlipayFhNeedParamsGroup() {
 		GroupOrderT o = this.getGroupOrderTService().findgroupOrderDetailByorderid(this.getOrderid().trim());
 		this.setTradeno(o.getTradeNo());//支付宝交易号
 		this.setExpressnumber(o.getExpressnumber());//快递单号，发货单号

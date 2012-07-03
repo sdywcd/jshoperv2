@@ -52,5 +52,11 @@ public interface GroupCartService {
 	 * @return
 	 */
 	public abstract List<GroupCartT>findGroupCartGoodsByOrderid(String orderid);
+	/**
+	 * 当订单提交成功后修改商品的状态。
+	 * @param goodsid
+	 * @return
+	 */
+	public int updateGroupCartStateByGoodsId(String goodsid,String state);
 
 }

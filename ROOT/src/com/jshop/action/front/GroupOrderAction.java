@@ -1,8 +1,18 @@
 package com.jshop.action.front;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -15,6 +25,13 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
 
+import cn.edu.ctgu.ghl.fetion.Contact;
+import cn.edu.ctgu.ghl.fetion.Fetion;
+import cn.edu.ctgu.ghl.fetion.FetionAppEvent;
+import cn.edu.ctgu.ghl.fetion.IFetionAppEventListener;
+
+import com.google.api.translate.Language;
+import com.google.api.translate.Translate;
 import com.jshop.action.templates.DataCollectionTAction;
 import com.jshop.action.tools.Arith;
 import com.jshop.action.tools.BaseTools;
@@ -642,12 +659,28 @@ public class GroupOrderAction extends ActionSupport {
 			got.setHasprintfpinvoice("0");//未开具发票
 			got.setExpressnumber(null);//快递单号
 			if (this.getGroupOrderTService().addGroupOrder(got) > 0) {
+			//	this.getGroupCartService().updateGroupCartStateByGoodsId(this.getCartgoodsid(), "3");
 				AlipayConfig.out_trade_no = got.getOrderid();
 				AlipayConfig.subject = got.getGoodsname();
 				AlipayConfig.body = got.getGoodsname();
 				AlipayConfig.price = String.valueOf(got.getShouldpay());
 				AlipayConfig.logistics_fee = String.valueOf(got.getFreight());
-
+				//测试发短信
+//		         boolean b = fetchToSendSMS("18721337900", "TAO601238880",  "18721337900" ,
+//		                 "TestMessage");
+//		         System.out.println("Send Message result:" + b);
+//				try {
+//					sendmessage();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+				try {
+					sendSMSMessage();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				this.setSaddorder(true);
 			} else {
 				this.setSaddorder(false);
@@ -767,6 +800,7 @@ public class GroupOrderAction extends ActionSupport {
 		UserT user = (UserT) ActionContext.getContext().getSession().get(BaseTools.USER_SESSION_KEY);
 		if (user != null) {
 			this.setSlogin(true);
+			
 			//预先生成订单编号
 			GetSerialidorder();
 			//获取支付信息
@@ -784,8 +818,9 @@ public class GroupOrderAction extends ActionSupport {
 				if(!list.isEmpty()){
 					return "json";
 				}
-				this.getGroupCartService().updateGroupCartStateandOrderidByGoodsidList(this.getCartid().trim(), this.getSerialidorderid(), this.getUserid(), "3");
-			}
+				this.getGroupCartService().updateGroupCartStateandOrderidByGoodsidList(this.getCartid().trim(), this.getSerialidorderid(), user.getUserid(), "3");
+				return "json";
+		}
 			
 
 //		}
@@ -866,6 +901,135 @@ public class GroupOrderAction extends ActionSupport {
 			ActionContext.getContext().put("cartgoodsname", cartgoodsname);
 			ActionContext.getContext().put("cartneedquantity", cartneedquantity);
 		}
+	/**
+	 * 通过飞信发送短信	 
+	 * @return
+	 * @throws IOException 
+	 */
+	public void sendmessage() throws IOException{
+		String sUrl="https://fetionAPI.appspot.com/api/?";
+		String fromNo="18721337900";
+		String password="TAO601238880";
+		String toNo="18721337900";
+		String msg="您好！";
+		sUrl+="from="+fromNo+"&pw="+password+"&to="+toNo+"&msg="+msg;
+		System.out.print(sUrl);
+		URL url = new URL(sUrl);
+		HttpURLConnection urlconn= (HttpURLConnection) url.openConnection();
+		urlconn.setRequestMethod("POST");		
+		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+		String input = in.readLine();
+		System.out.print(input);
+		String rets="";
+		if(in!=null){
+			for(String s="";(s=in.readLine())!=null;){
+				rets = rets+s;
+			}
+		}
+		in.close();
+		System.out.print("发送信息:"+rets);
+		System.out.print("发送成功");
 	}
+	/**
+	 * 
+	 * @param mobile
+	 * @param password
+	 * @param friends
+	 * @param message
+	 * @return
+	 */
+	public static boolean fetchToSendSMS(String mobile, String password,
+			   String friends, String message) {
+		 final int TRY_TIMES = 3;
+		 final int TIME_OUT = 30000;
+
+
+			  // 加上UUID的目的是防止这样的情况，在服务器上已经成功发送短信，却在返回结果过程中遇到错误，
+			  // 而导致客户端继续尝试请求，此时让服务器根据UUID分辨出该请求已经发送过，避免再次发送短信。
+			  String uuid = UUID.randomUUID().toString();
+			  for (int i = 0; i < TRY_TIMES; i++) {
+			   int responseCode = 0;
+			   try {
+			    URL postUrl = new URL("http://fetionlib.appspot.com/restlet/fetion");
+			    HttpURLConnection connection = (HttpURLConnection) postUrl .openConnection();
+			    connection.setConnectTimeout(TIME_OUT);
+			    connection.setReadTimeout(TIME_OUT);
+			    connection.setDoOutput(true);
+			    connection.setRequestMethod("POST");
+			    connection.setUseCaches(false);
+			    connection.setInstanceFollowRedirects(true);
+//			    connection.setRequestProperty("Content-Type",
+//			      "application/x-www-form-urlencoded");
+//			    connection.connect();
+			    DataOutputStream out = new DataOutputStream(connection.getOutputStream());
+			    String content = "mobile=" + mobile + "&uuid=" + uuid
+			      + "&password=" + password + "&friend="
+			      + friends + "&message="
+			      + URLEncoder.encode(message, "utf-8");
+			    out.writeBytes(content);
+
+			    out.flush();
+			    out.close();
+
+			    responseCode = connection.getResponseCode();
+			    connection.disconnect();
+			    if (responseCode == 202)
+			     return true;
+			    else
+			     return false;
+			   } catch (Exception e) {			    
+			      
+			   }
+			  }
+			  return false;
+			 }
+		/**
+		 * SMS发送信息
+		 * @throws IOException
+		 */
+			public void sendSMSMessage() throws IOException{
+				//发送内容
+				String content = "中国短信网JAVA示例测试"; 
+				
+				// 创建StringBuffer对象用来操作字符串
+				StringBuffer sb = new StringBuffer("http://http.c123.com/tx/?");
+
+				// 向StringBuffer追加用户名
+				sb.append("uid=9999");
+
+				// 向StringBuffer追加密码（密码采用MD5 32位 小写）
+				sb.append("&pwd=9999");
+
+				// 向StringBuffer追加手机号码
+				sb.append("&mobile=18721337900");
+
+				// 向StringBuffer追加消息内容转URL标准码
+				sb.append("&content="+URLEncoder.encode(content));
+
+				// 创建url对象
+				URL url = new URL(sb.toString());
+
+				// 打开url连接
+				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+				// 设置url请求方式 ‘get’ 或者 ‘post’
+				connection.setRequestMethod("POST");
+
+				// 发送
+				BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+
+				// 返回发送结果
+				String inputline = in.readLine();
+
+				// 返回结果为‘100’ 发送成功
+				System.out.println(inputline);
+			} 
+
+}
+	
+	
+	
+	
+	
 
 
