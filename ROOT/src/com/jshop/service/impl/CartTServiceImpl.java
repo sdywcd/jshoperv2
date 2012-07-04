@@ -83,8 +83,14 @@ public class CartTServiceImpl implements CartTService {
 		return this.getCartTDao().updateCartStateByGoodsidList(userid, goodsid, state);
 	}
 
-	public int updateCartId(String cartid, String userid, String goodsid, String state) {
-		return this.getCartTDao().updateCartId(cartid, userid, goodsid, state);
+	public int updateCartIdBygoodsid(String cartid, String userid, String goodsid, String state) {
+		return this.getCartTDao().updateCartIdBygoodsid(cartid, userid, goodsid, state);
+	}
+
+	@Override
+	public int updateCartIdByproductid(String cartid, String userid,
+			String productid, String state) {
+		return this.getCartTDao().updateCartIdByproductid(cartid, userid, productid, state);
 	}
 
 	public List<CartT> findCartByCartid(String cartid, String state) {

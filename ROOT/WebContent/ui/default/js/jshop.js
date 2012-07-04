@@ -1279,7 +1279,7 @@ function displaygoodshistory(COOKIE_NAME){
     var h_istory="";
     var historyvalue=$.cookie(COOKIE_NAME);
     var historyarray=historyvalue.split("=");
-    historyarray=districtArray(historyarray);
+    historyarray=districtArray(historyarray.toString());
     //historyarray.reverse();
     
     for(var i=0;i<historyarray.length;i++){

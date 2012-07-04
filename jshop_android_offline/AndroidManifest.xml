@@ -25,7 +25,6 @@
 		<activity android:name="com.jshop.android.pad.shop.JshopActivityGoodsList"></activity>
 		<activity android:name="com.jshop.android.pad.shop.JshopActivityGoodsdetail"></activity>
 		<activity android:name="com.jshop.android.pad.shop.JshopMGoodsdetail"></activity>
-		<activity android:name="com.jshop.android.pad.shop.JshopActivityGoodsCategoryList"></activity>
 		<activity android:name="com.jshop.android.pad.shop.JshopMelectrocart"/>
 		<activity android:name="com.jshop.android.pad.shop.JshopMelectroorder"/>
 		<activity android:name="com.jshop.android.pad.shop.JshopMelectroorderdetail"/>
