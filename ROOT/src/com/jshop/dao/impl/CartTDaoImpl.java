@@ -340,11 +340,11 @@ public class CartTDaoImpl extends HibernateDaoSupport implements CartTDao {
 		}
 	}
 
-	public int updateCartId(final String cartid, final String userid, final String goodsid, final String state) {
+	public int updateCartIdBygoodsid(final String cartid, final String userid, final String goodsid, final String state) {
 		log.debug("update cart UpdateCartId");
 		try {
 			final String queryString = "update CartT as c set c.cartid=:cartid where c.userid=:userid and  c.state=:state and c.goodsid=:goodsid";
-			this.getHibernateTemplate().execute(new HibernateCallback() {
+			Integer integer=(Integer) this.getHibernateTemplate().execute(new HibernateCallback() {
 
 				public Object doInHibernate(Session session) throws HibernateException, SQLException {
 					int i = 0;
@@ -354,15 +354,40 @@ public class CartTDaoImpl extends HibernateDaoSupport implements CartTDao {
 					query.setParameter("cartid", cartid);
 					query.setParameter("state", state);
 					i = query.executeUpdate();
-					++i;
 					return i;
 				}
 			});
+			return integer;
 		} catch (RuntimeException re) {
 			log.error("update  cart UpdateCartId", re);
 			throw re;
 		}
-		return 0;
+	}
+
+	@Override
+	public int updateCartIdByproductid(final String cartid, final String userid,
+			final String productid, final String state) {
+		log.debug("update cart UpdateCartId");
+		try {
+			final String queryString = "update CartT as c set c.cartid=:cartid where c.userid=:userid and  c.state=:state and c.productid=:productid";
+			Integer integer=(Integer) this.getHibernateTemplate().execute(new HibernateCallback() {
+
+				public Object doInHibernate(Session session) throws HibernateException, SQLException {
+					int i = 0;
+					Query query = session.createQuery(queryString);
+					query.setParameter("userid", userid);
+					query.setParameter("productid", productid);
+					query.setParameter("cartid", cartid);
+					query.setParameter("state", state);
+					i = query.executeUpdate();
+					return i;
+				}
+			});
+			return integer;
+		} catch (RuntimeException re) {
+			log.error("update  cart UpdateCartId", re);
+			throw re;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
