@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:baselineAligned="true" >
-
+
+
             <Button
                 android:id="@+id/Buttonmaidan"
                 android:textColor="#ffffff"
@@ -26,7 +27,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/floorleftbuttonleftbg"
                 android:text="@string/maidan" />
-
+
+
             <Button
                 android:id="@+id/button1"
                 android:layout_width="match_parent"
@@ -35,7 +37,8 @@
                 android:background="@drawable/floortitlebg"
                 android:text="@string/myelectrocart"
                 android:textColor="#FFFFFF" />
-
+
+
             <Button
                 android:id="@+id/Buttondiandan"
                 android:layout_width="match_parent"
@@ -55,21 +58,36 @@
         android:background="@drawable/border"
         android:orientation="vertical" >
 
+
+
+
+
+
+
+
+
+
+
+
         <ListView
             android:id="@+id/listViewmyelectrocart"
-            android:layout_width="275dp"
-            android:layout_height="386dp"
+            android:layout_width="708dp"
+            android:layout_height="1057dp"
             android:layout_gravity="center"
-            android:background="#000000">
+            android:background="#000000" >
+
         </ListView>
 
     </LinearLayout>
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-
+
         <TextView
             android:id="@+id/totalprice"
             android:layout_width="wrap_content"
@@ -77,7 +95,6 @@
             android:layout_gravity="center"
             android:text="@string/totalprice"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
     </LinearLayout>
 
 </LinearLayout>
