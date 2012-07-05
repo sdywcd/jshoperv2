@@ -25,7 +25,8 @@
                 android:layout_height="wrap_content"
                 android:background="#00000000"
                 android:src="@drawable/floorleftbutton" />
-
+
+
             <Button
                 android:id="@+id/button1"
                 android:layout_width="match_parent"
@@ -59,10 +60,15 @@
         android:orientation="vertical" >
 
 
+
+
+
+
+
         <GridView
             android:id="@+id/goodscategorygridView"
-            android:layout_width="275dp"
-            android:layout_height="386dp"
+            android:layout_width="705dp"
+            android:layout_height="1094dp"
             android:layout_gravity="center"
             android:background="#000000"
             android:numColumns="4" >

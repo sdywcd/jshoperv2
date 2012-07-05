@@ -7,7 +7,13 @@
     android:paddingBottom="4dip"
     android:paddingLeft="12dip"
     android:paddingRight="12dip" >
-
+
+
+
+
+
+
+
     <ImageView
         android:id="@+id/pictureurl"
         android:layout_width="80dp"
@@ -15,7 +21,11 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/calculatorhover" />
-
+
+
+
+
+
     <TextView
         android:id="@+id/goodsname"
         android:layout_width="wrap_content"
