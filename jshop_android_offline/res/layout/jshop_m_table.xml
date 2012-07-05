@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top|center"
         android:layout_marginTop="5dp"
-        android:stretchColumns="1" >
+        android:orientation="vertical">
 
         <TableLayout
             android:layout_width="fill_parent"
@@ -26,7 +26,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:baselineAligned="true" >
+                android:baselineAligned="true">
 
                 <ImageButton
                     android:id="@+id/imageButton1"
@@ -41,12 +41,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
-                    android:layout_gravity="center"
-                    center_horizontal=""
-                    center_vertical=""
                     android:background="@drawable/floortitlebg"
                     android:gravity="center_vertical|center_horizontal"
-                    android:overScrollMode="never"
                     android:text="@string/tablefloor"
                     android:textColor="#FFFFFF"
                     android:tileMode="repeat" />
@@ -55,6 +51,7 @@
                     android:id="@+id/imageButton3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    
                     android:background="#00000000"
                     android:src="@drawable/floorrightbutton" />
             </TableRow>
@@ -67,20 +64,24 @@
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:background="@drawable/border"
-        android:orientation="vertical" >
-
+        android:orientation="vertical">
+        
         <GridView
             android:id="@+id/tablegridView"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            
-            android:layout_gravity="center"
             android:background="#000000"
-            android:numColumns="4" >
+            android:columnWidth="90dp"
+            android:horizontalSpacing="10dp"
+            android:numColumns="4"
+            android:stretchMode="spacingWidthUniform"
+            android:verticalSpacing="10dp" >
         </GridView>
+
+
     </LinearLayout>
 
 </LinearLayout>

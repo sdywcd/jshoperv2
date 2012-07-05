@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
+    
     android:orientation="vertical" >
 
     <LinearLayout
@@ -33,12 +34,16 @@
                 android:background="@drawable/buttonnormalbg"
                 android:text="@string/back" />
         </TableRow>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="708dp"
-        android:layout_height="1024dp"
+    </LinearLayout>
+    <LinearLayout        
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"        
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:layout_gravity="center"
+        android:layout_weight="1"
         android:background="@drawable/borderbottom"
         android:orientation="vertical" >
 
