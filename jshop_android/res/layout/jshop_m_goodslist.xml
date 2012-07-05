@@ -52,12 +52,20 @@
         android:background="@drawable/border"
         android:orientation="vertical" >
 
+
+
+
+
+
+
+
         <ListView
             android:id="@+id/listViewgoods"
-            android:layout_width="275dp"
-            android:layout_height="386dp"
+            android:layout_width="708dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:background="#000000">
+            android:background="#000000" >
+
         </ListView>
     </LinearLayout>
 
