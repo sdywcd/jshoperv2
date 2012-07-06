@@ -52,6 +52,7 @@ public class JshopActivityIndex extends Activity{
 	
 	private ViewPager viewPager;
 	private ArrayList<View>pageViews;
+	
 	private ImageView imageView;
 	private ImageView[] imageViews;
 	
@@ -178,7 +179,7 @@ public class JshopActivityIndex extends Activity{
                 }  
             }
             if(arg0==5){
-            	Intent intent = new Intent(JshopActivityIndex.this,JshopMIndex.class);
+            	Intent intent = new Intent(JshopActivityIndex.this,WelcomeAct.class);
 				startActivity(intent);
             }
         }  
