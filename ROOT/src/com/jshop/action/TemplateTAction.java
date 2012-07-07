@@ -32,7 +32,6 @@ import com.opensymphony.xwork2.ActionSupport;
 public class TemplateTAction extends ActionSupport {
 
 	private TemplateTService templateTService;
-	@Resource(name="serial")
 	private Serial serial;
 	private String tid;
 	private String url;

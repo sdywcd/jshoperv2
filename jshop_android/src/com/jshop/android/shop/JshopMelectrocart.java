@@ -37,6 +37,7 @@ import android.widget.Toast;
 
 import com.jshop.android.index.R;
 import com.jshop.android.util.Arith;
+import com.jshop.android.util.BaseTools;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
 import com.jshop.android.util.JshopMPostActionList;
@@ -55,7 +56,7 @@ import com.jshop.android.util.JshopMPostActionList;
  * @Data 2012-5-10 下午03:47:04
  */
 public class JshopMelectrocart extends Activity{
-	
+	private BaseTools bt=new BaseTools();
 	private Button buttonmaidan,buttondiandan;
 	private TextView totalcartprice;
 	private String requestjsonstr;
@@ -80,7 +81,7 @@ public class JshopMelectrocart extends Activity{
 		String goodsid=intent.getStringExtra("goodsid");
 		String tablestate=intent.getStringExtra("tablestate");
 		String tableNumber=intent.getStringExtra("tableNumber");
-		final String []temp=readJmtable().split(",");
+		final String []temp=bt.readJmtable().split(",");
 		if("-1".equals(temp[0])){
 			Toast t=Toast.makeText(getApplicationContext(), "您还没有消费", Toast.LENGTH_LONG);
 			t.show();
@@ -296,7 +297,7 @@ public class JshopMelectrocart extends Activity{
 		for(int i=0;i<ja.size();i++){
 			HashMap<String,Object>map=new HashMap<String,Object>();
 			JSONObject jo=(JSONObject)(ja.get(i));
-			map.put("picture", getPictureurlImg(JshopActivityUtil.BASE_URL+jo.get("picture").toString()));
+			map.put("picture", bt.getPictureurlImg(JshopActivityUtil.BASE_URL+jo.get("picture").toString()));
 			map.put("goodsname", jo.get("goodsname").toString());
 			map.put("memberprice", "￥"+jo.get("memberprice").toString());
 			map.put("goodsid", jo.get("goodsid").toString());
@@ -320,32 +321,6 @@ public class JshopMelectrocart extends Activity{
 		}
 		
 	}
-	private Bitmap getPictureurlImg(String pictureurl) throws IOException{
-		URL url=new URL(pictureurl);
-		HttpURLConnection conn=(HttpURLConnection)url.openConnection();
-		conn.setRequestMethod("GET");
-		conn.setConnectTimeout(5*1000);
-		InputStream in=conn.getInputStream();
-		Bitmap bm=BitmapFactory.decodeStream(in);
-		in.close();
-		return bm;
-	}
-	/**
-	 * 读取餐桌信息文件
-	 * @return
-	 */
-	private String readJmtable(){
-		String res="";
-		try{
-			FileInputStream fis=openFileInput(JshopMParams.SHAREMTABLEPARAM);
-			byte[]buffer=new byte[fis.available()];
-			fis.read(buffer);
-			res=EncodingUtils.getString(buffer,"UTF-8");
-			fis.close();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return res;
-	}
+
 
 }

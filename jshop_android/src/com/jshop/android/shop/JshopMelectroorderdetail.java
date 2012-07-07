@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.jshop.android.index.R;
 import com.jshop.android.util.Arith;
+import com.jshop.android.util.BaseTools;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
 import com.jshop.android.util.JshopMPostActionList;
@@ -43,7 +44,7 @@ import com.jshop.android.util.JshopMPostActionList;
  * @Data 2012-5-14 下午01:27:46
  */
 public class JshopMelectroorderdetail extends Activity {
-
+	private BaseTools bt=new BaseTools();
 	private ImageButton sit, ordingfoods, checkout, calculator, callservice,vipcenter;
 	private TextView orderdetail;
 	private ArrayList<HashMap<String,Object>>eleorderdetail=new ArrayList<HashMap<String,Object>>();
@@ -63,7 +64,7 @@ public class JshopMelectroorderdetail extends Activity {
 		calculator = (ImageButton) this.findViewById(R.id.calculator);
 		callservice = (ImageButton) this.findViewById(R.id.callservice);
 		vipcenter = (ImageButton) this.findViewById(R.id.vipcenter);
-		final String []temp=readJmtable().split(",");
+		final String []temp=bt.readJmtable().split(",");
 		//接收传递过来的订单号获取详细
 //		Intent intent=this.getIntent();
 //		String electronicMenuOrderid=intent.getStringExtra("electronicMenuOrderid");
@@ -179,23 +180,5 @@ public class JshopMelectroorderdetail extends Activity {
 //		}
 //	}
 	
-	
-	/**
-	 * 读取餐桌信息文件
-	 * @return
-	 */
-	private String readJmtable(){
-		String res="";
-		try{
-			FileInputStream fis=openFileInput(JshopMParams.SHAREMTABLEPARAM);
-			byte[]buffer=new byte[fis.available()];
-			fis.read(buffer);
-			res=EncodingUtils.getString(buffer,"UTF-8");
-			fis.close();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return res;
-	}
 	
 }
