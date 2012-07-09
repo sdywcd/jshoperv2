@@ -138,7 +138,9 @@
 				<li>
 					<a id="link4" href="<%=basePatha%>jshop/admin/pagecontent/articlemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#pagecontent">所有文章</a>
 				</li>
-				
+				<li>
+					<a id="link5" href="<%=basePatha%>jshop/admin/pagecontent/questionnairemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#pagecontent">问卷列表</a>
+				</li>
 				
 				<li class="collapsible last">
 					<a href="#" class="plus">帮助</a>
