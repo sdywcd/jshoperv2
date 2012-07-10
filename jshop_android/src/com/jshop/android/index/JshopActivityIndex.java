@@ -84,6 +84,7 @@ public class JshopActivityIndex extends Activity{
 		pageViews.add(inflater.inflate(R.layout.item04, null));
 		pageViews.add(inflater.inflate(R.layout.item05, null));
 		pageViews.add(inflater.inflate(R.layout.item06, null));
+		
 		//pageViews.add(inflater.inflate(R.layout.jshop_activity_register, null));//只要把有数据的布局放入即可滑动
 		//服务器地址
 //		write("192.168.1.103:8088");
