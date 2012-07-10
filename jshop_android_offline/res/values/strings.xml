@@ -57,4 +57,7 @@
 	<string name="payway">支付方式：</string>
 	<string name="cash1">现金</string>
 	<string name="creditcard2">刷卡</string>
+	<string name="changeview">切换模式</string>
+	<string name="recommend">推荐菜</string>
+	<string name="classify">菜单分类</string>
 </resources>
