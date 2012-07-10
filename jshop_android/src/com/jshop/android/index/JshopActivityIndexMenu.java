@@ -198,13 +198,7 @@ public class JshopActivityIndexMenu extends Activity {
 		Intent intent = new Intent(JshopActivityIndexMenu.this,JshopActivitySearch.class);
 		startActivity(intent);
 	}
-	
-	//获取服务器端地址
-	private void getHostaddress(){
-		
-	}
-	
-	
+
 	
 	
 

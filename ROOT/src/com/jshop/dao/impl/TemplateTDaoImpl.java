@@ -83,10 +83,7 @@ public class TemplateTDaoImpl extends HibernateDaoSupport implements TemplateTDa
 					return list;
 				}
 			});
-			if (list.size() > 0) {
-				return list;
-			}
-			return null;
+			return list;
 		} catch (RuntimeException re) {
 			log.error("find all TemplateT error", re);
 			throw re;
@@ -154,10 +151,7 @@ public class TemplateTDaoImpl extends HibernateDaoSupport implements TemplateTDa
 		try {
 			String queryString = "from TemplateT as tt where tt.creatorid=:creatorid and tt.status=:status";
 			List<TemplateT> list = this.getHibernateTemplate().findByNamedParam(queryString,new String[]{"creatorid","status"}, new Object[]{creatorid,status});
-			if (list != null && list.size() > 0) {
-				return list;
-			}
-			return null;
+			return list;
 		} catch (RuntimeException re) {
 			log.error("findAllTemplateWithNoParam error", re);
 			throw re;

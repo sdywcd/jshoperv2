@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-7-5 10:47:52 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.jshop.entity.QuestionnaireT" table="questionnaire_t" catalog="jshopactive">
+        <id name="qid" type="string">
+            <column name="QID" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="question" type="string">
+            <column name="QUESTION" not-null="true" />
+        </property>
+        <property name="choosetag" type="string">
+            <column name="CHOOSETAG" length="10" not-null="true" />
+        </property>
+        <property name="answer" type="string">
+            <column name="ANSWER" not-null="true" />
+        </property>
+        <property name="inputtype" type="string">
+            <column name="INPUTTYPE" length="45" not-null="true" />
+        </property>
+        <property name="state" type="string">
+            <column name="STATE" length="1" not-null="true" />
+        </property>
+        <property name="statistics" type="int">
+            <column name="STATISTICS" not-null="true" />
+        </property>
+        <property name="goodsid" type="string">
+            <column name="GOODSID" length="20" not-null="true" />
+        </property>
+        <property name="createtime" type="timestamp">
+            <column name="CREATETIME" length="0" not-null="true" />
+        </property>
+        <property name="creatorid" type="string">
+            <column name="CREATORID" length="20" not-null="true" />
+        </property>
+        <property name="versiont" type="int">
+            <column name="VERSIONT" not-null="true" />
+        </property>
+        <property name="title" type="string">
+            <column name="TITLE" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
