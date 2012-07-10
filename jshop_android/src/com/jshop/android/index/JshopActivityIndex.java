@@ -78,6 +78,7 @@ public class JshopActivityIndex extends Activity{
 
 		
 		pageViews=new ArrayList<View>();
+		
 		pageViews.add(inflater.inflate(R.layout.item01, null));
 		pageViews.add(inflater.inflate(R.layout.item02, null));
 		pageViews.add(inflater.inflate(R.layout.item03, null));
