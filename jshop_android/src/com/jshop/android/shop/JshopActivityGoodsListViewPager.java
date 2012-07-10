@@ -11,80 +11,39 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.SimpleAdapter.ViewBinder;
 
-import com.jshop.android.index.JshopActivityIndex;
 import com.jshop.android.index.R;
-import com.jshop.android.index.WelcomeAct;
+import com.jshop.android.shop.JshopActivityGoodsList.MyViewBinder;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMPostActionList;
-/**
- * 读取分类下的所有商品列表
- * @Description TODO
- *
- * @Author "chenda"
- *
- * @File JshopActivityGoodsList.java
- *
- * @Package com.jshop.android.shop
- *
- * @ProjectName jshop_android
- * 
- * @Data 2012-5-10 下午03:47:04
- */
-public class JshopActivityGoodsList extends Activity{
-	private Context context;
+ 
+public class JshopActivityGoodsListViewPager extends Activity {
 	private String requestjsonstr;
 	private ArrayList<HashMap<String, Object>> goodslists = new ArrayList<HashMap<String, Object>>();
-	private ListView listViews;
-
-	
+	private ViewPager viewPager;
+	private ArrayList<View>pageViews;
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.jshop_m_goodslist);
-		listViews=(ListView) this.findViewById(R.id.listViewgoods);
-		Intent intent=this.getIntent();
-		String goodsCategoryTid=intent.getStringExtra("goodsCategoryTid");
-		try {
-			this.getGoodsList(goodsCategoryTid);
-		}catch (IOException e) {
-			// TODO Auto-generated catch block    
-			e.printStackTrace();
-		}	
-		SimpleAdapter listItemAdapter=new SimpleAdapter(this,goodslists,R.layout.jshop_m_goodslistitem,new String[]{"pictureurl","goodsname","memberprice"},new int[]{R.id.pictureurl,R.id.goodsname,R.id.memberprice});
+		LayoutInflater inflater=getLayoutInflater();
+		pageViews=new ArrayList<View>();
+		pageViews.add(inflater.inflate(R.layout.goodslistview_item, null));
+		SimpleAdapter listItemAdapter=new SimpleAdapter(this,goodslists,R.layout.goodslistview_item,new String[]{"pictureurl","goodsname","memberprice"},new int[]{R.id.pictureurl,R.id.goodsname,R.id.memberprice});
 		listItemAdapter.setViewBinder(new MyViewBinder());
-		listViews.setAdapter(listItemAdapter);
-		//添加点击
-		listViews.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				//点击进入商品详细页面
-				Intent intent=new Intent(JshopActivityGoodsList.this,JshopActivityGoodsdetail.class);
-				intent.putExtra("goodsid", goodslists.get(arg2).get("goodsid").toString());
-				startActivity(intent);
-			}
-		});
+		viewPager.setAdapter(new JshopAndroidIndexGuidePageAdapter());
 	}
+	
 	
 	/**
 	 * 向服务器端发送请求获取goodslist信息
@@ -112,8 +71,6 @@ public class JshopActivityGoodsList extends Activity{
 			}
 		}
 	}
-	
-	
 	public class MyViewBinder implements ViewBinder{
 		@Override
 		public boolean setViewValue(View view, Object data, String text) {
@@ -138,7 +95,49 @@ public class JshopActivityGoodsList extends Activity{
 		return bm;
 
 	}
-  
-	
+	/**
+	 * 对左右滚动空间进行适配器定义和操作
+	 */
+	class JshopAndroidIndexGuidePageAdapter extends PagerAdapter{
+
+		@Override
+		public int getCount() {
+			return pageViews.size();
+		}
+
+		@Override
+		public boolean isViewFromObject(View arg0, Object arg1) {
+			return arg0==arg1;
+		}
+
+		@Override
+		public void destroyItem(View container, int position, Object object) {
+			((ViewPager) container).removeView(pageViews.get(position));
+		}
+
+		@Override
+		public void finishUpdate(View container) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public Object instantiateItem(View container, int position) {
+			// TODO Auto-generated method stub
+			 ((ViewPager) container).addView(pageViews.get(position));  
+	            return pageViews.get(position);  
+		}
+
+		@Override
+		public void setPrimaryItem(View container, int position, Object object) {
+			// TODO Auto-generated method stub
+			super.setPrimaryItem(container, position, object);
+		}
+
+		@Override
+		public void startUpdate(View container) {
+			// TODO Auto-generated method stub
+			super.startUpdate(container);
+		}
+	}
 
 }
