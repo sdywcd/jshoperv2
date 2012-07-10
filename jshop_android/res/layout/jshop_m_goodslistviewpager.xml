@@ -27,7 +27,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:baselineAligned="true" >
-
+
+
                 <ImageButton
                     android:id="@+id/imageButton1"
                     android:layout_width="wrap_content"
@@ -110,14 +111,6 @@
         android:paddingLeft="10dp"
         android:layout_marginRight="50dp"
         android:weightSum="4">
-
-        <ListView
-            android:id="@+id/listViewgoods"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:background="#000000">
-        </ListView>
           <android.support.v4.view.ViewPager
 	        android:id="@+id/goodslistPages"
 	        android:layout_width="fill_parent"
