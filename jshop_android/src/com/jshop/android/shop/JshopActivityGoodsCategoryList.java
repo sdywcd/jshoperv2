@@ -123,7 +123,7 @@ public class JshopActivityGoodsCategoryList extends Activity{
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			//此处进入商品程序读取商品列表传递分类信息
-			Intent intent = new Intent(JshopActivityGoodsCategoryList.this,JshopActivityGoodsList.class);
+			Intent intent = new Intent(JshopActivityGoodsCategoryList.this,JshopActivityGoodsListViewPager.class);
 			intent.putExtra("goodsCategoryTid", goodscategoryList.get(arg2).get("goodsCategoryTid").toString());
 			startActivity(intent);
 			

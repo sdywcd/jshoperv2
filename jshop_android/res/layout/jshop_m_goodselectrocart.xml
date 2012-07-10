@@ -57,18 +57,6 @@
         android:layout_gravity="center"
         android:background="@drawable/border"
         android:orientation="vertical" >
-
-
-
-
-
-
-
-
-
-
-
-
         <ListView
             android:id="@+id/listViewmyelectrocart"
             android:layout_width="708dp"
@@ -79,10 +67,6 @@
         </ListView>
 
     </LinearLayout>
-
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
