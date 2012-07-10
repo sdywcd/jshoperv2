@@ -2,7 +2,7 @@
 <resources>
 
     <string name="hello">Hello World, JshopActivity!</string>
-    <string name="app_name">jshop_android</string>
+    <string name="app_name">jshop_ONandroid</string>
     <string name="username">用户名称:</string>
     <string name="password">用户密码:</string>
     <string name="confirmpassword">确认密码:</string>
