@@ -12,18 +12,24 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.SimpleAdapter.ViewBinder;
 
 import com.jshop.android.index.R;
+import com.jshop.android.shop.JshopActivityGoodsList.JshopAndroidIndexGuidePageAdapter;
+import com.jshop.android.shop.JshopActivityGoodsList.JshopAndroidIndexGuidePageChangeListener;
 import com.jshop.android.shop.JshopActivityGoodsList.MyViewBinder;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMPostActionList;
@@ -31,17 +37,45 @@ import com.jshop.android.util.JshopMPostActionList;
 public class JshopActivityGoodsListViewPager extends Activity {
 	private String requestjsonstr;
 	private ArrayList<HashMap<String, Object>> goodslists = new ArrayList<HashMap<String, Object>>();
-	private ViewPager viewPager;
+
+	private ViewPager viewPager;//
+	private ViewGroup maingroup;
 	private ArrayList<View>pageViews;
+	private ImageView mainimageView;//图片
+	private TextView goodsname,memberprice;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		LayoutInflater inflater=getLayoutInflater();
 		pageViews=new ArrayList<View>();
-		pageViews.add(inflater.inflate(R.layout.goodslistview_item, null));
-		SimpleAdapter listItemAdapter=new SimpleAdapter(this,goodslists,R.layout.goodslistview_item,new String[]{"pictureurl","goodsname","memberprice"},new int[]{R.id.pictureurl,R.id.goodsname,R.id.memberprice});
-		listItemAdapter.setViewBinder(new MyViewBinder());
+		maingroup=(ViewGroup)inflater.inflate(R.layout.jshop_m_goodslistviewpager, null);
+		viewPager=(ViewPager)maingroup.findViewById(R.id.goodslistPages);
+		
+		Intent intent=this.getIntent();
+		String goodsCategoryTid=intent.getStringExtra("goodsCategoryTid");
+		try {
+			this.getGoodsList(goodsCategoryTid);
+		}catch (IOException e) {
+			// TODO Auto-generated catch block    
+			e.printStackTrace();
+		}
+
+		for(int i=0;i<goodslists.size();i++){
+			View v=inflater.inflate(R.layout.viewpagergoods, null);
+			
+			mainimageView=(ImageView)v.findViewById(R.id.pictureurl);
+			mainimageView.setImageBitmap((Bitmap) goodslists.get(i).get("pictureurl"));
+			goodsname=(TextView)v.findViewById(R.id.goodsname);
+			goodsname.setText(goodslists.get(i).get("goodsname").toString());
+//			memberprice=(TextView)v.findViewById(R.id.memberprice);
+//			memberprice.setText(goodslists.get(i).get("memberprice").toString());
+			pageViews.add(v);
+		}
+		setContentView(maingroup);
+	
 		viewPager.setAdapter(new JshopAndroidIndexGuidePageAdapter());
+		viewPager.setOnPageChangeListener(new JshopAndroidIndexGuidePageChangeListener());
+		
 	}
 	
 	
@@ -139,5 +173,25 @@ public class JshopActivityGoodsListViewPager extends Activity {
 			super.startUpdate(container);
 		}
 	}
+	 // 指引页面更改事件监听器
+    class JshopAndroidIndexGuidePageChangeListener implements OnPageChangeListener {  
+    	  
+    
+        @Override  
+        public void onPageScrollStateChanged(int arg0) {  
+            // TODO Auto-generated method stub  
+        }  
+  
+        @Override  
+        public void onPageScrolled(int arg0, float arg1, int arg2) {  
+            // TODO Auto-generated method stub  
+        }  
+  
+        @Override  
+        public void onPageSelected(int arg0) { 
+        	
+           
+        }  
+    }
 
 }

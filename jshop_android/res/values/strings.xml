@@ -2,7 +2,7 @@
 <resources>
 
     <string name="hello">Hello World, JshopActivity!</string>
-    <string name="app_name">jshop_ONandroid</string>
+    <string name="app_name">jshop_android</string>
     <string name="username">用户名称:</string>
     <string name="password">用户密码:</string>
     <string name="confirmpassword">确认密码:</string>
@@ -57,4 +57,7 @@
 	<string name="payway">支付方式：</string>
 	<string name="cash1">现金</string>
 	<string name="creditcard2">刷卡</string>
+	<string name="changeview">切换模式</string>
+	<string name="recommend">推荐菜</string>
+	<string name="classify">菜单分类</string>
 </resources>
