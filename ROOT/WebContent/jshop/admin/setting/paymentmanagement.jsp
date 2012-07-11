@@ -56,7 +56,6 @@
 									</div>
 									<div class="input">
 										<input type="text" id="paymentname" name="paymentname" class="small" />
-
 									</div>
 
 								</div>
@@ -82,13 +81,16 @@
 									<div class="select">
 										<select id="paymentInterface" name="paymentInterface">
 											<option value="1">
-												即时到帐交易接口
+												即时到帐收款接口
 											</option>
 											<option value="2">
-												担保交易接口
+												担保交易收款接口
 											</option>
 											<option value="3">
-												双功能接口
+												双功能收款接口
+											</option>
+											<option value="4">
+												网银支付接口
 											</option>
 										</select>
 									</div>

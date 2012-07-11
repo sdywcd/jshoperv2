@@ -133,7 +133,7 @@ public class Serial {
 	//团购购物车cartid生成
 	public static final String GROUPCART="groupcart";
 	//问卷系统问卷内容表
-	public static final String QUESTIONNAIRET="questionnaire";
+	public static String QUESTIONNAIRET="questionnaire";
 	
 	private SerialTService serialTService;
 	

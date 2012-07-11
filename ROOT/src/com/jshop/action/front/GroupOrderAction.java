@@ -25,13 +25,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
 
-import cn.edu.ctgu.ghl.fetion.Contact;
-import cn.edu.ctgu.ghl.fetion.Fetion;
-import cn.edu.ctgu.ghl.fetion.FetionAppEvent;
-import cn.edu.ctgu.ghl.fetion.IFetionAppEventListener;
 
-import com.google.api.translate.Language;
-import com.google.api.translate.Translate;
 import com.jshop.action.templates.DataCollectionTAction;
 import com.jshop.action.tools.Arith;
 import com.jshop.action.tools.BaseTools;

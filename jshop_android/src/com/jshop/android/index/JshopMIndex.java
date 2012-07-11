@@ -2,6 +2,7 @@ package com.jshop.android.index;
 
 import com.jshop.android.shop.JshopActivityGoodsCategoryList;
 import com.jshop.android.shop.JshopActivityGoodsList;
+import com.jshop.android.shop.JshopActivityGoodsListViewPager;
 import com.jshop.android.shop.JshopMelectrocart;
 import com.jshop.android.table.JshopMtable;
 import com.jshop.android.util.JshopMParams;
