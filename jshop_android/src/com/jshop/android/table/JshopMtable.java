@@ -50,7 +50,7 @@ import com.jshop.android.util.JshopMPostActionList;
  * @Data 2012-5-15 下午02:24:58
  */
 public class JshopMtable extends Activity {
-	private BaseTools bt=new BaseTools();
+	
 	//左右楼层按钮
 	private ImageButton floorleftbutton,floorrightbutton;
 	private GridView gv;
@@ -242,7 +242,7 @@ public class JshopMtable extends Activity {
 						
 						
 						//携带餐桌号和餐桌状态传递给商品分类开始点菜
-						bt.writeJmtable("1"+","+tablenumber);
+						writeJmtable("1"+","+tablenumber);
 					}else{
 						Toast t=Toast.makeText(getApplicationContext(), "更新座位状态时系统异常", Toast.LENGTH_LONG);
 						t.show();
@@ -269,5 +269,18 @@ public class JshopMtable extends Activity {
 		alert.show();
 	}
 
-	
+	/**
+	 * 写入一个默认的餐桌值，用来检测未就做即可点菜的问题
+	 * @param content
+	 */
+	public void writeJmtable(String content){
+		try{
+			//实例化文件文件输出流
+			FileOutputStream fos=openFileOutput(JshopMParams.SHAREMTABLEPARAM,MODE_WORLD_WRITEABLE+MODE_WORLD_WRITEABLE);
+			fos.write(content.getBytes());
+			fos.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 }

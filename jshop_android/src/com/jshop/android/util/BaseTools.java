@@ -97,7 +97,7 @@ public class BaseTools extends Activity {
 	 * @return
 	 * @throws IOException
 	 */
-	public Bitmap getPictureurlImg(String pictureurl) throws IOException{
+	public  Bitmap getPictureurlImg(String pictureurl) throws IOException{
 		URL url=new URL(pictureurl);
 		HttpURLConnection conn=(HttpURLConnection)url.openConnection();
 		conn.setRequestMethod("GET");

@@ -20,6 +20,7 @@
 <script type="text/javascript" src="/ui/default/js/jquery.dimensions.js"></script>
 <script type="text/javascript" src="/ui/default/js/jquery.sexy-vote.js"></script>
 <script type="text/javascript" src="/jshop/admin/js/kindeditor-min.js"></script>
+<script type="text/javascript" src="/ui/default/js/jquery.cookie.js"></script>
 </head><body>
 <input type="hidden" id="hidurl" name="hidurl" value=""/>
 <!--载入公共头文件-->
@@ -91,7 +92,23 @@
 					<!--广告尺寸宽度小于378ps高度小于75px-->
 				</div>
 			</div>
-
+<html>
+<head>
+<title>首页ostocy-jshop</title>
+<meta name="Author" content="OSTOCY">
+<meta name="Copyright" content="OSTOCY">
+<meta http-equiv="expires" content="0">
+<meta name="keywords" content="ostocy-jshop2.0系统演示"/>
+<meta name="description" content="ostocy-jshop2.0系统演示"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="/ui/default/css/global.css" />
+<link rel="stylesheet" type="text/css" href="/ui/default/css/index.css" />
+<link rel="stylesheet" type="text/css" href="/ui/default/css/category.css" />
+<link rel="stylesheet" type="text/css" href="/ui/default/js/easyslider1.7/css/screen.css"/>
+<script type="text/javascript"  src="/ui/default/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="/ui/default/js/easyslider1.7/js/easySlider1.7.js"></script>
+</head>
+<body>
         <div class="topnav">
 			
 
@@ -103,7 +120,7 @@
 		
 			
 		<ul class="main_nav">
-						<li>
+			<li>
 				<a href="/index.html"
 				 target="_blank" >首页
 				</a>
@@ -134,15 +151,16 @@
 		</ul>
 		<div class="search">
 			
-			<form id="searchform" name="searchform" method="get" style="margin: 0px" action="/ProductListSort.do ">
+	
 				<div style="display:none;">
 					<input type="hidden" id="SortCid2" name="Cid" value="">
 					<input type="hidden" id="thKeywords" name="Keywords">
 					<input type="hidden" name="searchlist" value="1">
 				</div>
 					<input type="text" id="topKeywords" class="searchinput_top" value="" onfocus="if (value ==''){value =''};this.style.color='#000'" onkeyup="showSuggest();" onkeydown="keyDown(event)">
-					<a href="#" onclick="javascript:checkTopSearchForm();return false;" class="searchbtn" target="_blank" title="搜索"></a>
-			</form>
+<button id="searchgoods" name="searchgoods" class="searchbtn" target="_blank"value="搜索"/>
+					
+			
 		</div>
 	
 
@@ -151,6 +169,9 @@
 </div>
 					
        </div>		
+	   <script type="text/javascript" src="/ui/default/js/jshop.js"></script>
+	   </body>
+	   </html>
 
 	</div>
 	</body>
@@ -176,7 +197,10 @@
       <div class="m_leftdiv02 mt7"> <a href=""><a href='#' target='_blank'><img src='/ui/default/images/20120302084354280.jpg'  width='200' height='240' alt='' border='0' /></a></a> </div>
       <div class="m_leftdiv02 mt7"> <a href=""><a href='#' target='_blank'><img src='/ui/default/images/20120302084447454.jpg'  width='200' height='240' alt='' border='0' /></a></a> </div>
       <div class="m_leftdiv02 mt7"> <a href=""><a href='#' target='_blank'><img src='/ui/default/images/20120302084732989.jpg'  width='200' height='240' alt='' border='0' /></a></a> </div>
-    </div>
+      <div class="m_leftdiv02 mt7" id="viewHistory"><h1>浏览记录</h1></div>
+      <div class="m_leftdiv02 mt7" id="goodshistory"></div>
+	
+	</div>
     <div id="mainright">
       <div class="detail_info">
         <div class="title"> 2 </div>
@@ -197,8 +221,8 @@
           </div>
           <div class="detail_info_lm2">
             <!-- JiaThis Button BEGIN -->
-            <div id="ckepop"> <span class="jiathis_txt">分享到：</span> <a class="jiathis_button_qzone">QQ空间</a> <a class="jiathis_button_tsina">新浪微博</a> <a class="jiathis_button_renren">人人网</a> <a class="jiathis_button_kaixin001">开心网</a> <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a> <a class="jiathis_counter_style"></a> </div>
-            <script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
+            <!--<div id="ckepop"> <span class="jiathis_txt">分享到：</span> <a class="jiathis_button_qzone">QQ空间</a> <a class="jiathis_button_tsina">新浪微博</a> <a class="jiathis_button_renren">人人网</a> <a class="jiathis_button_kaixin001">开心网</a> <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a> <a class="jiathis_counter_style"></a> </div>
+            <script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>-->
             <!-- JiaThis Button END -->
           </div>
         </div>
