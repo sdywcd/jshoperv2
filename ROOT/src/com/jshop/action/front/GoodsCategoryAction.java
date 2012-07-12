@@ -6,12 +6,17 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 
+import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
+import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
+
+import com.jshop.action.templates.DataCollectionTAction;
+import com.jshop.action.tools.FreeMarkervariable;
 import com.jshop.entity.ArticleCategoryT;
 import com.jshop.entity.GoodsCategoryT;
 import com.jshop.entity.GoodsT;
@@ -29,6 +34,7 @@ import com.jshop.service.impl.GoodsCategoryTServiceImpl;
 import com.jshop.service.impl.GoodsTServiceImpl;
 import com.jshop.service.impl.JshopbasicInfoTServiceImpl;
 import com.jshop.service.impl.SiteNavigationTServiceImpl;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 @ParentPackage("jshop")
 @Namespace("")
@@ -43,6 +49,7 @@ public class GoodsCategoryAction extends ActionSupport{
 	private ArticleCategoryTService articleCategoryTService;
 	private ArticleTService articleTService;
 	private JshopbasicInfoTService jshopbasicInfoTService;
+	private DataCollectionTAction dataCollectionTAction;
 	private Map<String,Object>map=new HashMap<String,Object>();
 	private List<GoodsT>goodsList;
 	private String navid;
@@ -50,8 +57,20 @@ public class GoodsCategoryAction extends ActionSupport{
 	private String stypeid;
 	private String cp;
     private String ls;
+    private String goodsname;
+    private String topKeywords;
+    private int rp;
+	private int page = 1;
+	private int total = 0;
+	private int totalpage=1;
    
-    @JSON(serialize = false)
+    public DataCollectionTAction getDataCollectionTAction() {
+		return dataCollectionTAction;
+	}
+	public void setDataCollectionTAction(DataCollectionTAction dataCollectionTAction) {
+		this.dataCollectionTAction = dataCollectionTAction;
+	}
+	@JSON(serialize = false)
 	public GoodsTService getGoodsTService() {
 		return goodsTService;
 	}
@@ -137,6 +156,42 @@ public class GoodsCategoryAction extends ActionSupport{
 	public void setLs(String ls) {
 		this.ls = ls;
 	}
+	public String getGoodsname() {
+		return goodsname;
+	}
+	public void setGoodsname(String goodsname) {
+		this.goodsname = goodsname;
+	}
+	public int getRp() {
+		return rp;
+	}
+	public void setRp(int rp) {
+		this.rp = rp;
+	}
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	public String getTopKeywords() {
+		return topKeywords;
+	}
+	public void setTopKeywords(String topKeywords) {
+		this.topKeywords = topKeywords;
+	}
+	public int getTotalpage() {
+		return totalpage;
+	}
+	public void setTotalpage(int totalpage) {
+		this.totalpage = totalpage;
+	}
 	/**
 	 * 清理错误
 	 */
@@ -210,6 +265,42 @@ public class GoodsCategoryAction extends ActionSupport{
 		if(list!=null){
 			map.put("footcategory", list);
 		}
+	}
+	/**
+	 * 根据商品名称搜索商品
+	 * @return
+	 */
+	@Action(value = "searchGoodsByGoodsName", results = { 
+			@Result(name = "success",type="freemarker" ,location = "/WEB-INF/theme/default/shop/searchgoods.ftl"),
+			@Result(name = "input",type="freemarker" ,location = "/WEB-INF/theme/default/shop/searchgoods.ftl")})
+	public String searchGoodsByGoodsName(){
+		int currentPage = page;
+		int lineSize = rp;
+	    totalpage=total/rp+1;
+		List<GoodsT> list = this.getGoodsTService().findGoodsByGoodsname(currentPage, lineSize, this.getTopKeywords().trim());
+		if(list!=null){
+		
+			total=this.getGoodsTService().countfindSearchGoods(this.getTopKeywords().trim());
+			ActionContext.getContext().put("goodsList", list);
+//			map.put("goodsList", list);
+//			map.put("totalgoods", total);	
+			ActionContext.getContext().put("totalgoods", total);
+			ActionContext.getContext().put("totalpage", totalpage);
+			ActionContext.getContext().put("nowpage", page);
+		
+		}
+		//路径获取
+		ActionContext.getContext().put(FreeMarkervariable.BASEPATH, this.getDataCollectionTAction().getBasePath());
+		//获取导航数据
+		ActionContext.getContext().put(FreeMarkervariable.SITENAVIGATIONLIST, this.getDataCollectionTAction().findSiteNavigation());
+		//获取商城基本数据
+		ActionContext.getContext().put(FreeMarkervariable.JSHOPBASICINFO, this.getDataCollectionTAction().findJshopbasicInfo());
+		//获取页脚分类数据
+		ActionContext.getContext().put(FreeMarkervariable.FOOTCATEGORY, this.getDataCollectionTAction().findFooterCateogyrT());
+		//获取页脚文章数据
+		ActionContext.getContext().put(FreeMarkervariable.FOOTERATRICLE, this.getDataCollectionTAction().findFooterArticle());
+		return SUCCESS;
+		
 	}
 
 	/**
