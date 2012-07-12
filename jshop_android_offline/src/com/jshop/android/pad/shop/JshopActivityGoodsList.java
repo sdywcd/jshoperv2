@@ -116,11 +116,11 @@ public class JshopActivityGoodsList extends Activity{
 		map.put("memberprice", "￥32");
 		map.put("goodsid", "001");	
 		
-		HashMap<String,Object>map1=new HashMap<String,Object>();
-		map1.put("pictureurl", lc[1]);
-		map1.put("goodsname", "冷拌翡翠豆芽");
-		map1.put("memberprice", "￥16");
-		map1.put("goodsid", "002");	
+//		HashMap<String,Object>map1=new HashMap<String,Object>();
+//		map1.put("pictureurl", lc[1]);
+//		map1.put("goodsname", "冷拌翡翠豆芽");
+//		map1.put("memberprice", "￥16");
+//		map1.put("goodsid", "002");	
 		
 		HashMap<String,Object>map2=new HashMap<String,Object>();
 		map2.put("pictureurl", rc[0]);
@@ -140,32 +140,32 @@ public class JshopActivityGoodsList extends Activity{
 		map4.put("memberprice", "￥28");
 		map4.put("goodsid", "005");	
 		
-		HashMap<String,Object>map5=new HashMap<String,Object>();
-		map5.put("pictureurl", dx[1]);
-		map5.put("goodsname", "抹茶欧培拉");
-		map5.put("memberprice", "￥28");
-		map5.put("goodsid", "006");	
-		
-		HashMap<String,Object>map6=new HashMap<String,Object>();
-		map6.put("pictureurl", yl[0]);
-		map6.put("goodsname", "桂圆红枣茶");
-		map6.put("memberprice", "￥12");
-		map6.put("goodsid", "007");	
-		
-		HashMap<String,Object>map7=new HashMap<String,Object>();
-		map7.put("pictureurl", yl[1]);
-		map7.put("goodsname", "招牌手工咖啡");
-		map7.put("memberprice", "￥18");
-		map7.put("goodsid", "008");	
+//		HashMap<String,Object>map5=new HashMap<String,Object>();
+//		map5.put("pictureurl", dx[1]);
+//		map5.put("goodsname", "抹茶欧培拉");
+//		map5.put("memberprice", "￥28");
+//		map5.put("goodsid", "006");	
+//		
+//		HashMap<String,Object>map6=new HashMap<String,Object>();
+//		map6.put("pictureurl", yl[0]);
+//		map6.put("goodsname", "桂圆红枣茶");
+//		map6.put("memberprice", "￥12");
+//		map6.put("goodsid", "007");	
+//		
+//		HashMap<String,Object>map7=new HashMap<String,Object>();
+//		map7.put("pictureurl", yl[1]);
+//		map7.put("goodsname", "招牌手工咖啡");
+//		map7.put("memberprice", "￥18");
+//		map7.put("goodsid", "008");	
 		
 		goodslists.add(map);
-		goodslists.add(map1);
+//		goodslists.add(map1);
 		goodslists.add(map2);
 		goodslists.add(map3);
 		goodslists.add(map4);
-		goodslists.add(map5);
-		goodslists.add(map6);
-		goodslists.add(map7);
+//		goodslists.add(map5);
+//		goodslists.add(map6);
+//		goodslists.add(map7);
 		
 	}
 	
