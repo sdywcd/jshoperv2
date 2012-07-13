@@ -9,6 +9,22 @@ $(function() {
 	var windowsurl = window.location;
 	$('#hidurl').attr("value", windowsurl);
 });
+/**
+ * 顶级搜索
+ */
+$(function(){
+	$('#searchgoods').click(function(){
+		var topKeywords= $('#topKeywords').val();
+		var rp=30;
+		if(topKeywords==""){
+			return false;
+		}else{
+			window.location.href="searchGoodsByGoodsName.action?topKeywords="+topKeywords+"&rp="+rp;			
+		}
+		//$.post("searchGoodsByGoodsName.action",{"topKeywords":topKeywords,"rp":rp});
+		return true;
+	});
+});
 $(function(){
 //	// 所在地插件
 //	$("#ChinaArea").jChinaArea( {
@@ -1304,5 +1320,6 @@ function districtArray(array){
     }
     return result;  
 }
+
 
 

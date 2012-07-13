@@ -14,9 +14,11 @@ import com.jshop.android.shop.JshopActivityGoodsList;
 import com.jshop.android.util.BaseTools;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
+import com.jshop.android.widget.JshopViewpagerAdapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,7 +52,7 @@ import android.widget.TextView;
 public class JshopActivityIndex extends Activity{
 	
 	
-	
+//	private JshopViewpagerAdapter jViewPagerAdapter=new JshopViewpagerAdapter();
 	private ViewPager viewPager;
 	private ArrayList<View>pageViews;
 	
@@ -106,66 +108,19 @@ public class JshopActivityIndex extends Activity{
 		}
 		
 		setContentView(maingroup);
-		viewPager.setAdapter(new JshopAndroidIndexGuidePageAdapter());
-		viewPager.setOnPageChangeListener(new JshopAndroidIndexGuidePageChangeListener());
+		viewPager.setAdapter(new JshopViewpagerAdapter().new JshopActivityIndexViewpagerAdapter(pageViews));
+		viewPager.setOnPageChangeListener(new JshopActivityIndexViewpagerPageChangeListener());
 
 	}
 	
-	
-
-	
-	
-	/**
-	 * 对左右滚动空间进行适配器定义和操作
-	 */
-	class JshopAndroidIndexGuidePageAdapter extends PagerAdapter{
-
-		@Override
-		public int getCount() {
-			return pageViews.size();
-		}
-
-		@Override
-		public boolean isViewFromObject(View arg0, Object arg1) {
-			return arg0==arg1;
-		}
-
-		@Override
-		public void destroyItem(View container, int position, Object object) {
-			((ViewPager) container).removeView(pageViews.get(position));
-		}
-
-		@Override
-		public void finishUpdate(View container) {
-			// TODO Auto-generated method stub
-		}
-
-		@Override
-		public Object instantiateItem(View container, int position) {
-			// TODO Auto-generated method stub
-			 ((ViewPager) container).addView(pageViews.get(position));  
-	            return pageViews.get(position);  
-		}
-
-		@Override
-		public void setPrimaryItem(View container, int position, Object object) {
-			// TODO Auto-generated method stub
-			super.setPrimaryItem(container, position, object);
-		}
-
-		@Override
-		public void startUpdate(View container) {
-			// TODO Auto-generated method stub
-			super.startUpdate(container);
-		}
-	}
-    // 指引页面更改事件监听器
-    class JshopAndroidIndexGuidePageChangeListener implements OnPageChangeListener {  
-    	  
+	 // 指引页面更改事件监听器
+    public class JshopActivityIndexViewpagerPageChangeListener  implements OnPageChangeListener {  
+    	
+    	
         @Override  
         public void onPageScrollStateChanged(int arg0) {  
             // TODO Auto-generated method stub  
-        }  
+        }
   
         @Override  
         public void onPageScrolled(int arg0, float arg1, int arg2) {  
@@ -173,7 +128,7 @@ public class JshopActivityIndex extends Activity{
         }  
   
         @Override  
-        public void onPageSelected(int arg0) { 
+        public void onPageSelected(int arg0) {
             for (int i = 0; i < imageViews.length; i++) {  
                 imageViews[arg0].setBackgroundResource(R.drawable.page_indicator_focused);
                 
@@ -182,11 +137,16 @@ public class JshopActivityIndex extends Activity{
                 }  
             }
             if(arg0==5){
-            	Intent intent = new Intent(JshopActivityIndex.this,WelcomeAct.class);
+            	Intent intent = new Intent(JshopActivityIndex.this,JshopMIndex.class);
 				startActivity(intent);
             }
         }  
     }
+
+	
+	
+	
+   
     
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

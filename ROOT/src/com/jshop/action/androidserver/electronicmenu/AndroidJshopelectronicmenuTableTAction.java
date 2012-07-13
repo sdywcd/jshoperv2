@@ -250,7 +250,7 @@ public class AndroidJshopelectronicmenuTableTAction extends ActionSupport implem
 	 * 更新餐桌使用状态
 	 * @throws IOException 
 	 */
-	@Action(value="updateTableTtablestateBytableNo")
+	@Action(value="updateTableTtablestateBytableNoforAndroid")
 	public void updateTableTtablestateBytableNo() throws IOException{
 		if(Validate.StrNotNull(this.getTableid())&&Validate.StrNotNull(this.getTablestate())){
 			String tableid=this.getTableid().trim();

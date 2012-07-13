@@ -28,7 +28,7 @@
 		<activity android:name="com.jshop.android.pad.shop.JshopMelectrocart"/>
 		<activity android:name="com.jshop.android.pad.shop.JshopMelectroorder"/>
 		<activity android:name="com.jshop.android.pad.shop.JshopMelectroorderdetail"/>
-         
+         <activity android:name="com.jshop.android.pad.shop.JshopActivityGoodsListViewPager"/>
          
     </application>
     
