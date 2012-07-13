@@ -81,6 +81,9 @@ public class JshopActivityGoodsList extends Activity{
 			}
 		});
 		
+		
+		
+		
 	}
 	
 	/**

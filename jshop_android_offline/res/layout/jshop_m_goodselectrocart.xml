@@ -19,39 +19,36 @@
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:layout_marginTop="5dp"
-            android:stretchColumns="1" >
+            android:stretchColumns="*" >
 
             <TableRow
                 android:id="@+id/tableRow1"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:baselineAligned="true" >
-
+
                 <Button
                     android:id="@+id/Buttonmaidan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/floorleftbuttonleftbg"
                     android:text="@string/maidan"
                     android:textColor="#000000" />
-
+
                 <Button
                     android:id="@+id/button1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/floortitlebg"
                     android:text="@string/myelectrocart"
-                    android:textColor="#FFFFFF" />
-
+                    android:textColor="#000000" />
+
                 <Button
                     android:id="@+id/Buttondiandan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:background="@drawable/floorleftbuttonrightbg"
                     android:text="@string/diandan"
-                    android:textColor="#ffffff" />
+                    android:textColor="#000000" />
+
             </TableRow>
         </TableLayout>
     </LinearLayout>
