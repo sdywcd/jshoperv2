@@ -15,7 +15,6 @@ import com.jshop.android.util.BaseTools;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
 
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -50,7 +49,6 @@ import android.widget.TextView;
  */
 public class JshopActivityIndex extends Activity{
 	
-	private BaseTools bt=new BaseTools();
 	
 	
 	private ViewPager viewPager;
@@ -71,19 +69,21 @@ public class JshopActivityIndex extends Activity{
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		super.requestWindowFeature(Window.FEATURE_NO_TITLE);//设置无标题窗口
-		bt.gethosturl();
+		gethosturl();
 		LayoutInflater inflater=getLayoutInflater();
 		//这里开始从服务器获取通讯地址
 		mi=new MenuInflater(this);
 
 		
 		pageViews=new ArrayList<View>();
+		
 		pageViews.add(inflater.inflate(R.layout.item01, null));
 		pageViews.add(inflater.inflate(R.layout.item02, null));
 		pageViews.add(inflater.inflate(R.layout.item03, null));
 		pageViews.add(inflater.inflate(R.layout.item04, null));
 		pageViews.add(inflater.inflate(R.layout.item05, null));
 		pageViews.add(inflater.inflate(R.layout.item06, null));
+		
 		//pageViews.add(inflater.inflate(R.layout.jshop_activity_register, null));//只要把有数据的布局放入即可滑动
 		//服务器地址
 //		write("192.168.1.103:8088");
@@ -91,7 +91,7 @@ public class JshopActivityIndex extends Activity{
 		maingroup=(ViewGroup)inflater.inflate(R.layout.jshop_activity_index, null);
 		dotgroup=(ViewGroup)maingroup.findViewById(R.id.dotviewGroup);
 		viewPager=(ViewPager)maingroup.findViewById(R.id.guidePages);
-		bt.writeJmtable("-1"+",");//写入一个默认餐桌
+		writeJmtable("-1"+",");//写入一个默认餐桌
 		for(int i=0;i<pageViews.size();i++){
 			imageView=new ImageView(JshopActivityIndex.this);
 			imageView.setLayoutParams(new LayoutParams(20,20));
@@ -278,7 +278,7 @@ public class JshopActivityIndex extends Activity{
 				String shost=serverhost.getText().toString();
 				//写入文件并保存服务器地址
 				if(validateserverhost(shost)){
-					bt.write(shost);
+					write(shost);
 				}
 				//测试连接
 //				String result=jau.readServerhost();
@@ -287,7 +287,7 @@ public class JshopActivityIndex extends Activity{
 			}
 		}).setNegativeButton("取消", null);
 		//读取是否有服务器地址
-		String oserverhost=bt.read();
+		String oserverhost=read();
 		if(oserverhost!=null){
 			TextView serverhost=(TextView) vhost.findViewById(R.id.serverhost);
 			serverhost.setText(oserverhost);
@@ -299,9 +299,64 @@ public class JshopActivityIndex extends Activity{
 	}
 	
 	
+	/**
+	 * 读取服务器地址
+	 */
+	public void gethosturl(){
+		String oserverhost=read();
+		if(oserverhost!=null){
+			//放入静态变量
+			JshopActivityUtil.BASE_URL="http://"+oserverhost;
+		}
+	}
 	
+	/**
+	 * 写入一个默认的餐桌值，用来检测未就做即可点菜的问题
+	 * @param content
+	 */
+	public void writeJmtable(String content){
+		try{
+			//实例化文件文件输出流
+			FileOutputStream fos=openFileOutput(JshopMParams.SHAREMTABLEPARAM,MODE_WORLD_WRITEABLE+MODE_WORLD_WRITEABLE);
+			fos.write(content.getBytes());
+			fos.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 读取服务器地址文件
+	 * @return
+	 */
+	public String read(){
+		String res="";
+		try{
+			FileInputStream fis=openFileInput(JshopMParams.FILENAME);
+			byte[]buffer=new byte[fis.available()];
+			fis.read(buffer);
+			res=EncodingUtils.getString(buffer,"UTF-8");
+			fis.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return res;
+	}
 	
-	
+	/**
+	 * 写文件，保存服务器地址
+	 * @param content
+	 */
+	public void write(String content){
+		try{
+			//实例化文件文件输出流
+			FileOutputStream fos=openFileOutput(JshopMParams.FILENAME,MODE_WORLD_WRITEABLE+MODE_WORLD_WRITEABLE);
+			fos.write(content.getBytes());
+			fos.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 	
 	
 }
