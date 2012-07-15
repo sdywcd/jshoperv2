@@ -114,7 +114,7 @@ public class JshopActivityIndex extends Activity{
 	}
 	
 	 // 指引页面更改事件监听器
-    public class JshopActivityIndexViewpagerPageChangeListener  implements OnPageChangeListener {  
+    public class JshopActivityIndexViewpagerPageChangeListener  implements OnPageChangeListener {
     	
     	
         @Override  
