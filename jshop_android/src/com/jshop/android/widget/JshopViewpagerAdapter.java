@@ -74,6 +74,57 @@ public class JshopViewpagerAdapter extends Activity {
 		}
 
 	}
+	
+	
+	/**
+	 * 对左右滚动空间进行适配器定义和操作
+	 */
+	public class JshopActivityGoodsListPageAdapter extends PagerAdapter{
+		private ArrayList<View> pageViews;
+		public JshopActivityGoodsListPageAdapter(ArrayList<View> pv){
+			this.pageViews=pv;
+		}
+		
+		@Override
+		public int getCount() {
+			return pageViews.size();
+		}
+
+		@Override
+		public boolean isViewFromObject(View arg0, Object arg1) {
+			return arg0==arg1;
+		}
+
+		@Override
+		public void destroyItem(View container, int position, Object object) {
+			((ViewPager) container).removeView(pageViews.get(position));
+		}
+
+		@Override
+		public void finishUpdate(View container) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public Object instantiateItem(View container, int position) {
+			// TODO Auto-generated method stub
+			 ((ViewPager) container).addView(pageViews.get(position));  
+	            return pageViews.get(position);  
+		}
+
+		@Override
+		public void setPrimaryItem(View container, int position, Object object) {
+			// TODO Auto-generated method stub
+			super.setPrimaryItem(container, position, object);
+		}
+
+		@Override
+		public void startUpdate(View container) {
+			// TODO Auto-generated method stub
+			super.startUpdate(container);
+		}
+	}
+	
 	 // 指引页面更改事件监听器
     public class JshopActivityIndexViewpagerPageChangeListener  implements OnPageChangeListener {  
     	private Context context;

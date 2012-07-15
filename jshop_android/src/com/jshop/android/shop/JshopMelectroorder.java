@@ -33,7 +33,7 @@ import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
 import com.jshop.android.util.JshopMPostActionList;
 /**
- * 读取电子菜单商品列表
+ * 读取电子菜单商品列表(废气)
  * @Description TODO
  *
  * @Author "chenda"
