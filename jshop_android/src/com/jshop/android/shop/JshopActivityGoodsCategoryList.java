@@ -13,6 +13,7 @@ import org.json.simple.JSONValue;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 
 import com.jshop.android.action.JshopMgoodscategoryListAction;
 import com.jshop.android.index.R;
+import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMPostActionList;
 import com.jshop.android.widget.JshopGridViewAdapter;
@@ -40,7 +42,18 @@ public class JshopActivityGoodsCategoryList extends Activity{
 		this.setContentView(R.layout.jshop_m_goodscategory);
 		gv=(GridView)this.findViewById(R.id.goodscategorygridView);
 		gv.setOnItemClickListener(new ItemClickListener());
-		goodscategoryList=jmgclAction.getGoodsCategoryList();
+		
+		//读取缓存
+		final DBHelper dbhelper=new DBHelper(this);
+		//dbhelper.deleteAll(DBHelper.GOODS_CATEGORY_TM_NAME);
+		Cursor c=dbhelper.query(DBHelper.GOODS_CATEGORY_TM_NAME);
+		goodscategoryList=jmgclAction.getGoodsCategoryListtoSQLite(c);
+		c.close();
+		if(goodscategoryList.isEmpty()){
+			goodscategoryList=jmgclAction.getGoodsCategoryList();
+			//缓存goodscategorylist
+			jmgclAction.setGoodsCategoryListtoSQLite(goodscategoryList, this.getApplicationContext());
+		}
 		gv.setAdapter(new JshopGridViewAdapter().new JMGoodscategoryListImageAdapter(this,goodscategoryList));
 		
 	}

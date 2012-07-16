@@ -14,6 +14,7 @@ import org.json.simple.JSONValue;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ import com.jshop.android.action.JshopMGoodsListAction;
 import com.jshop.android.index.JshopActivityIndex;
 import com.jshop.android.index.R;
 import com.jshop.android.index.WelcomeAct;
+import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.util.BaseTools;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMPostActionList;
@@ -78,12 +80,28 @@ public class JshopActivityGoodsList extends Activity{
 		
 		Intent intent=this.getIntent();
 		final String goodsCategoryTid=intent.getStringExtra("goodsCategoryTid");
+		//读取缓存
+		final DBHelper dbhelper=new DBHelper(this);
+		//dbhelper.deleteAll(DBHelper.GOODS_CATEGORY_TM_NAME);
+		Cursor c=dbhelper.queryByParam(DBHelper.GOODS_TM_NAME,goodsCategoryTid);
 		try {
-			goodslists=jmGoodslistAction.getGoodsList(goodsCategoryTid);
-		}catch (IOException e) {
-			// TODO Auto-generated catch block    
-			e.printStackTrace();
-		}	
+			goodslists=jmGoodslistAction.getGoodsListSQLite(c);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		c.close();
+		if(goodslists.isEmpty()){
+			try {
+				goodslists=jmGoodslistAction.getGoodsList(goodsCategoryTid);
+				//设置缓存
+				jmGoodslistAction.setGoodsListSQLite(goodslists, getApplicationContext());
+			}catch (IOException e) {
+				// TODO Auto-generated catch block    
+				e.printStackTrace();
+			}	
+		}
+		
 		SimpleAdapter listItemAdapter=new SimpleAdapter(this,goodslists,R.layout.jshop_m_goodslistitem,new String[]{"pictureurl","goodsname","memberprice"},new int[]{R.id.pictureurl,R.id.goodsname,R.id.memberprice});
 		listItemAdapter.setViewBinder(new MyViewBinder());
 		listViews.setAdapter(listItemAdapter);
