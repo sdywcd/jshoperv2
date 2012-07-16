@@ -27,23 +27,29 @@
 	            android:layout_height="wrap_content"
 	            android:layout_gravity="center"
 	            android:baselineAligned="true" >
-
+	
+	            <ImageButton
+	                android:id="@+id/imageButton1"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:background="#00000000"
+	                android:src="@drawable/floorleftbutton" />
+		
 	            <Button
 	                android:id="@+id/button1"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content" />
-
-	            <Button
-	                android:id="@+id/button2"
-	                android:layout_width="wrap_content"
+	                android:layout_width="match_parent"
 	                android:layout_height="wrap_content"
-	                android:text="@string/goodscategoryname" />
-
-	            <Button
-	                android:id="@+id/button3"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content" />
-
+	                android:background="@drawable/floortitlebg"
+	                android:text="@string/goodscategoryname"
+	                android:textColor="#FFFFFF" />
+	
+	            <ImageButton
+	                android:id="@+id/imageButton3"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_gravity="left"
+	                android:background="#00000000"
+	                android:src="@drawable/floorrightbutton" />
 	        </TableRow>
         </TableLayout>
     </LinearLayout>
