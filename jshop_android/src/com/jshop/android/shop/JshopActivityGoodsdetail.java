@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jshop.android.action.JshopMGoodsdetailAction;
 import com.jshop.android.index.R;
 import com.jshop.android.util.BaseTools;
 import com.jshop.android.util.JshopActivityUtil;
@@ -40,6 +41,7 @@ public class JshopActivityGoodsdetail extends Activity {
 	private Button addtoelectrocartconfirm,back;
 	private String requestjsonstr;
 	private ArrayList<HashMap<String, Object>> goodsdetail = new ArrayList<HashMap<String, Object>>();
+	private JshopMGoodsdetailAction jmgoodsdetailAction=new JshopMGoodsdetailAction();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -57,7 +59,7 @@ public class JshopActivityGoodsdetail extends Activity {
 		Intent intent=this.getIntent();
 		String goodsid=intent.getStringExtra("goodsid");
 		try {
-			getGoodsdetail(goodsid);
+			goodsdetail=jmgoodsdetailAction.getGoodsdetail(goodsid);
 		}  catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -89,33 +91,7 @@ public class JshopActivityGoodsdetail extends Activity {
 		});
 	}
 	
-	
-	/**
-	 * 向服务器发送请求获取goodsdetail信息
-	 * @param goodsid
-	 * @return
-	 */
-	private String queryGoodsdetailForJshop(String goodsid){
-		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.FINDGOODSBYGOODSIDFORANDROID+"?goodsid="+goodsid;
-		return JshopActivityUtil.queryStringForPost(posturl);
-	}
-	
-	private void getGoodsdetail(String goodsid) throws  IOException{
-		requestjsonstr=this.queryGoodsdetailForJshop(goodsid);
-		if(requestjsonstr!=null){
-			JSONArray ja=(JSONArray)JSONValue.parse(requestjsonstr);
-			for(int i=0;i<ja.size();i++){
-				HashMap<String,Object>map=new HashMap<String,Object>();
-				JSONObject jo=(JSONObject)(ja.get(i));
-				map.put("pictureurl",getPictureurlImg(JshopActivityUtil.BASE_URL+jo.get("pictureurl").toString()));
-				map.put("goodsname", jo.get("goodsname").toString());
-				map.put("memberprice", "￥"+jo.get("memberprice").toString()+"/份");
-				map.put("goodsid", jo.get("goodsid").toString());	
-				map.put("weight", jo.get("weight").toString());
-				goodsdetail.add(map);
-			}
-		}
-	}
+
 	
 	/**
 	 * 读取餐桌信息文件
@@ -134,20 +110,5 @@ public class JshopActivityGoodsdetail extends Activity {
 		}
 		return res;
 	}
-	/**
-	 * 获取网络图片
-	 * @param pictureurl
-	 * @return
-	 * @throws IOException
-	 */
-	public  Bitmap getPictureurlImg(String pictureurl) throws IOException{
-		URL url=new URL(pictureurl);
-		HttpURLConnection conn=(HttpURLConnection)url.openConnection();
-		conn.setRequestMethod("GET");
-		conn.setConnectTimeout(5*1000);
-		InputStream in=conn.getInputStream();
-		Bitmap bm=BitmapFactory.decodeStream(in);
-		in.close();
-		return bm;
-	}	
+
 }

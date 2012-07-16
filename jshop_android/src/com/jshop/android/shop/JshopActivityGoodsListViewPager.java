@@ -28,8 +28,6 @@ import android.widget.TextView;
 import android.widget.SimpleAdapter.ViewBinder;
 
 import com.jshop.android.index.R;
-import com.jshop.android.shop.JshopActivityGoodsList.JshopAndroidIndexGuidePageAdapter;
-import com.jshop.android.shop.JshopActivityGoodsList.JshopAndroidIndexGuidePageChangeListener;
 import com.jshop.android.shop.JshopActivityGoodsList.MyViewBinder;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMPostActionList;

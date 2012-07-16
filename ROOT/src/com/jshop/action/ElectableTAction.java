@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.commons.lang.xwork.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
@@ -235,13 +236,13 @@ public class ElectableTAction extends ActionSupport {
 			TableT tt = (TableT) it.next();
 			//if("0".equals(tt.get))
 			if("0".equals(tt.getTablestate())){
-				tt.setTablestate("空闲");
+				tt.setTablestate("<div style='background:green;height:10px'>空</div>");
 			}else{
-				tt.setTablestate("使用中");
+				tt.setTablestate("<div style='background:red;height:10px'>使用中</div>");
 			}
 			Map<String,Object> cellMap = new HashMap<String,Object>();
 			cellMap.put("id", tt.getTableid());
-			cellMap.put("cell", new Object[]{tt.getTableNumber(),tt.getRoomName(),tt.getFloor(),tt.getTablestate(),tt.getCreatetime(),tt.getCreatorid(),tt.getNop(),tt.getRnop(),tt.getNote(),tt.getAndroidDevicesCount()});
+			cellMap.put("cell", new Object[]{tt.getTableNumber(),tt.getRoomName(),tt.getFloor(),tt.getTablestate(),BaseTools.formateDbDate(tt.getCreatetime()),tt.getCreatorid(),tt.getNop(),tt.getRnop(),tt.getNote(),tt.getAndroidDevicesCount()});
 			rows.add(cellMap);
 		}
 	}
@@ -358,19 +359,19 @@ public class ElectableTAction extends ActionSupport {
 	}
 
 	/**
-	 * 根据餐桌id
+	 * 根据餐桌id改变状态
 	 * @return
 	 */
+	@Action(value = "updateTableTtablestateBytableNo", results = { @Result(name = "json" ,type="json") })
 	public String updateTableTtablestateBytableNo(){
 		if(Validate.StrNotNull(this.getTableid()) && Validate.StrNotNull(this.getTablestate())){
-			int i = this.getTableTService().updateTableTtablestateBytableNo(tableid, tablestate);
-			if(i>0){
-				this.setSucflag(true);
-				return "json";
-			}else{
-				this.setSucflag(false);
-				return "json";
+			String []strs=StringUtils.split(this.getTableid(), ',');
+			for(String s:strs){
+				@SuppressWarnings("unused")
+				int i = this.getTableTService().updateTableTtablestateBytableNo(s, this.getTablestate());
 			}
+			this.setSucflag(true);
+			return "json";
 		}
 		this.setSucflag(false);
 		return "json";

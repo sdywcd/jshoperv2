@@ -79,20 +79,20 @@ public class JshopMelectrocart extends Activity{
 		
 		Intent intent=this.getIntent();
 		String goodsid=intent.getStringExtra("goodsid");
-		String tablestate=intent.getStringExtra("tablestate");
-		String tableNumber=intent.getStringExtra("tableNumber");
-		final String []temp=readJmtable().split(",");
-		if("-1".equals(temp[0])){
-			Toast t=Toast.makeText(getApplicationContext(), "您还没有消费", Toast.LENGTH_LONG);
-			t.show();
-		}else{
+		final String tablestate=intent.getStringExtra("tablestate");
+		final String tableNumber=intent.getStringExtra("tableNumber");
+//		final String []temp=readJmtable().split(",");
+//		if("-1".equals(temp[0])){
+//			Toast t=Toast.makeText(getApplicationContext(), "您还没有消费", Toast.LENGTH_LONG);
+//			t.show();
+//		}else{
 			try {
-				findelectrocart(temp[0],temp[1]);
+				findelectrocart("1","001");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+//		}
 		if(goodsid!=null){
 			try {
 				this.addGoodstoElectrocart(goodsid,tablestate,tableNumber);
@@ -119,7 +119,7 @@ public class JshopMelectrocart extends Activity{
 		});
 		
 		
-		//注入总价�?
+		//注入总价
 		
 		totalcartprice.setText(totalprice.toString());
 		/**
@@ -128,17 +128,18 @@ public class JshopMelectrocart extends Activity{
 		buttondiandan.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
-				//可能�?��通知服务�?
-				if(temp!=null){
-					String tablestate=temp[0].toString();
-					String tableNumber=temp[1].toString();
-					String backstring=addelectororder(tablestate,tableNumber);
+				
+//				if(temp!=null){
+//					String tablestate=temp[0].toString();
+//					String tableNumber=temp[1].toString();
+					//String backstring=addelectororder(tablestate,tableNumber);
+					String backstring="success";
 					if(!"failed".equals(backstring)){
 						Intent intent=new Intent(JshopMelectrocart.this,JshopMelectroorderdetail.class);
 						intent.putExtra("electronicMenuOrderid",backstring);
 						startActivity(intent);
 					}
-				}
+//				}
 				
 			}
 		});
@@ -149,15 +150,15 @@ public class JshopMelectrocart extends Activity{
 		buttonmaidan.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
-				if(temp!=null){
-					//可能�?��通知服务�?
-					String tablestate=temp[0].toString();
-					String tableNumber=temp[1].toString();
+//				if(temp!=null){
+//					//可能�?��通知服务�?
+//					String tablestate=temp[0].toString();
+//					String tableNumber=temp[1].toString();
 					//获取选择的支付方�?
 					getPayway(tablestate,tableNumber);
 					
 					
-				}
+//				}
 				
 			}
 		});
@@ -194,13 +195,13 @@ public class JshopMelectrocart extends Activity{
 			public void onClick(DialogInterface dialog, int which) {
 				
 			
-					String backstring=addelectororder(tablestate,tableNumber,paymentid,paymentname);
-					if(!"failed".equals(backstring)){
+//					String backstring=addelectororder(tablestate,tableNumber,paymentid,paymentname);
+//					if(!"failed".equals(backstring)){
 						//
 						Intent intent=new Intent(JshopMelectrocart.this,JshopMelectroorderdetail.class);
-						intent.putExtra("electronicMenuOrderid",backstring);
+						intent.putExtra("electronicMenuOrderid","success");
 						startActivity(intent);
-					}
+//					}
 				}
 			
 		}).setNegativeButton("取消", null);
@@ -272,15 +273,16 @@ public class JshopMelectrocart extends Activity{
 	
 	
 	private void addGoodstoElectrocart(String goodsid,String tablestate,String tableNumber) throws IOException{
-		requestjsonstr=addelectrocartForJshop(goodsid,tablestate,tableNumber);
-		if(requestjsonstr!=null){
-			if("success".equals(requestjsonstr)){
-				//进入到读取电子菜单购物车列表
-				findelectrocart(tablestate,tableNumber);
-			}else{
-				//加入购物车出�?
-			}
-		}
+//		requestjsonstr=addelectrocartForJshop(goodsid,tablestate,tableNumber);
+//		if(requestjsonstr!=null){
+//			if("success".equals(requestjsonstr)){
+//				//进入到读取电子菜单购物车列表
+//				findelectrocart(tablestate,tableNumber);
+//			}else{
+//				//加入购物车出�?
+//			}
+//		}
+		
 	}
 	/**
 	 * 进入到读取电子菜单购物车列表
@@ -290,21 +292,43 @@ public class JshopMelectrocart extends Activity{
 	 * @throws IOException
 	 */
 	public void findelectrocart(String tablestate,String tableNumber) throws IOException {
-		electrocartgoodslists.clear();
-		totalprice=0.0;
-		requestjsonstr=findelectrocartForJshop(tablestate,tableNumber);
-		JSONArray ja=(JSONArray)JSONValue.parse(requestjsonstr);
-		for(int i=0;i<ja.size();i++){
-			HashMap<String,Object>map=new HashMap<String,Object>();
-			JSONObject jo=(JSONObject)(ja.get(i));
-			map.put("picture", getPictureurlImg(JshopActivityUtil.BASE_URL+jo.get("picture").toString()));
-			map.put("goodsname", jo.get("goodsname").toString());
-			map.put("memberprice", "￥"+jo.get("memberprice").toString());
-			map.put("goodsid", jo.get("goodsid").toString());
-			map.put("needquantity", jo.get("needquantity").toString()+"份");
-			totalprice=Arith.add(totalprice, Arith.mul(Double.parseDouble(jo.get("memberprice").toString()), Double.parseDouble(jo.get("needquantity").toString())));
-			electrocartgoodslists.add(map);
-		}
+		//electrocartgoodslists.clear();
+		totalprice=76.0;
+		Integer[]lc={
+				R.drawable.lc001,
+				R.drawable.lc002
+		};
+		Integer[]rc={
+				R.drawable.rc001,
+				R.drawable.rc002
+		};
+		HashMap<String,Object>map=new HashMap<String,Object>();
+		map.put("picture",lc[0]);
+		map.put("goodsname", "钵钵鸡");
+		map.put("memberprice", "￥32");
+		map.put("goodsid", "001");
+		map.put("needquantity","1份");
+		
+//		HashMap<String,Object>map1=new HashMap<String,Object>();
+//		map1.put("pictureurl", lc[1]);
+//		map1.put("goodsname", "冷拌翡翠豆芽");
+//		map1.put("memberprice", "￥16");
+//		map1.put("goodsid", "002");	
+//		map1.put("needquantity","1份");
+		
+//		HashMap<String,Object>map2=new HashMap<String,Object>();
+//		map2.put("pictureurl", rc[0]);
+//		map2.put("goodsname", "丰收日红烧肉");
+//		map2.put("memberprice", "￥28");
+//		map2.put("goodsid", "003");	
+//		map2.put("needquantity","1份");
+		
+		electrocartgoodslists.add(map);
+//		electrocartgoodslists.add(map1);
+//		electrocartgoodslists.add(map2);
+		
+		
+		
 	}
 	
 	

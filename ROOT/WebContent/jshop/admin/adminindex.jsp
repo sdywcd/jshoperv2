@@ -49,7 +49,7 @@
         														<table id="articlemanagement" style="display:none;" ></table>
 															 </div>
                                                   </div>
-                                                  <button id="search" name="search" value="搜索"/>
+                                                  
                                         </div>
                                        
                               </div>

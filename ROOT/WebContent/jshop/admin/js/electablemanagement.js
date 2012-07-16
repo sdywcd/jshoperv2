@@ -171,7 +171,7 @@ $(function() {
 		}, {
 			display : '使用状态',
 			name : 'tablestate',
-			width : 60,
+			width : 100,
 			sortable : true,
 			align : 'center'
 		}, {
@@ -207,7 +207,7 @@ $(function() {
 		},{
 			display : 'Android设备数量',
 			name : 'androidDevicesCount',
-			width : 60,
+			width : 100,
 			sortable : true,
 			align : 'center'
 		} ],
@@ -231,7 +231,11 @@ $(function() {
 			name : '标记占用',
 			bclass : 'add',
 			onpress : action
-		}, {
+		},{
+            name:'查看用餐情况',
+            bclass:'add',
+            onpress:action
+        }, {
 			separator : true
 		} ],
 
@@ -308,9 +312,9 @@ $(function() {
 							str += this.id.substr(3) + ",";
 						});
 						var tablestate = "0";
-						$.post("updateGoodsbargainprice.action", {
+						$.post("updateTableTtablestateBytableNo.action", {
 							"tableid" : str,
-							"tablestate" : bargainprice
+							"tablestate" : tablestate
 						}, function(data) {
 							if (data.sucflag) {
 								$('#electablemanagement').flexReload();
@@ -333,9 +337,9 @@ $(function() {
 							str += this.id.substr(3) + ",";
 						});
 						var tablestate = "1";
-						$.post("updateGoodshotsale.action", {
+						$.post("updateTableTtablestateBytableNo.action", {
 							"tableid" : str,
-							"tablestate" : hotsale
+							"tablestate" : tablestate
 						}, function(data) {
 							if (data.sucflag) {
 								$('#electablemanagement').flexReload();
@@ -349,7 +353,20 @@ $(function() {
 				jAlert('请选择要标记占用的餐桌!', '信息提示');
 				return false;
 			}
-		} 
+		} else if(com=='查看用餐情况'){
+           if ($('.trSelected', grid).length == 1) {
+                jConfirm('确定查看用餐情况吗?', '信息提示', function(r) {
+                    if (r) {
+                        var str = $('.trSelected', grid)[0].id.substr(3);
+                        window.location.href = "electriorderdetail.jsp?session=" + session + "#table&tableid=" + str;
+                        return;
+                    }
+                });
+            } else {
+                jAlert('请选择一条信息', '信息提示');
+                return false;
+            }
+        }
 
 	}
 });
