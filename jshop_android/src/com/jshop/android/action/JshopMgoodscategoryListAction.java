@@ -49,4 +49,15 @@ public class JshopMgoodscategoryListAction {
 		}
 		return goodscategoryList;
 	}
+	
+	/**
+	 * 把服务器上的商品分类数据缓存到本地数据库中
+	 * @param goodscategoryList
+	 */
+	public void GoodsCategoryListtoSQLite(List<Map<String,Object>> goodscategoryList){
+		
+	}
+	
+	
+	
 }
