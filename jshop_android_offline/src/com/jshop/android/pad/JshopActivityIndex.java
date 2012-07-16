@@ -75,8 +75,6 @@ public class JshopActivityIndex extends Activity{
 		pageViews.add(inflater.inflate(R.layout.item01, null));
 		pageViews.add(inflater.inflate(R.layout.item02, null));
 		pageViews.add(inflater.inflate(R.layout.item03, null));
-		pageViews.add(inflater.inflate(R.layout.item04, null));
-		pageViews.add(inflater.inflate(R.layout.item05, null));
 		pageViews.add(inflater.inflate(R.layout.item06, null));
 		//pageViews.add(inflater.inflate(R.layout.jshop_activity_register, null));//只要把有数据的布�?��入即可滑�?
 		imageViews=new ImageView[pageViews.size()];
@@ -173,7 +171,7 @@ public class JshopActivityIndex extends Activity{
                     imageViews[i].setBackgroundResource(R.drawable.page_indicator);  
                 }  
             }
-            if(arg0==5){
+            if(arg0==3){
             	Intent intent = new Intent(JshopActivityIndex.this,JshopMIndex.class);
 				startActivity(intent);
             }
