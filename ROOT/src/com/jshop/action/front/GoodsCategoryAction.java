@@ -286,7 +286,7 @@ public class GoodsCategoryAction extends ActionSupport{
 //			map.put("totalgoods", total);	
 			ActionContext.getContext().put("totalgoods", total);
 			ActionContext.getContext().put("totalpage", totalpage);
-			ActionContext.getContext().put("nowpage", page);
+			ActionContext.getContext().put("page", page);
 		
 		}
 		//路径获取
