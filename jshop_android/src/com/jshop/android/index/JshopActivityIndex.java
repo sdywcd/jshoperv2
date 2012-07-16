@@ -166,7 +166,7 @@ public class JshopActivityIndex extends Activity{
 	private void resetDB(){
 		DBHelper dbHelper=new DBHelper(this.getApplicationContext());
 		dbHelper.DropDB();
-		
+		dbHelper.close();
 	}
 	
 	

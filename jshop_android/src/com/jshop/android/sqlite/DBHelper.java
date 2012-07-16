@@ -11,7 +11,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	//数据库名称
 	public static final String DB_NAME="jshopmactive.db";
 	//餐桌
-	public static final String TABLE_TM="table_tm";
+	public static final String TABLE_TM_NAME="table_tm";
 	//商品分类表名称
 	public static final String GOODS_CATEGORY_TM_NAME="goods_category_tm";
 	//商品表名称
@@ -139,9 +139,9 @@ public class DBHelper extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// TODO Auto-generated method stub
-		db.execSQL("DROP TABLE IF EXISTS "+CREATE_TABLE_TM);
-		db.execSQL("DROP TABLE IF EXISTS "+CREATE_GOODS_CATEGORY_TM);
-		db.execSQL("DROP TABLE IF EXISTS "+CREATE_GOODS_TM);
+		db.execSQL("DROP TABLE IF EXISTS "+TABLE_TM_NAME);
+		db.execSQL("DROP TABLE IF EXISTS "+GOODS_CATEGORY_TM_NAME);
+		db.execSQL("DROP TABLE IF EXISTS "+GOODS_TM_NAME);
         onCreate(db);
 	}
 
