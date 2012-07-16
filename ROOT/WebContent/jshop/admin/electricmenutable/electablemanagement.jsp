@@ -41,6 +41,7 @@
 						<!-- flexigrid -->
 						<div id="flexelectablemanagement" style="width: 98%; margin-left: 18px;">
 							<table id="electablemanagement" style="display: none;"></table>
+							
 						</div>
 
 					</div>

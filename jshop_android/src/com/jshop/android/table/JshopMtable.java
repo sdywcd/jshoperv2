@@ -27,6 +27,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jshop.android.action.JshopMtableAction;
 import com.jshop.android.index.JshopActivityIndex;
 import com.jshop.android.index.JshopMIndex;
 import com.jshop.android.index.R;
@@ -35,6 +36,7 @@ import com.jshop.android.util.BaseTools;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
 import com.jshop.android.util.JshopMPostActionList;
+import com.jshop.android.widget.JshopGridViewAdapter;
 /**
  * 餐桌显示
  * @Description TODO
@@ -56,10 +58,8 @@ public class JshopMtable extends Activity {
 	private GridView gv;
 	
 	private String requestjsonstr;
-//	private List tableNumberlist=new ArrayList();
-//	private List tablestatelist=new ArrayList();
 	private List<Map<String,Object>>tableList=new ArrayList<Map<String,Object>>();
-	
+	private JshopMtableAction jmAction=new JshopMtableAction();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -68,120 +68,9 @@ public class JshopMtable extends Activity {
 		gv=(GridView) this.findViewById(R.id.tablegridView);
 		gv.setOnItemClickListener(new ItemClickListener());
 		//获取table信息
-		getTablelist();
-		gv.setAdapter(new ImageAdapter(this));
+		tableList=jmAction.getTablelist();
+		gv.setAdapter(new JshopGridViewAdapter().new JMTableImageAdapter(this,tableList));
 	}
-	
-	/**
-	 * 向服务器端发送请求获取table信息
-	 * @return
-	 */
-	private String queryTableForJshop(){
-		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.FINDALLTABLETFORANDROID;
-		return JshopActivityUtil.queryStringForPost(posturl);
-	}
-	/**
-	 * 更新餐桌使用状态
-	 * @return
-	 */
-	private String updateTableTtablestateBytableNo(String tableid,String tablestate){
-		String queryString="?tableid="+tableid+"&tablestate="+tablestate;
-		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.UPDATETABLETABLESTATEBYTABLENO+queryString;
-		return JshopActivityUtil.queryStringForPost(posturl);
-	}
-	
-	
-	/**
-	 * 处理服务器端返回的json数据
-	 * @throws JSONException 
-	 */
-	private void getTablelist(){
-		requestjsonstr=this.queryTableForJshop();
-		if(requestjsonstr!=null){
-			JSONArray ja=(JSONArray)JSONValue.parse(requestjsonstr);
-			for(int i=0;i<ja.size();i++){
-				Map<String,Object>map=new HashMap<String,Object>();
-				JSONObject jo=(JSONObject)(ja.get(i));
-				map.put("tableid", jo.get("tableid").toString());
-				map.put("tableNumber", jo.get("tableNumber").toString());
-				map.put("roomName", jo.get("roomName").toString());
-				map.put("androidDevicesCount", jo.get("androidDevicesCount").toString());
-				map.put("note", jo.get("note").toString());
-				map.put("createtime", jo.get("createtime").toString());
-				map.put("nop", jo.get("nop").toString());
-				map.put("tablestate", jo.get("tablestate").toString());
-				map.put("floor", jo.get("floor").toString());
-				map.put("rnop", jo.get("rnop").toString());
-				tableList.add(map);
-			}
-		}
-	}
-	
-	
-	
-
-	
-	public class ImageAdapter extends BaseAdapter{
-		private Integer[]imgs={
-				R.drawable.sitbuttonfree,
-				R.drawable.sitbuttonoccupied
-		};
-		
-		private Context mContext;
-		
-		
-		public ImageAdapter(Context mContext) {
-			this.mContext = mContext;
-		}
-
-		@Override
-		public int getCount() {
-			// TODO Auto-generated method stub
-			return tableList.size();
-		}
-
-		@Override
-		public Object getItem(int position) {
-			// TODO Auto-generated method stub
-			return position;
-		}
-
-		@Override
-		public long getItemId(int position) {
-			// TODO Auto-generated method stub
-			return position;
-		}
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			TextView textView;
-			//ImageView imageView;
-			if(convertView==null){
-				//imageView=new ImageView(mContext);
-				//imageView.setLayoutParams(new GridView.LayoutParams(85,85));
-				//imageView.setAdjustViewBounds(false);
-				//imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				//imageView.setPadding(8, 8, 8, 8);
-				textView=new TextView(mContext);
-				textView.setLayoutParams(new GridView.LayoutParams(63,48));
-				textView.setPadding(22,8,10,10);
-				if(tableList.get(position).get("tablestate").toString().equals("1")){
-					textView.setText(tableList.get(position).get("tableNumber").toString());
-					textView.setBackgroundResource(imgs[1]);
-					
-				}else{
-					textView.setText(tableList.get(position).get("tableNumber").toString());
-					textView.setBackgroundResource(imgs[0]);
-				}
-			}else{
-				textView=(TextView)convertView;
-			}
-			
-			return textView;
-		}
-		
-		
-	}
-	
 	
 	/**
 	 * 餐桌列表单击事件触发，显示详细的餐桌信息并选取此座位
@@ -233,7 +122,7 @@ public class JshopMtable extends Activity {
 					Toast t=Toast.makeText(getApplicationContext(), "餐桌已经被使用", Toast.LENGTH_LONG);
 					t.show();
 				}else{
-					String tag=updateTableTtablestateBytableNo(tableid,"1");
+					String tag=jmAction.updateTableTtablestateBytableNo(tableid,"1");
 					if("success".equals(tag)){
 						Toast t=Toast.makeText(getApplicationContext(), "就座成功", Toast.LENGTH_LONG);
 						t.show();

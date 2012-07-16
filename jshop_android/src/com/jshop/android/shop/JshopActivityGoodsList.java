@@ -34,12 +34,14 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.SimpleAdapter.ViewBinder;
 
+import com.jshop.android.action.JshopMGoodsListAction;
 import com.jshop.android.index.JshopActivityIndex;
 import com.jshop.android.index.R;
 import com.jshop.android.index.WelcomeAct;
 import com.jshop.android.util.BaseTools;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMPostActionList;
+import com.jshop.android.widget.JshopViewpagerAdapter;
 /**
  * 读取分类下的所有商品列表
  * @Description TODO
@@ -65,6 +67,7 @@ public class JshopActivityGoodsList extends Activity{
 	private ArrayList<View>pageViews;
 	private ImageView mainimageView;//图片
 	private TextView goodsname,memberprice;
+	private JshopMGoodsListAction jmGoodslistAction=new JshopMGoodsListAction();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -76,7 +79,7 @@ public class JshopActivityGoodsList extends Activity{
 		Intent intent=this.getIntent();
 		final String goodsCategoryTid=intent.getStringExtra("goodsCategoryTid");
 		try {
-			this.getGoodsList(goodsCategoryTid);
+			goodslists=jmGoodslistAction.getGoodsList(goodsCategoryTid);
 		}catch (IOException e) {
 			// TODO Auto-generated catch block    
 			e.printStackTrace();
@@ -121,8 +124,8 @@ public class JshopActivityGoodsList extends Activity{
 				setContentView(maingroup);
 				//listViews.setVisibility(View.GONE);//隐藏listviews
 				
-				viewPager.setAdapter(new JshopAndroidIndexGuidePageAdapter());
-				viewPager.setOnPageChangeListener(new JshopAndroidIndexGuidePageChangeListener());
+				viewPager.setAdapter(new JshopViewpagerAdapter().new JshopActivityGoodsListPageAdapter(pageViews) );
+				viewPager.setOnPageChangeListener(new JshopActivityGoodsListPageChangeListener());
 //				Intent intent = new Intent(JshopActivityGoodsList.this,JshopActivityGoodsListViewPager.class);
 //				intent.putExtra("goodsCategoryTid", goodsCategoryTid);
 //				startActivity(intent);
@@ -131,52 +134,9 @@ public class JshopActivityGoodsList extends Activity{
 		});
 		
 	}
-	/**
-	 * 对左右滚动空间进行适配器定义和操作
-	 */
-	class JshopAndroidIndexGuidePageAdapter extends PagerAdapter{
 
-		@Override
-		public int getCount() {
-			return pageViews.size();
-		}
-
-		@Override
-		public boolean isViewFromObject(View arg0, Object arg1) {
-			return arg0==arg1;
-		}
-
-		@Override
-		public void destroyItem(View container, int position, Object object) {
-			((ViewPager) container).removeView(pageViews.get(position));
-		}
-
-		@Override
-		public void finishUpdate(View container) {
-			// TODO Auto-generated method stub
-		}
-
-		@Override
-		public Object instantiateItem(View container, int position) {
-			// TODO Auto-generated method stub
-			 ((ViewPager) container).addView(pageViews.get(position));  
-	            return pageViews.get(position);  
-		}
-
-		@Override
-		public void setPrimaryItem(View container, int position, Object object) {
-			// TODO Auto-generated method stub
-			super.setPrimaryItem(container, position, object);
-		}
-
-		@Override
-		public void startUpdate(View container) {
-			// TODO Auto-generated method stub
-			super.startUpdate(container);
-		}
-	}
     // 指引页面更改事件监听器
-    class JshopAndroidIndexGuidePageChangeListener implements OnPageChangeListener {  
+    class JshopActivityGoodsListPageChangeListener implements OnPageChangeListener {  
     	  
     
         @Override  
@@ -195,35 +155,7 @@ public class JshopActivityGoodsList extends Activity{
            
         }  
     }
-    
-	
-	/**
-	 * 向服务器端发送请求获取goodslist信息
-	 * @return
-	 */
-	
-	private String queryGoodsListForJshop(String goodsCategoryTid){
-		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.FINDGOODSBYGOODSCATEGORYIDFORANDROID+"?goodsCategoryTid="+goodsCategoryTid;
-		return JshopActivityUtil.queryStringForPost(posturl);
-	}
-	
-	
-	private void getGoodsList(String goodsCategoryTid) throws IOException{
-		requestjsonstr=this.queryGoodsListForJshop(goodsCategoryTid);
-		if(requestjsonstr!=null){
-			JSONArray ja=(JSONArray)JSONValue.parse(requestjsonstr);
-			for(int i=0;i<ja.size();i++){
-				HashMap<String,Object>map=new HashMap<String,Object>();
-				JSONObject jo=(JSONObject)(ja.get(i));
-				map.put("pictureurl", getPictureurlImg(JshopActivityUtil.BASE_URL+jo.get("pictureurl").toString()));
-				map.put("goodsname", jo.get("goodsname").toString());
-				map.put("memberprice", "￥"+jo.get("memberprice").toString());
-				map.put("goodsid", jo.get("goodsid").toString());	
-				goodslists.add(map);
-			}
-		}
-	}
-	
+   
 	
 	public class MyViewBinder implements ViewBinder{
 		@Override
@@ -238,18 +170,5 @@ public class JshopActivityGoodsList extends Activity{
 		}
 		
 	}
-	private Bitmap getPictureurlImg(String pictureurl) throws IOException{
-		URL url=new URL(pictureurl);
-		HttpURLConnection conn=(HttpURLConnection)url.openConnection();
-		conn.setRequestMethod("GET");
-		conn.setConnectTimeout(5*1000);
-		InputStream in=conn.getInputStream();
-		Bitmap bm=BitmapFactory.decodeStream(in);
-		in.close();
-		return bm;
-
-	}
-  
-	
 
 }

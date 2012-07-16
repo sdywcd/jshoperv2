@@ -74,18 +74,18 @@ public class JshopActivityGoodsdetail extends Activity {
 			@Override
 			public void onClick(View v)
 			{
-				String []temp=readJmtable().split(",");
-				if("-1".equals(temp[0])){
-					Toast t=Toast.makeText(getApplicationContext(), "您还没有就座无法点菜", Toast.LENGTH_LONG);
-					t.show();
-				}else{
+//				String []temp=readJmtable().split(",");
+//				if("-1".equals(temp[0])){
+//					Toast t=Toast.makeText(getApplicationContext(), "您还没有就座无法点菜", Toast.LENGTH_LONG);
+//					t.show();
+//				}else{
 					//进入购物车处理页
 					Intent intent=new Intent(JshopActivityGoodsdetail.this,JshopMelectrocart.class);
 					intent.putExtra("goodsid", goodsdetail.get(0).get("goodsid").toString());
-					intent.putExtra("tablestate", temp[0].toString());
-					intent.putExtra("tableNumber", temp[1].toString());
+					intent.putExtra("tablestate", "1");//假的餐桌状态
+					intent.putExtra("tableNumber", "001");//假的餐桌号
 					startActivity(intent);
-				}
+//				}
 				
 			}
 		});

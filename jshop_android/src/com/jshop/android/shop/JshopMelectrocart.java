@@ -35,6 +35,7 @@ import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jshop.android.action.JshopMelectrocartAction;
 import com.jshop.android.index.R;
 import com.jshop.android.util.Arith;
 import com.jshop.android.util.BaseTools;
@@ -67,6 +68,7 @@ public class JshopMelectrocart extends Activity{
 	private String paymentid="1";//选择的支付方式
 	private String paymentname="现金";
 	private boolean tag;
+	private JshopMelectrocartAction jmelectrocartAction=new JshopMelectrocartAction();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -87,7 +89,7 @@ public class JshopMelectrocart extends Activity{
 			t.show();
 		}else{
 			try {
-				findelectrocart(temp[0],temp[1]);
+				electrocartgoodslists=jmelectrocartAction.findelectrocart(temp[0],temp[1]);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -95,7 +97,9 @@ public class JshopMelectrocart extends Activity{
 		}
 		if(goodsid!=null){
 			try {
-				this.addGoodstoElectrocart(goodsid,tablestate,tableNumber);
+				if(jmelectrocartAction.addGoodstoElectrocart(goodsid,tablestate,tableNumber)){
+					electrocartgoodslists=jmelectrocartAction.findelectrocart(tablestate,tableNumber);
+				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block    
 				e.printStackTrace();
@@ -121,7 +125,7 @@ public class JshopMelectrocart extends Activity{
 		
 		//注入总价值
 		
-		totalcartprice.setText(totalprice.toString());
+		totalcartprice.setText(jmelectrocartAction.getTotalprice().toString());
 		/**
 		 * 点击点菜按钮
 		 */
@@ -132,7 +136,7 @@ public class JshopMelectrocart extends Activity{
 				if(temp!=null){
 					String tablestate=temp[0].toString();
 					String tableNumber=temp[1].toString();
-					String backstring=addelectororder(tablestate,tableNumber);
+					String backstring=jmelectrocartAction.addelectororder(tablestate,tableNumber);
 					if(!"failed".equals(backstring)){
 						Intent intent=new Intent(JshopMelectrocart.this,JshopMelectroorderdetail.class);
 						intent.putExtra("electronicMenuOrderid",backstring);
@@ -194,7 +198,7 @@ public class JshopMelectrocart extends Activity{
 			public void onClick(DialogInterface dialog, int which) {
 				
 			
-					String backstring=addelectororder(tablestate,tableNumber,paymentid,paymentname);
+					String backstring=jmelectrocartAction.addelectororder(tablestate,tableNumber,paymentid,paymentname);
 					if(!"failed".equals(backstring)){
 						//
 						Intent intent=new Intent(JshopMelectrocart.this,JshopMelectroorderdetail.class);
@@ -209,103 +213,8 @@ public class JshopMelectrocart extends Activity{
 	}
 	
 	
-	/**
-	 * 增加电子订单
-	 */
-	private String addelectororderForJshop(String tablestate,String tableNumber){
-		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.ADDELECTRONICMENUORDERTFORANDORID+"?tablestate="+tablestate+"&tableNumber="+tableNumber;
-		return JshopActivityUtil.queryStringForPost(posturl);
-	}
-	/**
-	 * 更新电子订单
-	 */
-	private String addelectororderForJshop(String tablestate,String tableNumber,String paymentid,String paymentname){
-		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.ADDELECTRONICMENUORDERTFORANDORID+"?tablestate="+tablestate+"&tableNumber="+tableNumber+"&paymentid="+paymentid+"&paymentname="+paymentname;
-		return JshopActivityUtil.queryStringForPost(posturl);
-	}
-	
-	/**
-	 * 向服务器端发送请求获取goodslist信息
-	 * @return
-	 */
-	private String addelectrocartForJshop(String goodsid,String tablestate,String tableNumber){
-		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.ADDELECTRONICMENUCARTFORANDROID+"?goodsid="+goodsid+"&tableNumber="+tableNumber+"&tablestate="+tablestate+"&needquantity="+needquantity;
-		return JshopActivityUtil.queryStringForPost(posturl);
-	}
-	/**
-	 * 新增电子订单
-	 * @param tablestate
-	 * @param tableNumber
-	 * @return
-	 */
-	private String addelectororder(String tablestate,String tableNumber){
-		requestjsonstr=addelectororderForJshop(tablestate,tableNumber);
-		if(!"failed".equals(requestjsonstr)){
-			return null;
-		}
-		return requestjsonstr;
-	}
-	/**
-	 * 更新电子订单
-	 * @param tablestate
-	 * @param tableNumber
-	 * @return
-	 */
-	private String addelectororder(String tablestate,String tableNumber,String paymentid,String paymentname){
-		requestjsonstr=addelectororderForJshop(tablestate,tableNumber,paymentid,paymentname);
-		if(!"failed".equals(requestjsonstr)){
-			return null;
-		}
-		return requestjsonstr;
-	}
-	/**
-	 * 根据餐桌号获取电子菜单信息
-	 * @param tablestate
-	 * @param tableNumber
-	 * @return
-	 */
-	private String findelectrocartForJshop(String tablestate,String tableNumber){
-		String posturl=JshopActivityUtil.BASE_URL+"/"+JshopMPostActionList.FINDALLELECTRONICMENUCARTTBYTABLENUMBERFORANDROID+"?tablestate="+tablestate+"&tableNumber="+tableNumber;
-		return JshopActivityUtil.queryStringForPost(posturl);
-	}
 	
 	
-	
-	private void addGoodstoElectrocart(String goodsid,String tablestate,String tableNumber) throws IOException{
-		requestjsonstr=addelectrocartForJshop(goodsid,tablestate,tableNumber);
-		if(requestjsonstr!=null){
-			if("success".equals(requestjsonstr)){
-				//进入到读取电子菜单购物车列表
-				findelectrocart(tablestate,tableNumber);
-			}else{
-				//加入购物车出错
-			}
-		}
-	}
-	/**
-	 * 进入到读取电子菜单购物车列表
-	 * @param tablestate
-	 * @param tableNumber
-	 * @throws JSONException
-	 * @throws IOException
-	 */
-	public void findelectrocart(String tablestate,String tableNumber) throws IOException {
-		electrocartgoodslists.clear();
-		totalprice=0.0;
-		requestjsonstr=findelectrocartForJshop(tablestate,tableNumber);
-		JSONArray ja=(JSONArray)JSONValue.parse(requestjsonstr);
-		for(int i=0;i<ja.size();i++){
-			HashMap<String,Object>map=new HashMap<String,Object>();
-			JSONObject jo=(JSONObject)(ja.get(i));
-			map.put("picture", getPictureurlImg(JshopActivityUtil.BASE_URL+jo.get("picture").toString()));
-			map.put("goodsname", jo.get("goodsname").toString());
-			map.put("memberprice", "￥"+jo.get("memberprice").toString());
-			map.put("goodsid", jo.get("goodsid").toString());
-			map.put("needquantity", jo.get("needquantity").toString()+"份");
-			totalprice=Arith.add(totalprice, Arith.mul(Double.parseDouble(jo.get("memberprice").toString()), Double.parseDouble(jo.get("needquantity").toString())));
-			electrocartgoodslists.add(map);
-		}
-	}
 	
 	
 	public class MyViewBinder implements ViewBinder{
@@ -322,22 +231,7 @@ public class JshopMelectrocart extends Activity{
 		
 	}
 
-	/**
-	 * 获取网络图片
-	 * @param pictureurl
-	 * @return
-	 * @throws IOException
-	 */
-	public  Bitmap getPictureurlImg(String pictureurl) throws IOException{
-		URL url=new URL(pictureurl);
-		HttpURLConnection conn=(HttpURLConnection)url.openConnection();
-		conn.setRequestMethod("GET");
-		conn.setConnectTimeout(5*1000);
-		InputStream in=conn.getInputStream();
-		Bitmap bm=BitmapFactory.decodeStream(in);
-		in.close();
-		return bm;
-	}
+
 	/**
 	 * 读取餐桌信息文件
 	 * @return

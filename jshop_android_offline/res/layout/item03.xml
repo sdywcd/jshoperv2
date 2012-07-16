@@ -24,15 +24,16 @@
     
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:orientation="vertical" >
 
         <ImageView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/feature_guide_2" >
+            android:layout_height="fill_parent"
+            android:background="@drawable/advertisement" >
         </ImageView>
+
     </LinearLayout>
 
     <LinearLayout
@@ -48,15 +49,6 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="vertical" >
-
-	        <TextView
-	            android:id="@+id/textView1"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:textColor="#000000"
-	            android:paddingLeft="30dp"
-	            android:paddingRight="30dp"
-	            android:text="@string/text3" />
         
     	</LinearLayout>
     
