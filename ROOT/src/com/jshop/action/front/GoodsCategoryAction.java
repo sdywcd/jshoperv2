@@ -15,8 +15,10 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
 
+import com.jshop.action.templates.CreateHtml;
 import com.jshop.action.templates.DataCollectionTAction;
 import com.jshop.action.tools.FreeMarkervariable;
+import com.jshop.action.tools.PageModel;
 import com.jshop.entity.ArticleCategoryT;
 import com.jshop.entity.GoodsCategoryT;
 import com.jshop.entity.GoodsT;
@@ -59,7 +61,7 @@ public class GoodsCategoryAction extends ActionSupport{
     private String ls;
     private String goodsname;
     private String topKeywords;
-    private int rp;
+    private int rp=4;//每页显示数量
 	private int page = 1;
 	private int total = 0;
 	private int totalpage=1;
@@ -276,18 +278,17 @@ public class GoodsCategoryAction extends ActionSupport{
 	public String searchGoodsByGoodsName(){
 		int currentPage = page;
 		int lineSize = rp;
-	    totalpage=total/rp+1;
 		List<GoodsT> list = this.getGoodsTService().findGoodsByGoodsname(currentPage, lineSize, this.getTopKeywords().trim());
-		if(list!=null){
-		
+		if(!list.isEmpty()){
 			total=this.getGoodsTService().countfindSearchGoods(this.getTopKeywords().trim());
+			PageModel<GoodsT> pm = new PageModel<GoodsT>(currentPage, lineSize, list,total);
+			totalpage=total/lineSize;
+			ActionContext.getContext().put("goods", pm);
 			ActionContext.getContext().put("goodsList", list);
-//			map.put("goodsList", list);
-//			map.put("totalgoods", total);	
-			ActionContext.getContext().put("totalgoods", total);
-			ActionContext.getContext().put("totalpage", totalpage);
-			ActionContext.getContext().put("page", page);
-		
+			ActionContext.getContext().put("totalgoods",total);
+			ActionContext.getContext().put("totalpage",totalpage);
+			ActionContext.getContext().put("topKeywords",topKeywords);
+			
 		}
 		//路径获取
 		ActionContext.getContext().put(FreeMarkervariable.BASEPATH, this.getDataCollectionTAction().getBasePath());
