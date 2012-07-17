@@ -27,28 +27,27 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:baselineAligned="true" >
-
+
                 <Button
                     android:id="@+id/Buttonmaidan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/maidan"
                     android:textColor="#000000" />
-
+
                 <Button
                     android:id="@+id/button1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/myelectrocart"
                     android:textColor="#000000" />
-
+
                 <Button
                     android:id="@+id/Buttondiandan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/diandan"
                     android:textColor="#000000" />
-
             </TableRow>
         </TableLayout>
     </LinearLayout>
@@ -57,10 +56,10 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="80dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/border"
         android:orientation="vertical" >
 
@@ -74,17 +73,20 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="10dp" >
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="-70dp"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/totalprice"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_gravity="center"
             android:text="@string/totalprice"
+            android:textColor="#f7be14"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
 

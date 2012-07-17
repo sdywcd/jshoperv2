@@ -18,7 +18,6 @@
             android:layout_gravity="top|center"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
-            android:layout_marginTop="5dp"
             android:stretchColumns="1" >
             
 	        <TableRow
@@ -65,9 +64,9 @@
         android:layout_height="fill_parent"
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginTop="-2dp"
+        android:layout_marginLeft="52dp"
+        android:layout_marginRight="52dp"
         android:background="@drawable/border"
         android:orientation="vertical" >
 
@@ -79,6 +78,7 @@
             android:columnWidth="100dp"
             android:horizontalSpacing="10dp"
             android:numColumns="4"
+            android:gravity="center"
             android:stretchMode="spacingWidthUniform" >
         </GridView>
      

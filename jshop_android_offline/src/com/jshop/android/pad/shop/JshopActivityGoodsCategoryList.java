@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.jshop.android.pad.R;
@@ -37,10 +38,20 @@ public class JshopActivityGoodsCategoryList extends Activity{
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.jshop_m_goodscategory);
 		gv=(GridView)this.findViewById(R.id.goodscategorygridView);
-		gv.setOnItemClickListener(new ItemClickListener());
-	
 		this.getGoodsCategoryList();
-		gv.setAdapter(new ImageAdapter(this));
+		SimpleAdapter goodsCategoryItems = new SimpleAdapter(this, //没什么解释  
+				goodscategoryList,//数据来源   
+                R.layout.jshop_m_goodcategory_item,//night_item的XML实现  
+                  
+                //动态数组与ImageItem对应的子项          
+                new String[] {"GridItemImgForCategory","GridItemTextForCategory"},   
+                  
+                //ImageItem的XML文件里面的一个ImageView,两个TextView ID  
+                new int[] {R.id.GridItemImgForCategory,R.id.GridItemTextForCategory});  
+		gv.setAdapter(goodsCategoryItems);
+		gv.setOnItemClickListener(new ItemClickListener());
+		//gv.setAdapter(new ImageAdapter(this));
+		
 		
 	}
 	
@@ -60,25 +71,29 @@ public class JshopActivityGoodsCategoryList extends Activity{
 		HashMap<String,Object>map=new HashMap<String,Object>();
 		map.put("goodsCategoryTid", "001");
 		map.put("grade", "0");
-		map.put("name","冷菜");
+		map.put("GridItemTextForCategory","冷菜");
+		map.put("GridItemImgForCategory",R.drawable.colddish);
 		map.put("goodsTypeId", "1");
 		map.put("sort", "1");
 		HashMap<String,Object>map1=new HashMap<String,Object>();
 		map1.put("goodsCategoryTid", "002");
 		map1.put("grade", "0");
-		map1.put("name","点心");
+		map1.put("GridItemTextForCategory","点心");
+		map1.put("GridItemImgForCategory",R.drawable.dessert);
 		map1.put("goodsTypeId", "1");
 		map1.put("sort", "2");
 		HashMap<String,Object>map2=new HashMap<String,Object>();
 		map2.put("goodsCategoryTid", "003");
 		map2.put("grade", "0");
-		map2.put("name","热菜");
+		map2.put("GridItemTextForCategory","热菜");
+		map2.put("GridItemImgForCategory",R.drawable.hotdish);
 		map2.put("goodsTypeId", "1");
 		map2.put("sort", "1");
 		HashMap<String,Object>map3=new HashMap<String,Object>();
 		map3.put("goodsCategoryTid", "004");
 		map3.put("grade", "0");
-		map3.put("name","饮料");
+		map3.put("GridItemTextForCategory","饮料");
+		map3.put("GridItemImgForCategory",R.drawable.drink);
 		map3.put("goodsTypeId", "1");
 		map3.put("sort", "1");
 		
