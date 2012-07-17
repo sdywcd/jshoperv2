@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>  
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/RelativeLayout01"
     android:layout_width="wrap_content"
@@ -7,32 +7,35 @@
     android:paddingBottom="4dip"
     android:paddingLeft="12dip"
     android:paddingRight="12dip" >
-
+
     <ImageView
         android:id="@+id/pictureurl"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/calculatorhover" />
-
+
     <TextView
         android:id="@+id/goodsname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="18dp"
+        android:layout_marginTop="21dp"
         android:layout_toRightOf="@+id/pictureurl"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="12dp" />
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/memberprice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/pictureurl"
+        android:layout_marginTop="81dp"
+        android:layout_alignTop="@+id/pictureurl"
         android:layout_alignRight="@+id/goodsname"
+        android:textSize="18dp"
         android:text="TextView" />
 
     <TextView
@@ -44,4 +47,4 @@
         android:layout_alignLeft="@+id/goodsname"
         android:text="TextView" />
 
-</RelativeLayout>  
+</RelativeLayout>

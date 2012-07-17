@@ -96,6 +96,7 @@ public class JshopMelectrocart extends Activity{
 		if(goodsid!=null){
 			try {
 				this.addGoodstoElectrocart(goodsid,tablestate,tableNumber);
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block    
 				e.printStackTrace();
@@ -125,6 +126,7 @@ public class JshopMelectrocart extends Activity{
 		/**
 		 * 点击点菜按钮
 		 */
+		final AlertDialog.Builder bulider=new AlertDialog.Builder(this);
 		buttondiandan.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
@@ -135,9 +137,32 @@ public class JshopMelectrocart extends Activity{
 					//String backstring=addelectororder(tablestate,tableNumber);
 					String backstring="success";
 					if(!"failed".equals(backstring)){
-						Intent intent=new Intent(JshopMelectrocart.this,JshopMelectroorderdetail.class);
-						intent.putExtra("electronicMenuOrderid",backstring);
-						startActivity(intent);
+//						Intent intent=new Intent(JshopMelectrocart.this,JshopMelectroorderdetail.class);
+//						intent.putExtra("electronicMenuOrderid",backstring);
+//						startActivity(intent);
+						bulider.setMessage("确定下单吗？").setPositiveButton("是", new DialogInterface.OnClickListener(){
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								Toast t=Toast.makeText(getApplicationContext(), "下单成功", Toast.LENGTH_LONG);
+								t.show();
+								
+							}
+							
+						}).setNegativeButton("否", new DialogInterface.OnClickListener(){
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								Toast t=Toast.makeText(getApplicationContext(), "请继续浏览菜品", Toast.LENGTH_LONG);
+								t.show();
+								
+							}
+							
+						});
+						AlertDialog ad=bulider.create();
+						ad.show();
 					}
 //				}
 				
@@ -198,10 +223,12 @@ public class JshopMelectrocart extends Activity{
 //					String backstring=addelectororder(tablestate,tableNumber,paymentid,paymentname);
 //					if(!"failed".equals(backstring)){
 						//
-						Intent intent=new Intent(JshopMelectrocart.this,JshopMelectroorderdetail.class);
-						intent.putExtra("electronicMenuOrderid","success");
-						startActivity(intent);
+//						Intent intent=new Intent(JshopMelectrocart.this,JshopMelectroorderdetail.class);
+//						intent.putExtra("electronicMenuOrderid","success");
+//						startActivity(intent);
 //					}
+				Toast t=Toast.makeText(getApplicationContext(), "您已呼叫服务员买单了请稍等", Toast.LENGTH_LONG);
+				t.show();
 				}
 			
 		}).setNegativeButton("取消", null);

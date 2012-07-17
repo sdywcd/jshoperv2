@@ -161,7 +161,10 @@ public class JshopMtable extends Activity {
 				if(tableList.get(position).get("tablestate").toString().equals("1")){
 					textView.setText(tableList.get(position).get("tableNumber").toString());
 					textView.setBackgroundResource(imgs[1]);
-					
+					if(tableList.get(position).toString().equals("2")){
+						textView.setText(tableList.get(position).get("tableNumber").toString());
+						textView.setBackgroundResource(imgs[0]);
+					}
 				}else{
 					textView.setText(tableList.get(position).get("tableNumber").toString());
 					textView.setBackgroundResource(imgs[0]);
@@ -222,7 +225,7 @@ public class JshopMtable extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
-				//这里�?��确认座位
+				//这里确认座位
 				if(ctablestate.equals("1")){
 					Toast t=Toast.makeText(getApplicationContext(), "餐桌已经被使用", Toast.LENGTH_LONG);
 					t.show();

@@ -409,6 +409,7 @@ ServletRequestAware, ServletResponseAware {
 				}
 		    }else{
 		    	//新增订单
+		    	//这里需要检查electroorderstate=9的情况（餐桌是否使用）
 		    	 List<ElectronicMenuCartT>list=this.getElectronicMenuCartTService().findAllElectronicMenuCartTBytableNumber(tableNumber, tablestate);
 					if(!list.isEmpty()){
 						getElectronicMenuCartT(list);

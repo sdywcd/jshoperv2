@@ -15,11 +15,11 @@ $(function() {
 $(function(){
 	$('#searchgoods').click(function(){
 		var topKeywords= $('#topKeywords').val();
-		var rp=30;
+		var rp=1;
 		if(topKeywords==""){
 			return false;
 		}else{
-			window.location.href="searchGoodsByGoodsName.action?topKeywords="+topKeywords+"&rp="+rp;			
+			window.location.href="searchGoodsByGoodsName.action?topKeywords="+topKeywords+"&page=1";			
 		}
 		//$.post("searchGoodsByGoodsName.action",{"topKeywords":topKeywords,"rp":rp});
 		return true;

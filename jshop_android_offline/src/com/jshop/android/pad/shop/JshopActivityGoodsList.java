@@ -12,16 +12,21 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 import android.widget.SimpleAdapter.ViewBinder;
 
 
@@ -45,10 +50,11 @@ import com.jshop.android.util.JshopMPostActionList;
  */
 public class JshopActivityGoodsList extends Activity{
 	
+	private Button goodscategory;
 	private String requestjsonstr;
 	private ArrayList<HashMap<String, Object>> goodslists = new ArrayList<HashMap<String, Object>>();
 	private ListView listViews;
-
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,7 @@ public class JshopActivityGoodsList extends Activity{
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.jshop_m_goodslist);
 		listViews=(ListView) this.findViewById(R.id.listViewgoods);
+		goodscategory=(Button)this.findViewById(R.id.goodscategory);
 		Intent intent=this.getIntent();
 		String goodsCategoryTid=intent.getStringExtra("goodsCategoryTid");
 		try {
@@ -63,7 +70,7 @@ public class JshopActivityGoodsList extends Activity{
 		}catch (IOException e) {
 			// TODO Auto-generated catch block    
 			e.printStackTrace();
-		}	
+		}
 		SimpleAdapter listItemAdapter=new SimpleAdapter(this,goodslists,R.layout.jshop_m_goodslistitem,new String[]{"pictureurl","goodsname","memberprice"},new int[]{R.id.pictureurl,R.id.goodsname,R.id.memberprice});
 		listItemAdapter.setViewBinder(new MyViewBinder());
 		listViews.setAdapter(listItemAdapter);
@@ -80,8 +87,14 @@ public class JshopActivityGoodsList extends Activity{
 				startActivity(intent);
 			}
 		});
-		
-		
+		goodscategory.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				Intent intent=new Intent(JshopActivityGoodsList.this,JshopActivityGoodsCategoryList.class);
+				startActivity(intent);
+			}
+		});
+	
 		
 		
 	}

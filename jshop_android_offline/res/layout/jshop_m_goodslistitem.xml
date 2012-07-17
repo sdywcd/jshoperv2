@@ -10,27 +10,27 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="horizontal" >
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="4" >
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="left"
             android:orientation="vertical" >
 
             <ImageView
                 android:id="@+id/pictureurl"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/calculatorhover" />
+                android:adjustViewBounds="true" 
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|left"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/calculatornormal" />
         </LinearLayout>
 
         <LinearLayout
@@ -43,13 +43,12 @@
                 android:id="@+id/goodsname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
                 android:layout_marginLeft="12dp"
-                android:layout_toRightOf="@+id/pictureurl"
                 android:layout_weight="1"
+                android:textSize="18dp"
+                android:gravity="center_vertical"
                 android:text="Medium Text"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="12dp" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/memberprice"
@@ -58,10 +57,10 @@
                 android:layout_marginLeft="12dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
+                android:textSize="15dp"
+                android:textColor="#f7921e"
                 android:text="TextView" />
         </LinearLayout>
-
     </LinearLayout>
 
-	    			
 </RelativeLayout>
