@@ -55,6 +55,7 @@ public class JshopActivityGoodsdetail extends Activity {
 //		quantity=(TextView)this.findViewById(R.id.quantity);
 		mainimageView=(ImageView)this.findViewById(R.id.mainimageView);
 		addtoelectrocartconfirm=(Button) this.findViewById(R.id.addtoelectrocartconfirm);
+		back=(Button)this.findViewById(R.id.back);
 		Intent intent=this.getIntent();
 		String goodsid=intent.getStringExtra("goodsid");
 		try {
@@ -80,15 +81,35 @@ public class JshopActivityGoodsdetail extends Activity {
 //					t.show();
 //				}else{
 					//进入购物车处理页
-					Intent intent=new Intent(JshopActivityGoodsdetail.this,JshopMelectrocart.class);
-					intent.putExtra("goodsid", goodsdetail.get(0).get("goodsid").toString());
-					intent.putExtra("tablestate", "1");//假的餐桌状态
-					intent.putExtra("tableNumber", "001");//假的餐桌号
-					startActivity(intent);
+					Toast t=Toast.makeText(getApplicationContext(), "加入餐车成功", Toast.LENGTH_LONG);
+					t.show();
+					this.addGoodstoElectrocart(goodsdetail.get(0).get("goodsid").toString(),"1","001");
+					finish();
+//					Intent intent=new Intent(JshopActivityGoodsdetail.this,JshopMelectrocart.class);
+//					intent.putExtra("goodsid", goodsdetail.get(0).get("goodsid").toString());
+//					intent.putExtra("tablestate", "1");//假的餐桌状态
+//					intent.putExtra("tableNumber", "001");//假的餐桌号
+//					startActivity(intent);
 //				}
 				
 			}
+
+			private void addGoodstoElectrocart(String string, String string2,
+					String string3) {
+				// TODO Auto-generated method stub
+				
+			}
 		});
+		
+		back.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v)
+			{
+				finish();
+			}
+
+		});
+		
 	}
 	
 	private void getGoodsList() throws IOException{

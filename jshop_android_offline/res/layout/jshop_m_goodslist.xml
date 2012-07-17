@@ -72,7 +72,7 @@
                 android:baselineAligned="true" >
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/goodscategory"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:text="@string/classify"
