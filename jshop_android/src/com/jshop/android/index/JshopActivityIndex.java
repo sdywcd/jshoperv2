@@ -25,7 +25,6 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jshop.android.login.JshopActivityLogin;
 import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
@@ -75,8 +74,6 @@ public class JshopActivityIndex extends Activity{
 		pageViews.add(inflater.inflate(R.layout.item01, null));
 		pageViews.add(inflater.inflate(R.layout.item02, null));
 		pageViews.add(inflater.inflate(R.layout.item03, null));
-		pageViews.add(inflater.inflate(R.layout.item04, null));
-		pageViews.add(inflater.inflate(R.layout.item05, null));
 		pageViews.add(inflater.inflate(R.layout.item06, null));
 		
 		//pageViews.add(inflater.inflate(R.layout.jshop_activity_register, null));//只要把有数据的布局放入即可滑动
@@ -127,7 +124,7 @@ public class JshopActivityIndex extends Activity{
                     imageViews[i].setBackgroundResource(R.drawable.page_indicator);  
                 }  
             }
-            if(arg0==5){
+            if(arg0==3){
             	Intent intent = new Intent(JshopActivityIndex.this,JshopMIndex.class);
 				startActivity(intent);
             }
@@ -149,7 +146,7 @@ public class JshopActivityIndex extends Activity{
 			resetDB();
 			break;
 		case R.id.loginmenu:
-			enterIntoLogin();
+			//enterIntoLogin();
 			break;
 		case R.id.backtoindex:
 			break;
@@ -170,11 +167,11 @@ public class JshopActivityIndex extends Activity{
 	}
 	
 	
-	//点击进入登录页面
-	private void enterIntoLogin(){
-		Intent intent = new Intent(JshopActivityIndex.this,JshopActivityLogin.class);
-		startActivity(intent);
-	}
+//	//点击进入登录页面
+//	private void enterIntoLogin(){
+//		Intent intent = new Intent(JshopActivityIndex.this,JshopActivityLogin.class);
+//		startActivity(intent);
+//	}
 	//显示exit对话框
 	private void exitAlert(String msg){
 		AlertDialog.Builder bulider=new AlertDialog.Builder(this);
