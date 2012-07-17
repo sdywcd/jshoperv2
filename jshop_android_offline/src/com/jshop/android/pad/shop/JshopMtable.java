@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 
 
 import com.jshop.android.pad.R;
+
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
 import com.jshop.android.util.JshopMPostActionList;
@@ -229,9 +231,11 @@ public class JshopMtable extends Activity {
 					if("success".equals(tag)){
 						Toast t=Toast.makeText(getApplicationContext(), "就座成功", Toast.LENGTH_LONG);
 						t.show();
-
+						
 						//携带餐桌号和餐桌状�?传�?给商品分类开始点�?
 						writeJmtable("1"+","+tablenumber);
+						Intent intent = new Intent(JshopMtable.this,JshopActivityGoodsCategoryList.class);
+						startActivity(intent);
 					}else{
 						Toast t=Toast.makeText(getApplicationContext(), "更新座位状态时系统异常", Toast.LENGTH_LONG);
 						t.show();

@@ -10,11 +10,17 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
 
+import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+
+import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMPostActionList;
 import com.jshop.android.util.Validate;
 
-public class JshopMgoodscategoryListAction {
+public class JshopMgoodscategoryListAction{
 	private String requestjsonstr;
 	private List<Map<String,Object>>goodscategoryList=new ArrayList<Map<String,Object>>();
 	
@@ -54,8 +60,43 @@ public class JshopMgoodscategoryListAction {
 	 * 把服务器上的商品分类数据缓存到本地数据库中
 	 * @param goodscategoryList
 	 */
-	public void GoodsCategoryListtoSQLite(List<Map<String,Object>> goodscategoryList){
-		
+	public void setGoodsCategoryListtoSQLite(List<Map<String,Object>> goodscategoryList,Context context){
+		List<Map<String,Object>>gcl=goodscategoryList;
+		if(!gcl.isEmpty()){
+			DBHelper dbhelper=new DBHelper(context);
+			HashMap<String,Object>map=new HashMap<String,Object>();
+			ContentValues values=new ContentValues();
+			for(int i=0;i<gcl.size();i++){
+				map=(HashMap<String, Object>) gcl.get(i);
+				values.put("goodsCategoryTid",map.get("goodsCategoryTid").toString());
+				values.put("grade",map.get("grade").toString());
+				values.put("name",map.get("name").toString());
+				values.put("goodsTypeId",map.get("goodsTypeId").toString());
+				values.put("sort",map.get("sort").toString());
+				dbhelper.insert(DBHelper.GOODS_CATEGORY_TM_NAME, values);
+			}
+			dbhelper.close();
+		}
+	}
+	
+	/**
+	 * 读取商品分类缓存从sqlite
+	 * @param c
+	 * @return
+	 */
+	public List<Map<String,Object>>  getGoodsCategoryListtoSQLite(Cursor c){
+		c.moveToFirst();
+		while(!c.isAfterLast()){
+			HashMap<String,Object>map=new HashMap<String,Object>();
+			map.put("goodsCategoryTid", c.getString(c.getColumnIndex("goodsCategoryTid")));
+			map.put("grade",c.getString(c.getColumnIndex("grade")));
+			map.put("name", c.getString(c.getColumnIndex("name")));
+			map.put("goodsTypeId", c.getString(c.getColumnIndex("goodsTypeId")));
+			map.put("sort", c.getString(c.getColumnIndex("sort")));
+			goodscategoryList.add(map);
+			c.moveToNext();
+		}
+		return goodscategoryList;
 	}
 	
 	

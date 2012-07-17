@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -25,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jshop.android.login.JshopActivityLogin;
+import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
 import com.jshop.android.widget.JshopViewpagerAdapter;
@@ -65,6 +67,7 @@ public class JshopActivityIndex extends Activity{
 		super.onCreate(savedInstanceState);
 		super.requestWindowFeature(Window.FEATURE_NO_TITLE);//设置无标题窗口
 		gethosturl();
+		
 		LayoutInflater inflater=getLayoutInflater();
 		//这里开始从服务器获取通讯地址
 		mi=new MenuInflater(this);
@@ -143,6 +146,7 @@ public class JshopActivityIndex extends Activity{
 			//enterIntoSearch();
 			break;
 		case R.id.refresh:
+			resetDB();
 			break;
 		case R.id.loginmenu:
 			enterIntoLogin();
@@ -157,6 +161,14 @@ public class JshopActivityIndex extends Activity{
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	//重置db
+	private void resetDB(){
+		DBHelper dbHelper=new DBHelper(this.getApplicationContext());
+		dbHelper.DropDB();
+		dbHelper.close();
+	}
+	
 	
 	//点击进入登录页面
 	private void enterIntoLogin(){

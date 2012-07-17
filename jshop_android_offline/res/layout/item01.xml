@@ -27,11 +27,11 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" >
-
+
         <ImageView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/intro" />
+            android:background="@drawable/intro2" />
 
     </LinearLayout>
 
