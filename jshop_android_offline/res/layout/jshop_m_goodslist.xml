@@ -77,9 +77,9 @@
                     android:layout_height="50dp"
                     android:text="@string/classify"
                     android:textColor="#000000" />
-
+
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/selectedorder"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:text="@string/recommend"
