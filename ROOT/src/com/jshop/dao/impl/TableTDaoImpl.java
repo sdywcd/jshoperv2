@@ -187,6 +187,18 @@ public class TableTDaoImpl extends HibernateDaoSupport implements TableTDao{
 		}
 		
 	}
+
+	@Override
+	public TableT findTableBytablenumber(String tablenumber) {
+		log.debug("findTableBytablenumber");
+		try {
+			TableT instance = (TableT) this.getHibernateTemplate().get("com.jshop.entity.TableT", tablenumber);
+			return instance;
+		} catch (RuntimeException re) {
+			log.error("findTableBytablenumber failed", re);
+			throw re;
+		}
+	}
 	
 
 }

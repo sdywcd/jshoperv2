@@ -45,6 +45,12 @@ public interface TableTDao {
 	 * @return
 	 */
 	public abstract TableT findTableBytableid(String tableid);
+	/**
+	 * 根据tablebumber查询桌信息
+	 * @param tableid
+	 * @return
+	 */
+	public abstract TableT findTableBytablenumber(String tablenumber);
 	
 	/**
 	 * 根据指定sql语句进行排序查询

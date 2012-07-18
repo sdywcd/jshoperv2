@@ -62,6 +62,11 @@ public interface TableTService {
 	 * @return
 	 */
 	public abstract int updateTableTtablestateBytableNo(String tableid,String tablestate);
-
+	/**
+	 * 根据tablebumber查询桌信息
+	 * @param tableid
+	 * @return
+	 */
+	public abstract TableT findTableBytablenumber(String tablenumber);
 
 }
