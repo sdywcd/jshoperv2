@@ -358,7 +358,8 @@ $(function() {
                 jConfirm('确定查看用餐情况吗?', '信息提示', function(r) {
                     if (r) {
                         var str = $('.trSelected', grid)[0].id.substr(3);
-                        window.location.href = "electriorderdetail.jsp?session=" + session + "#table&tableid=" + str;
+                        $.post("GetElectronicOrderInternation.action",{"tableNumber":str});
+//                        window.location.href = "electriorderdetail.jsp?session=" + session + "#table&tableNumber=" + str;
                         return;
                     }
                 });

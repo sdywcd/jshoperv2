@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -307,6 +308,42 @@ public class ElectronicMenuOrderTDaoImpl extends HibernateDaoSupport implements 
 			throw re;
 		}
 		return 0;
+	}
+
+	@Override
+	public int updateElectronicMenuOrderElectrobicOrderState(
+			final String electronicorderstate) {
+		final String queryString="update ElectronicMenuOrderT set eo set eo.electronicorderstate=:electronicorderstate";
+		try {
+			this.getHibernateTemplate().execute(new HibernateCallback() {
+				
+				@Override
+				public Object doInHibernate(Session session) throws HibernateException,
+						SQLException {
+					int i=0;
+					Query query= session.createQuery(queryString);
+					query.setParameter("electronicorderstate", electronicorderstate);
+					i=query.executeUpdate();
+					return i;
+				}
+			});
+		} catch (DataAccessException e) {
+			throw e;
+		}
+		return 0;
+	}
+
+	@Override
+	public ElectronicMenuOrderT findElectronicMenuOrderTByelectronicMenuTablenumber(
+			String tablenumber) {
+		log.debug("findElectronicMenuOrderTByelectronicMenuTablenumber");
+		try {
+			ElectronicMenuOrderT instance = (ElectronicMenuOrderT) this.getHibernateTemplate().get("com.jshop.entity.ElectronicMenuOrderT", tablenumber);
+			return instance;
+		} catch (RuntimeException re) {
+			log.error("findElectronicMenuOrderTByelectronicMenuTablenumber failed", re);
+			throw re;
+		}
 	}
 	
 	

@@ -2,8 +2,10 @@ package com.jshop.action.androidserver.electronicmenu;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,19 +15,26 @@ import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
+import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
 
+import com.jshop.action.tools.AllOrderState;
 import com.jshop.action.tools.Arith;
 import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.Serial;
 import com.jshop.action.tools.Validate;
 import com.jshop.entity.ElectronicMenuCartT;
 import com.jshop.entity.ElectronicMenuOrderT;
+import com.jshop.entity.GroupOrderT;
+import com.jshop.entity.TableT;
 import com.jshop.service.ElectronicMenuCartTService;
 import com.jshop.service.ElectronicMenuOrderTService;
+import com.jshop.service.TableTService;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 @ParentPackage("jshop")
 @Namespace("")
@@ -37,6 +46,7 @@ public class AndroidJshopelectronicmenuorderAction  extends ActionSupport implem
 ServletRequestAware, ServletResponseAware {
 	private ElectronicMenuOrderTService electronicMenuOrderTService;
 	private ElectronicMenuCartTService electronicMenuCartTService;
+	private TableTService tableTService;
 	private Serial serial;
 	private String electronicMenuOrderid;
 	private String tableNumber;
@@ -55,8 +65,18 @@ ServletRequestAware, ServletResponseAware {
 	private HttpServletRequest request;
     private HttpServletResponse response;
     private String responsejsonstr;
-   
+    Map<String, Object> map = new HashMap<String, Object>();
+    private String electronicorderstate;
     @JSON(serialize = false)
+    public TableTService getTableTService() {
+		return tableTService;
+	}
+
+	public void setTableTService(TableTService tableTService) {
+		this.tableTService = tableTService;
+	}
+
+	@JSON(serialize = false)
     public ElectronicMenuCartTService getElectronicMenuCartTService() {
 		return electronicMenuCartTService;
 	}
@@ -232,6 +252,22 @@ ServletRequestAware, ServletResponseAware {
 
 	public void setPaymentname(String paymentname) {
 		this.paymentname = paymentname;
+	}
+
+	public Map<String, Object> getMap() {
+		return map;
+	}
+
+	public void setMap(Map<String, Object> map) {
+		this.map = map;
+	}
+
+	public String getElectronicorderstate() {
+		return electronicorderstate;
+	}
+
+	public void setElectronicorderstate(String electronicorderstate) {
+		this.electronicorderstate = electronicorderstate;
 	}
 
 	/**
@@ -470,10 +506,137 @@ ServletRequestAware, ServletResponseAware {
 		    
 		}
 	}
-	
-	
-	
-	
-	
+	/**
+	 * 获取餐桌订单详细信息
+	 * @return
+	 */
+	@Action(value="GetElectronicOrderInternation",results={ 			
+			@Result(name= "success" ,type="dispatcher",location="/jshop/admin/electricmenutable/electriorderdetail.jsp" )
+			})
+	public String GetElectronicOrderInternation(){	
+		//获取订单中的菜品列表
+		GetOrderElectronicList(this.getTableNumber().trim());
+		//获取餐桌详细
+		GetTable(this.getTableNumber().trim());
+		//获取订单中的详细信息
+		GetElectronicOrderDetail(this.getTableNumber().trim());
+		//获取电子订餐车信息
+		GetElectronicCartDetail(this.getTableNumber().trim());
+		ActionContext.getContext().put("electronicOrder", map);
+		return SUCCESS;
+	}
+	/**
+	 * 获取订单中的菜品列表
+	 * @param tablenumber
+	 */
+	public void GetOrderElectronicList(String tablenumber){
+		List<ElectronicMenuCartT> list= this.getElectronicMenuCartTService().findAllElectronicMenuCartTBytableNumber(tablenumber, "1");
+		if(list!=null){
+			map.put("electronicList", list);
+		}
+	}
+	/**
+	 * 获取餐桌信息
+	 * @param tablenumber
+	 */
+	public void GetTable(String tablenumber){
+		TableT table=this.getTableTService().findTableBytablenumber(tablenumber);
+		if(table!=null){
+			map.put("table", table);
+		}
+	}
+	/**
+	 * 更新cookingState
+	 * @param cookingstate
+	 */
+	public void UpdateCartElectronicCookingState(String cookingstate){
+		this.getElectronicMenuCartTService().updateElectroMenuCartCookingState(cookingstate);
+	}
+	/**
+	 * 更新electronicorderstate
+	 * @param electronicorderstate
+	 */
+	public void UpdateOrderElectronicOrderState(String  electronicorderstate ){
+		this.getElectronicMenuOrderTService().updateElectronicMenuOrderElectrobicOrderState(electronicorderstate);
+	}
+	/**
+	 *已确认的时候 更新状态
+	 */
+	public void ConfirmedOrderElectronic(){
+		//更新ElectronicCart中cookingState 为“1”
+		UpdateCartElectronicCookingState("1");
+		//更新ElectronicOrder中electronicorderstate 为“10”
+		UpdateOrderElectronicOrderState("10");
+	}
+	/**
+	 * 菜全部上齐的时候 更新状态
+	 */
+	public void VegetablesAllOrderElectronic(){
+		//更新ElectronicCart中cookingState 为“2”
+		UpdateCartElectronicCookingState("2");
+		//更新ElectronicOrder中electronicorderstate 为“11”
+		UpdateOrderElectronicOrderState("11");
+	}
+	/**
+	 * 获取订单详细
+	 */
+	public void GetElectronicOrderDetail(String tablenumber) {
+	       ElectronicMenuOrderT o =this.getElectronicMenuOrderTService().findElectronicMenuOrderTByelectronicMenuTablenumber(tablenumber);
+		if (o != null) {
+			if (o.getElectronicorderstate().equals("0")) {
+				o.setElectronicorderstate(AllOrderState.ORDERSTATE_ZERO);
+			} else if (o.getElectronicorderstate().equals("1")) {
+				o.setElectronicorderstate(AllOrderState.ORDERSTATE_ONE);
+			} else if (o.getElectronicorderstate().equals("2")) {
+				o.setElectronicorderstate(AllOrderState.ORDERSTATE_TWO);
+			} else if (o.getElectronicorderstate().equals("3")) {
+				o.setElectronicorderstate(AllOrderState.ORDERSTATE_THREE);
+			} else if (o.getElectronicorderstate().equals("4")) {
+				o.setElectronicorderstate(AllOrderState.ORDERSTATE_FOUR);
+			} else if (o.getElectronicorderstate().equals("5")) {
+				o.setElectronicorderstate(AllOrderState.ORDERSTATE_FIVE);
+			} else if (o.getElectronicorderstate().equals("6")) {
+				o.setElectronicorderstate(AllOrderState.ORDERSTATE_SIX);
+			} else if (o.getElectronicorderstate().equals("7")) {
+				o.setElectronicorderstate(AllOrderState.ORDERSTATE_SEVEN);
+			} else if (o.getElectronicorderstate().equals("8")) {
+				o.setElectronicorderstate(AllOrderState.ORDERSTATE_EIGHT);
+			} else if(o.getElectronicorderstate().equals("9")) {
+				o.setElectronicorderstate(AllOrderState.ORDERSTATE_NINE);
+			}else if(o.getElectronicorderstate().equals("10")){
+				o.setElectronicorderstate(AllOrderState.ORDERSTATE_TEN);
+			}else{
+				o.setElectronicorderstate(AllOrderState.ORDERSTATE_ELEVEN);
+			}
+			if (o.getInvoice().equals("0")) {
+				o.setInvoice(AllOrderState.INVOICE_ZERO);
+			} else {
+				o.setInvoice(AllOrderState.INVOICE_ONE);
+			}			
+			
+
+			map.put("orderdetail", o);
+
+			
+		}
+	}
+	/**
+	 * 获取电子订餐车信息
+	 * @param tablenumber
+	 */
+	public void GetElectronicCartDetail(String tablenumber){
+		ElectronicMenuCartT ec=this.getElectronicMenuCartTService().findElectronicCartByTableNumber(tablenumber);
+		if(ec!=null){
+			if(ec.getCookingstate().equals("0")){
+				ec.setCookingstate(AllOrderState.COOKINGSTATE_ZERO);
+			}else if(ec.getCookingstate().equals("1")){
+				ec.setCookingstate(AllOrderState.COOKINGSTATE_ONE);				
+			}else{
+				ec.setCookingstate(AllOrderState.COOKINGSTATE_TWO);
+			}
+			map.put("cartdetail", ec);
+			
+		}
+	}
 	
 }
