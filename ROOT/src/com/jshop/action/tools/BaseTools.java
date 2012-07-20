@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.jshop.action.templates.FreeMarkervariable;
 import com.opensymphony.xwork2.ActionContext;
 
 public class BaseTools {

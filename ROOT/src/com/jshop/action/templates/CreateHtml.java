@@ -2,14 +2,12 @@ package com.jshop.action.templates;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
@@ -23,14 +21,11 @@ import com.jshop.action.GoodsTNAction;
 import com.jshop.action.TemplateTAction;
 import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.ContentTag;
-import com.jshop.action.tools.FreeMarkerController;
-import com.jshop.action.tools.FreeMarkervariable;
 import com.jshop.action.tools.PageModel;
 import com.jshop.entity.ArticleT;
 import com.jshop.entity.GoodsCategoryT;
 import com.jshop.entity.GoodsGroupT;
 import com.jshop.entity.GoodsT;
-import com.jshop.entity.PageEditareaT;
 import com.jshop.entity.TemplateT;
 import com.jshop.entity.TemplatesetT;
 import com.jshop.service.ArticleTService;
@@ -39,11 +34,6 @@ import com.jshop.service.GoodsGroupTService;
 import com.jshop.service.GoodsTService;
 import com.jshop.service.TemplateTService;
 import com.jshop.service.TemplatesetTService;
-import com.jshop.service.impl.ArticleTServiceImpl;
-import com.jshop.service.impl.GoodsCategoryTServiceImpl;
-import com.jshop.service.impl.GoodsTServiceImpl;
-import com.jshop.service.impl.TemplateTServiceImpl;
-import com.jshop.service.impl.TemplatesetTServiceImpl;
 import com.opensymphony.xwork2.ActionSupport;
 
 import freemarker.template.TemplateException;

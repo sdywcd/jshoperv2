@@ -14,8 +14,8 @@ import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
 
 import com.jshop.action.templates.DataCollectionTAction;
+import com.jshop.action.templates.FreeMarkervariable;
 import com.jshop.action.tools.BaseTools;
-import com.jshop.action.tools.FreeMarkervariable;
 import com.jshop.action.tools.Serial;
 import com.jshop.action.tools.Validate;
 import com.jshop.entity.ArticleCategoryT;

@@ -94,9 +94,6 @@ public class JshopActivityGoodsList extends Activity{
 				startActivity(intent);
 			}
 		});
-	
-		
-		
 	}
 	
 	/**

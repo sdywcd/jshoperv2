@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import com.jshop.entity.GoodsTypeTN;
+
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
@@ -16,18 +16,16 @@ import org.apache.struts2.json.annotations.JSON;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
-import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 
 import com.jshop.action.model.GoodsparameterlistModel;
 import com.jshop.action.templates.CreateHtml;
 import com.jshop.action.templates.DataCollectionTAction;
 import com.jshop.action.tools.BaseTools;
-import com.jshop.action.tools.ContentTag;
-import com.jshop.action.tools.FreeMarkervariable;
 import com.jshop.action.tools.Serial;
 import com.jshop.action.tools.Validate;
 import com.jshop.entity.GoodsT;
+import com.jshop.entity.GoodsTypeTN;
 import com.jshop.entity.ProductT;
 import com.jshop.service.ArticleCategoryTService;
 import com.jshop.service.ArticleTService;

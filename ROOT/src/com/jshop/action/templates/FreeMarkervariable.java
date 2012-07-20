@@ -1,4 +1,4 @@
-package com.jshop.action.tools;
+package com.jshop.action.templates;
 
 /**
  * 模板数据模型变量定义

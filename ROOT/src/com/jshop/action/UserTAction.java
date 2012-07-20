@@ -696,7 +696,6 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 	@Override
 	public void validate() {
 		this.clearErrorsAndMessages();
-
 	}
 
 

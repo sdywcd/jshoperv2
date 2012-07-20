@@ -1,4 +1,4 @@
-package com.jshop.action.tools;
+package com.jshop.action.templates;
 
 import java.io.BufferedWriter;
 import java.io.File;
