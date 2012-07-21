@@ -5,7 +5,14 @@
 		
 		<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/global.css"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-
+<script type="text/javascript" src="${basepath}ui/default/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="${basepath}ui/default/js/jquery.tools.min.js"></script>
+<script type="text/javascript" src="${basepath}ui/default/js/jquery.query.js"></script>
+<script type="text/javascript" src="${basepath}ui/default/js/jquery.jqzoom.js"></script>
+<script type="text/javascript" src="${basepath}ui/default/js/jquery.dimensions.js"></script>
+<script type="text/javascript" src="${basepath}ui/default/js/jquery.sexy-vote.js"></script>
+<script type="text/javascript" src="${basepath}jshop/admin/js/kindeditor-min.js"></script>
+<script type="text/javascript" src="${basepath}ui/default/js/jquery.cookie.js"></script>
 		
 	</head>
 	<body>
