@@ -19,7 +19,7 @@
 <link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/tabs-accordion.css"/>
 <script type="text/javascript" src="${basepath}ui/default/js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="${basepath}ui/default/js/jquery.tools.min.js"></script>
-<script type="text/javascript" src="${basepath}js/jquery.query.js"></script>
+<script type="text/javascript" src="${basepath}ui/default/js/jquery.query.js"></script>
 <script type="text/javascript" src="${basepath}ui/default/js/jquery.jqzoom.js"></script>
 <script type="text/javascript" src="${basepath}ui/default/js/jquery.dimensions.js"></script>
 <script type="text/javascript" src="${basepath}ui/default/js/jquery.sexy-vote.js"></script>
@@ -147,7 +147,7 @@
             <cite><img src="${basepath}ui/default//images/setmeal_t_3.gif"></cite></div>
           <h1 id="unit_h1">
             <p>该商品所有的套餐列表</p>
-            <cite>总共有(goodsbelinked.size)件可选套餐 </cite></h1>
+            <cite>总共有(goodsbelinked?size)件可选套餐 </cite></h1>
 			
           <div class="set_1" id="div_set1">
             <div class="set_1_l">
@@ -185,7 +185,7 @@
             <div class="left_div" style="display:none;">
               <p><cite>套餐选购总金额: <span id="packTotalPrice"></span></cite></p>
             </div>
-            <div class="right_div"> <img id="addPackProductsToCart" src="${basepath}ui/default/images/setmeal_btn.gif" onclick="addPackProducts();" style="cursor:pointer;"> </div>
+            <div class="right_div"> <img id="addPackProductsToCart" src="${basepath}ui/default/images/setmeal_btn.gif" onclick="addbelinkedGoodsTocart();" style="cursor:pointer;"> </div>
           </div>
           <div class="setmeal_bottom">
             <p><img src="${basepath}ui/default/images/setmeal_t_4.gif"></p>

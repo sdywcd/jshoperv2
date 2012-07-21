@@ -18,6 +18,7 @@
 <link rel="stylesheet" type="text/css" href="${basepath}ui/default/js/easyslider1.7/css/screen.css"/>
 <script type="text/javascript"  src="${basepath}ui/default/js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="${basepath}ui/default/js/easyslider1.7/js/easySlider1.7.js"></script>
+<script type="text/javascript" src="${basepath}ui/default/js/jquery.query.js"></script>
 </head><body>
 <!--载入公共头文件-->
 <#include "/WEB-INF/theme/default/shop/header.ftl">

@@ -1,24 +1,4 @@
-<html>
-<head>
-<title>首页${(jshopbasicinfo.jshopname)}</title>
-<meta name="Author" content="OSTOCY">
-<meta name="Copyright" content="OSTOCY">
-<meta http-equiv="expires" content="0">
-<#if (jshopbasicinfo.metaKeywords)! != "">
-<meta name="keywords" content="${jshopbasicinfo.metaKeywords}"/>
-</#if>
-	<#if (jshopbasicinfo.metaDes)! != "">
-<meta name="description" content="${jshopbasicinfo.metaDes}"/>
-</#if>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/global.css" />
-<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/index.css" />
-<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/category.css" />
-<link rel="stylesheet" type="text/css" href="${basepath}ui/default/js/easyslider1.7/css/screen.css"/>
-<script type="text/javascript"  src="${basepath}ui/default/js/jquery-1.6.2.min.js"></script>
-<script type="text/javascript" src="${basepath}ui/default/js/easyslider1.7/js/easySlider1.7.js"></script>
-</head>
-<body>
+
         <div class="topnav">
 			
 
@@ -65,6 +45,3 @@
 </div>
 					
        </div>		
-	   <script type="text/javascript" src="${basepath}ui/default/js/jshop.js"></script>
-	   </body>
-	   </html>
