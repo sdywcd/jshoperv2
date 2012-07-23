@@ -6,7 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/global.css"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 
-		
+
 	</head>
 	<body>
 		<div id="header">

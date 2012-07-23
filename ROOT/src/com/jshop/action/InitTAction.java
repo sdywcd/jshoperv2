@@ -4,7 +4,7 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
 
-import com.jshop.action.tools.FreeMarkervariable;
+import com.jshop.action.templates.FreeMarkervariable;
 import com.jshop.entity.TemplatethemeT;
 import com.jshop.service.TemplatethemeTService;
 import com.opensymphony.xwork2.ActionContext;

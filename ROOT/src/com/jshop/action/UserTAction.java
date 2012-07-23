@@ -1,21 +1,14 @@
 package com.jshop.action;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.StrutsStatics;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
@@ -25,22 +18,17 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
-
 import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.MD5Code;
 import com.jshop.action.tools.Serial;
 import com.jshop.action.tools.Validate;
 import com.jshop.entity.FunctionM;
-import com.jshop.entity.RoleFunctionM;
-import com.jshop.entity.UserRoleM;
 import com.jshop.entity.UserT;
 import com.jshop.service.UserRoleMService;
 import com.jshop.service.UsertService;
-import com.jshop.service.impl.UsertServiceImpl;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
-
 import freemarker.template.TemplateException;
 
 @ParentPackage("jshop")
@@ -696,7 +684,7 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 	@Override
 	public void validate() {
 		this.clearErrorsAndMessages();
-
+		
 	}
 
 
@@ -728,10 +716,19 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 	@SuppressWarnings("unchecked")
 	@Action(value = "adminlogin", results = { @Result(name = "success", type = "redirect", location = "/jshop/admin/adminindex.jsp?session=${param}"), @Result(name = "input", type = "redirect", location = "/jshop/admin/adminlogin.jsp?msg=${param}") })
 	public String adminlogin() throws Exception {
+		
+		if(Validate.StrisNull(this.getUsername())){
+			this.setParam("1");
+			return INPUT;
+		}
+		if(Validate.StrisNull(this.getPassword())){
+			this.setParam("1");
+			return INPUT;
+		}
 		MD5Code md5 = new MD5Code();
 		UserT user = new UserT();
-		user.setUsername(this.getUsername().trim());
-		user.setPassword(md5.getMD5ofStr(this.getPassword().trim()));
+		user.setUsername(username);
+		user.setPassword(md5.getMD5ofStr(password));
 		user.setState("3");//超级管理员
 		user = this.getUsertService().login(user);
 		if (user != null) {
@@ -748,6 +745,8 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 			//ActionContext.getContext().getSession().put(BaseTools.ALLROLEFUNCTION, allfunctionlist);
 			return SUCCESS;
 		}
+		
+		
 		this.setParam("1");
 		return INPUT;
 	}
@@ -825,6 +824,10 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 	 */
 	@Action(value = "adminregister", results = { @Result(name = "json", type = "json") })
 	public String adminregister() {
+		if(Validate.StrisNull(this.getUsername())||Validate.StrisNull(this.getEmail())||Validate.StrisNull(this.getPoints())||Validate.StrisNull(this.getGradename())||Validate.StrisNull(this.getGrade())){
+			this.setSucflag(false);
+			return "json";
+		}
 		MD5Code md5 = new MD5Code();
 		UserT u = new UserT();
 		u.setUsername(this.getUsername().trim());

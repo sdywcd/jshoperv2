@@ -1,10 +1,8 @@
 package com.jshop.action.front;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Resource;
 
 import org.apache.commons.lang.xwork.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
@@ -15,19 +13,16 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
+
 import com.jshop.action.templates.DataCollectionTAction;
 import com.jshop.action.tools.BaseTools;
-import com.jshop.action.tools.FreeMarkerController;
-import com.jshop.action.tools.FreeMarkervariable;
 import com.jshop.action.tools.Serial;
 import com.jshop.action.tools.Validate;
 import com.jshop.entity.DeliverAddressT;
 import com.jshop.entity.UserT;
 import com.jshop.service.DeliverAddressTService;
-import com.jshop.service.impl.DeliverAddressTServiceImpl;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import freemarker.template.TemplateException;
 @ParentPackage("jshop")
 @Namespace("")
 @InterceptorRefs({  

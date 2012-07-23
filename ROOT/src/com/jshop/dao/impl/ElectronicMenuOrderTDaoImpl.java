@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -305,6 +306,69 @@ public class ElectronicMenuOrderTDaoImpl extends HibernateDaoSupport implements 
 		} catch (RuntimeException re) {
 			log.error("updateInvoiceByelectronicMenuOrderid error", re);
 			throw re;
+		}
+		return 0;
+	}
+
+	@Override
+	public int updateElectronicMenuOrderElectrobicOrderState(
+			final String electronicorderstate,final String tableNumber) {
+		final String queryString="update ElectronicMenuOrderT as eo set eo.electronicorderstate=:electronicorderstate where eo.tableNumber=:tableNumber ";
+		try {
+			this.getHibernateTemplate().execute(new HibernateCallback() {
+				
+				@Override
+				public Object doInHibernate(Session session) throws HibernateException,
+						SQLException {
+					int i=0;
+					Query query= session.createQuery(queryString);
+					query.setParameter("electronicorderstate", electronicorderstate);
+					query.setParameter("tableNumber", tableNumber);
+					i=query.executeUpdate();
+					return i;
+				}
+			});
+		} catch (RuntimeException e) {
+			throw e;
+		}
+		return 0;
+	}
+
+	@Override
+	public List<ElectronicMenuOrderT> findElectronicMenuOrderTByelectronicMenuTablenumber(
+			String tableNumber) {
+		log.debug("findElectronicMenuOrderTByelectronicMenuTablenumber");
+		try {
+			String queryString = "from ElectronicMenuOrderT as eo where eo.tableNumber=:tableNumber";
+			
+			List<ElectronicMenuOrderT> list=(List<ElectronicMenuOrderT>) this.getHibernateTemplate().findByNamedParam(queryString, "tableNumber",tableNumber);
+			return  list;
+			
+		} catch (RuntimeException re) {
+			log.error("findElectronicMenuOrderTByelectronicMenuTablenumber failed", re);
+			throw re;
+		}
+	}
+	@Override
+	public int updateElectronicMenuOrderPaystate(final String paystate,
+			final String tableNumber) {
+		final String queryString="update ElectronicMenuOrderT as eo set eo.paystate=:paystate where eo.tableNumber=:tableNumber ";
+		try {
+			this.getHibernateTemplate().execute(new HibernateCallback() {
+				
+				@Override
+				public Object doInHibernate(Session session) throws HibernateException,
+						SQLException {
+					int i =0;
+					Query query= session.createQuery(queryString);
+					query.setParameter("paystate", paystate);
+					query.setParameter("tableNumber", tableNumber);
+					i=query.executeUpdate();
+					return i;
+				}
+			});
+		} catch (RuntimeException e) {
+			throw e;
 		}
 		return 0;
 	}

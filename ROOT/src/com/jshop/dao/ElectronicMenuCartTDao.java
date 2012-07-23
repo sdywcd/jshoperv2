@@ -115,5 +115,20 @@ public interface ElectronicMenuCartTDao {
 	 * @return
 	 */
 	public abstract int updateElectronicMenuCartTelectronicMenuCartid(String electronicMenuCartid,String state,String tableNumber,String tablestate);
+	/**
+	 * 更新烹调状态
+	 * @param cookingstate
+	 * @return
+	 */
+
+	public int updateElectroMenuCartCookingState(String cookingstate,String tableNumber);
+	/**
+	 * 根据餐桌号查询信息
+	 * @param tablenumber
+	 * @return
+	 */
+	public List<ElectronicMenuCartT> findElectronicCartByTableNumber(String tableNumber);
+
 	
+
 }

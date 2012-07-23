@@ -81,4 +81,16 @@ public class ElectronicMenuCartTServiceImpl implements ElectronicMenuCartTServic
 		return this.getElectronicMenuCartTDao().updateElectronicMenuCartTtablestate(electronicMenuOrderid, tablestate);
 	}
 
+	@Override
+	public int updateElectroMenuCartCookingState(String cookingstate,String tableNumber) {
+		return this.getElectronicMenuCartTDao().updateElectroMenuCartCookingState(cookingstate,tableNumber);
+	}
+
+	@Override
+	public List<ElectronicMenuCartT> findElectronicCartByTableNumber(
+			String tablenumber) {
+		
+		return this.getElectronicMenuCartTDao().findElectronicCartByTableNumber(tablenumber);
+	}
+
 }

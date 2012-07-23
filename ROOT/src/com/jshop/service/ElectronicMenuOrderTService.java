@@ -109,6 +109,23 @@ public interface ElectronicMenuOrderTService {
 	 * @return
 	 */
 	public abstract int updateInvoiceByelectronicMenuOrderid(String electronicMenuOrderid,String invoice);
-
-	
+	/**
+	 *根据餐桌号 更新定单状态
+	 * @param electronicorderstate
+	 * @return
+	 */
+	public int updateElectronicMenuOrderElectrobicOrderState(String electronicorderstate,String tableNumber);
+	/**
+	 * 根据餐桌号查询详细信息
+	 * @param electronicMenuOrderid
+	 * @return
+	 */
+	public abstract List<ElectronicMenuOrderT> findElectronicMenuOrderTByelectronicMenuTablenumber(String tableNumber);
+	/**
+	 * 根据餐桌号更新付款状态
+	 * @param paystate
+	 * @param tableNumber
+	 * @return
+	 */
+	public int updateElectronicMenuOrderPaystate(String paystate,String tableNumber);
 }
