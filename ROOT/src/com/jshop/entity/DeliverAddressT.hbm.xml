@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2012-7-5 10:47:52 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2012-7-22 13:51:26 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="com.jshop.entity.DeliverAddressT" table="deliver_address_t" catalog="jshopactive">
         <id name="addressid" type="string">
@@ -36,7 +36,7 @@
             <column name="MOBILE" length="20" not-null="true" />
         </property>
         <property name="email" type="string">
-            <column name="EMAIL" length="50" />
+            <column name="EMAIL" length="100" />
         </property>
         <property name="createtime" type="timestamp">
             <column name="CREATETIME" length="0" not-null="true" />

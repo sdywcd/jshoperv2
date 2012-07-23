@@ -8,6 +8,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -292,6 +293,63 @@ public class ElectronicMenuCartTDaoImpl extends HibernateDaoSupport implements E
 		}
 		return 0;
 	}
+
+	@Override
+	public int updateElectroMenuCartCookingState(final String cookingstate,final String tableNumber) {
+		final String queryString="update ElectronicMenuCartT as ec set ec.cookingstate=:cookingstate where ec.tableNumber=:tableNumber";
+		try {
+			this.getHibernateTemplate().execute(new HibernateCallback() {
+				
+				@Override
+				public Object doInHibernate(Session session) throws HibernateException,
+						SQLException {
+					int i =0;
+					Query query = session.createQuery(queryString);
+					query.setParameter("cookingstate", cookingstate);
+					query.setParameter("tableNumber", tableNumber);
+					i=query.executeUpdate();				
+					return i;
+				}
+			});
+		} catch (RuntimeException e) {
+			throw e;
+		}
+		return 0;
+	}
+
+	@Override
+	public List<ElectronicMenuCartT> findElectronicCartByTableNumber(
+			String tableNumber) {
+		try {
+			String queryString="from ElectronicMenuCartT as ec where ec.tableNumber=:tableNumber";
+			List<ElectronicMenuCartT>list = this.getHibernateTemplate().findByNamedParam(queryString, "tableNumber", tableNumber);
+			return list;
+		} catch (RuntimeException e) {
+			throw e;
+		}
+	}
+	public int updateElectroMenuCartCookingState(final String cookingstate) {
+		final String queryString="update ElectronicMenuCartT as ec ec.cookingstate=:cookingstate";
+		try {
+			this.getHibernateTemplate().execute(new HibernateCallback() {
+				
+				@Override
+				public Object doInHibernate(Session session) throws HibernateException,
+						SQLException {
+					int i =0;
+					Query query = session.createQuery(queryString);
+					query.setParameter("cookingstate", cookingstate);
+					i=query.executeUpdate();				
+					return i;
+				}
+			});
+		} catch (DataAccessException e) {
+			throw e;
+		}
+		return 0;
+	}
+
+
 	
 	
 }

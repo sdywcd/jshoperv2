@@ -11,9 +11,10 @@ import org.apache.struts2.convention.annotation.Result;
 import org.springframework.stereotype.Controller;
 
 import com.jshop.action.templates.DataCollectionTAction;
+import com.jshop.action.templates.FreeMarkervariable;
 import com.jshop.action.tools.AllOrderState;
 import com.jshop.action.tools.BaseTools;
-import com.jshop.action.tools.FreeMarkervariable;
+
 import com.jshop.entity.GoodsT;
 import com.jshop.entity.OrderT;
 import com.jshop.entity.UserT;

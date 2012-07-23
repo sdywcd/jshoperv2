@@ -16,7 +16,7 @@ import org.springframework.stereotype.Controller;
 import com.jshop.action.InitTAction;
 import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.ContentTag;
-import com.jshop.action.tools.FreeMarkervariable;
+
 import com.jshop.entity.TemplatesetT;
 import com.jshop.service.TemplatesetTService;
 import com.opensymphony.xwork2.ActionSupport;

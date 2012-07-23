@@ -27,9 +27,9 @@ import org.springframework.stereotype.Controller;
 
 
 import com.jshop.action.templates.DataCollectionTAction;
+import com.jshop.action.templates.FreeMarkervariable;
 import com.jshop.action.tools.Arith;
 import com.jshop.action.tools.BaseTools;
-import com.jshop.action.tools.FreeMarkervariable;
 import com.jshop.action.tools.Serial;
 import com.jshop.alipay.config.AlipayConfig;
 import com.jshop.entity.CartT;

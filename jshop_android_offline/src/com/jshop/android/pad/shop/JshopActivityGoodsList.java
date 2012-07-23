@@ -96,14 +96,14 @@ public class JshopActivityGoodsList extends Activity{
 				startActivity(intent);
 			}
 		});
-		
+
 		selectedorder.setOnClickListener(new OnClickListener(){
 			public void onClick(View arg0){
 				Intent intent=new Intent(JshopActivityGoodsList.this,JshopMelectrocart.class);
 				startActivity(intent);
 			}
 		});
-		
+
 	}
 	
 	/**

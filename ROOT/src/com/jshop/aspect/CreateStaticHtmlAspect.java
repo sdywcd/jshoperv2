@@ -5,25 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.mail.Quota.Resource;
-
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jshop.action.ArticleTAction;
 import com.jshop.action.GoodsCategoryTAction;
 import com.jshop.action.GoodsTNAction;
-import com.jshop.action.templates.CreateHtml;
-import com.jshop.action.templates.DataCollectionTAction;
+import com.jshop.action.templates.FreeMarkervariable;
 import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.ContentTag;
-import com.jshop.action.tools.FreeMarkervariable;
 import com.jshop.action.tools.Validate;
 import com.jshop.entity.GoodsT;
-import com.jshop.service.GoodsTService;
 
 import freemarker.template.TemplateException;
 

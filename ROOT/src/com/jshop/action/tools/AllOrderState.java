@@ -30,6 +30,10 @@ public class AllOrderState {
 	public static final String ORDERSTATE_EIGHT="用户删除";
 
 	public static final String ORDERSTATE_NINE="成功";
+	
+	public static final String ORDERSTATE_TEN="菜品制作中";
+	
+	public static final String ORDERSTATE_ELEVEN="菜制作完成并已上齐";
 	//0：未付款 1：已付款 2：订单关闭
 	/**
 	 * 支付状态
@@ -66,6 +70,19 @@ public class AllOrderState {
 	public static final String INVOICE_ZERO="不开";
 	
 	public static final String INVOICE_ONE="开";
+	//烹调状态
+	public static final String COOKINGSTATE_ZERO="未烹调";
+	
+	public static final String COOKINGSTATE_ONE="已烹调";
+	
+	public static final String COOKINGSTATE_TWO="已完成上菜";
+
+
+	//用餐状态
+	public static final String TABLESTATE_ZERO="空闲";
+	
+	public static final String TABLESTATE_ONE="使用中";
+
 	
 	//订单状态的数字对应
 	//
@@ -93,6 +110,10 @@ public class AllOrderState {
 
 	public static final String ORDERSTATE_NINE_NUM="9";
 	
+	public static final String ORDERSTATE_NINE_TEN="10";
+	
+	public static final String ORDERSTATE_NINE_ELEVEN="11";
+	
 	//0：未付款 1：已付款 2：订单关闭
 	/**
 	 * 支付状态
@@ -111,6 +132,25 @@ public class AllOrderState {
 	public static final String SHIPPINGSTATE_ONE_NUM="1";
 	
 	public static final String SHIPPINGSTATE_TWO_NUM="2";
+	/**
+	 * 烹饪状态
+	 */
+	//cookingstate 0:未烹饪     1：已烹饪     2：菜已完成
+	public static final String COOKINGSTATE_ZERO_NUM="0";
+	
+	public static final String COOKINGSTATE_ONE_NUM="1";
+	
+	public static final String COOKINGSTATE_TWO_NUM="2";
+
+	
+	/**
+	 * 餐桌使用状态
+	 */
+	//tablestate  0:空闲   1：使用中
+	public static final String TABLESTATE_ZERO_NUM="0";
+	
+	public static final String TABLESTATE_ONE_NUM="1";
+
 	
 	
 	

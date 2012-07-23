@@ -19,7 +19,6 @@ import com.jshop.action.templates.CreateHtml;
 import com.jshop.action.templates.DataCollectionTAction;
 import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.ContentTag;
-import com.jshop.action.tools.FreeMarkervariable;
 import com.jshop.action.tools.Serial;
 import com.jshop.action.tools.Validate;
 import com.jshop.entity.ArticleCategoryT;

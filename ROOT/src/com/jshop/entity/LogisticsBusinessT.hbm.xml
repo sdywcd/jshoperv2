@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2012-7-5 10:47:52 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2012-7-22 13:51:26 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="com.jshop.entity.LogisticsBusinessT" table="logistics_business_t" catalog="jshopactive">
         <id name="logisticsid" type="string">
@@ -24,7 +24,7 @@
             <column name="FAXNO" length="20" />
         </property>
         <property name="email" type="string">
-            <column name="EMAIL" length="50" />
+            <column name="EMAIL" length="100" />
         </property>
         <property name="receiver" type="string">
             <column name="RECEIVER" length="45" not-null="true" />

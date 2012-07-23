@@ -17,7 +17,7 @@ import org.springframework.stereotype.Controller;
 
 import com.jshop.action.templates.CreateHtml;
 import com.jshop.action.templates.DataCollectionTAction;
-import com.jshop.action.tools.FreeMarkervariable;
+import com.jshop.action.templates.FreeMarkervariable;
 import com.jshop.action.tools.PageModel;
 import com.jshop.entity.ArticleCategoryT;
 import com.jshop.entity.GoodsCategoryT;
