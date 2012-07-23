@@ -962,7 +962,6 @@ $(function(){
  */
 
 
-
 /**
  * 初始化支付宝所需的资料信息并增加订单
  */
@@ -979,6 +978,7 @@ function InitAlipayandAddOrder(){
 	var cartgoodsid=$("#cartgoodsid").val();//购物车中商品id
 	var cartgoodsname=$("#cartgoodsname").val();//-购物车中商品名称集合cartgoodsname
 	var cartneedquantity=$("#cartneedquantity").val();//购物车中所有商品数量总和
+    
 	if(logisticsid==null){
 		alert("请选择配送方式");
 		return;
@@ -1025,6 +1025,64 @@ function InitAlipayandAddOrder(){
 		alert("请选择支付方式");
 	}
 }
+
+/**
+ * 增加虚拟订单数据
+ */
+//function InitAlipayandAddOrderisvirtual(){
+//    var emailforisvirtual=$('#emailforisvirtual').val();
+//    var mobileforisvirtual=$('#mobileforisvirtual').val();
+//    //var paymentid=$('input[name="paymentid"]:checked').val(); 
+//    //var logisticsid=$('input[name="logisticsid"]:checked').val(); 
+//    var freight=$('#goodsfreightprice').html();
+//   // var deliveraddressid=$('input[name="checkaddress"]:checked').val(); 
+//    var customernotes=$('#customernotes').val();
+//    //var logisticswebaddress=$('#hd'+logisticsid).val();
+//    var cartid=$('#cartid').val();//购物车id
+//    var total=$('#goodstotalprice').html();//表示商品总金额，不包含运费
+//    var totalpoints=$("#goodstotalpoints").html();//总积分
+//    var cartgoodsid=$("#cartgoodsid").val();//购物车中商品id
+//    var cartgoodsname=$("#cartgoodsname").val();//-购物车中商品名称集合cartgoodsname
+//    var cartneedquantity=$("#cartneedquantity").val();//购物车中所有商品数量总和
+//    
+//    if(paymentid!=null){
+//        $.post("InitAlipayneedInfo.action",{"cartneedquantity":cartneedquantity,"cartgoodsname":cartgoodsname,"cartgoodsid":cartgoodsid,"totalpoints":totalpoints,"total":total,"freight":freight,"cartid":cartid,"paymentid":paymentid,"logisticsid":logisticsid,"addressid":deliveraddressid,"logisticswebaddress":logisticswebaddress,"customernotes":customernotes,"orderTag":"1"},function(data){
+//            if(!data.slogin){
+//                window.location.href="user/login.html";
+//                return false;
+//            }
+//            if(!data.spayment){
+//                alert("支付方式获取失败");
+//                return;
+//            }
+//            if(!data.saddorder){
+//                alert("订单生成出错");
+//                window.location.href="user/login.html";
+//            }else{
+//                //增加发票到发票记录表
+//                var inv_Payee=$('#inv_payee').val();
+//                var orderid=data.serialidorderid;
+//                var inv_Type=$('#inv_type').val();
+//                var amount=$('#shouldtotalprice').text();
+//                if(inv_Payee==""){
+//                    window.location.href="/alipay/alipayto.jsp";
+//                }else{
+//                    $.post("addOrderInvoice.action",{"orderid":orderid,"invType":inv_Type,"invPayee":inv_Payee,"amount":amount,"invContent":"0"},function(data){
+//                        if(data.saddflag){
+//                            window.location.href="/alipay/alipayto.jsp";
+//                        }else{
+//                            alert("发票提交有误请联系客服处理开发票事宜");
+//                            window.location.href="/alipay/alipayto.jsp";
+//                        }
+//                    });
+//                }
+//            }
+//            
+//        });
+//    }else{
+//        alert("请选择支付方式");
+//    }
+//}
 
 /**
  * 初始化支付宝所需的资料信息
@@ -1322,6 +1380,29 @@ function districtArray(array){
     }
     return result;  
 }
+/*
+ * 虚拟商品初始化订单确认页面（是加入cart表，虚拟商品和普通商品共享一个cart表）
+ * */
+function addtovirtualgoodscart(goodsid) {
+    var needquantity = 1;
+    var hidurl = $('#hidurl').val();
+    $.post("addCart.action", {
+        "goodsid" : goodsid,
+        "needquantity" : needquantity,
+        "hidurl" : hidurl
+    }, function(data) {
+        if (!data.slogin) {
+            // 跳转到登录页面
+           window.location.href = "user/login.html?redirecturl=" + hidurl;
+        } else if (data.sucflag) {
+            // 跳转到虚拟商品订单页面
+            window.location.href = "InitvirtualOrder.action";
+        } else {
+            // 跳转到商品页面
+            window.location.href = data.hidurl;
+        }
+    });
 
+}
 
 
