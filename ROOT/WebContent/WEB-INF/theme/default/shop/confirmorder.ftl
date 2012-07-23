@@ -1,4 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title>首页${(jshopbasicinfo.jshopname)}</title>
+<meta name="Author" content="OSTOCY">
+<meta name="Copyright" content="OSTOCY"><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>填写核对订单</title>
@@ -106,7 +111,7 @@
             <p>电子邮件</p>
             <cite>
             <input type="text" name="email" class="input1" id="email" style="width: 200px;">
-            </cite></li>       
+            </cite><cite id="consignee_input7">方便您及时获取虚拟物品信息</cite></li>       
 	   </ul>
 		</div>
         <div class="add_address"> <a href="javascript:;" onclick="addnewAddress();" class="cartbtn">
@@ -382,3 +387,4 @@
 </script>
 </body>
 </html>
+

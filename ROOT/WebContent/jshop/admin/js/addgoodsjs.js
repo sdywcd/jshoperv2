@@ -106,7 +106,7 @@ function  validatethenpostinfotoaddgoods(){
 		jAlert('商品毛重必须填写', '信息提示');
 		return false;	
 	}
-	if(""==quantity){
+    if(""==quantity||quantity<=0){
 		jAlert('商品库存必须填写', '信息提示');
 		return false;		
 	}
@@ -222,9 +222,12 @@ $(function(){
 			var commoditylist=$('#commoditylist').val();
             //获取关联商品列表
             var belinkedgoodsid=getbelinkedGoods().toString();
+            //虚拟商品标记
+            var isvirtual=$("input[name='isvirtual']:checked").val();
+            var virtualresults=$("#virtualresults").val();//虚拟商品反馈结果，例如给出链接地址和密码
 			if(goodsTypeId=="0"&&isSpecificationsOpen=="0"||isSpecificationsOpen=="2"){
 				//如果规格和属性都没起启用，增加的类似充值卡
-				$.post("addGoods.action",{"belinkedgoodsid":belinkedgoodsid,"ismobileplatformgoods":ismobileplatformgoods,"goodsname":goodsname,"nname":nname,"lname":lname,"sname":sname,"navid":navid,"ltypeid":ltypeid,"stypeid":stypeid,"price":price,"memberprice":memberprice,"points":points,"pictureurl":pictureurl,"quantity":quantity,"detail":detail,"unitname":unitname,"keywordname":keywordname,"weight":weight,"recommended":recommended,"hotsale":hotsale,"bargainprice":bargainprice,"salestate":salestate,"brandid":brandid,"brandname":brandname,"placeStore":placeStore,"metaKeywords":metaKeywords,"metaDescription":metaDescription,"cost":cost,"saleprice":saleprice,"isNew":isNew,"productSn":productSn,"keywordid":keywordid,"unitnameid":unitnameid,"usersetnum":usersetnum,"isSpecificationsOpen":isSpecificationsOpen,"goodsTypeId":goodsTypeId,"freezeStore":freezeStore,"commoditylist":commoditylist},function(data){
+				$.post("addGoods.action",{"virtualresults":virtualresults,"isvirtual":isvirtual,"belinkedgoodsid":belinkedgoodsid,"ismobileplatformgoods":ismobileplatformgoods,"goodsname":goodsname,"nname":nname,"lname":lname,"sname":sname,"navid":navid,"ltypeid":ltypeid,"stypeid":stypeid,"price":price,"memberprice":memberprice,"points":points,"pictureurl":pictureurl,"quantity":quantity,"detail":detail,"unitname":unitname,"keywordname":keywordname,"weight":weight,"recommended":recommended,"hotsale":hotsale,"bargainprice":bargainprice,"salestate":salestate,"brandid":brandid,"brandname":brandname,"placeStore":placeStore,"metaKeywords":metaKeywords,"metaDescription":metaDescription,"cost":cost,"saleprice":saleprice,"isNew":isNew,"productSn":productSn,"keywordid":keywordid,"unitnameid":unitnameid,"usersetnum":usersetnum,"isSpecificationsOpen":isSpecificationsOpen,"goodsTypeId":goodsTypeId,"freezeStore":freezeStore,"commoditylist":commoditylist},function(data){
 					if(data.sucflag){
 						jAlert('增加商品成功', '信息提示');
 						window.location.href='goodsmanagement.jsp?session='+session+"#goods";
