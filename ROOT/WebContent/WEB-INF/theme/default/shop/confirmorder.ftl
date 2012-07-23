@@ -18,6 +18,7 @@
 <body>
 <!--载入公共头文件-->
 <#include "/WEB-INF/theme/default/shop/header.ftl">
+<#if (cart??)&&(cart?size>0)>
 <div id="main">
   <div class="head_nav">
     <div>
@@ -32,7 +33,70 @@
       </div>
     </div>
   </div>
+
   <div>
+	<#assign isvirtual=0/>
+	<#list cart as c>
+			<#if c.weight=='0'>
+				<!--表示虚拟物品不需要运费-->
+				<#assign isvirtual=(isvirtual)+1 />
+			</#if>
+	</#list>
+	<#if isvirtual==cart?size>
+		<div id="orders_infom1" class="consignee_info">
+		<div class="consignee_div2" id="" style="padding-bottom: 4px;">
+		<div id="addnewaddressarea">
+        <ul id="newaddress" class="address_content">
+		<li>
+            <p>请输入电子邮件</p>
+            <cite>
+            <input type="text" name="emailforisvirtual" class="input1" id="emailforisvirtual" style="width: 200px;">
+            </cite><cite id="consignee_input7">方便您及时获取虚拟物品信息</cite>
+		</li>
+		<li>
+            <p>请输入手机号码</p>
+            <cite>
+            <input type="text" name="mobileforisvirtual" class="input1" id="mobileforisvirtual" style="width: 200px;">
+            </cite><cite id="consignee_input7">方便我们及时为您充值</cite>
+		</li>    		
+	    </ul>
+		</div>
+		</div>
+		</div>
+	<#else>
+	<div id="orders_infom1" class="consignee_info">
+		<div class="consignee_div2" id="" style="padding-bottom: 4px;">
+		<div id="addnewaddressarea">
+        <ul id="newaddress" class="address_content">
+		<li>
+            <font color="red">**由于您的购物车中包含了虚拟物品，请注意填写电子邮件地址以便您能及时获取到物品信息</font>
+		</li>       
+	    </ul>
+		</div>
+		</div>
+	</div>
+	
+	<div id="orders_infom1" class="consignee_info">
+		<div class="consignee_div2" id="" style="padding-bottom: 4px;">
+		<div id="addnewaddressarea">
+        <ul id="newaddress" class="address_content">
+		<li>
+            <p>请输入电子邮件</p>
+            <cite>
+            <input type="text" name="email" class="input1" id="email" style="width: 200px;">
+            </cite><cite id="consignee_input7">方便您及时获取虚拟物品信息</cite>
+		</li>   
+		<li>
+            <p>请输入手机号码</p>
+            <cite>
+            <input type="text" name="mobileforisvirtual" class="input1" id="mobileforisvirtual" style="width: 200px;">
+            </cite><cite id="consignee_input7">方便我们及时通过短信通知您获取物品信息</cite>
+		</li>  		
+	    </ul>
+		</div>
+		</div>
+	</div>
+		
     <div id="orders_infom1" class="consignee_info">
       <h1>
         <p>收货人信息</p>
@@ -119,6 +183,7 @@
           </a> </div>
       </div>
     </div>
+	</#if>
 	<!--支付方式和配送方式-->
     <div class="payingdeliver" id="orders_boxm3">
       <h1>
@@ -129,12 +194,17 @@
 		<#if (payments??)&&(payments?size>0)>
 		<#list payments as pm>
 		<input id="paymentid" name="paymentid" type="radio" value="${pm.paymentid}"/>
-		${pm.paymentname}
+			<#if (pm.paymentCode=='zfb')>
+				<img src='${basepath}alipay/jsdz/images/alipay.gif'/>
+			</#if>
 		</#list>
 		<#else>
 		无
 		</#if>
 		 </p>
+		<#if isvirtual==cart?size>
+			<!--虚拟购物，无配送方式-->
+		<#else>
         <p> 配送方式：
 		<#if (logistics??)&&(logistics?size>0)>
 		<#list logistics as l>
@@ -179,6 +249,7 @@
 		无 
 		</#if>
 		</p>
+		</#if>
       </div>
       <br>
     </div>
@@ -196,6 +267,7 @@
       </div>
       <br>
     </div>
+	<!--
     <div class="receiptinfo" id="orders_infom11" style="">
       <h1>
         <p>发票信息</p>
@@ -262,7 +334,7 @@
         </div>
     
       </div>
-    </div>
+    </div>-->
 
   </div>
   
@@ -271,7 +343,7 @@
       <p>商品信息</p>
       <cite><a href="findAllCartByUserId.action">返回修改购物车</a></cite></h1>
     <div class="detailinfo_div1">
-	<#if (cart??)&&(cart?size>0)>
+	
       <table align="center" cellpadding="0" cellspacing="0" class="car_table1">
         <tbody>
           <tr class="title">
@@ -307,7 +379,7 @@
        
         </tbody>
       </table>
-	  </#if>
+	  
     </div>
     <div class="settlement">
       <div class="set_l_div1">结算信息</div>
@@ -367,13 +439,19 @@
 		  <!--购物车id-->
 		  
 		  <input id="cartid" name="cartid" type="hidden" value="${cartid}">
-          <img id="submitlink" onclick="InitAlipayandAddOrder();" style="cursor: pointer;" src="${basepath}ui/default/images/submitbtn.gif"> </div>
+		  <#if isvirtual==cart?size>
+			<img id="submitlink" onclick="InitAlipayandAddOrderisvirtual();" style="cursor: pointer;" src="${basepath}ui/default/images/submitbtn.gif">
+		  <#else>
+          <img id="submitlink" onclick="InitAlipayandAddOrder();" style="cursor: pointer;" src="${basepath}ui/default/images/submitbtn.gif">
+		  </#if>
+		  </div>
       </div>
       <div class="clear"></div>
     </div>
   </div>
   </form>
 </div>
+</#if>
 <#include "/WEB-INF/theme/default/shop/footer.ftl">
 <script type="text/javascript" src="${basepath}ui/default/js/jshop.js"></script>
 <script>
