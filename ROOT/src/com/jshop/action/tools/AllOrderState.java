@@ -77,7 +77,12 @@ public class AllOrderState {
 	
 	public static final String COOKINGSTATE_TWO="已完成上菜";
 
+
+	//用餐状态
+	public static final String TABLESTATE_ZERO="空闲";
 	
+	public static final String TABLESTATE_ONE="使用中";
+
 	
 	//订单状态的数字对应
 	//
@@ -136,6 +141,16 @@ public class AllOrderState {
 	public static final String COOKINGSTATE_ONE_NUM="1";
 	
 	public static final String COOKINGSTATE_TWO_NUM="2";
+
+	
+	/**
+	 * 餐桌使用状态
+	 */
+	//tablestate  0:空闲   1：使用中
+	public static final String TABLESTATE_ZERO_NUM="0";
+	
+	public static final String TABLESTATE_ONE_NUM="1";
+
 	
 	
 	

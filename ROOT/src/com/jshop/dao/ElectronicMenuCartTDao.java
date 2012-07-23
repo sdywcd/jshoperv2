@@ -120,11 +120,15 @@ public interface ElectronicMenuCartTDao {
 	 * @param cookingstate
 	 * @return
 	 */
-	public int updateElectroMenuCartCookingState(String cookingstate);
+
+	public int updateElectroMenuCartCookingState(String cookingstate,String tableNumber);
 	/**
 	 * 根据餐桌号查询信息
 	 * @param tablenumber
 	 * @return
 	 */
-	public ElectronicMenuCartT findElectronicCartByTableNumber(String tablenumber);
+	public List<ElectronicMenuCartT> findElectronicCartByTableNumber(String tableNumber);
+
+	
+
 }

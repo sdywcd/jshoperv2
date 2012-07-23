@@ -82,12 +82,12 @@ public class ElectronicMenuCartTServiceImpl implements ElectronicMenuCartTServic
 	}
 
 	@Override
-	public int updateElectroMenuCartCookingState(String cookingstate) {
-		return this.getElectronicMenuCartTDao().updateElectroMenuCartCookingState(cookingstate);
+	public int updateElectroMenuCartCookingState(String cookingstate,String tableNumber) {
+		return this.getElectronicMenuCartTDao().updateElectroMenuCartCookingState(cookingstate,tableNumber);
 	}
 
 	@Override
-	public ElectronicMenuCartT findElectronicCartByTableNumber(
+	public List<ElectronicMenuCartT> findElectronicCartByTableNumber(
 			String tablenumber) {
 		
 		return this.getElectronicMenuCartTDao().findElectronicCartByTableNumber(tablenumber);

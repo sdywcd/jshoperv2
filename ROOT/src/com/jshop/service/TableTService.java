@@ -67,6 +67,8 @@ public interface TableTService {
 	 * @param tableid
 	 * @return
 	 */
-	public abstract TableT findTableBytablenumber(String tablenumber);
+
+	public abstract List<TableT> findTableBytablenumber(String tableNumber);
+
 
 }

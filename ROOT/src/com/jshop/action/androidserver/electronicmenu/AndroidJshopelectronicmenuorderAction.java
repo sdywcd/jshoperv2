@@ -540,9 +540,16 @@ ServletRequestAware, ServletResponseAware {
 	 * 获取餐桌信息
 	 * @param tablenumber
 	 */
-	public void GetTable(String tablenumber){
-		TableT table=this.getTableTService().findTableBytablenumber(tablenumber);
+	public void GetTable(String tableNumber){
+		List<TableT> list=this.getTableTService().findTableBytablenumber(tableNumber);
+		for(TableT table:list){
 		if(table!=null){
+			if(table.getTablestate().equals("0")){
+				table.setTablestate(AllOrderState.TABLESTATE_ZERO);
+			}else{
+				table.setTablestate(AllOrderState.TABLESTATE_ONE);
+			}
+		}
 			map.put("table", table);
 		}
 	}
@@ -550,39 +557,47 @@ ServletRequestAware, ServletResponseAware {
 	 * 更新cookingState
 	 * @param cookingstate
 	 */
-	public void UpdateCartElectronicCookingState(String cookingstate){
-		this.getElectronicMenuCartTService().updateElectroMenuCartCookingState(cookingstate);
+	public void UpdateCartElectronicCookingState(String cookingstate,String tableNumber){
+		this.getElectronicMenuCartTService().updateElectroMenuCartCookingState(cookingstate,tableNumber);
 	}
 	/**
 	 * 更新electronicorderstate
 	 * @param electronicorderstate
 	 */
-	public void UpdateOrderElectronicOrderState(String  electronicorderstate ){
-		this.getElectronicMenuOrderTService().updateElectronicMenuOrderElectrobicOrderState(electronicorderstate);
+	public void UpdateOrderElectronicOrderState(String  electronicorderstate ,String tableNumber){
+		this.getElectronicMenuOrderTService().updateElectronicMenuOrderElectrobicOrderState(electronicorderstate,tableNumber);
 	}
 	/**
 	 *已确认的时候 更新状态
 	 */
-	public void ConfirmedOrderElectronic(){
-		//更新ElectronicCart中cookingState 为“1”
-		UpdateCartElectronicCookingState("1");
+	@Action(value="ConfirmedOrderElectronic",results={@Result(name="json",type="json")}
+		)
+	public String ConfirmedOrderElectronic(){
 		//更新ElectronicOrder中electronicorderstate 为“10”
-		UpdateOrderElectronicOrderState("10");
+		UpdateOrderElectronicOrderState("10",this.getTableNumber().trim());
+		//更新ElectronicCart中cookingState 为“1”
+		UpdateCartElectronicCookingState("1",this.getTableNumber().trim());
+		return "json";
 	}
 	/**
 	 * 菜全部上齐的时候 更新状态
 	 */
-	public void VegetablesAllOrderElectronic(){
+	@Action(value="VegetablesAllOrderElectronic",results={@Result(name="json",type="json")}
+	)
+	public String VegetablesAllOrderElectronic(){
 		//更新ElectronicCart中cookingState 为“2”
-		UpdateCartElectronicCookingState("2");
+		UpdateCartElectronicCookingState("2",this.getTableNumber().trim());
 		//更新ElectronicOrder中electronicorderstate 为“11”
-		UpdateOrderElectronicOrderState("11");
+		UpdateOrderElectronicOrderState("11",this.getTableNumber().trim());
+	return "json";
 	}
 	/**
 	 * 获取订单详细
 	 */
-	public void GetElectronicOrderDetail(String tablenumber) {
-	       ElectronicMenuOrderT o =this.getElectronicMenuOrderTService().findElectronicMenuOrderTByelectronicMenuTablenumber(tablenumber);
+	public void GetElectronicOrderDetail(String tableNumber) {
+	       List<ElectronicMenuOrderT> eo =this.getElectronicMenuOrderTService().findElectronicMenuOrderTByelectronicMenuTablenumber(tableNumber);
+	      
+	       for(ElectronicMenuOrderT o :eo){
 		if (o != null) {
 			if (o.getElectronicorderstate().equals("0")) {
 				o.setElectronicorderstate(AllOrderState.ORDERSTATE_ZERO);
@@ -614,9 +629,17 @@ ServletRequestAware, ServletResponseAware {
 			} else {
 				o.setInvoice(AllOrderState.INVOICE_ONE);
 			}			
+	   			if(o.getPaystate().equals("0")){
+	   				o.setPaystate(AllOrderState.PAYSTATE_ZERO);
+	   			}else if(o.getPaystate().equals("1")){
+	   				o.setPaystate(AllOrderState.PAYSTATE_ONE);
+	   			}else {
+	   				o.setPaystate(AllOrderState.PAYSTATE_TWO);
+	   			}
+	       }
 			
 
-			map.put("orderdetail", o);
+			map.put("electronicorder", o);
 
 			
 		}
@@ -625,19 +648,31 @@ ServletRequestAware, ServletResponseAware {
 	 * 获取电子订餐车信息
 	 * @param tablenumber
 	 */
-	public void GetElectronicCartDetail(String tablenumber){
-		ElectronicMenuCartT ec=this.getElectronicMenuCartTService().findElectronicCartByTableNumber(tablenumber);
-		if(ec!=null){
-			if(ec.getCookingstate().equals("0")){
-				ec.setCookingstate(AllOrderState.COOKINGSTATE_ZERO);
-			}else if(ec.getCookingstate().equals("1")){
-				ec.setCookingstate(AllOrderState.COOKINGSTATE_ONE);				
-			}else{
-				ec.setCookingstate(AllOrderState.COOKINGSTATE_TWO);
-			}
-			map.put("cartdetail", ec);
+	public void GetElectronicCartDetail(String tableNumber){
+		List<ElectronicMenuCartT> ect=this.getElectronicMenuCartTService().findElectronicCartByTableNumber(tableNumber);
+		for(ElectronicMenuCartT ec:ect){
+			if(ec!=null){
+				if(ec.getCookingstate().equals("0")){
+					ec.setCookingstate(AllOrderState.COOKINGSTATE_ZERO);
+				}else if(ec.getCookingstate().equals("1")){
+					ec.setCookingstate(AllOrderState.COOKINGSTATE_ONE);				
+				}else{
+					ec.setCookingstate(AllOrderState.COOKINGSTATE_TWO);
+				}
+		}
+		
+			map.put("electroniccart", ec);
 			
 		}
 	}
-	
+	/**
+	 * 更新付款状态为已付款
+	 * @return
+	 */
+	@Action(value="updateElectronicOrderPaystate",results={@Result(name="json",type="json")})
+	public String updateElectronicOrderPaystate(){
+		this.getElectronicMenuOrderTService().updateElectronicMenuOrderPaystate("1", this.getTableNumber().trim());
+		return "json";
+	}
+
 }

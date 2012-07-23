@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
     <script type="text/javascript" src="<%=basePath %>jshop/admin/js/jquery1.4.2.js"></script>
     <script type="text/javascript" src="<%=basePath %>jshop/admin/js/flexigrid/flexigrid.js"></script>
-	<script type="text/javascript" src="<%=basePath %>jshop/admin/js/ordersdetailjs.js"></script>
+	<script type="text/javascript" src="<%=basePath %>jshop/admin/js/electronicorderjs.js"></script>
 	<style type="text/css">
 		td{font-size:9pt;line-height:120%;color:#353535} 
 		body{font-size:9pt;line-height:120%} 
@@ -44,14 +44,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  <div id="orderstatearea" style="width:98%;">
         <div class="bd">
         	<div class="order_state">
-        		<strong>当前订单状态：<span><s:property value="#request.electronicOrder.electronicList.electronicorderstate"/></span></strong>
+
+        		<strong>当前订单状态：<span><s:property value="#request.electronicOrder.electronicorder.electronicorderstate"/></span></strong>
+
         	</div>
         	<div class="order_state">
-        		<strong>当前付款状态：<span id="nowpaystate"><s:property value="#request.electronicOrder.orderdetail.paystate"/></span></strong>
+
+        		<strong>当前付款状态：<span id="nowpaystate"><s:property value="#request.electronicOrder.electronicorder.paystate"/></span></strong>
+
         	</div>
         	<div class="order_state">
-        		<strong>当前上菜状态：<span><s:property value="#request.electronicOrder.cartdetail.cookingstate"/></span></strong>
-        	</div>        	
+
+        		<strong>当前上菜状态：<span><s:property value="#request.electronicOrder.electroniccart.cookingstate"/></span></strong>
+        	</div>      
+        	<div class="action">       
+        		<input type="hidden" id="hidtablenumber" name="hidtablenumber" value="<s:property value="#request.electronicOrder.electronicorder.tableNumber"/>"/> 		
+        		<span class="actionbutton"><input type="button" id="confirm_electronicorder" name="confirm_electronicorder" value="确认"/></span>
+        		<span class="actionbutton"><input type="button" id="vegetable_electronicorder" name="vegetable_electronicorder" value="菜已上齐"/></span>
+        		<span class="actionbutton"><input type="button" id="pay_electronicorder" name="pay_electronicorder" value="付款"/></span>
+        	</div>  	
+
         	
         </div>
 
@@ -89,7 +101,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</tr>
 								
 								<tr>
-									<td>餐桌编号：<span><s:property value="#request.electronicOrder.table.tablenumber"/></span></td>
+
+									<td>餐桌编号：<span><s:property value="#request.electronicOrder.table.tableNumber"/></span></td>
+
 									<td colspan="2">人数：<span><s:property value="#request.electronicOrder.table.nop"/></span></td>
 									<td colspan="2">用餐状态：<span><s:property value="#request.electronicOrder.table.tablestate"/></span></td>
 									<td colspan="2">就座时间：<span><s:property value="#request.electronicOrder.table.createtime"/></span></td>
@@ -141,7 +155,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</s:iterator>
 								<tr class="order-item">
 									<td colspan="7"></td>
-									<td colspan="1">总价：<span><s:property value="#request.order.orderdetail.subtotal"/></span></td>
+
+									<td colspan="1">总价：<span><s:property value="#request.electronicOrder.electronicorder.shouldpay"/></span></td>
+
 								
 								</tr>
 							</tbody>

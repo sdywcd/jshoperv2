@@ -189,11 +189,13 @@ public class TableTDaoImpl extends HibernateDaoSupport implements TableTDao{
 	}
 
 	@Override
-	public TableT findTableBytablenumber(String tablenumber) {
+	public List<TableT> findTableBytablenumber(String tableNumber) {
 		log.debug("findTableBytablenumber");
 		try {
-			TableT instance = (TableT) this.getHibernateTemplate().get("com.jshop.entity.TableT", tablenumber);
-			return instance;
+			String queryString="from TableT as tt where tt.tableNumber=:tableNumber";
+			List<TableT>list=this.getHibernateTemplate().findByNamedParam(queryString, "tableNumber", tableNumber);
+			return list;
+
 		} catch (RuntimeException re) {
 			log.error("findTableBytablenumber failed", re);
 			throw re;

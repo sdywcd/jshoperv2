@@ -87,15 +87,21 @@ public class ElectronicMenuOrderTServiceImpl implements ElectronicMenuOrderTServ
 
 	@Override
 	public int updateElectronicMenuOrderElectrobicOrderState(
-			String electronicorderstate) {
+			String electronicorderstate,String tableNumber) {
 		
-		return this.getElectronicMenuOrderTDao().updateElectronicMenuOrderElectrobicOrderState(electronicorderstate);
+		return this.getElectronicMenuOrderTDao().updateElectronicMenuOrderElectrobicOrderState(electronicorderstate,tableNumber);
 	}
 
 	@Override
-	public ElectronicMenuOrderT findElectronicMenuOrderTByelectronicMenuTablenumber(
+	public List<ElectronicMenuOrderT> findElectronicMenuOrderTByelectronicMenuTablenumber(
 			String tablenumber) {
 		return this.getElectronicMenuOrderTDao().findElectronicMenuOrderTByelectronicMenuTablenumber(tablenumber);
+	}
+
+	@Override
+	public int updateElectronicMenuOrderPaystate(String paystate,
+			String tableNumber) {
+		return this.getElectronicMenuOrderTDao().updateElectronicMenuOrderPaystate(paystate, tableNumber);
 	}
 
 }
