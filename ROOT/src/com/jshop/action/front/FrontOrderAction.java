@@ -1,11 +1,8 @@
 package com.jshop.action.front;
 
 import java.text.ParseException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import javax.annotation.Resource;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
@@ -40,15 +37,6 @@ import com.jshop.service.OrderTService;
 import com.jshop.service.PaymentMService;
 import com.jshop.service.ShippingAddressTService;
 import com.jshop.service.VouchersTService;
-import com.jshop.service.impl.CartTServiceImpl;
-import com.jshop.service.impl.DeliverAddressTServiceImpl;
-import com.jshop.service.impl.LogisticsBusinessTServiceImpl;
-import com.jshop.service.impl.LogisticsbusinessareaTServiceImpl;
-import com.jshop.service.impl.OrderTServiceImpl;
-import com.jshop.service.impl.PaymentMServiceImpl;
-import com.jshop.service.impl.ShippingAddressTServiceImpl;
-import com.jshop.service.impl.VouchersTServiceImpl;
-
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 @ParentPackage("jshop")
@@ -109,7 +97,7 @@ public class FrontOrderAction extends ActionSupport {
 	private String redirecturl;
 	private boolean sflag = false;
 	private boolean svoucher = false;
-	private boolean spayment = false;
+	private boolean spayment = false;//是否支付信息写入成功标记
 	private boolean sshoppingaddress = false;
 	private boolean saddorder = false;
 	private boolean supdatecart = false;
@@ -745,7 +733,6 @@ public class FrontOrderAction extends ActionSupport {
 	 */
 	@SuppressWarnings("static-access")
 	public void initOrderInfo(UserT user) {
-
 		order.setOrderid(this.getSerialidorderid());
 		order.setUserid(user.getUserid());
 		order.setUsername(user.getUsername());
@@ -755,7 +742,7 @@ public class FrontOrderAction extends ActionSupport {
 			//未来获取特定的支付标记来标记货到付款
 		}
 		order.setDelivermode("EXPRESS");
-		order.setDeliverynumber(null);//发货单号在发货后填写
+		order.setDeliverynumber("");//发货单号在发货后填写
 		order.setOrderstate("0");//待确认
 		order.setPaystate("0");//未付款
 		order.setShippingstate("0");//未发货
@@ -775,8 +762,8 @@ public class FrontOrderAction extends ActionSupport {
 		order.setPurchasetime(BaseTools.systemtime());
 		order.setDeliverytime(null);
 		order.setDeliverynumber(null);
-		//发票处理晚
-		order.setInvoice("0");
+		//发票处理
+		order.setInvoice("0");//目前前台没有开票，如果要这里需要动态取得为1
 		order.setCustomernotes(this.getCustomernotes());
 		order.setPaytime(null);
 		order.setOrderTag(this.getOrderTag());
@@ -831,7 +818,7 @@ public class FrontOrderAction extends ActionSupport {
 			s.setIssend("0");//未发送到这个地址过
 			s.setOrderid(this.getSerialidorderid());//设置订单号
 			if (this.getShippingAddressTService().addShoppingAddress(s) > 0) {
-				this.setSshoppingaddress(false);
+				this.setSshoppingaddress(false);//这里应该改成true比较好
 				order.setShippingaddressid(s.getShippingaddressid());//设置发货地址到订单中
 				order.setDeliveraddressid(list.getAddressid());//设置收货地址到订单中
 				order.setShippingusername(list.getUsername());//设置收货人

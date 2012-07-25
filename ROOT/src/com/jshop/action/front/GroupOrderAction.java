@@ -71,7 +71,7 @@ public class GroupOrderAction extends ActionSupport {
 	private DeliverAddressTService deliverAddressTService;
 	private DataCollectionTAction dataCollectionTAction;
 	private GroupCartService groupCartService;
-	GroupOrderT got = new GroupOrderT();
+	private GroupOrderT got = new GroupOrderT();
 	private Double totalweight;
 	private String addressid;
 	private String orderid;
@@ -794,7 +794,6 @@ public class GroupOrderAction extends ActionSupport {
 		UserT user = (UserT) ActionContext.getContext().getSession().get(BaseTools.USER_SESSION_KEY);
 		if (user != null) {
 			this.setSlogin(true);
-			
 			//预先生成订单编号
 			GetSerialidorder();
 			//获取支付信息
