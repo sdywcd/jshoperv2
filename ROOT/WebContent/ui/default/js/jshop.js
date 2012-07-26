@@ -1007,14 +1007,14 @@ function InitAlipayandAddOrder(){
 				var inv_Type=$('#inv_type').val();
 				var amount=$('#shouldtotalprice').text();
 				if(inv_Payee==""){
-					window.location.href="/alipay/alipayto.jsp";
+					window.location.href="../../../pay/alipay/alipayto.jsp";
 				}else{
 					$.post("addOrderInvoice.action",{"orderid":orderid,"invType":inv_Type,"invPayee":inv_Payee,"amount":amount,"invContent":"0"},function(data){
 						if(data.saddflag){
-							window.location.href="/alipay/alipayto.jsp";
+							window.location.href="../../../pay/alipay/alipayto.jsp";
 						}else{
 							alert("发票提交有误请联系客服处理开发票事宜");
-							window.location.href="/alipay/alipayto.jsp";
+							window.location.href="../../../pay/alipay/alipayto.jsp";
 						}
 					});
 				}
@@ -1129,15 +1129,15 @@ function InitAgAlipayandUpdateOrder(){
 				var amount=$('#shouldtotalprice').text();
 				if(inv_Payee==""){
 					
-					window.location.href="/alipay/alipayto.jsp";
+					window.location.href="../../../pay/alipay/alipayto.jsp";
 					
 				}else{
 					$.post("addOrderInvoice.action",{"orderid":orderid,"invType":inv_Type,"invPayee":inv_Payee,"amount":amount,"invContent":"0"},function(data){
 						if(data.saddflag){
-							window.location.href="/alipay/alipayto.jsp";
+							window.location.href="../../../pay/alipay/alipayto.jsp";
 						}else{
 							alert("发票提交有误请联系客服处理开发票事宜");
-							window.location.href="/alipay/alipayto.jsp";
+							window.location.href="../../../pay/alipay/alipayto.jsp";
 							
 						}
 					});
@@ -1296,14 +1296,14 @@ function InitAlipayandAddGroupOrder(){
 				var inv_Type=$('#inv_type').val();
 				var amount=$('#shouldtotalprice').text();
 				if(inv_Payee==""){
-					window.location.href="/alipay/alipayto.jsp";
+					window.location.href="../../../pay/alipay/alipayto.jsp";
 				}else{
 					$.post("addOrderInvoice.action",{"orderid":orderid,"invType":inv_Type,"invPayee":inv_Payee,"amount":amount,"invContent":"0"},function(data){
 						if(data.saddflag){
-							window.location.href="/alipay/alipayto.jsp";
+							window.location.href="../../../pay/alipay/alipayto.jsp";
 						}else{
 							alert("发票提交有误请联系客服处理开发票事宜");
-							window.location.href="/alipay/alipayto.jsp";
+							window.location.href="../../../pay/alipay/alipayto.jsp";
 						}
 					});
 				}
@@ -1408,5 +1408,28 @@ function addtovirtualgoodscart(goodsid) {
     });
 
 }
+/**
+ * 虚拟商品初始化订单页面（是加入cart表，虚拟商品和普通商品共享一个cart表）这里是视频类，教育类
+ * @param {} goodsid
+ */
+function addtovirtualgoodsmovie(goodsid) {
+    var needquantity = 1;
+    var hidurl = $('#hidurl').val();
+    $.post("addCart.action", {
+        "goodsid" : goodsid,
+        "needquantity" : needquantity,
+        "hidurl" : hidurl
+    }, function(data) {
+        if (!data.slogin) {
+            // 跳转到登录页面
+           window.location.href = "user/login.html?redirecturl=" + hidurl;
+        } else if (data.sucflag) {
+            // 跳转到虚拟商品订单页面
+            window.location.href = "InitvirtualmovieOrder.action?goodsid="+goodsid;
+        } else {
+            // 跳转到商品页面
+            window.location.href = data.hidurl;
+        }
+    });
 
-
+}

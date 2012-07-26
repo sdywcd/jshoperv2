@@ -1,5 +1,5 @@
 
-package com.jshop.alipay.fh.config;
+package com.jshop.pay.alipay.fh.config;
 
 import java.util.*;
 

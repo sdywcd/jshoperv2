@@ -1,4 +1,4 @@
-package com.jshop.alipay.fh.util;
+package com.jshop.pay.alipay.fh.util;
 
 import java.io.FileWriter;
 import java.io.UnsupportedEncodingException;
@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-import com.jshop.alipay.util.Md5Encrypt;
 
 
 

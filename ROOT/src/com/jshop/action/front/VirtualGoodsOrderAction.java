@@ -15,13 +15,11 @@ import org.springframework.stereotype.Controller;
 
 import com.jshop.action.templates.DataCollectionTAction;
 import com.jshop.action.templates.FreeMarkervariable;
-import com.jshop.action.tools.AllOrderState;
 import com.jshop.action.tools.Arith;
 import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.PaymentCode;
 import com.jshop.action.tools.Serial;
 import com.jshop.action.tools.Validate;
-import com.jshop.alipay.config.AlipayConfig;
 import com.jshop.entity.CartT;
 import com.jshop.entity.OrderT;
 import com.jshop.entity.PaymentM;
@@ -435,6 +433,52 @@ public class VirtualGoodsOrderAction extends ActionSupport {
 		return INPUT;
 
 	}
+	
+	
+	/**
+	 * 初始化虚拟商品订单所需信息
+	 * 
+	 * @return
+	 */
+	@Action(value = "InitvirtualmovieOrder", results = { 
+			@Result(name = "success",type="freemarker",location = "/WEB-INF/theme/default/shop/confirmvirtualmovieorder.ftl"),
+			@Result(name = "input",type="redirect",location = "/html/default/shop/user/login.html?redirecturl=${hidurl}")
+	})
+	public String InitvirtualmovieOrder() {
+		UserT user = (UserT) ActionContext.getContext().getSession().get(BaseTools.USER_SESSION_KEY);
+		if (user != null) {
+			//跟新下购物车的cartid（特殊）
+			updateCartidForVirtualGoodsCard();
+//			//获取用户收获地址
+//			GetUserDeliverAddress(user);
+			//获取物流商
+			//GetDefaultLogistictsBusiness();
+			//获取支付方式并注入上下文
+			ActionContext.getContext().put("payments", GetDefaultPayment());
+			//获取购物车中的商品作为订单商品处理
+			GetMyCart(user);
+			//计算运费
+			//GetLogisticsPrice();
+			//获取总金额+运费
+			Double totalfreight = this.getTotal();
+			ActionContext.getContext().put("totalfreight", totalfreight);
+			//路径获取
+			ActionContext.getContext().put(FreeMarkervariable.BASEPATH, this.getDataCollectionTAction().getBasePath());
+			//获取导航数据
+			ActionContext.getContext().put(FreeMarkervariable.SITENAVIGATIONLIST, this.getDataCollectionTAction().findSiteNavigation());
+			//获取商城基本数据
+			ActionContext.getContext().put(FreeMarkervariable.JSHOPBASICINFO, this.getDataCollectionTAction().findJshopbasicInfo());
+			//获取页脚分类数据
+			ActionContext.getContext().put(FreeMarkervariable.FOOTCATEGORY, this.getDataCollectionTAction().findFooterCateogyrT());
+			//获取页脚文章数据
+			ActionContext.getContext().put(FreeMarkervariable.FOOTERATRICLE, this.getDataCollectionTAction().findFooterArticle());
+			
+			return SUCCESS;
+		}
+		return INPUT;
+
+	}
+	
 	/**
 	 * 事先获取订单编号
 	 */
@@ -581,8 +625,8 @@ public class VirtualGoodsOrderAction extends ActionSupport {
 		TenPayConfig.trade_mode="1";//即时到帐
 		TenPayConfig.trans_type="2";//虚拟交易
 		TenPayConfig.mobile=this.getMobile();
-		TenPayConfig.return_url="http://"+this.getDataCollectionTAction().getBasePath()+"pay/tenpay_api_b2c/payReturnUrl.jsp";
-		TenPayConfig.notify_url="http://"+this.getDataCollectionTAction().getBasePath()+"pay/tenpay_api_b2c/payNotifyUrl.jsp";
+		//TenPayConfig.return_url="http://"+this.getDataCollectionTAction().getBasePath()+"pay/tenpay_api_b2c/payReturnUrl.jsp";
+		//TenPayConfig.notify_url="http://"+this.getDataCollectionTAction().getBasePath()+"pay/tenpay_api_b2c/payNotifyUrl.jsp";
 	}
 	
 	

@@ -1,10 +1,8 @@
-package com.jshop.alipay.util;
+package com.jshop.pay.alipay.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.*;
-
-import com.jshop.alipay.util.AlipayFunction;
 
 
 

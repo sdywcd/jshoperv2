@@ -1,4 +1,4 @@
-package com.jshop.alipay.util;
+package com.jshop.pay.alipay.util;
 
 import java.util.Date;
 import java.util.Random;

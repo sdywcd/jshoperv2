@@ -1,4 +1,4 @@
-package com.jshop.alipay.fh.util;
+package com.jshop.pay.alipay.fh.util;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -6,7 +6,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
 
-import com.jshop.alipay.fh.config.AlipayConfig;
+import com.jshop.pay.alipay.fh.config.AlipayConfig;
+
 
 public class AlipayNotify {
 

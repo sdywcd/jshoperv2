@@ -1,5 +1,5 @@
 
-package com.jshop.alipay.config;
+package com.jshop.pay.alipay.config;
 
 import java.util.*;
 
@@ -13,15 +13,15 @@ public class AlipayConfig {
 	public static String seller_email = "";
 	
 
-	public static String notify_url = "http://localhost/alipay/notify_url.jsp";
+	public static String notify_url = "http://localhost:8085/pay/alipay/notify_url.jsp";
 	
 
-	public static String return_url = "http://localhost/alipay/return_url.jsp";
+	public static String return_url = "http://localhost:8085/pay/return_url.jsp";
 	
 	
-	public static String show_url = "http://localhost/index.html";
+	public static String show_url = "http://localhost:8085/index.html";
 
-	public static String mainname = "soipay";
+	public static String mainname = "ostocy";
 	
 
 	public static String input_charset = "UTF-8";
