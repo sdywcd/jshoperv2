@@ -106,7 +106,7 @@
     </div>
     <div class="st1_div2" id="integerPoint">
       <span></span>
-       <div class="st1_div2_r">重量总计：<span id="totalPrice">${totalweight}</span>克
+       <div class="st1_div2_r">重量总计：<span id="totalweight">${totalweight}</span>克
       </div>
       <div class="st1_div2_r">商品总价（不含运费）：<span id="totalmemberprice">${totalmemberprice}</span>元
       </div>
