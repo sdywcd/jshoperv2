@@ -31,7 +31,6 @@ import com.jshop.action.templates.FreeMarkervariable;
 import com.jshop.action.tools.Arith;
 import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.Serial;
-import com.jshop.alipay.config.AlipayConfig;
 import com.jshop.entity.CartT;
 import com.jshop.entity.DeliverAddressT;
 import com.jshop.entity.GoodsGroupT;
@@ -42,6 +41,7 @@ import com.jshop.entity.LogisticsbusinessareaT;
 import com.jshop.entity.PaymentM;
 import com.jshop.entity.ShippingAddressT;
 import com.jshop.entity.UserT;
+import com.jshop.pay.alipay.config.AlipayConfig;
 import com.jshop.service.DeliverAddressTService;
 import com.jshop.service.GroupCartService;
 import com.jshop.service.GroupOrderTService;
@@ -71,7 +71,7 @@ public class GroupOrderAction extends ActionSupport {
 	private DeliverAddressTService deliverAddressTService;
 	private DataCollectionTAction dataCollectionTAction;
 	private GroupCartService groupCartService;
-	GroupOrderT got = new GroupOrderT();
+	private GroupOrderT got = new GroupOrderT();
 	private Double totalweight;
 	private String addressid;
 	private String orderid;
@@ -794,7 +794,6 @@ public class GroupOrderAction extends ActionSupport {
 		UserT user = (UserT) ActionContext.getContext().getSession().get(BaseTools.USER_SESSION_KEY);
 		if (user != null) {
 			this.setSlogin(true);
-			
 			//预先生成订单编号
 			GetSerialidorder();
 			//获取支付信息

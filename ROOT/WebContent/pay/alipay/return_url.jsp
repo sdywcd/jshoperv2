@@ -32,8 +32,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.util.Map"%>
-<%@ page import="com.jshop.alipay.util.*"%>
-<%@ page import="com.jshop.alipay.config.*"%>
+<%@ page import="com.jshop.pay.alipay.util.*"%>
+<%@ page import="com.jshop.pay.alipay.config.*"%>
 <%@ page import="com.jshop.action.front.*" %><%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";

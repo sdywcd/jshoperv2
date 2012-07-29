@@ -3,12 +3,13 @@
 <%@ page import="com.jshop.pay.tenpay.ResponseHandler" %>
 <%@ page import="com.jshop.pay.tenpay.client.ClientResponseHandler" %>    
 <%@ page import="com.jshop.pay.tenpay.client.TenpayHttpClient" %>
+<%@ page import="com.jshop.pay.tenpay.TenPayConfig"%>
 <%@ page import="com.jshop.pay.tenpay.util.TenpayUtil"%>
 <%@ include file = "config.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 //---------------------------------------------------------
-//财付通支付通知（后台通知）示例，商户按照此文档进行开发即可
+//财付通支付通知（后台通知）示例，商户按照此文档进行开发即可 改文档处理和本系统相关的逻辑
 //---------------------------------------------------------
 
 //创建支付应答对象
@@ -32,9 +33,9 @@ if(resHandler.isTenpaySign()) {
 	
 	//通过通知ID查询，确保通知来至财付通
 	queryReq.init();
-	queryReq.setKey(key);
+	queryReq.setKey(TenPayConfig.key);
 	queryReq.setGateUrl("https://gw.tenpay.com/gateway/simpleverifynotifyid.xml");
-	queryReq.setParameter("partner", partner);
+	queryReq.setParameter("partner", TenPayConfig.partner);
 	queryReq.setParameter("notify_id", notify_id);
 	
 	//通信对象
@@ -73,6 +74,8 @@ if(resHandler.isTenpaySign()) {
 			
 			if("1".equals(trade_mode)){       //即时到账 
 				if( "0".equals(trade_state)){
+					
+					//这里主要是给本系统进行后端的业务处理，例如更新订单状态等
 			        //------------------------------
 					//即时到账处理业务开始
 					//------------------------------

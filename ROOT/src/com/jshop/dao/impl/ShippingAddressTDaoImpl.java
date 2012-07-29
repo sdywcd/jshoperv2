@@ -49,6 +49,7 @@ public class ShippingAddressTDaoImpl extends HibernateDaoSupport implements Ship
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<ShippingAddressT> findShippingAddressByDeliveraddressidAndstate(final String deliveraddressid, final String state, final String orderid) {
 		log.debug("find all ShippingAddressT by deliveraddressid");
 		try {
@@ -65,16 +66,14 @@ public class ShippingAddressTDaoImpl extends HibernateDaoSupport implements Ship
 					return list;
 				}
 			});
-			if (list.size() > 0) {
-				return list;
-			}
-			return null;
+			return list;
 		} catch (RuntimeException re) {
 			log.error("find all ShippingAddressT by deliveraddressid error", re);
 			throw re;
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<ShippingAddressT> findShippingAddressByIdAndState(final String shippingaddressid, final String state) {
 		log.debug("find all ShippingAddressT by shippingaddressid");
 		try {
@@ -90,10 +89,7 @@ public class ShippingAddressTDaoImpl extends HibernateDaoSupport implements Ship
 					return list;
 				}
 			});
-			if (list.size() > 0) {
-				return list;
-			}
-			return null;
+			return list;
 		} catch (RuntimeException re) {
 			log.error("find all ShippingAddressT by shippingaddressid error", re);
 			throw re;
