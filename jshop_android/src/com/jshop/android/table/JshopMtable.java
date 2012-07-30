@@ -15,6 +15,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ import com.jshop.android.index.JshopActivityIndex;
 import com.jshop.android.index.JshopMIndex;
 import com.jshop.android.index.R;
 import com.jshop.android.shop.JshopActivityGoodsCategoryList;
+import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.util.BaseTools;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
@@ -67,8 +69,16 @@ public class JshopMtable extends Activity {
 		this.setContentView(R.layout.jshop_m_table);
 		gv=(GridView) this.findViewById(R.id.tablegridView);
 		gv.setOnItemClickListener(new ItemClickListener());
-		//获取table信息
-		tableList=jmAction.getTablelist();
+		final DBHelper dbhelper=new DBHelper(this);
+		Cursor c=dbhelper.query(DBHelper.TABLE_TM_NAME);
+		tableList=jmAction.getTabletoSQLite(c);
+		c.close();
+		if(tableList.isEmpty()){
+			//获取table信息
+			tableList=jmAction.getTablelist();
+			//缓存table
+			jmAction.setTabletoSQLite(tableList, this.getApplicationContext());
+		}
 		gv.setAdapter(new JshopGridViewAdapter().new JMTableImageAdapter(this,tableList));
 	}
 	
