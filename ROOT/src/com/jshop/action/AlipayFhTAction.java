@@ -7,9 +7,9 @@ import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
 
 import com.jshop.action.tools.AllOrderState;
-import com.jshop.alipay.fh.config.AlipayConfig;
 import com.jshop.entity.OrderT;
 import com.jshop.entity.PaymentM;
+import com.jshop.pay.alipay.fh.config.AlipayConfig;
 import com.jshop.service.OrderTService;
 import com.jshop.service.PaymentMService;
 import com.opensymphony.xwork2.ActionSupport;

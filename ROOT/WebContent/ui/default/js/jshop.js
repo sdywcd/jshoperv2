@@ -278,21 +278,23 @@ $(function() {
  * 商品分类页面
  * 
  */
-// 点击加入购物车
+// 普通商品点击加入购物车
 function addtocart(goodsid) {
 	var needquantity = 1;
 	var hidurl = $('#hidurl').val();
+    var orderTag="1";//普通商品
 	$.post("addCart.action", {
 		"goodsid" : goodsid,
 		"needquantity" : needquantity,
-		"hidurl" : hidurl
+		"hidurl" : hidurl,
+        "orderTag":orderTag
 	}, function(data) {
 		if (!data.slogin) {
 			// 跳转到登录页面
 			window.location.href = "user/login.html?redirecturl=" + hidurl;
 		} else if (data.sucflag) {
 			// 跳转到购物车页面
-			window.location.href = "findAllCartByUserId.action";
+			window.location.href = "findAllCartByUserId.action?orderTag="+orderTag;
 		} else {
 			// 跳转到商品页面
 			window.location.href = data.hidurl;
@@ -343,13 +345,14 @@ function addcart(){
 	var goodsid=$('#hidgoodsid').val();
 	var needquantity=1;//默认只购买一个
 	var hidurl=$('#hidurl').val();
-	$.post("addCart.action",{"guigeflag":hidguigeflag,"productid":productid,"goodsid":goodsid,"needquantity":needquantity,"redirecturl":hidurl},function(data){
+    var orderTag="1";
+	$.post("addCart.action",{"orderTag":orderTag,"guigeflag":hidguigeflag,"productid":productid,"goodsid":goodsid,"needquantity":needquantity,"redirecturl":hidurl},function(data){
 		if (!data.slogin) {
 			// 跳转到登录页面
 			window.location.href = "user/login.html?redirecturl=" + hidurl;
 		} else if (data.sucflag) {
 			// 跳转到购物车页面
-			window.location.href = "findAllCartByUserId.action";
+			window.location.href = "findAllCartByUserId.action?orderTag="+orderTag;
 		} else {
 			// 跳转到商品页面
 			window.location.href = data.hidurl;
@@ -536,13 +539,14 @@ function addgoodscomment(){
  */
 function delCartBygoodsid(goodsid){
 	var hidurl=$('#hidurl').val();
+    var orderTag="1";//普通商品
 	$.post("DelCartByGoodsId.action",{"goodsid":goodsid,"redirecturl":hidurl},function(data){
 		if (!data.slogin) {
 			// 跳转到登录页面
 			window.location.href = "user/login.html?redirecturl=" + hidurl;
 		} else if (data.sucflag) {
 			// 跳转到购物车页面
-			window.location.href = "findAllCartByUserId.action";
+			window.location.href = "findAllCartByUserId.action?orderTag="+orderTag;
 		} else {
 			// 跳转到商品页面
 			window.location.href = data.hidurl;
@@ -555,13 +559,14 @@ function delCartBygoodsid(goodsid){
 
 function delCartByid(id){
     var hidurl=$('#hidurl').val();
+    var orderTag="1";//普通商品
     $.post("delCartByid.action",{"id":id,"redirecturl":hidurl},function(data){
         if (!data.slogin) {
             // 跳转到登录页面
             window.location.href = "user/login.html?redirecturl=" + hidurl;
         } else if (data.sucflag) {
             // 跳转到购物车页面
-            window.location.href = "findAllCartByUserId.action";
+            window.location.href = "findAllCartByUserId.action?orderTag="+orderTag;
         } else {
             // 跳转到商品页面
             window.location.href = data.hidurl;
@@ -577,6 +582,7 @@ function gotojs(){
 	var hidgoodsid="";
 	var needquantity=0;
 	var sendstring="";
+    var orderTag="1";//表示普通商品
 	$("input:text").each(function(){
 		if(!this.id.indexOf("amount")>0){
 			needquantity=this.value;
@@ -597,7 +603,7 @@ function gotojs(){
 		}
 		if(data.sucflag){
 			//跳转到购物车页面
-			window.location.href="InitOrder.action?redirecturl=findAllCartByUserId.action";
+			window.location.href="InitOrder.action?redirecturl=findAllCartByUserId.action&orderTag=1";
 		}
 	});
 	
@@ -962,9 +968,8 @@ $(function(){
  */
 
 
-
 /**
- * 初始化支付宝所需的资料信息并增加订单
+ * 初始化支付宝所需的资料信息并增加订单 普通商品订单
  */
 function InitAlipayandAddOrder(){
 	var paymentid=$('input[name="paymentid"]:checked').val(); 
@@ -979,6 +984,7 @@ function InitAlipayandAddOrder(){
 	var cartgoodsid=$("#cartgoodsid").val();//购物车中商品id
 	var cartgoodsname=$("#cartgoodsname").val();//-购物车中商品名称集合cartgoodsname
 	var cartneedquantity=$("#cartneedquantity").val();//购物车中所有商品数量总和
+    
 	if(logisticsid==null){
 		alert("请选择配送方式");
 		return;
@@ -1006,15 +1012,36 @@ function InitAlipayandAddOrder(){
 				var orderid=data.serialidorderid;
 				var inv_Type=$('#inv_type').val();
 				var amount=$('#shouldtotalprice').text();
-				if(inv_Payee==""){
-					window.location.href="/alipay/alipayto.jsp";
+				if(inv_Payee==""||inv_Payee==undefined){
+					if(data.paymentcode=="cft"&&data.paymentinterface=="3"){
+                    //此情况表示财付通
+                    window.location.href="../../../pay/tenpay/payRequest.jsp";
+	                }
+	                if(data.paymentcode=="zfb"&&data.paymentinterface=="3"){
+	                     //此情况表示支付宝
+	                    window.location.href="../../../pay/alipay/alipayto.jsp";
+	                }
 				}else{
 					$.post("addOrderInvoice.action",{"orderid":orderid,"invType":inv_Type,"invPayee":inv_Payee,"amount":amount,"invContent":"0"},function(data){
 						if(data.saddflag){
-							window.location.href="/alipay/alipayto.jsp";
+                            if(data.paymentcode=="cft"&&data.paymentinterface=="3"){
+			                    //此情况表示财付通
+			                    window.location.href="../../../pay/tenpay/payRequest.jsp";
+			                }
+			                if(data.paymentcode=="zfb"&&data.paymentinterface=="3"){
+			                     //此情况表示支付宝
+			                    window.location.href="../../../pay/alipay/alipayto.jsp";
+			                }
 						}else{
 							alert("发票提交有误请联系客服处理开发票事宜");
-							window.location.href="/alipay/alipayto.jsp";
+							if(data.paymentcode=="cft"&&data.paymentinterface=="3"){
+                                //此情况表示财付通
+                                window.location.href="../../../pay/tenpay/payRequest.jsp";
+                            }
+                            if(data.paymentcode=="zfb"&&data.paymentinterface=="3"){
+                                 //此情况表示支付宝
+                                window.location.href="../../../pay/alipay/alipayto.jsp";
+                            }
 						}
 					});
 				}
@@ -1024,6 +1051,131 @@ function InitAlipayandAddOrder(){
 	}else{
 		alert("请选择支付方式");
 	}
+}
+
+/**
+ * 增加充值卡虚拟订单数据
+ */
+function InitAlipayandAddOrderisvirtualcard(){
+    var mobileag=$('#mobileforisvirtualag').val();
+    var mobile=$('#mobileforisvirtual').val();
+    if(mobile==""){
+        alert("请输入手机号码");
+        return false;
+    }else if(mobile!=mobileag){
+        alert("两次输入的手机号码不一致请重新输入");
+        return false;
+     }else if(mobile.match(/\D/g)||mobileag.match(/\D/g)){
+        alert("手机号码必须用数字,您的号码内有非数字字符 ");
+        return false;
+    }
+    
+    var paymentid=$('input[name="paymentid"]:checked').val(); 
+    var freight=$('#goodsfreightprice').html();
+    if(freight==null){
+        freight=0.0;
+    }
+    var customernotes=$('#customernotes').val();
+    //var logisticswebaddress=$('#hd'+logisticsid).val();
+    var cartid=$('#cartid').val();//购物车id
+    var total=$('#goodstotalprice').html();//表示商品总金额，不包含运费
+    var totalpoints=$("#goodstotalpoints").html();//总积分
+    var cartgoodsid=$("#cartgoodsid").val();//购物车中商品id
+    var cartgoodsname=$("#cartgoodsname").val();//-购物车中商品名称集合cartgoodsname
+    var cartneedquantity=$("#cartneedquantity").val();//购物车中所有商品数量总和
+    
+    if(paymentid!=null){
+        $.post("InitpayneedInfoVirtualGoodsCard.action",{"mobile":mobile,"cartneedquantity":cartneedquantity,"cartgoodsname":cartgoodsname,"cartgoodsid":cartgoodsid,"totalpoints":totalpoints,"total":total,"freight":freight,"cartid":cartid,"paymentid":paymentid,"customernotes":customernotes,"orderTag":"3"},function(data){
+            if(!data.slogin){
+                window.location.href="user/login.html";
+                return false;
+            }
+            if(!data.spayment){
+                alert("支付方式获取失败");
+                return;
+            }
+            if(!data.saddorder){
+                alert("订单生成出错");
+                window.location.href="user/login.html";
+            }else{
+                if(data.paymentcode=="cft"&&data.paymentinterface=="3"){
+                    //此情况表示财付通
+                    window.location.href="../../../pay/tenpay/payRequest.jsp";
+                }
+                if(data.paymentcode=="zfb"&&data.paymentinterface=="3"){
+                     //此情况表示支付宝
+                    window.location.href="../../../pay/alipay/alipayto.jsp";
+                }
+                 
+            }
+            
+        });
+    }else{
+        alert("请选择支付方式");
+    }
+}
+
+/**
+ * 增加下载视频类虚拟订单
+ * @return {Boolean}
+ */
+function InitAlipayandAddOrderisvirtualmovie(){
+    var emailag=$('#emailforisvirtual').val();
+    var email=$('#emailforisvirtual').val();
+    if(email==""){
+        alert("请输入邮件地址");
+        return false;
+    }else if(email!=emailag){
+        alert("两次输入的邮件地址不一致请重新输入");
+        return false;
+     }else if(email.match(/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/g)||emailag.match(/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/g)){
+        alert("请输入正确的邮件 ");
+        return false;
+    }
+    
+    var paymentid=$('input[name="paymentid"]:checked').val(); 
+    var freight=$('#goodsfreightprice').html();
+    if(freight==null){
+        freight=0.0;
+    }
+    var customernotes=$('#customernotes').val();
+    //var logisticswebaddress=$('#hd'+logisticsid).val();
+    var cartid=$('#cartid').val();//购物车id
+    var total=$('#goodstotalprice').html();//表示商品总金额，不包含运费
+    var totalpoints=$("#goodstotalpoints").html();//总积分
+    var cartgoodsid=$("#cartgoodsid").val();//购物车中商品id
+    var cartgoodsname=$("#cartgoodsname").val();//-购物车中商品名称集合cartgoodsname
+    var cartneedquantity=$("#cartneedquantity").val();//购物车中所有商品数量总和
+    
+    if(paymentid!=null){
+        $.post("InitpayneedInfoVirtualGoodsmovie.action",{"email":email,"cartneedquantity":cartneedquantity,"cartgoodsname":cartgoodsname,"cartgoodsid":cartgoodsid,"totalpoints":totalpoints,"total":total,"freight":freight,"cartid":cartid,"paymentid":paymentid,"customernotes":customernotes,"orderTag":"3"},function(data){
+            if(!data.slogin){
+                window.location.href="user/login.html";
+                return false;
+            }
+            if(!data.spayment){
+                alert("支付方式获取失败");
+                return;
+            }
+            if(!data.saddorder){
+                alert("订单生成出错");
+                window.location.href="user/login.html";
+            }else{
+                if(data.paymentcode=="cft"&&data.paymentinterface=="3"){
+                    //此情况表示财付通
+                    window.location.href="../../../pay/tenpay/payRequestformovie.jsp";
+                }
+                if(data.paymentcode=="zfb"&&data.paymentinterface=="3"){
+                     //此情况表示支付宝
+                    window.location.href="../../../pay/alipay/alipayto.jsp";
+                }
+                 
+            }
+            
+        });
+    }else{
+        alert("请选择支付方式");
+    }
 }
 
 /**
@@ -1067,15 +1219,15 @@ function InitAgAlipayandUpdateOrder(){
 				var amount=$('#shouldtotalprice').text();
 				if(inv_Payee==""){
 					
-					window.location.href="/alipay/alipayto.jsp";
+					window.location.href="../../../pay/alipay/alipayto.jsp";
 					
 				}else{
 					$.post("addOrderInvoice.action",{"orderid":orderid,"invType":inv_Type,"invPayee":inv_Payee,"amount":amount,"invContent":"0"},function(data){
 						if(data.saddflag){
-							window.location.href="/alipay/alipayto.jsp";
+							window.location.href="../../../pay/alipay/alipayto.jsp";
 						}else{
 							alert("发票提交有误请联系客服处理开发票事宜");
-							window.location.href="/alipay/alipayto.jsp";
+							window.location.href="../../../pay/alipay/alipayto.jsp";
 							
 						}
 					});
@@ -1141,20 +1293,22 @@ function addbelinkedGoodsTocart(){
     var goodsid="";
     var needquantity="1";
     var hidurl = $('#hidurl').val();
+    var orderTag="1";//普通商品
     $.each(pack_products.data,function(i,v){
         goodsid+=v+",";
     });
     $.post("addCart.action", {
         "goodsid" : goodsid,
         "needquantity" : needquantity,
-        "hidurl" : hidurl
+        "hidurl" : hidurl,
+        "orderTag":orderTag
     }, function(data) {
         if (!data.slogin) {
             // 跳转到登录页面
             window.location.href = "user/login.html?redirecturl=" + hidurl;
         } else if (data.sucflag) {
             // 跳转到购物车页面
-            window.location.href = "findAllCartByUserId.action";
+            window.location.href = "findAllCartByUserId.action?orderTag="+orderTag;
         } else {
             // 跳转到商品页面
             window.location.href = data.hidurl;
@@ -1234,14 +1388,14 @@ function InitAlipayandAddGroupOrder(){
 				var inv_Type=$('#inv_type').val();
 				var amount=$('#shouldtotalprice').text();
 				if(inv_Payee==""){
-					window.location.href="/alipay/alipayto.jsp";
+					window.location.href="../../../pay/alipay/alipayto.jsp";
 				}else{
 					$.post("addOrderInvoice.action",{"orderid":orderid,"invType":inv_Type,"invPayee":inv_Payee,"amount":amount,"invContent":"0"},function(data){
 						if(data.saddflag){
-							window.location.href="/alipay/alipayto.jsp";
+							window.location.href="../../../pay/alipay/alipayto.jsp";
 						}else{
 							alert("发票提交有误请联系客服处理开发票事宜");
-							window.location.href="/alipay/alipayto.jsp";
+							window.location.href="../../../pay/alipay/alipayto.jsp";
 						}
 					});
 				}
@@ -1322,6 +1476,56 @@ function districtArray(array){
     }
     return result;  
 }
+/*
+ * 虚拟商品初始化订单确认页面（是加入cart表，虚拟商品和普通商品共享一个cart表）
+ * */
+function addtovirtualgoodscart(goodsid) {
+    var needquantity = 1;
+    var hidurl = $('#hidurl').val();
+    var orderTag="3";//虚拟充值卡商品
+    $.post("addCart.action", {
+        "goodsid" : goodsid,
+        "needquantity" : needquantity,
+        "hidurl" : hidurl,
+        "orderTag":orderTag
+    }, function(data) {
+        if (!data.slogin) {
+            // 跳转到登录页面
+           window.location.href = "user/login.html?redirecturl=" + hidurl;
+        } else if (data.sucflag) {
+            // 跳转到虚拟商品订单页面
+            window.location.href = "InitvirtualcardOrder.action?goodsid="+goodsid+"&orderTag="+orderTag;
+        } else {
+            // 跳转到商品页面
+            window.location.href = data.hidurl;
+        }
+    });
 
+}
+/**
+ * 虚拟商品初始化订单页面（是加入cart表，虚拟商品和普通商品共享一个cart表）这里是视频类，教育类
+ * @param {} goodsid
+ */
+function addtovirtualgoodsmovie(goodsid) {
+    var needquantity = 1;
+    var hidurl = $('#hidurl').val();
+    var orderTag="4";//提供下载类商品+邮件发送支持
+    $.post("addCart.action", {
+        "goodsid" : goodsid,
+        "needquantity" : needquantity,
+        "hidurl" : hidurl,
+        "orderTag":orderTag
+    }, function(data) {
+        if (!data.slogin) {
+            // 跳转到登录页面
+           window.location.href = "user/login.html?redirecturl=" + hidurl;
+        } else if (data.sucflag) {
+            // 跳转到虚拟商品订单页面
+            window.location.href = "InitvirtualmovieOrder.action?goodsid="+goodsid+"&orderTag="+orderTag;
+        } else {
+            // 跳转到商品页面
+            window.location.href = data.hidurl;
+        }
+    });
 
-
+}

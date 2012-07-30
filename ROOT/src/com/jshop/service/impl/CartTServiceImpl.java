@@ -39,8 +39,8 @@ public class CartTServiceImpl implements CartTService {
 		return this.getCartTDao().findAllCart(currentPage, lineSize);
 	}
 
-	public List<CartT> findAllCartByUserId(String userid) {
-		return this.getCartTDao().findAllCartByUserId(userid);
+	public List<CartT> findAllCartByUserId(String userid,String state,String orderTag) {
+		return this.getCartTDao().findAllCartByUserId(userid,state,orderTag);
 	}
 
 	public CartT findGoodsInCartOrNot(String userid, String goodsid, String state) {

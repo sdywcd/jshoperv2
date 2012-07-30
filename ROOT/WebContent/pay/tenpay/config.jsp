@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=GBK" pageEncoding="GBK"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%>
 <% 
 
 //商户号
@@ -8,9 +12,9 @@ String partner = "";
 String key = "";
 
 //交易完成后跳转的URL
-String return_url = "http://localhost/tenpay_api_b2c/payReturnUrl.jsp";
+String return_url=basePath+"pay/tenpay/payReturnUrl.jsp";
 
 //接收财付通通知的URL
-String notify_url = "http://localhost/tenpay_api_b2c/payNotifyUrl.jsp";
+String notify_url = basePath+"pay/tenpay/payNotifyUrl.jsp";
 
 %>

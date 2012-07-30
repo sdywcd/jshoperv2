@@ -22,9 +22,11 @@ public interface CartTDao {
 	/**
 	 * 根据userid查询购物车内容 前台
 	 * @param userid
+	 * @param state 商品在购物车中的状态
+	 * @param orderTag 商品的类型是虚拟还是普通
 	 * @return
 	 */
-	public abstract List<CartT>findAllCartByUserId(String userid);
+	public abstract List<CartT>findAllCartByUserId(String userid,String state,String orderTag);
 
 	/**
 	 * 增加购物车内容

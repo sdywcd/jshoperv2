@@ -45,7 +45,6 @@ public class CartAction extends ActionSupport {
 	private CartTService cartTService;
 	private ProductTService productTService;
 	private DataCollectionTAction dataCollectionTAction;
-	@Resource(name = "serial")
 	private Serial serial;
 	private String hidurl;
 	private String redirecturl;
@@ -63,6 +62,7 @@ public class CartAction extends ActionSupport {
 	private String subtotal;
 	private String quantity;
 	private String picture;
+	private String orderTag;
 	private String id;
 	private String guigeflag;//是否规格商品标记
 	private String productid;//货品id
@@ -309,6 +309,14 @@ public class CartAction extends ActionSupport {
 		this.productid = productid;
 	}
 
+	public String getOrderTag() {
+		return orderTag;
+	}
+
+	public void setOrderTag(String orderTag) {
+		this.orderTag = orderTag;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -386,6 +394,7 @@ public class CartAction extends ActionSupport {
 						if("1".equals(this.getGuigeflag())){
 							t.setProductid(this.getProductid());
 						}
+						t.setOrderTag(this.getOrderTag());
 						t.setHtmlpath(gtlist.getHtmlPath());
 						if (this.getCartTService().addCart(t) > 0) {
 							this.setSucflag(true);
@@ -436,6 +445,7 @@ public class CartAction extends ActionSupport {
 						t.setState("1");//新加入购物车的商品				
 						t.setProductid("");//表示非规格商品即为空
 						t.setHtmlpath(gtlist.getHtmlPath());//
+						t.setOrderTag(this.getOrderTag());
 						if (this.getCartTService().addCart(t) > 0) {
 							this.setSucflag(true);
 						}
@@ -516,7 +526,7 @@ public class CartAction extends ActionSupport {
 	//	}
 
 	/**
-	 * 根据userid获取购物车信息
+	 * 根据userid获取购物车信息(给普通商品使用ordertag=1)
 	 * 
 	 * @return
 	 */
@@ -524,9 +534,15 @@ public class CartAction extends ActionSupport {
 	public String findAllCartByUserId() {
 		UserT user = (UserT) ActionContext.getContext().getSession().get(BaseTools.USER_SESSION_KEY);
 		if (user != null) {
-			List<CartT> list = this.getCartTService().findAllCartByUserId(user.getUserid());
-			//删除购物车session
-			//ActionContext.getContext().getSession().remove("usercart");
+			String state="1";//表示新加入购物车商品的标记
+			String orderTag=null;
+			if(Validate.StrisNull(this.getOrderTag())){
+				orderTag="1";
+			}else{
+				orderTag=this.getOrderTag().trim();
+			}
+		
+			List<CartT> list = this.getCartTService().findAllCartByUserId(user.getUserid(),state,orderTag);
 			this.setTotalmemberprice(0.0);
 			this.setTotalweight(0.0);
 			for (Iterator it = list.iterator(); it.hasNext();) {
@@ -534,13 +550,6 @@ public class CartAction extends ActionSupport {
 				totalweight = Arith.add(totalweight, Arith.mul(Double.parseDouble(ct.getWeight()), Double.parseDouble(String.valueOf(ct.getNeedquantity()))));
 				totalmemberprice = Arith.add(totalmemberprice, Arith.mul(ct.getFavorable(), Double.parseDouble(String.valueOf(ct.getNeedquantity()))));
 			}
-			//获取推荐商品（暂时根据价位来获取）
-			//				GetRcommendedGoods(5, Arith.sub(list.get(0).getFavorable(), 20.0), Arith.add(list.get(0).getFavorable(), 20.0), list.get(0).getGoodsid());
-			//				Map<String, Object> map = new HashMap<String, Object>();
-			//				map.put("cart", list);
-			//				map.put("totalweight", totalweight);
-			//				map.put("totalmemberprice", totalmemberprice);
-			//				map.put("count", list.size());
 			ActionContext.getContext().put("usercart", list);
 			ActionContext.getContext().put("totalmemberprice", totalmemberprice);
 			ActionContext.getContext().put("totalweight", totalweight);
@@ -555,12 +564,7 @@ public class CartAction extends ActionSupport {
 			//获取页脚文章数据
 			ActionContext.getContext().put(FreeMarkervariable.FOOTERATRICLE, this.getDataCollectionTAction().findFooterArticle());
 			return SUCCESS;
-			//获取推荐商品（暂时根据价位来获取）
-			//GetRcommendedGoods(10, 0.0, 20.0, "0");
-			//删除购物车session
-			//ActionContext.getContext().getSession().remove("usercart");
 		}
-		//ActionContext.getContext().getSession().remove("usercart");
 		return INPUT;
 	}
 
@@ -573,7 +577,9 @@ public class CartAction extends ActionSupport {
 	public String findAllCartByUserIdFortopCart() {
 		UserT user = (UserT) ActionContext.getContext().getSession().get(BaseTools.USER_SESSION_KEY);
 		if (user != null) {
-			List<CartT> list = this.getCartTService().findAllCartByUserId(user.getUserid());
+			String state="1";//表示新加入购物车商品的标记
+			String orderTag=this.getOrderTag().trim();
+			List<CartT> list = this.getCartTService().findAllCartByUserId(user.getUserid(),state,orderTag);
 			if (list != null && list.size() > 0) {
 				//删除购物车session
 				ActionContext.getContext().getSession().remove("usercart");

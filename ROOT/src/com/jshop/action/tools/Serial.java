@@ -134,6 +134,8 @@ public class Serial {
 	public static final String GROUPCART="groupcart";
 	//问卷系统问卷内容表
 	public static String QUESTIONNAIRET="questionnaire";
+	//虚拟发货地址，邮件地址和手机号码
+	public static String VIRTUALSHIPPINGADDRESS="virtualshippingaddress";
 	
 	private SerialTService serialTService;
 	

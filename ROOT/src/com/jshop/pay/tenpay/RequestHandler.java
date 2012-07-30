@@ -39,6 +39,7 @@ public class RequestHandler {
 	
 	private HttpServletResponse response;
 	
+	private String ofUrl="http://api2.ofpay.com/onlineorder.do";
 	/**
 	 * ���캯��
 	 * @param request
@@ -153,6 +154,33 @@ public class RequestHandler {
 		return this.getGateUrl() + "?" + reqPars;
 		
 	}
+	/**
+	 * 给欧非使用的跳转
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	public String getRequestURLforof() throws UnsupportedEncodingException {
+		
+		this.createSign();
+		
+		StringBuffer sb = new StringBuffer();
+		String enc = TenpayUtil.getCharacterEncoding(this.request, this.response);
+		Set es = this.parameters.entrySet();
+		Iterator it = es.iterator();
+		while(it.hasNext()) {
+			Map.Entry entry = (Map.Entry)it.next();
+			String k = (String)entry.getKey();
+			String v = (String)entry.getValue();
+			sb.append(k + "=" + URLEncoder.encode(v, enc) + "&");
+		}
+		
+		//ȥ�����һ��&
+		String reqPars = sb.substring(0, sb.lastIndexOf("&"));
+		
+		return this.ofUrl + "?" + reqPars;
+		
+	}
+	
 	
 	public void doSend() throws UnsupportedEncodingException, IOException {
 		this.response.sendRedirect(this.getRequestURL());

@@ -1,4 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title>首页${(jshopbasicinfo.jshopname)}</title>
+<meta name="Author" content="OSTOCY">
+<meta name="Copyright" content="OSTOCY"><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>填写核对订单</title>
@@ -13,6 +18,7 @@
 <body>
 <!--载入公共头文件-->
 <#include "/WEB-INF/theme/default/shop/header.ftl">
+<#if (cart??)&&(cart?size>0)>
 <div id="main">
   <div class="head_nav">
     <div>
@@ -27,7 +33,9 @@
       </div>
     </div>
   </div>
+
   <div>
+
     <div id="orders_infom1" class="consignee_info">
       <h1>
         <p>收货人信息</p>
@@ -106,7 +114,7 @@
             <p>电子邮件</p>
             <cite>
             <input type="text" name="email" class="input1" id="email" style="width: 200px;">
-            </cite></li>       
+            </cite><cite id="consignee_input7">方便您及时获取虚拟物品信息</cite></li>       
 	   </ul>
 		</div>
         <div class="add_address"> <a href="javascript:;" onclick="addnewAddress();" class="cartbtn">
@@ -114,6 +122,7 @@
           </a> </div>
       </div>
     </div>
+
 	<!--支付方式和配送方式-->
     <div class="payingdeliver" id="orders_boxm3">
       <h1>
@@ -124,12 +133,18 @@
 		<#if (payments??)&&(payments?size>0)>
 		<#list payments as pm>
 		<input id="paymentid" name="paymentid" type="radio" value="${pm.paymentid}"/>
-		${pm.paymentname}
+			<#if (pm.paymentCode=='zfb')>
+				<img src='${basepath}pay/alipay/alipay_logo.png'/>
+			</#if>
+			<#if (pm.paymentCode=='cft')>
+				<img src='${basepath}pay/tenpay/caifutong.gif'/>
+			</#if>
 		</#list>
 		<#else>
 		无
 		</#if>
 		 </p>
+		
         <p> 配送方式：
 		<#if (logistics??)&&(logistics?size>0)>
 		<#list logistics as l>
@@ -191,6 +206,7 @@
       </div>
       <br>
     </div>
+	<!--
     <div class="receiptinfo" id="orders_infom11" style="">
       <h1>
         <p>发票信息</p>
@@ -257,7 +273,7 @@
         </div>
     
       </div>
-    </div>
+    </div>-->
 
   </div>
   
@@ -266,7 +282,7 @@
       <p>商品信息</p>
       <cite><a href="findAllCartByUserId.action">返回修改购物车</a></cite></h1>
     <div class="detailinfo_div1">
-	<#if (cart??)&&(cart?size>0)>
+	
       <table align="center" cellpadding="0" cellspacing="0" class="car_table1">
         <tbody>
           <tr class="title">
@@ -302,7 +318,7 @@
        
         </tbody>
       </table>
-	  </#if>
+	  
     </div>
     <div class="settlement">
       <div class="set_l_div1">结算信息</div>
@@ -362,13 +378,17 @@
 		  <!--购物车id-->
 		  
 		  <input id="cartid" name="cartid" type="hidden" value="${cartid}">
-          <img id="submitlink" onclick="InitAlipayandAddOrder();" style="cursor: pointer;" src="${basepath}ui/default/images/submitbtn.gif"> </div>
+		 
+          <img id="submitlink" onclick="InitAlipayandAddOrder();" style="cursor: pointer;" src="${basepath}ui/default/images/submitbtn.gif">
+		
+		  </div>
       </div>
       <div class="clear"></div>
     </div>
   </div>
   </form>
 </div>
+</#if>
 <#include "/WEB-INF/theme/default/shop/footer.ftl">
 <script type="text/javascript" src="${basepath}ui/default/js/jshop.js"></script>
 <script>
@@ -382,3 +402,4 @@
 </script>
 </body>
 </html>
+
