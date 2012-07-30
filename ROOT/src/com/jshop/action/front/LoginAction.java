@@ -1,5 +1,7 @@
 package com.jshop.action.front;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.annotation.Resource;
 
 import org.apache.struts2.convention.annotation.Action;
@@ -120,5 +122,13 @@ public class LoginAction extends ActionSupport {
 
 		}
 	}
-
+	/**
+	 * 前台登出 
+	 */
+	@Action(value="userLogout", results={ @Result(name="json",type="json") })
+	public String userLogout() throws UnsupportedEncodingException {
+		this.setLoginflag(false);
+		ActionContext.getContext().getSession().remove(BaseTools.USER_SESSION_KEY);
+		return "logout";
+	}
 }
