@@ -50,5 +50,5 @@
       <!--     <li><a   href="/Member/MyCategory.do" class="mem_left" target="mem_right">我的分类</a></li> -->
         </ul>
       </div>
-      <div class="btn"><a href="/Member/Exit.do"><img src="${basepath}ui/default/images/mem_ex.gif" alt=""></a></div>
+      <div class="btn"><a href="#" onclick="logoutfunc();"><img src="${basepath}ui/default/images/mem_ex.gif" alt=""></a></div>
     </div>

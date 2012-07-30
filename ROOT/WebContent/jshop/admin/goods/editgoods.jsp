@@ -85,6 +85,9 @@
 								<a href="#box-goodsbelinked">关联商品</a>
 							</li>
 							<li class="ui-state-default ui-corner-top">
+								<a href="#box-virtualresults">虚拟商品</a>
+							</li>
+							<li class="ui-state-default ui-corner-top">
 								<a href="#box-submit">提交信息</a>
 							</li>
 						</ul>
@@ -709,6 +712,44 @@
 								
 							</div>
 
+						</div>
+					</div>
+					<div id="box-virtualresults" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+						<div class="form">
+							<div class="fields">
+								<div class="field">
+									
+									<div class="label label-radio">
+										<label>
+											是否虚拟:
+										</label>
+									</div>
+									<div class="radios">
+										<div class="radio">
+											<input type="radio" id="isvirtual" name="isvirtual" value="1" />
+											<label for="radio-1">
+												是
+											</label>
+										</div>
+										<div class="radio">
+											<input type="radio" id="isvirtual" name="isvirtual" value="0" checked />
+											<label for="radio-2">
+												否
+											</label>
+										</div>
+									</div>
+								</div>
+								<div class="field">
+									<div class="label">
+										<label for="input-medium">
+											虚拟反馈:
+										</label>
+									</div>
+									<div class="input">
+										<input type="text" id="virtualresults" name="virtualresults" value="" class="medium" />
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div id="box-submit" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">

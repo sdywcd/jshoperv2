@@ -239,7 +239,7 @@ public class PaymentMAction extends ActionSupport {
 		pm.setPaymentid(this.getSerial().Serialid(Serial.PAYMENT));
 		pm.setPaymentname(this.getPaymentname().trim());
 		pm.setPaymentCode(this.getPaymentCode().trim());
-		pm.setPaymentFree(this.getPaymentFree().trim());
+		pm.setPaymentFree("0");
 		pm.setPaymentInterface(this.getPaymentInterface());
 		pm.setAccount(this.getAccount().trim());
 		pm.setSafecode(this.getSafecode().trim());
