@@ -61,4 +61,6 @@ public class TenPayConfig {
 	
 	public static String mobile;//虚拟充值卡要用的手机号
 	
+	public static String email;//邮箱地址
+	
 }

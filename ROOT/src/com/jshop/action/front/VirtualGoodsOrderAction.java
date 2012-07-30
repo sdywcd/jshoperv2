@@ -25,6 +25,7 @@ import com.jshop.entity.OrderT;
 import com.jshop.entity.PaymentM;
 import com.jshop.entity.UserT;
 import com.jshop.entity.VirtualShippingAddressT;
+import com.jshop.pay.alipay.config.AlipayConfig;
 import com.jshop.pay.tenpay.TenPayConfig;
 import com.jshop.service.CartTService;
 import com.jshop.service.OrderTService;
@@ -79,7 +80,8 @@ public class VirtualGoodsOrderAction extends ActionSupport {
 	private boolean slogin;
 	private String serialidorderid;
 	private OrderT order = new OrderT();
-	private PaymentM pm=new PaymentM();
+	private PaymentM pm=new PaymentM();//支付信息
+	private VirtualShippingAddressT vsat=new VirtualShippingAddressT();//发货信息
 	private String paymentid;
 	private boolean spayment = false;//是否支付信息写入成功标记
 	private boolean svirtualshippingaddress=false;//是否增加虚拟发货地址成功标记
@@ -340,6 +342,14 @@ public class VirtualGoodsOrderAction extends ActionSupport {
 	public void setPm(PaymentM pm) {
 		this.pm = pm;
 	}
+	
+
+	public VirtualShippingAddressT getVsat() {
+		return vsat;
+	}
+	public void setVsat(VirtualShippingAddressT vsat) {
+		this.vsat = vsat;
+	}
 	/**
 	 * 清理错误
 	 */
@@ -363,7 +373,15 @@ public class VirtualGoodsOrderAction extends ActionSupport {
 	 * @param user
 	 */
 	public void GetMyCart(UserT user) {
-		List<CartT> list = this.getCartTService().findAllCartByUserId(user.getUserid());
+		String state="1";
+		String orderTag=null;
+		if(Validate.StrisNull(this.getOrderTag())){
+			orderTag="";
+		}else{
+			orderTag=this.getOrderTag().trim();
+		}
+
+		List<CartT> list = this.getCartTService().findAllCartByUserId(user.getUserid(),state,orderTag);
 		if (list != null) {
 			this.setTotal(0.0);
 			this.setTotalweight(0.0);
@@ -486,31 +504,12 @@ public class VirtualGoodsOrderAction extends ActionSupport {
 		
 		this.setSerialidorderid(this.getSerial().Serialid(Serial.GROUPORDER));
 	}
-	/**
-	 *获取支付信息
-	 * 
-	 * @return
-	 */
-//	public void GetPaymentinfo() {
-//		PaymentM list = this.getPaymentMService().findPaymentbyId(this.getPaymentid().trim());
-//		if (list != null) {
-//			
-//			AlipayConfig.partner = list.getPartnerid();
-//			AlipayConfig.key = list.getSafecode();
-//			AlipayConfig.seller_email = list.getAccount();
-//			//把支付方式id和名称增加到order中
-//			order.setPaymentid(list.getPaymentid());
-//			order.setPaymentname(list.getPaymentname());
-//			this.setSpayment(true);
-//		} else {
-//			this.setSpayment(false);
-//		}
-//	}
+
 	
 	/**
 	 * 增加虚拟发货地址
 	 */
-	public void AddVirtualShippingAddress(UserT user){
+	public void AddVirtualCardShippingAddress(UserT user){
 		//从前台直接手机号码只是充值卡
 		if(Validate.StrNotNull(this.getMobile())){
 			VirtualShippingAddressT vsa=new VirtualShippingAddressT();
@@ -524,9 +523,30 @@ public class VirtualGoodsOrderAction extends ActionSupport {
 			vsa.setIssend("0");//未发送过的地址
 			vsa.setOrderid(this.getSerialidorderid());//预先获取的订单号
 			if(this.getVirtualShippingAddressTService().addVirtualShippingAddressT(vsa)>0){
-				order.setShippingaddressid(vsa.getVirtualshippingaddressid());//设置虚拟发货地址到订单中
-				order.setDeliveraddressid("");//设置收货地址到订单中,虚拟所以为空
-				order.setShippingusername("");//设置收货人虚拟所以为空
+				this.setVsat(vsa);
+				this.setSvirtualshippingaddress(true);
+			}else{
+				this.setSvirtualshippingaddress(false);
+			}
+			
+		}
+		
+	}
+	public void AddVirtualMovieShippingAddress(UserT user){
+		//从前台直接手机号码只是充值卡
+		if(Validate.StrNotNull(this.getEmail())){
+			VirtualShippingAddressT vsa=new VirtualShippingAddressT();
+			vsa.setVirtualshippingaddressid(this.getSerial().Serialid(Serial.VIRTUALSHIPPINGADDRESS));
+			vsa.setUserid(user.getUserid());
+			vsa.setUsername(user.getUsername());
+			vsa.setMobile("");
+			vsa.setEmail(this.getEmail());
+			vsa.setCreatetime(BaseTools.systemtime());
+			vsa.setState("1");//有对应订单的虚拟发货地址
+			vsa.setIssend("0");//未发送过的地址
+			vsa.setOrderid(this.getSerialidorderid());//预先获取的订单号
+			if(this.getVirtualShippingAddressTService().addVirtualShippingAddressT(vsa)>0){
+				this.setVsat(vsa);
 				this.setSvirtualshippingaddress(true);
 			}else{
 				this.setSvirtualshippingaddress(false);
@@ -539,7 +559,7 @@ public class VirtualGoodsOrderAction extends ActionSupport {
 	 * 设置订单数据（充值卡）
 	 * @param user
 	 */
-	public void initVirtualOrderInfo(UserT user){
+	public void initVirtualOrderCardInfo(UserT user){
 		order.setOrderid(this.getSerialidorderid());
 		order.setUserid(user.getUserid());
 		order.setUsername(user.getUsername());
@@ -576,7 +596,11 @@ public class VirtualGoodsOrderAction extends ActionSupport {
 		order.setHasprintinvoice("0");//虚拟订单不需要打印发货单
 		order.setHasprintfpinvoice("0");//虚拟订单不需要开发票
 		order.setExpressnumber(null);//虚拟订单不需要快递单号
-		
+		order.setPaymentid(this.getPm().getPaymentid());
+		order.setPaymentname(this.getPm().getPaymentname());
+		order.setShippingaddressid(this.getVsat().getVirtualshippingaddressid());//设置虚拟发货地址到订单中
+		order.setDeliveraddressid("");//设置收货地址到订单中,虚拟所以为空
+		order.setShippingusername("");//设置收货人虚拟所以为空
 		if(this.getOrderTService().addOrder(order)>0){
 			this.setSaddorder(true);
 		}else{
@@ -584,7 +608,59 @@ public class VirtualGoodsOrderAction extends ActionSupport {
 		}
 		
 	}
-	
+	/**
+	 * 设置订单数据（视频，下载类）
+	 * @param user
+	 */
+	public void initVirtualOrderMovieInfo(UserT user){
+		order.setOrderid(this.getSerialidorderid());
+		order.setUserid(user.getUserid());
+		order.setUsername(user.getUsername());
+		if (this.getPaymentid().trim().equals("-1")) {
+			order.setDelivermode("货到付款");
+			//未来获取特定的支付标记来标记货到付款
+		}
+		order.setDelivermode("MOVIE");//充值卡模式，代表发货模式
+		order.setDeliverynumber("");//发货单号在充值成功后可以回填一个标记序号，到底什么序号暂定
+		order.setOrderstate("0");//为确认
+		order.setPaystate("0");//未付款
+		order.setShippingstate("0");//未发货
+		order.setLogisticsid("");//虚拟不需要物流商
+		order.setLogisticswebaddress("");//x
+		order.setGoodid(this.getCartgoodsid());//购物车中商品id串
+		order.setGoodsname(this.getCartgoodsname());//购物车中的商品名称串
+		order.setNeedquantity(this.getCartneedquantity());//购物车中的商品数量串
+		order.setFreight(0.0);//因为虚拟所以无运费
+		order.setAmount(Arith.sub(Arith.add(this.getTotal(), this.getFreight()),this.getVouchercontent()));
+		order.setPoints(this.getTotalpoints());
+		order.setPurchasetime(BaseTools.systemtime());
+		order.setDeliverytime(null);//虚拟发货时间，在系统支付成功后填充
+		order.setDeliverynumber(null);//同上时间点，有系统自行生成一个号码
+		order.setInvoice("0");//虚拟不开票
+		order.setCustomernotes(this.getCustomernotes());
+		order.setPaytime(null);//订单刚加入没有支付时间
+		order.setOrderTag(this.getOrderTag());//这里是虚拟订单充值卡类型
+		order.setToBuyer(null);//给用户留言，这个应该会在后台给出，仅能给出一次
+		order.setShouldpay(Arith.sub(Arith.add(this.getTotal(), this.getFreight()), this.getVouchercontent()));//金额包含运费，但不包含优惠
+		order.setUsepoints(0.0);//用户使用的积分，目前没提供这个功能故为0
+		order.setVouchersid(this.getUsedvoucherid());//使用的优惠券id
+		order.setCreatetime(BaseTools.systemtime());
+		order.setHasprintexpress("0");//虚拟订单不需要打印快递单
+		order.setHasprintinvoice("0");//虚拟订单不需要打印发货单
+		order.setHasprintfpinvoice("0");//虚拟订单不需要开发票
+		order.setExpressnumber(null);//虚拟订单不需要快递单号
+		order.setPaymentid(this.getPm().getPaymentid());
+		order.setPaymentname(this.getPm().getPaymentname());
+		order.setShippingaddressid(this.getVsat().getVirtualshippingaddressid());//设置虚拟发货地址到订单中
+		order.setDeliveraddressid("");//设置收货地址到订单中,虚拟所以为空
+		order.setShippingusername("");//设置收货人虚拟所以为空
+		if(this.getOrderTService().addOrder(order)>0){
+			this.setSaddorder(true);
+		}else{
+			this.setSaddorder(false);
+		}
+		
+	}
 	/**
 	 * 在多支付方式情况下初始化订单采用的支付方式所需要的信息
 	 */
@@ -597,11 +673,18 @@ public class VirtualGoodsOrderAction extends ActionSupport {
 				//目前仅做支付宝和财付通的双接口及后台对应的接口类型爽功能接口
 				if("3".equals(list.getPaymentInterface())){
 					//进行财付通的双接口虚拟即时到帐操作，采集即时到帐需要的数据
+					//BuildTenPayConfig();
 					this.setPaymentinterface("3");
 					this.setSpayment(true);
 				}
-				order.setPaymentid(this.getPaymentid());
-				order.setPaymentname(list.getPaymentname());
+				this.setSpayment(true);
+			}else if(PaymentCode.PAYMENT_CODE_ALIPAY.equals(list.getPaymentCode())){
+				this.setPaymentcode(PaymentCode.PAYMENT_CODE_ALIPAY);
+				if("3".equals(list.getPaymentInterface())){
+					//BuildAlipayConfig();
+					this.setPaymentinterface("3");//双接口
+					this.setSpayment(true);
+				}
 				this.setSpayment(true);
 			}
 		}else{
@@ -624,12 +707,36 @@ public class VirtualGoodsOrderAction extends ActionSupport {
 		TenPayConfig.goods_tag=order.getOrderTag();//手机充值虚拟卡
 		TenPayConfig.trade_mode="1";//即时到帐
 		TenPayConfig.trans_type="2";//虚拟交易
-		TenPayConfig.mobile=this.getMobile();
+		if(Validate.StrNotNull(this.getMobile())){
+			TenPayConfig.mobile=this.getMobile();
+		}
+		if(Validate.StrNotNull(this.getEmail())){
+			TenPayConfig.email=this.getEmail();
+		}
 		//TenPayConfig.return_url="http://"+this.getDataCollectionTAction().getBasePath()+"pay/tenpay_api_b2c/payReturnUrl.jsp";
 		//TenPayConfig.notify_url="http://"+this.getDataCollectionTAction().getBasePath()+"pay/tenpay_api_b2c/payNotifyUrl.jsp";
 	}
 	
 	
+	/**
+	 * 开始对支付宝采集数据
+	 */
+	public void BuildAlipayConfig(){
+		AlipayConfig.partner = this.getPm().getPartnerid();
+		AlipayConfig.key = this.getPm().getSafecode();
+		AlipayConfig.seller_email = this.getPm().getAccount();
+		AlipayConfig.out_trade_no = order.getOrderid();
+		AlipayConfig.subject = order.getGoodsname();
+		AlipayConfig.body = order.getGoodsname();
+		AlipayConfig.price = String.valueOf(order.getShouldpay());
+		AlipayConfig.logistics_fee = String.valueOf(order.getFreight());
+		//设置收货人信息给支付宝借口
+//		AlipayConfig.receive_name = this.getDt().getUsername();
+//		AlipayConfig.receive_address = this.getDt().getProvince() + this.getDt().getCity() + this.getDt().getDistrict() + this.getDt().getStreet();
+//		AlipayConfig.reveive_zip = this.getDt().getPostcode();
+//		AlipayConfig.reveive_phone = this.getDt().getTelno();
+//		AlipayConfig.reveive_mobile = this.getDt().getMobile();
+	}
 	/**
 	 * 获取支付需要的订单信息(充值卡系列，虚拟发货地址仅获取电话号码)
 	 * 
@@ -646,14 +753,17 @@ public class VirtualGoodsOrderAction extends ActionSupport {
 			//预先生成订单编号
 			GetSerialidorder();
 			//增加虚拟收获信息到虚拟发货地址表中一般都是邮件和手机作为地址
-			AddVirtualShippingAddress(user);
+			AddVirtualCardShippingAddress(user);
 			//这里开始我根据选择的支付方式进行不同的支付实现
 			InitPayway();
 			//增加订单到数据库
-			initVirtualOrderInfo(user);
+			initVirtualOrderCardInfo(user);
 			if (this.isSaddorder()) {
-				//这里初始化支付所需要数据
-				BuildTenPayConfig();
+				if(PaymentCode.PAYMENT_CODE_ALIPAY.equals(this.getPm().getPaymentCode())){
+					BuildAlipayConfig();
+				}else if(PaymentCode.PAYMENT_CODE_TENPAY.equals(this.getPm().getPaymentCode())){
+					BuildTenPayConfig();
+				}
 				
 				//更新购物车商品到3，表示已经在订单中。并把对应订单号更新
 				//String []tempgoodsid=order.getGoodid().split(",");
@@ -671,6 +781,52 @@ public class VirtualGoodsOrderAction extends ActionSupport {
 		this.setSlogin(false);
 		return "json";
 	}
+	/**
+	 * 获取支付需要的订单信息(充值卡系列，虚拟发货地址仅获取电话号码)
+	 * 
+	 * @return
+	 */
+	@Action(value = "InitpayneedInfoVirtualGoodsmovie", results = { 
+			@Result(name = "json",type="json")
+	})
+	public String InitpayneedInfoVirtualGoodsmovie() {
+		UserT user = (UserT) ActionContext.getContext().getSession().get(BaseTools.USER_SESSION_KEY);
+		if (user != null) {
+			this.setSlogin(true);
+			
+			//预先生成订单编号
+			GetSerialidorder();
+			//增加虚拟收获信息到虚拟发货地址表中一般都是邮件和手机作为地址
+			AddVirtualMovieShippingAddress(user);
+			//这里开始我根据选择的支付方式进行不同的支付实现
+			InitPayway();
+			//增加订单到数据库
+			initVirtualOrderMovieInfo(user);
+			if (this.isSaddorder()) {
+				if(PaymentCode.PAYMENT_CODE_ALIPAY.equals(this.getPm().getPaymentCode())){
+					BuildAlipayConfig();
+				}else if(PaymentCode.PAYMENT_CODE_TENPAY.equals(this.getPm().getPaymentCode())){
+					BuildTenPayConfig();
+				}
+				
+				//更新购物车商品到3，表示已经在订单中。并把对应订单号更新
+				//String []tempgoodsid=order.getGoodid().split(",");
+				//检查如果购物已经有对应的订单号则不更新
+				//3表示加入订单的购物车
+				List<CartT>list=this.getCartTService().findCartByCartid(this.getCartid(), "3");
+				if(!list.isEmpty()){
+					return "json";
+				}
+				this.getCartTService().updateCartStateandOrderidByGoodsidList(this.getCartid().trim(), this.getSerialidorderid(), user.getUserid(), "3");
+			}
+			return "json";
+
+		}
+		this.setSlogin(false);
+		return "json";
+	}
+	
+	
 	
 	/**
 	 * 给在购物车中的虚拟卡类商品添加唯一cardid号

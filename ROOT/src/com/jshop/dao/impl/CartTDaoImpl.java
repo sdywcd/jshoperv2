@@ -89,15 +89,13 @@ public class CartTDaoImpl extends HibernateDaoSupport implements CartTDao {
 		}
 	}
 
-	public List<CartT> findAllCartByUserId(String userid) {
+	@SuppressWarnings("unchecked")
+	public List<CartT> findAllCartByUserId(String userid,String state,String orderTag) {
 		log.debug("find all CartT ");
 		try {
-			String queryString = "from CartT as c where c.userid=:userid and c.state='1' order by addtime desc";
-			List<CartT> list = this.getHibernateTemplate().findByNamedParam(queryString, "userid", userid);
-			if (list != null) {
-				return list;
-			}
-			return null;
+			String queryString = "from CartT as c where c.userid=:userid and c.state=:state and c.orderTag=:orderTag order by addtime desc";
+			List<CartT> list = this.getHibernateTemplate().findByNamedParam(queryString, new String[]{"userid","state","orderTag"}, new Object[]{userid,state,orderTag});
+			return list;
 		} catch (RuntimeException re) {
 			log.error("find all CartT  error", re);
 			throw re;

@@ -21,9 +21,11 @@ public interface CartTService {
 	/**
 	 * 根据userid查询购物车内容 前台
 	 * @param userid
+	 * @param state
+	 * @param orderTag
 	 * @return
 	 */
-	public abstract List<CartT>findAllCartByUserId(String userid);
+	public abstract List<CartT>findAllCartByUserId(String userid,String state,String orderTag);
 
 	/**
 	 * 增加购物车内容

@@ -12,9 +12,9 @@ String partner = "";
 String key = "";
 
 //交易完成后跳转的URL
-String return_url=basePath+"pay/tenpay/payReturnUrl.jsp";
+String return_url = basePath+"pay/tenpay/payReturnUrlformovie.jsp";
 
 //接收财付通通知的URL
-String notify_url = basePath+"pay/tenpay/payNotifyUrl.jsp";
+String notify_url = basePath+"pay/tenpay/payNotifyUrlformovie.jsp";
 
 %>

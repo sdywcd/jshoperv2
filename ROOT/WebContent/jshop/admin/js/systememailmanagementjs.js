@@ -182,7 +182,7 @@ $(function(){
 		var smtppwd=$('#smtppwd').val();
 		$.post("updateEmailProperties.action",{"sysSendmail":sysSendmail,"sysMailSmtp":sysMailSmtp,"sysMailPort":sysMailPort,"smtpusername":smtpusername,"smtppwd":smtppwd},function(){
 
-			window.location.href='sysemaillist.jsp?session='+session+"#settings";
+			window.location.href='systememailmanagement.jsp?session='+session+"#settings";
 		});
 	});
 	
