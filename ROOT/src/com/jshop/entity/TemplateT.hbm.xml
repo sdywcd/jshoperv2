@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2012-7-27 14:17:46 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.jshop.entity.TemplateT" table="template_t" catalog="jshopactive">
+    <class name="com.jshop.entity.TemplateT" table="template_t"  >
         <id name="tid" type="string">
             <column name="TID" length="20" />
             <generator class="assigned" />

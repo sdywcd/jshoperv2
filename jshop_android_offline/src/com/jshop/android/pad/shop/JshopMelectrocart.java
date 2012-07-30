@@ -56,8 +56,8 @@ import com.jshop.android.util.JshopMPostActionList;
  * @Data 2012-5-10 下午03:47:04
  */
 public class JshopMelectrocart extends Activity{
-	
-	private Button buttonmaidan,buttondiandan;
+
+	private Button buttonmaidan,buttondiandan,backtolist;
 	private TextView totalcartprice;
 	private String requestjsonstr;
 	private ArrayList<HashMap<String, Object>> electrocartgoodslists = new ArrayList<HashMap<String, Object>>();
@@ -72,6 +72,7 @@ public class JshopMelectrocart extends Activity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.jshop_m_goodselectrocart);
+		backtolist = (Button)this.findViewById(R.id.backtolist);
 		listViews=(ListView) this.findViewById(R.id.listViewmyelectrocart);
 		totalcartprice=(TextView)this.findViewById(R.id.totalprice);
 		buttondiandan=(Button)this.findViewById(R.id.Buttondiandan);
@@ -189,7 +190,12 @@ public class JshopMelectrocart extends Activity{
 		});
 		
 	
-		
+		backtolist.setOnClickListener(new OnClickListener(){
+			public void onClick(View arg0){
+				Intent intent=new Intent(JshopMelectrocart.this,JshopActivityGoodsList.class);
+				startActivity(intent);
+			}
+		});
 		
 		
 	}
