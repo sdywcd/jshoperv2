@@ -1520,6 +1520,8 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setVirtualsale(0);
 		gt.setIsmobileplatformgoods(this.getIsmobileplatformgoods());
 		gt.setCommoditylist(this.getCommoditylist());
+		gt.setIsvirtual(this.getIsvirtual());
+		gt.setVirtualresults(this.getVirtualresults());
 		if (this.getGoodsTService().addGoods(gt) > 0) {
 			this.setBean(gt);
 			return true;
@@ -1621,6 +1623,8 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setVirtualsale(bean.getVirtualsale());
 		gt.setIsmobileplatformgoods(this.getIsmobileplatformgoods());
 		gt.setCommoditylist(this.getCommoditylist());
+		gt.setIsvirtual(this.getIsvirtual());
+		gt.setVirtualresults(this.getVirtualresults());
 		if (this.getGoodsTService().updateGoods(gt) > 0) {
 			this.setBean(gt);
 

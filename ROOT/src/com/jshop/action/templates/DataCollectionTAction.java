@@ -409,12 +409,13 @@ public class DataCollectionTAction extends ActionSupport {
 	public List<GoodsCategoryT> findGoodsCategoryT() {
 		try {
 			String state = "1";// 标示激活的商品分类
+			gradecount=0;
 			List<GoodsCategoryT> list = this.getGoodsCategoryTService()
 					.findAllGoodsCategoryT(state);
 			if (!list.isEmpty()) {
 				for (Iterator it = list.iterator(); it.hasNext();) {
 					GoodsCategoryT gt = (GoodsCategoryT) it.next();
-					if (gt.getGrade().equals("0")) {
+					if (gt.getGrade().equals("0")&&gt.getHtmlpath().length()>0) {
 						gradecount++;
 					}
 				}

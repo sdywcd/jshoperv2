@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-7-22 13:51:26 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-7-27 14:17:45 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -30,6 +30,7 @@ public class CartT implements java.io.Serializable {
 	private String state;
 	private String htmlpath;
 	private String productid;
+	private String orderTag;
 
 	public CartT() {
 	}
@@ -37,7 +38,8 @@ public class CartT implements java.io.Serializable {
 	public CartT(String id, String goodsid, String goodsname, String userid,
 			String username, int needquantity, double price, double favorable,
 			double points, double subtotal, Date addtime, String picture,
-			String usersetnum, String state, String htmlpath, String productid) {
+			String usersetnum, String state, String htmlpath, String productid,
+			String orderTag) {
 		this.id = id;
 		this.goodsid = goodsid;
 		this.goodsname = goodsname;
@@ -54,6 +56,7 @@ public class CartT implements java.io.Serializable {
 		this.state = state;
 		this.htmlpath = htmlpath;
 		this.productid = productid;
+		this.orderTag = orderTag;
 	}
 
 	public CartT(String id, String cartid, String orderid, String goodsid,
@@ -61,7 +64,7 @@ public class CartT implements java.io.Serializable {
 			double price, double favorable, Double changeprice, double points,
 			double subtotal, Date addtime, Integer quantity, String picture,
 			String usersetnum, String weight, String state, String htmlpath,
-			String productid) {
+			String productid, String orderTag) {
 		this.id = id;
 		this.cartid = cartid;
 		this.orderid = orderid;
@@ -83,6 +86,7 @@ public class CartT implements java.io.Serializable {
 		this.state = state;
 		this.htmlpath = htmlpath;
 		this.productid = productid;
+		this.orderTag = orderTag;
 	}
 
 	public String getId() {
@@ -251,6 +255,14 @@ public class CartT implements java.io.Serializable {
 
 	public void setProductid(String productid) {
 		this.productid = productid;
+	}
+
+	public String getOrderTag() {
+		return this.orderTag;
+	}
+
+	public void setOrderTag(String orderTag) {
+		this.orderTag = orderTag;
 	}
 
 }
