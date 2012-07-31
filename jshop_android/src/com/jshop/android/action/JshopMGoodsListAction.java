@@ -65,10 +65,13 @@ public class JshopMGoodsListAction {
 		conn.setConnectTimeout(5*1000);
 		InputStream in=conn.getInputStream();
 		Bitmap bm=BitmapFactory.decodeStream(in);
+		
 		in.close();
 		return bm;
 
 	}
+	
+	
 	
 	/**
 	 * 把服务器上的商品列表数据缓存到本地数据库中
