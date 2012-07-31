@@ -1,5 +1,3 @@
-<html>
-<body>
 <div id="foot">
   <div class="servicepro1 mt7">
     <div class="servicepro1_t">
@@ -50,5 +48,3 @@
     Copyright&#169;2000-2012 All Rights Reserved 欧斯塔克(上海) 版权所有</span> </div>
   <div class="link"> </div>
 </div>
-</body>
-</html>

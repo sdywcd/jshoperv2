@@ -1500,7 +1500,13 @@ function addtovirtualgoodscart(goodsid) {
             window.location.href = data.hidurl;
         }
     });
-
+}
+function logoutfunc(){
+	$.post("userLogout.action",function(data){
+		if(!data.loginflag){
+			window.location.href = "/index.html";
+		}
+	});
 }
 /**
  * 虚拟商品初始化订单页面（是加入cart表，虚拟商品和普通商品共享一个cart表）这里是视频类，教育类

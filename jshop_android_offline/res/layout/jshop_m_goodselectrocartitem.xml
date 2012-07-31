@@ -32,9 +32,10 @@
         android:id="@+id/memberprice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="81dp"
+        android:layout_marginTop="61dp"
+        android:layout_marginLeft="24dp"
         android:layout_alignTop="@+id/pictureurl"
-        android:layout_alignRight="@+id/goodsname"
+        android:layout_toRightOf="@+id/needquantity"
         android:textSize="18dp"
         android:text="TextView" />
 
@@ -42,9 +43,11 @@
         android:id="@+id/needquantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/memberprice"
-        android:layout_alignBottom="@+id/memberprice"
-        android:layout_alignLeft="@+id/goodsname"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="61dp"
+        android:textSize="18dp"
+        android:layout_toRightOf="@+id/pictureurl"
         android:text="TextView" />
 
 </RelativeLayout>
