@@ -496,7 +496,7 @@ public class GoodsGroupTOrderAction extends ActionSupport {
 			cellmap.put("id", grouporder.getOrderid());
 			cellmap.put("cell",new Object[]{
 					grouporder.getOrderid(),
-					"<a id='orderdetial'href='InitgroupOrdersDetail?orderid=" + grouporder.getOrderid() + "' name='orderdetail'>" + grouporder.getGoodsname() + "</a>",
+					"<a id='orderdetial' target='_blank' href='InitgroupOrdersDetail?orderid=" + grouporder.getOrderid() + "'   name='orderdetail'>" + grouporder.getGoodsname() + "</a>",
 					
 					grouporder.getAmount(),
 					grouporder.getNeedquantity(), 
