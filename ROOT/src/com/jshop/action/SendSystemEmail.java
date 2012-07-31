@@ -5,6 +5,9 @@ import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
@@ -23,7 +26,12 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import com.jshop.action.templates.CreateHtml;
+import com.jshop.action.tools.Validate;
+import com.jshop.entity.CartT;
+import com.jshop.entity.GoodsT;
 import com.jshop.entity.UserT;
+import com.jshop.service.CartTService;
+import com.jshop.service.GoodsTService;
 import com.opensymphony.xwork2.ActionSupport;
 
 import com.opensymphony.xwork2.util.ResolverUtil.Test;
@@ -34,15 +42,36 @@ import freemarker.template.TemplateException;
 @Controller("sendSystemEmail")
 public class SendSystemEmail extends ActionSupport {
 	private TaskExecutor taskExecutor;
-	@Resource(name="createHtml")
 	private CreateHtml createHtml;
+	private CartTService cartTService;
+	private GoodsTService goodsTService;
 	private String username;
 	private String sysSendmail;
 	private String sysMailSmtp;
 	private String sysMailPort;
 	private String smtpusername;
 	private String smtppwd;
+	private String orderid;
+	private String email;
 	private boolean flag;
+	@JSON(serialize = false)
+	public GoodsTService getGoodsTService() {
+		return goodsTService;
+	}
+
+	public void setGoodsTService(GoodsTService goodsTService) {
+		this.goodsTService = goodsTService;
+	}
+
+	@JSON(serialize = false)
+	public CartTService getCartTService() {
+		return cartTService;
+	}
+
+	public void setCartTService(CartTService cartTService) {
+		this.cartTService = cartTService;
+	}
+
 	@JSON(serialize = false)
 	public TaskExecutor getTaskExecutor() {
 		return taskExecutor;
@@ -117,6 +146,22 @@ public class SendSystemEmail extends ActionSupport {
 		this.smtppwd = smtppwd;
 	}
 
+	public String getOrderid() {
+		return orderid;
+	}
+
+	public void setOrderid(String orderid) {
+		this.orderid = orderid;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -184,39 +229,74 @@ public class SendSystemEmail extends ActionSupport {
 		});
 
 	}
-
 	
+	public String getVirtualinfo(List glist){
+		GoodsT gt=new GoodsT();
+		String mailcontent = "";
+		for(int i=0;i<glist.size();i++){
+			gt=this.getGoodsTService().findGoodsById(glist.get(i).toString());
+			mailcontent+=gt.getVirtualresults()+"   ";
+		}
+		return mailcontent;
+	}
 	
 	
 	/**
-	 * 读取email.properties 里面的信息
-	 * 
-	 * @return
+	 * 根据orderid查询到商品数据并发送邮件
+	 * @param orderid
 	 */
-	@Action(value = "readProperties", results = { 
-			@Result(name = "json",type="json")
-	})
-	public String readProperties() {
-		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("email.properties");
-		Properties p = new Properties();
-		
-		try {
-			p.load(inputStream);
-			inputStream.close();
-			sysSendmail = p.getProperty("email.username");
-			sysMailSmtp = p.getProperty("email.host");
-			sysMailPort = p.getProperty("email.port");
-			smtpusername = p.getProperty("email.smtpname");
-			smtppwd = p.getProperty("email.password");
-			
-			
-			return "json";
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "json";
+	@SuppressWarnings("unchecked")
+	@Action(value="sendEmailVirtualMovieGoodsinfo")
+	public void sendEmailVirtualMovieGoodsinfo(){
+		String orderid="";
+		final String email=this.getEmail();
+		if(Validate.StrNotNull(this.getOrderid())){
+			orderid=this.getOrderid().trim();
 		}
+	
+		List<CartT>list=this.getCartTService().findCartGoodsByOrderid(orderid);
+		List glist=new ArrayList();
+		if(!list.isEmpty()){
+			for (Iterator it = list.iterator(); it.hasNext();) {
+				CartT cart=(CartT)it.next();
+				if(!list.contains(cart.getGoodsid())){
+					glist.add(cart.getGoodsid());
+				}
+			}
+		}
+		final String mailcontent=getVirtualinfo(glist);
+		this.getTaskExecutor().execute(new Runnable() {
 
+			public void run() {
+				InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("email.properties");
+				Properties p = new Properties();
+				try {
+					p.load(inputStream);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+				JavaMailSender sender = (JavaMailSender) ctx.getBean("javamailsenderimpl");
+				MimeMessage msg = sender.createMimeMessage();
+				MimeMessageHelper helper = null;
+				try {
+					helper = new MimeMessageHelper(msg, false, "UTF-8");
+				} catch (MessagingException e1) {
+					e1.printStackTrace();
+				}
+				try {
+					helper.setTo(email);
+					helper.setFrom(p.getProperty("email.username"));
+					helper.setSubject("ostocy会员激活邮件");
+					helper.setText(mailcontent, true);
+				} catch (MessagingException e) {
+					e.printStackTrace();
+				}
+				sender.send(msg);
+
+			}
+		});
+		
 	}
 
 	

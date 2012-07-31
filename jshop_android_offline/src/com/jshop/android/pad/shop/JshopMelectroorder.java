@@ -19,8 +19,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -48,7 +50,7 @@ import com.jshop.android.util.JshopMPostActionList;
  */
 public class JshopMelectroorder extends Activity{
 	
-	
+	private Button backtolist;
 	private String requestjsonstr;
 	private ArrayList<HashMap<String, Object>> electrocartgoodslists = new ArrayList<HashMap<String, Object>>();
 	private ListView listViews;
@@ -60,7 +62,7 @@ public class JshopMelectroorder extends Activity{
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.jshop_m_goodselectrocart);
 		listViews=(ListView) this.findViewById(R.id.listViewmyelectrocart);
-		
+		backtolist = (Button)this.findViewById(R.id.backtolist);
 		final String []temp=readJmtable().split(",");
 		if("-1".equals(temp[0])){
 			Toast t=Toast.makeText(getApplicationContext(), "您还没有就座无法查看结帐", Toast.LENGTH_LONG);
@@ -94,7 +96,12 @@ public class JshopMelectroorder extends Activity{
 				startActivity(intent);
 			}
 		});
-		
+		backtolist.setOnClickListener(new OnClickListener(){
+			public void onClick(View arg0){
+				Intent intent=new Intent(JshopMelectroorder.this,JshopActivityGoodsList.class);
+				startActivity(intent);
+			}
+		});
 	}
 	
 //	/**

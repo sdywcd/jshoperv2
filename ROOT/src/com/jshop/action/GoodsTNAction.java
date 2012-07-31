@@ -146,6 +146,8 @@ public class GoodsTNAction extends ActionSupport {
 	private String ismobileplatformgoods;
 	private String commoditylist;//清单
 	private String belinkedgoodsid;//关联商品id串
+	private String isvirtual;//是否虚拟商品标记
+	private String virtualresults;//虚拟商品返回结果
 	private String rejson;
 	private String query;//text
 	private String qtype;//select
@@ -1194,6 +1196,22 @@ public class GoodsTNAction extends ActionSupport {
 		this.belinkedgoodsid = belinkedgoodsid;
 	}
 
+	public String getIsvirtual() {
+		return isvirtual;
+	}
+
+	public void setIsvirtual(String isvirtual) {
+		this.isvirtual = isvirtual;
+	}
+
+	public String getVirtualresults() {
+		return virtualresults;
+	}
+
+	public void setVirtualresults(String virtualresults) {
+		this.virtualresults = virtualresults;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -1297,6 +1315,8 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setVirtualsale(0);
 		gt.setIsmobileplatformgoods(this.getIsmobileplatformgoods());
 		gt.setCommoditylist(this.getCommoditylist());
+		gt.setIsvirtual(this.getIsvirtual());
+		gt.setVirtualresults(this.getVirtualresults());
 		if (this.getGoodsTService().addGoods(gt) > 0) {
 			this.setBean(gt);
 			return true;
@@ -1398,6 +1418,8 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setVirtualsale(bean.getVirtualsale());
 		gt.setIsmobileplatformgoods(this.getIsmobileplatformgoods());
 		gt.setCommoditylist(this.getCommoditylist());
+		gt.setIsvirtual(this.getIsvirtual());
+		gt.setVirtualresults(this.getVirtualresults());
 		if (this.getGoodsTService().updateGoods(gt) > 0) {
 			this.setBean(gt);
 			return true;
@@ -1498,6 +1520,8 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setVirtualsale(0);
 		gt.setIsmobileplatformgoods(this.getIsmobileplatformgoods());
 		gt.setCommoditylist(this.getCommoditylist());
+		gt.setIsvirtual(this.getIsvirtual());
+		gt.setVirtualresults(this.getVirtualresults());
 		if (this.getGoodsTService().addGoods(gt) > 0) {
 			this.setBean(gt);
 			return true;
@@ -1599,6 +1623,8 @@ public class GoodsTNAction extends ActionSupport {
 		gt.setVirtualsale(bean.getVirtualsale());
 		gt.setIsmobileplatformgoods(this.getIsmobileplatformgoods());
 		gt.setCommoditylist(this.getCommoditylist());
+		gt.setIsvirtual(this.getIsvirtual());
+		gt.setVirtualresults(this.getVirtualresults());
 		if (this.getGoodsTService().updateGoods(gt) > 0) {
 			this.setBean(gt);
 

@@ -516,5 +516,37 @@ public class SystemMailMAction extends ActionSupport {
 		return "json";
 
 	}
+	
+	
+	/**
+	 * 读取email.properties 里面的信息
+	 * 
+	 * @return
+	 */
+	@Action(value = "readProperties", results = { 
+			@Result(name = "json",type="json")
+	})
+	public String readProperties() {
+		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("email.properties");
+		Properties p = new Properties();
+		
+		try {
+			p.load(inputStream);
+			inputStream.close();
+			sysSendmail = p.getProperty("email.username");
+			sysMailSmtp = p.getProperty("email.host");
+			sysMailPort = p.getProperty("email.port");
+			smtpusername = p.getProperty("email.smtpname");
+			smtppwd = p.getProperty("email.password");
+			
+			
+			return "json";
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "json";
+		}
+
+	}
 
 }

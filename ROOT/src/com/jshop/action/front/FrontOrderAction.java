@@ -1,11 +1,8 @@
 package com.jshop.action.front;
 
 import java.text.ParseException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import javax.annotation.Resource;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
@@ -20,9 +17,9 @@ import com.jshop.action.templates.DataCollectionTAction;
 import com.jshop.action.templates.FreeMarkervariable;
 import com.jshop.action.tools.Arith;
 import com.jshop.action.tools.BaseTools;
+import com.jshop.action.tools.PaymentCode;
 import com.jshop.action.tools.Serial;
 import com.jshop.action.tools.Validate;
-import com.jshop.alipay.config.AlipayConfig;
 import com.jshop.entity.CartT;
 import com.jshop.entity.DeliverAddressT;
 import com.jshop.entity.LogisticsBusinessT;
@@ -32,6 +29,8 @@ import com.jshop.entity.PaymentM;
 import com.jshop.entity.ShippingAddressT;
 import com.jshop.entity.UserT;
 import com.jshop.entity.VouchersT;
+import com.jshop.pay.alipay.config.AlipayConfig;
+import com.jshop.pay.tenpay.TenPayConfig;
 import com.jshop.service.CartTService;
 import com.jshop.service.DeliverAddressTService;
 import com.jshop.service.LogisticsBusinessTService;
@@ -40,15 +39,6 @@ import com.jshop.service.OrderTService;
 import com.jshop.service.PaymentMService;
 import com.jshop.service.ShippingAddressTService;
 import com.jshop.service.VouchersTService;
-import com.jshop.service.impl.CartTServiceImpl;
-import com.jshop.service.impl.DeliverAddressTServiceImpl;
-import com.jshop.service.impl.LogisticsBusinessTServiceImpl;
-import com.jshop.service.impl.LogisticsbusinessareaTServiceImpl;
-import com.jshop.service.impl.OrderTServiceImpl;
-import com.jshop.service.impl.PaymentMServiceImpl;
-import com.jshop.service.impl.ShippingAddressTServiceImpl;
-import com.jshop.service.impl.VouchersTServiceImpl;
-
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 @ParentPackage("jshop")
@@ -107,13 +97,17 @@ public class FrontOrderAction extends ActionSupport {
 	private String cartid;
 	private String hidurl;
 	private String redirecturl;
+	private PaymentM pm=new PaymentM();
+	private DeliverAddressT dt=new DeliverAddressT();
 	private boolean sflag = false;
 	private boolean svoucher = false;
-	private boolean spayment = false;
+	private boolean spayment = false;//是否支付信息写入成功标记
 	private boolean sshoppingaddress = false;
 	private boolean saddorder = false;
 	private boolean supdatecart = false;
 	private boolean slogin;
+	private String paymentcode;//返回给前台的支付方式
+	private String paymentinterface;//反馈给前台的支付接口类型
 	@JSON(serialize = false)
 	public DataCollectionTAction getDataCollectionTAction() {
 		return dataCollectionTAction;
@@ -534,6 +528,38 @@ public class FrontOrderAction extends ActionSupport {
 		this.slogin = slogin;
 	}
 
+	public PaymentM getPm() {
+		return pm;
+	}
+
+	public void setPm(PaymentM pm) {
+		this.pm = pm;
+	}
+
+	public DeliverAddressT getDt() {
+		return dt;
+	}
+
+	public void setDt(DeliverAddressT dt) {
+		this.dt = dt;
+	}
+
+	public String getPaymentcode() {
+		return paymentcode;
+	}
+
+	public void setPaymentcode(String paymentcode) {
+		this.paymentcode = paymentcode;
+	}
+
+	public String getPaymentinterface() {
+		return paymentinterface;
+	}
+
+	public void setPaymentinterface(String paymentinterface) {
+		this.paymentinterface = paymentinterface;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -586,7 +612,9 @@ public class FrontOrderAction extends ActionSupport {
 	 * @param user
 	 */
 	public void GetMyCart(UserT user) {
-		List<CartT> list = this.getCartTService().findAllCartByUserId(user.getUserid());
+		String state="1";
+		String orderTag=this.getOrderTag();
+		List<CartT> list = this.getCartTService().findAllCartByUserId(user.getUserid(),state,orderTag);
 		if (list != null) {
 			this.setTotal(0.0);
 			this.setTotalweight(0.0);
@@ -723,20 +751,20 @@ public class FrontOrderAction extends ActionSupport {
 	 * 
 	 * @return
 	 */
-	public void GetPaymentinfo() {
-		PaymentM list = this.getPaymentMService().findPaymentbyId(this.getPaymentid().trim());
-		if (list != null) {
-			AlipayConfig.partner = list.getPartnerid();
-			AlipayConfig.key = list.getSafecode();
-			AlipayConfig.seller_email = list.getAccount();
-			//把支付方式id和名称增加到order中
-			order.setPaymentid(list.getPaymentid());
-			order.setPaymentname(list.getPaymentname());
-			this.setSpayment(true);
-		} else {
-			this.setSpayment(false);
-		}
-	}
+//	public void GetPaymentinfo() {
+//		PaymentM list = this.getPaymentMService().findPaymentbyId(this.getPaymentid().trim());
+//		if (list != null) {
+//			AlipayConfig.partner = list.getPartnerid();
+//			AlipayConfig.key = list.getSafecode();
+//			AlipayConfig.seller_email = list.getAccount();
+//			//把支付方式id和名称增加到order中
+//			order.setPaymentid(list.getPaymentid());
+//			order.setPaymentname(list.getPaymentname());
+//			this.setSpayment(true);
+//		} else {
+//			this.setSpayment(false);
+//		}
+//	}
 
 	/**
 	 * 设置订单数据
@@ -745,7 +773,6 @@ public class FrontOrderAction extends ActionSupport {
 	 */
 	@SuppressWarnings("static-access")
 	public void initOrderInfo(UserT user) {
-
 		order.setOrderid(this.getSerialidorderid());
 		order.setUserid(user.getUserid());
 		order.setUsername(user.getUsername());
@@ -755,7 +782,7 @@ public class FrontOrderAction extends ActionSupport {
 			//未来获取特定的支付标记来标记货到付款
 		}
 		order.setDelivermode("EXPRESS");
-		order.setDeliverynumber(null);//发货单号在发货后填写
+		order.setDeliverynumber("");//发货单号在发货后填写
 		order.setOrderstate("0");//待确认
 		order.setPaystate("0");//未付款
 		order.setShippingstate("0");//未发货
@@ -775,8 +802,8 @@ public class FrontOrderAction extends ActionSupport {
 		order.setPurchasetime(BaseTools.systemtime());
 		order.setDeliverytime(null);
 		order.setDeliverynumber(null);
-		//发票处理晚
-		order.setInvoice("0");
+		//发票处理
+		order.setInvoice("0");//目前前台没有开票，如果要这里需要动态取得为1
 		order.setCustomernotes(this.getCustomernotes());
 		order.setPaytime(null);
 		order.setOrderTag(this.getOrderTag());
@@ -793,19 +820,90 @@ public class FrontOrderAction extends ActionSupport {
 		order.setHasprintinvoice("0");//未打印发货单
 		order.setHasprintfpinvoice("0");//未开具发票
 		order.setExpressnumber(null);//快递单号
+		order.setPaymentid(this.getPm().getPaymentid());
+		order.setPaymentname(this.getPm().getPaymentname());
 		if (this.getOrderTService().addOrder(order) > 0) {
-			AlipayConfig.out_trade_no = order.getOrderid();
-			AlipayConfig.subject = order.getGoodsname();
-			AlipayConfig.body = order.getGoodsname();
-			AlipayConfig.price = String.valueOf(order.getShouldpay());
-			AlipayConfig.logistics_fee = String.valueOf(order.getFreight());
-
 			this.setSaddorder(true);
 		} else {
 			this.setSaddorder(false);
 		}
 	}
+	
+	/**
+	 * 在多支付方式情况下初始化订单采用的支付方式所需要的信息
+	 */
+	public void InitPayway(){
+		PaymentM list = this.getPaymentMService().findPaymentbyId(this.getPaymentid().trim());
+		if (list != null) {
+			this.setPm(list);
+			if(PaymentCode.PAYMENT_CODE_ALIPAY.equals(list.getPaymentCode())){
+				this.setPaymentcode(PaymentCode.PAYMENT_CODE_ALIPAY);
+				if("3".equals(list.getPaymentInterface())){
+					//BuildAlipayConfig();
+					this.setPaymentinterface("3");//双接口
+					this.setSpayment(true);
+				}
+				//把支付方式id和名称增加到order中
+				order.setPaymentid(list.getPaymentid());
+				order.setPaymentname(list.getPaymentname());
+				this.setSpayment(true);
+			}else if(PaymentCode.PAYMENT_CODE_TENPAY.equals(list.getPaymentCode())){
+				this.setPaymentcode(PaymentCode.PAYMENT_CODE_TENPAY);
+				if("3".equals(list.getPaymentInterface())){
+					//进行财付通的双接口虚拟即时到帐操作，采集即时到帐需要的数据
+					//BuildTenPayConfig();
+					this.setPaymentinterface("3");
+					this.setSpayment(true);
+				}
+				order.setPaymentid(this.getPaymentid());
+				order.setPaymentname(list.getPaymentname());
+				this.setSpayment(true);
+			}
+		} else {
+			this.setSpayment(false);
+		}
+	}
+	
+	/**
+	 * 开始对支付宝采集数据
+	 */
+	public void BuildAlipayConfig(){
+		AlipayConfig.partner = this.getPm().getPartnerid();
+		AlipayConfig.key = this.getPm().getSafecode();
+		AlipayConfig.seller_email = this.getPm().getAccount();
+		AlipayConfig.out_trade_no = order.getOrderid();
+		AlipayConfig.subject = order.getGoodsname();
+		AlipayConfig.body = order.getGoodsname();
+		AlipayConfig.price = String.valueOf(order.getShouldpay());
+		AlipayConfig.logistics_fee = String.valueOf(order.getFreight());
+		//设置收货人信息给支付宝借口
+		AlipayConfig.receive_name = this.getDt().getUsername();
+		AlipayConfig.receive_address = this.getDt().getProvince() + this.getDt().getCity() + this.getDt().getDistrict() + this.getDt().getStreet();
+		AlipayConfig.reveive_zip = this.getDt().getPostcode();
+		AlipayConfig.reveive_phone = this.getDt().getTelno();
+		AlipayConfig.reveive_mobile = this.getDt().getMobile();
+	}
 
+	/**
+	 * 开始对TenPay所需数据进行采集
+	 */
+	public void BuildTenPayConfig(){
+		TenPayConfig.partner=this.getPm().getPartnerid();//商户号
+		TenPayConfig.key=this.getPm().getSafecode();//密钥
+		TenPayConfig.out_trade_no=order.getOrderid();//订单号
+		int totalfee=(int)(order.getShouldpay()*100);
+		TenPayConfig.total_fee=String.valueOf(totalfee);
+		TenPayConfig.body=order.getGoodsname();
+		TenPayConfig.bank_type="DEFAULT";
+		TenPayConfig.subject=order.getGoodsname();
+		TenPayConfig.goods_tag=order.getOrderTag();//手机充值虚拟卡
+		TenPayConfig.trade_mode="1";//即时到帐
+		TenPayConfig.trans_type="2";//虚拟交易
+		TenPayConfig.mobile=this.getMobile();
+		//TenPayConfig.return_url="http://"+this.getDataCollectionTAction().getBasePath()+"pay/tenpay_api_b2c/payReturnUrl.jsp";
+		//TenPayConfig.notify_url="http://"+this.getDataCollectionTAction().getBasePath()+"pay/tenpay_api_b2c/payNotifyUrl.jsp";
+	}
+	
 	/**
 	 * 增加发货地址
 	 */
@@ -831,21 +929,17 @@ public class FrontOrderAction extends ActionSupport {
 			s.setIssend("0");//未发送到这个地址过
 			s.setOrderid(this.getSerialidorderid());//设置订单号
 			if (this.getShippingAddressTService().addShoppingAddress(s) > 0) {
-				this.setSshoppingaddress(false);
+				this.setDt(list);//将收获地址信息存入dt
+				this.setSshoppingaddress(false);//这里应该改成true比较好
 				order.setShippingaddressid(s.getShippingaddressid());//设置发货地址到订单中
 				order.setDeliveraddressid(list.getAddressid());//设置收货地址到订单中
 				order.setShippingusername(list.getUsername());//设置收货人
-				//设置收货人信息给支付宝借口
-				AlipayConfig.receive_name = list.getUsername();
-				AlipayConfig.receive_address = list.getProvince() + list.getCity() + list.getDistrict() + list.getStreet();
-				AlipayConfig.reveive_zip = list.getPostcode();
-				AlipayConfig.reveive_phone = list.getTelno();
-				AlipayConfig.reveive_mobile = list.getMobile();
 			} else {
 				this.setSshoppingaddress(true);
 			}
 		}
 	}
+	
 
 	/**
 	 * 事先获取订单编号
@@ -869,13 +963,18 @@ public class FrontOrderAction extends ActionSupport {
 			this.setSlogin(true);
 			//预先生成订单编号
 			GetSerialidorder();
-			//获取支付信息
-			GetPaymentinfo();
 			//增加收获信息到发货地址表中
 			AddShippingAddress();
+			//获取支付信息
+			InitPayway();
 			//增加订单到数据库
 			initOrderInfo(user);
 			if (this.isSaddorder()) {
+				if(PaymentCode.PAYMENT_CODE_ALIPAY.equals(this.getPm().getPaymentCode())){
+					BuildAlipayConfig();
+				}else if(PaymentCode.PAYMENT_CODE_TENPAY.equals(this.getPm().getPaymentCode())){
+					BuildTenPayConfig();
+				}
 				//更新购物车商品到3，表示已经在订单中。并把对应订单号更新
 				//String []tempgoodsid=order.getGoodid().split(",");
 				//检查如果购物已经有对应的订单号则不更新

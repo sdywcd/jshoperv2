@@ -135,9 +135,20 @@
             </div>
             </#if>
             <div class="rm3_3">
-              <input onClick="addcart();" type="button" name="addcart" id="addcart" value="" style="cursor:pointer;"/>
+			<#if goodsdetail.isvirtual=='1'>
+				<#if goodsdetail.goodsTypeName='充值卡'>
+				 <input onClick="addtovirtualgoodscart(${goodsdetail.goodsid});" type="button" name="addcart" id="addcart" value="" style="cursor:pointer;"/>
+				<#else>
+				<input onClick="addtovirtualgoodsmovie(${goodsdetail.goodsid});" type="button" name="addcart" id="addcart" value="" style="cursor:pointer;"/>
+				
+				</#if>
+            <#else>
+			 <input onClick="addcart();" type="button" name="addcart" id="addcart" value="" style="cursor:pointer;"/>
+			</#if>
               <input onClick="addfav();" type="button" name="addfav" id="addfav" value="" style="cursor:pointer;"/>
-              <span id="addfavok"></span> </div>
+              <span id="addfavok"></span>
+
+			  </div>
           </div>
         </div>
 		<#if (goodsbelinked??)&&(goodsbelinked?size>0)>

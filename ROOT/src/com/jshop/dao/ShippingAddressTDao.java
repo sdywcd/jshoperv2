@@ -8,13 +8,13 @@ import com.jshop.entity.ShippingAddressT;
 public interface ShippingAddressTDao {
 
 	/**
-	 * 增加收获地址
+	 * 增加发货地址
 	 * @param d
 	 * @return
 	 */
 	public abstract int addShoppingAddress(ShippingAddressT s);
 	/**
-	 * 根据发货地址id查询层级的一系列发货地址（是否变更过地址等）
+	 * 根据发货地址id查询一系列发货地址（是否变更过地址等）
 	 * @param shippingaddressid
 	 * @param state
 	 * @return

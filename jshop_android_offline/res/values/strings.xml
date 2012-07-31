@@ -50,7 +50,7 @@
 	<string name="goodscategoryname">菜单分类</string>
 	<string name="goodslistname">菜品列表</string>
 	<string name="addtoelectcart">加入餐车</string>
-	<string name="myelectrocart">已点菜单</string>
+	<string name="myelectrocart">继续点菜</string>
 	<string name="totalprice">总价</string>
 	<string name="diandan">点单</string>
 	<string name="maidan">买单</string>
@@ -58,6 +58,6 @@
 	<string name="cash1">现金</string>
 	<string name="creditcard2">刷卡</string>
 	<string name="changeview">切换模式</string>
-	<string name="recommend">推荐菜</string>
+	<string name="recommend">已点菜单</string>
 	<string name="classify">菜单分类</string>
 </resources>

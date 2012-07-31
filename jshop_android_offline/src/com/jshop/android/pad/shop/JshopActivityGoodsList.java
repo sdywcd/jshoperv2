@@ -51,6 +51,7 @@ import com.jshop.android.util.JshopMPostActionList;
 public class JshopActivityGoodsList extends Activity{
 	
 	private Button goodscategory;
+	private Button selectedorder;
 	private String requestjsonstr;
 	private ArrayList<HashMap<String, Object>> goodslists = new ArrayList<HashMap<String, Object>>();
 	private ListView listViews;
@@ -63,6 +64,7 @@ public class JshopActivityGoodsList extends Activity{
 		this.setContentView(R.layout.jshop_m_goodslist);
 		listViews=(ListView) this.findViewById(R.id.listViewgoods);
 		goodscategory=(Button)this.findViewById(R.id.goodscategory);
+		selectedorder=(Button)this.findViewById(R.id.selectedorder);
 		Intent intent=this.getIntent();
 		String goodsCategoryTid=intent.getStringExtra("goodsCategoryTid");
 		try {
@@ -94,6 +96,14 @@ public class JshopActivityGoodsList extends Activity{
 				startActivity(intent);
 			}
 		});
+		selectedorder.setOnClickListener(new OnClickListener(){
+			public void onClick(View arg0){
+				Intent intent=new Intent(JshopActivityGoodsList.this,JshopMelectrocart.class);
+				startActivity(intent);
+			}
+		});
+
+
 	}
 	
 	/**
