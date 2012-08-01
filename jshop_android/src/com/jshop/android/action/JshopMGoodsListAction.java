@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.*;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -70,6 +72,25 @@ public class JshopMGoodsListAction {
 
 	}
 	
+
+	private String savePicturetoDeviceAndReturnFixedUrl(String pictureurl) throws IOException{
+	String regstr = "http:\\/\\/:(.?)*\\/(.?)*\\.(png|PNG|jpg|JPG|GIF|gif)";
+	String postfix="",filename="",resultstr="";
+	Pattern patternForImg = Pattern.compile(regstr);
+	Matcher matcher = patternForImg.matcher(pictureurl);
+	if(matcher.find()){
+		filename = matcher.group(3);
+		postfix = matcher.group(4);		
+	}
+	resultstr = filename+"."+postfix;
+	try{
+		//FileOutputStream fos = openFileOutput()
+	}catch (Exception e){
+		
+	}
+	return resultstr;
+	
+	}
 	/**
 	 * 把服务器上的商品列表数据缓存到本地数据库中
 	 * @param goodslists
