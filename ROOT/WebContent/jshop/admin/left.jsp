@@ -48,9 +48,7 @@
 				<li>
 					<a id="link18" href="<%=basePatha%>jshop/admin/goods/goodsgroupmanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#goods">团购商品</a>
 				</li>
-				<li>
-					<a id="link19" href="<%=basePatha%>jshop/admin/order/groupordermanage.jsp?session=6584359BA964336B9BDE75737952F5AA#goods">团购订单管理</a>
-				</li>
+				
 				
 				<li class="collapsible">
 					<a href="#" class="plus">商品列表</a>
@@ -103,6 +101,9 @@
 				</li>
 				<li class="last">
 					<a id="link7" href="<%=basePatha%>jshop/admin/order/returnordermanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#order">需退货订单</a>
+				</li>
+				<li>
+					<a id="link8" href="<%=basePatha%>jshop/admin/order/groupordermanage.jsp?session=6584359BA964336B9BDE75737952F5AA#order">团购订单管理</a>
 				</li>
 				
 			</ul>

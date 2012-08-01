@@ -30,6 +30,7 @@ import com.jshop.action.templates.DataCollectionTAction;
 import com.jshop.action.templates.FreeMarkervariable;
 import com.jshop.action.tools.Arith;
 import com.jshop.action.tools.BaseTools;
+import com.jshop.action.tools.PaymentCode;
 import com.jshop.action.tools.Serial;
 import com.jshop.entity.CartT;
 import com.jshop.entity.DeliverAddressT;
@@ -42,6 +43,7 @@ import com.jshop.entity.PaymentM;
 import com.jshop.entity.ShippingAddressT;
 import com.jshop.entity.UserT;
 import com.jshop.pay.alipay.config.AlipayConfig;
+import com.jshop.pay.tenpay.TenPayConfig;
 import com.jshop.service.DeliverAddressTService;
 import com.jshop.service.GroupCartService;
 import com.jshop.service.GroupOrderTService;
@@ -129,6 +131,10 @@ public class GroupOrderAction extends ActionSupport {
 	private String cartgoodsname;
 	private String cartgoodsid;
 	private int cartneedquantity;
+	private PaymentM pm=new PaymentM();
+	private DeliverAddressT dt=new DeliverAddressT();
+	private String paymentcode;//返回给前台的支付方式
+	private String paymentinterface;//反馈给前台的支付接口类型
 	@JSON(serialize=false)
 	public GroupCartService getGroupCartService() {
 		return groupCartService;
@@ -551,6 +557,30 @@ public class GroupOrderAction extends ActionSupport {
 	public void setFavorable(double favorable) {
 		this.favorable = favorable;
 	}
+	public PaymentM getPm() {
+		return pm;
+	}
+	public void setPm(PaymentM pm) {
+		this.pm = pm;
+	}
+	public DeliverAddressT getDt() {
+		return dt;
+	}
+	public void setDt(DeliverAddressT dt) {
+		this.dt = dt;
+	}
+	public String getPaymentcode() {
+		return paymentcode;
+	}
+	public void setPaymentcode(String paymentcode) {
+		this.paymentcode = paymentcode;
+	}
+	public String getPaymentinterface() {
+		return paymentinterface;
+	}
+	public void setPaymentinterface(String paymentinterface) {
+		this.paymentinterface = paymentinterface;
+	}
 	/**
 	 * 清理错误
 	 */
@@ -712,26 +742,101 @@ public class GroupOrderAction extends ActionSupport {
 		}
 
 	}
+//	/**
+//	 *获取支付信息
+//	 * 
+//	 * @return
+//	 */
+//	public void GetPaymentinfo() {
+//		PaymentM list = this.getPaymentMService().findPaymentbyId(this.getPaymentid().trim());
+//		if (list != null) {
+//			
+//			AlipayConfig.partner = list.getPartnerid();
+//			AlipayConfig.key = list.getSafecode();
+//			AlipayConfig.seller_email = list.getAccount();
+//			//把支付方式id和名称增加到order中
+//			got.setPaymentid(list.getPaymentid());
+//			got.setPaymentname(list.getPaymentname());
+//			this.setSpayment(true);
+//		} else {
+//			this.setSpayment(false);
+//		}
+//	}
 	/**
-	 *获取支付信息
-	 * 
-	 * @return
+	 * 在多支付方式情况下初始化订单采用的支付方式所需要的信息
 	 */
-	public void GetPaymentinfo() {
+	public void InitPayway(){
 		PaymentM list = this.getPaymentMService().findPaymentbyId(this.getPaymentid().trim());
 		if (list != null) {
-			
-			AlipayConfig.partner = list.getPartnerid();
-			AlipayConfig.key = list.getSafecode();
-			AlipayConfig.seller_email = list.getAccount();
-			//把支付方式id和名称增加到order中
-			got.setPaymentid(list.getPaymentid());
-			got.setPaymentname(list.getPaymentname());
-			this.setSpayment(true);
+			this.setPm(list);
+			if(PaymentCode.PAYMENT_CODE_ALIPAY.equals(list.getPaymentCode())){
+				this.setPaymentcode(PaymentCode.PAYMENT_CODE_ALIPAY);
+				if("3".equals(list.getPaymentInterface())){
+					//BuildAlipayConfig();
+					this.setPaymentinterface("3");//双接口
+					this.setSpayment(true);
+				}
+				//把支付方式id和名称增加到order中
+				got.setPaymentid(list.getPaymentid());
+				got.setPaymentname(list.getPaymentname());
+				this.setSpayment(true);
+			}else if(PaymentCode.PAYMENT_CODE_TENPAY.equals(list.getPaymentCode())){
+				this.setPaymentcode(PaymentCode.PAYMENT_CODE_TENPAY);
+				if("3".equals(list.getPaymentInterface())){
+					//进行财付通的双接口虚拟即时到帐操作，采集即时到帐需要的数据
+					//BuildTenPayConfig();
+					this.setPaymentinterface("3");
+					this.setSpayment(true);
+				}
+				got.setPaymentid(this.getPaymentid());
+				got.setPaymentname(list.getPaymentname());
+				this.setSpayment(true);
+			}
 		} else {
 			this.setSpayment(false);
 		}
 	}
+	
+	/**
+	 * 开始对支付宝采集数据
+	 */
+	public void BuildAlipayConfig(){
+		AlipayConfig.partner = this.getPm().getPartnerid();
+		AlipayConfig.key = this.getPm().getSafecode();
+		AlipayConfig.seller_email = this.getPm().getAccount();
+		AlipayConfig.out_trade_no = got.getOrderid();
+		AlipayConfig.subject = got.getGoodsname();
+		AlipayConfig.body = got.getGoodsname();
+		AlipayConfig.price = String.valueOf(got.getShouldpay());
+		AlipayConfig.logistics_fee = String.valueOf(got.getFreight());
+		//设置收货人信息给支付宝借口
+		AlipayConfig.receive_name = this.getDt().getUsername();
+		AlipayConfig.receive_address = this.getDt().getProvince() + this.getDt().getCity() + this.getDt().getDistrict() + this.getDt().getStreet();
+		AlipayConfig.reveive_zip = this.getDt().getPostcode();
+		AlipayConfig.reveive_phone = this.getDt().getTelno();
+		AlipayConfig.reveive_mobile = this.getDt().getMobile();
+	}
+
+	/**
+	 * 开始对TenPay所需数据进行采集
+	 */
+	public void BuildTenPayConfig(){
+		TenPayConfig.partner=this.getPm().getPartnerid();//商户号
+		TenPayConfig.key=this.getPm().getSafecode();//密钥
+		TenPayConfig.out_trade_no=got.getOrderid();//订单号
+		int totalfee=(int)(got.getShouldpay()*100);
+		TenPayConfig.total_fee=String.valueOf(totalfee);
+		TenPayConfig.body=got.getGoodsname();
+		TenPayConfig.bank_type="DEFAULT";
+		TenPayConfig.subject=got.getGoodsname();
+		TenPayConfig.goods_tag=got.getOrderTag();//手机充值虚拟卡
+		TenPayConfig.trade_mode="1";//即时到帐
+		TenPayConfig.trans_type="2";//虚拟交易
+//		TenPayConfig.mobile=this.getMobile();
+		//TenPayConfig.return_url="http://"+this.getDataCollectionTAction().getBasePath()+"pay/tenpay_api_b2c/payReturnUrl.jsp";
+		//TenPayConfig.notify_url="http://"+this.getDataCollectionTAction().getBasePath()+"pay/tenpay_api_b2c/payNotifyUrl.jsp";
+	}
+
 
 	/**
 	 * 增加发货地址
@@ -797,7 +902,7 @@ public class GroupOrderAction extends ActionSupport {
 			//预先生成订单编号
 			GetSerialidorder();
 			//获取支付信息
-			GetPaymentinfo();
+			InitPayway();
 			//增加收获信息到发货地址表中
 			AddShippingAddress();
 			//增加订单到数据库
