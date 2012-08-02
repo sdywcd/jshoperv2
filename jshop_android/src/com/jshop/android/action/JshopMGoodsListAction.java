@@ -97,13 +97,14 @@ public class JshopMGoodsListAction {
 	 * @return
 	 */
 	private String savePicturetoDeviceAndReturnFixedUrl(String pictureurl) {
-		String regstr = "http:\\/\\/:(.?)*\\/(.?)*\\.(png|PNG|jpg|JPG|GIF|gif)";
+		
+		String regstr = "(http:|https:)\\/\\/[\\S\\.:/]*\\/(\\S*)\\.(jpg|png|gif)";
 		String postfix = "", filename = "", resultstr = "";
-		Pattern patternForImg = Pattern.compile(regstr);
+		Pattern patternForImg = Pattern.compile(regstr,Pattern.CASE_INSENSITIVE);
 		Matcher matcher = patternForImg.matcher(pictureurl);
 		if (matcher.find()) {
-			filename = matcher.group(3);
-			postfix = matcher.group(4);
+			filename = matcher.group(2);
+			postfix = matcher.group(3);
 		}
 		return resultstr = filename + "." + postfix;
 	}
@@ -114,7 +115,7 @@ public class JshopMGoodsListAction {
 		if (!dirFile.exists()) {
 			dirFile.mkdir();
 		}
-		String onlineFilePath = JshopMParams.SAVEPCPATH + "11"+fileName+"jpg";
+		String onlineFilePath = JshopMParams.SAVEPCPATH +fileName;
 		File myOnlineFile = new File(onlineFilePath);
 		BufferedOutputStream bos = new BufferedOutputStream(
 				new FileOutputStream(myOnlineFile));
