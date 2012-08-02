@@ -41,7 +41,6 @@ public class JshopMGoodsListAction {
 	 * 
 	 * @return
 	 */
-
 	private String queryGoodsListForJshop(String goodsCategoryTid) {
 		String posturl = JshopActivityUtil.BASE_URL + "/"
 				+ JshopMPostActionList.FINDGOODSBYGOODSCATEGORYIDFORANDROID
@@ -49,24 +48,18 @@ public class JshopMGoodsListAction {
 		return JshopActivityUtil.queryStringForPost(posturl);
 	}
 
-	public ArrayList<HashMap<String, Object>> getGoodsList(
-			String goodsCategoryTid) throws IOException {
+	public ArrayList<HashMap<String, Object>> getGoodsList(String goodsCategoryTid) throws IOException {
 		requestjsonstr = this.queryGoodsListForJshop(goodsCategoryTid);
 		if (Validate.StrNotNull(requestjsonstr)) {
 			JSONArray ja = (JSONArray) JSONValue.parse(requestjsonstr);
 			for (int i = 0; i < ja.size(); i++) {
 				HashMap<String, Object> map = new HashMap<String, Object>();
 				JSONObject jo = (JSONObject) (ja.get(i));
-				map.put("pictureurl",
-						getPictureurlImg(JshopActivityUtil.BASE_URL
-								+ jo.get("pictureurl").toString()));
+				map.put("pictureurl",getPictureurlImg(JshopActivityUtil.BASE_URL+ jo.get("pictureurl").toString()));
 				map.put("goodsname", jo.get("goodsname").toString());
 				map.put("memberprice", "￥" + jo.get("memberprice").toString());
 				map.put("goodsid", jo.get("goodsid").toString());
 				map.put("goodsCategoryTid", goodsCategoryTid);
-				// map.put("pictureurlpath",
-				// JshopActivityUtil.BASE_URL
-				// + jo.get("pictureurl").toString());
 				map.put("pictureurlpath", downloadpcurl);
 				goodslists.add(map);
 			}

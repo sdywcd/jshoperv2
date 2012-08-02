@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2012-7-27 14:17:46 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2012-8-2 9:31:29 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.jshop.entity.UserT" table="user_t"  >
+    <class name="com.jshop.entity.UserT" table="user_t" catalog="jshopactive">
         <id name="userid" type="string">
             <column name="USERID" length="20" />
             <generator class="assigned" />
@@ -121,6 +121,9 @@
         </property>
         <property name="rolemid" type="string">
             <column name="ROLEMID" length="20" not-null="true" />
+        </property>
+        <property name="headpath" type="string">
+            <column name="HEADPATH" length="225" />
         </property>
     </class>
 </hibernate-mapping>
