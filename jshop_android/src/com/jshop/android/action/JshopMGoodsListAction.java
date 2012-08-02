@@ -1,5 +1,9 @@
 package com.jshop.android.action;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -23,11 +27,12 @@ import android.graphics.BitmapFactory;
 
 import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.util.JshopActivityUtil;
+import com.jshop.android.util.JshopMParams;
 import com.jshop.android.util.JshopMPostActionList;
 import com.jshop.android.util.Validate;
 
 public class JshopMGoodsListAction {
-
+	private String downloadpcurl;
 	private String requestjsonstr;
 	private ArrayList<HashMap<String, Object>> goodslists = new ArrayList<HashMap<String, Object>>();
 
@@ -59,9 +64,10 @@ public class JshopMGoodsListAction {
 				map.put("memberprice", "￥" + jo.get("memberprice").toString());
 				map.put("goodsid", jo.get("goodsid").toString());
 				map.put("goodsCategoryTid", goodsCategoryTid);
-				map.put("pictureurlpath",
-						JshopActivityUtil.BASE_URL
-								+ jo.get("pictureurl").toString());
+				// map.put("pictureurlpath",
+				// JshopActivityUtil.BASE_URL
+				// + jo.get("pictureurl").toString());
+				map.put("pictureurlpath", downloadpcurl);
 				goodslists.add(map);
 			}
 		}
@@ -75,14 +81,21 @@ public class JshopMGoodsListAction {
 		conn.setConnectTimeout(5 * 1000);
 		InputStream in = conn.getInputStream();
 		Bitmap bm = BitmapFactory.decodeStream(in);
-
+		// 保存本地图片
+		String fileName=savePicturetoDeviceAndReturnFixedUrl(pictureurl);
+		saveOnlinePictureToCard(bm,fileName);
 		in.close();
 		return bm;
 
 	}
 
-	private String savePicturetoDeviceAndReturnFixedUrl(String pictureurl)
-			throws IOException {
+	/**
+	 * 获取网络图片名称
+	 * 
+	 * @param pictureurl
+	 * @return
+	 */
+	private String savePicturetoDeviceAndReturnFixedUrl(String pictureurl) {
 		String regstr = "http:\\/\\/:(.?)*\\/(.?)*\\.(png|PNG|jpg|JPG|GIF|gif)";
 		String postfix = "", filename = "", resultstr = "";
 		Pattern patternForImg = Pattern.compile(regstr);
@@ -91,14 +104,23 @@ public class JshopMGoodsListAction {
 			filename = matcher.group(3);
 			postfix = matcher.group(4);
 		}
-		resultstr = filename + "." + postfix;
-		try {
-			// FileOutputStream fos = openFileOutput()
-		} catch (Exception e) {
+		return resultstr = filename + "." + postfix;
+	}
 
+	private void saveOnlinePictureToCard(Bitmap bm, String fileName)
+			throws IOException {
+		File dirFile = new File(JshopMParams.SAVEPCPATH);
+		if (!dirFile.exists()) {
+			dirFile.mkdir();
 		}
-		return resultstr;
-
+		String onlineFilePath = JshopMParams.SAVEPCPATH + "11"+fileName+"jpg";
+		File myOnlineFile = new File(onlineFilePath);
+		BufferedOutputStream bos = new BufferedOutputStream(
+				new FileOutputStream(myOnlineFile));
+		bm.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+		bos.flush();
+		bos.close();
+		this.downloadpcurl = onlineFilePath;
 	}
 
 	/**
@@ -144,8 +166,7 @@ public class JshopMGoodsListAction {
 			map.put("goodsid", c.getString(c.getColumnIndex("goodsid")));
 			map.put("goodsname", c.getString(c.getColumnIndex("goodsname")));
 			map.put("memberprice", c.getString(c.getColumnIndex("memberprice")));
-			map.put("pictureurl", getPictureurlImg(JshopActivityUtil.BASE_URL
-					+ c.getString(c.getColumnIndex("pictureurl")).toString()));
+			map.put("pictureurl", c.getString(c.getColumnIndex("pictureurl")).toString());
 			goodslists.add(map);
 			c.moveToNext();
 		}
