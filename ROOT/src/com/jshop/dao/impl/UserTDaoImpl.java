@@ -436,4 +436,27 @@ public class UserTDaoImpl extends HibernateDaoSupport implements UserTDao {
 		}
 	}
 
+	@Override
+	public int updateUserHeadPathByUserId(final UserT user) {
+		try {
+			final String queryString="update UserT as u set u.headpath=:headpath where u.userid=:userid";
+			this.getHibernateTemplate().execute(new HibernateCallback() {
+				
+				@Override
+				public Object doInHibernate(Session session) throws HibernateException,
+						SQLException {
+					int i=0;
+					Query query= session.createQuery(queryString);
+					query.setParameter("headpath", user.getHeadpath());
+					query.setParameter("userid", user.getUserid());
+					i=query.executeUpdate();
+					return i;
+				}
+			});
+		} catch (RuntimeException e) {
+			throw e;
+		}
+		return 0;
+	}
+
 }

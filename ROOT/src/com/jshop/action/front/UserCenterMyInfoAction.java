@@ -25,6 +25,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
 
+import com.jshop.action.ImgTAction;
 import com.jshop.action.templates.DataCollectionTAction;
 import com.jshop.action.templates.FreeMarkervariable;
 import com.jshop.action.tools.BaseTools;
@@ -542,17 +543,19 @@ ServletResponseAware {
 	/**
 	 * 上传图片
 	 */
-	@Action(value="uploadFile", results = {})
-    public void uploadFile() {  
+	@Action(value="uploadFile", results={ @Result(name = "success",type="chain",location = "findUserInfo")})
+    public String  uploadFile() {  
         String extName = ""; // 保存文件拓展名  
         String newFileName = ""; // 保存新的文件名  
         String nowTimeStr = ""; // 保存当前时间  
+        String path="";//根据当天日期创建文件，保存图片
         PrintWriter out = null;  
         SimpleDateFormat sDateFormat;  
         Random r = new Random();  
-        String savePath = ServletActionContext.getServletContext().getRealPath(  
-                ""); // 获取项目根路径  
-        savePath = savePath + "/Uploads/";  
+        String savePath = ServletActionContext.getServletContext().getRealPath(""); // 获取项目根路径  
+        ImgTAction imgTAction = new ImgTAction();
+        path =imgTAction.isexistdir();
+        savePath = savePath + path;  
         HttpServletResponse response = ServletActionContext.getResponse();  
         response.setCharacterEncoding("UTF-8"); // 务必，防止返回文件名是乱码  
         // 生成随机文件名：当前年月日时分秒+五位随机数（为了在实际项目中防止文件同名而进行的处理）  
@@ -561,28 +564,37 @@ ServletResponseAware {
         nowTimeStr = sDateFormat.format(new Date()); // 当前时间  
         // 获取拓展名  
         if (fileuploadFileName.lastIndexOf(".") >= 0) {  
-            extName = fileuploadFileName.substring(fileuploadFileName  
-                    .lastIndexOf("."));  
+            extName = fileuploadFileName.substring(fileuploadFileName.lastIndexOf("."));  
         }  
         try {  
             out = response.getWriter();  
             newFileName = nowTimeStr + rannum + extName; // 文件重命名后的名字  
             String filePath = savePath + newFileName;  
+            String headpath =path + newFileName;
             filePath = filePath.replace("//", "/");  
             //检查上传的是否是图片  
             if (UtilCommon.checkIsImage(extName)) {  
                 FileUtils.copyFile(fileupload, new File(filePath));  
-                out.print("<font color='red'>" + fileuploadFileName  
-                        + "上传成功!</font>#" + filePath + "#" + fileuploadFileName);  
+                UserT user=(UserT)ActionContext.getContext().getSession().get(BaseTools.USER_SESSION_KEY);
+        		if(user!=null){
+        			UserT  u= new UserT();
+        			u.setHeadpath(headpath);
+        			u.setUserid(user.getUserid());
+        			this.getUsertService().updateUserHeadPathByUserId(u);
+        		}
+        		
+              // out.print("<font color='red'>" + fileuploadFileName   + "上传成功!</font>#" + filePath + "#" + fileuploadFileName);  
+               return SUCCESS;
             } else {  
-                out.print("<font color='red'>上传的文件类型错误，请选择jpg,jpeg,png和gif格式的图片!</font>");  
+            //	out.print("<font color='red'>上传的文件类型错误，请选择jpg,jpeg,png和gif格式的图片!</font>");  
             }  
             out.flush();  
             out.close();  
         } catch (IOException e) {  
             e.printStackTrace();  
-            out.print("上传失败，出错啦!");  
+      //   out.print("上传失败，出错啦!");  
         }  
+        return SUCCESS;
        
     }  
     //图片预览 

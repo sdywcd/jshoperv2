@@ -116,4 +116,10 @@ public class UsertServiceImpl implements UsertService {
 		return this.getUserTDao().updateUserRoleMByuserid(userid, rolemid, rolemname);
 	}
 
+	@Override
+	public int updateUserHeadPathByUserId(UserT user) {
+		
+		return this.getUserTDao().updateUserHeadPathByUserId(user);
+	}
+
 }
