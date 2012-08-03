@@ -250,6 +250,8 @@ $(function() {
 		var msn = $("#msn").val();
 		var othercontract = $("#othercontract").val();
 		var hobby = $("#hobby").val();
+		var headpath=$("#headpath").val();
+		
 		$.post("updateUserforMyInfo.action", {
 			"realname" : realname,
 			"sex" : sex,
@@ -261,7 +263,8 @@ $(function() {
 			"qq":qq,
 			"msn":msn,
 			"othercontract":othercontract,
-			"hobby":hobby
+			"hobby":hobby,
+			"headpath":headpath
 		});
 
 	});
