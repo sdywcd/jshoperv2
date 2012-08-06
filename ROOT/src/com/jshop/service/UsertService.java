@@ -140,4 +140,13 @@ public interface UsertService {
 	 * @return
 	 */
 	public abstract int updateUserRoleMByuserid(String userid,String rolemid,String rolemname);
+	/**
+	 * 上传用户的头像的路径
+	 * @param userid
+	 * @param headpath
+	 * @return
+	 */
+	public abstract int updateUserHeadPathByUserId(UserT user);
+	
+	
 }
