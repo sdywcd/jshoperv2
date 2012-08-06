@@ -18,6 +18,7 @@ import com.jshop.action.templates.DataCollectionTAction;
 import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.ContentTag;
 import com.jshop.action.tools.Serial;
+import com.jshop.action.tools.ToChangePDF;
 import com.jshop.action.tools.Validate;
 import com.jshop.entity.ArticleCategoryT;
 import com.jshop.entity.ArticleT;
@@ -528,11 +529,13 @@ public class ArticleTAction extends ActionSupport {
 	 * 查询所有文章
 	 * 
 	 * @return
+	 * @throws Exception 
 	 */
 	@Action(value = "findAllArticleT", results = { @Result(name = "json", type = "json") })
-	public String findAllArticleT() {
+	public String findAllArticleT() throws Exception {
 		if ("sc".equals(this.getQtype())) {
-			this.findDefaultAllArticle();
+			this.findDefaultAllArticle();	
+			ToChangePDF.PDF();
 		} else {
 			if (Validate.StrisNull(this.getQuery())) {
 				return "json";
