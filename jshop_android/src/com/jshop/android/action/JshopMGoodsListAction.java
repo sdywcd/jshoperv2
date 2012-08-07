@@ -48,6 +48,9 @@ public class JshopMGoodsListAction {
 		return JshopActivityUtil.queryStringForPost(posturl);
 	}
 
+	/**
+	 * 获取服务器端的商品数据
+	 */
 	public ArrayList<HashMap<String, Object>> getGoodsList(String goodsCategoryTid) throws IOException {
 		requestjsonstr = this.queryGoodsListForJshop(goodsCategoryTid);
 		if (Validate.StrNotNull(requestjsonstr)) {
@@ -67,6 +70,12 @@ public class JshopMGoodsListAction {
 		return goodslists;
 	}
 
+	/**
+	 * 下载服务器图片
+	 * @param pictureurl
+	 * @return
+	 * @throws IOException
+	 */
 	private Bitmap getPictureurlImg(String pictureurl) throws IOException {
 		URL url = new URL(pictureurl);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -92,14 +101,14 @@ public class JshopMGoodsListAction {
 	private String savePicturetoDeviceAndReturnFixedUrl(String pictureurl) {
 		
 		String regstr = "(http:|https:)\\/\\/[\\S\\.:/]*\\/(\\S*)\\.(jpg|png|gif)";
-		String postfix = "", filename = "", resultstr = "";
+		String postfix = "", filename = "";
 		Pattern patternForImg = Pattern.compile(regstr,Pattern.CASE_INSENSITIVE);
 		Matcher matcher = patternForImg.matcher(pictureurl);
 		if (matcher.find()) {
 			filename = matcher.group(2);
 			postfix = matcher.group(3);
 		}
-		return resultstr = filename + "." + postfix;
+		return filename + "." + postfix;
 	}
 
 	private void saveOnlinePictureToCard(Bitmap bm, String fileName)
@@ -137,10 +146,9 @@ public class JshopMGoodsListAction {
 				values.put("goodsname", map.get("goodsname").toString());
 				values.put("memberprice", map.get("memberprice").toString());
 				values.put("pictureurl", map.get("pictureurlpath").toString());
-				values.put("goodsCategoryTid", map.get("goodsCategoryTid")
-						.toString());
+				values.put("goodsCategoryTid", map.get("goodsCategoryTid").toString());
 				dbhelper.insert(DBHelper.GOODS_TM_NAME, values);
-			}
+			} 
 			dbhelper.close();
 		}
 
@@ -167,5 +175,13 @@ public class JshopMGoodsListAction {
 		}
 		return goodslists;
 	}
+	/**
+	 * 清空商品表中的所有数据SQLite
+	 */
+	public void deleteGoodsListSQLite(Context context){
+		DBHelper dbhelper = new DBHelper(context);
+		dbhelper.deleteAll(DBHelper.GOODS_TM_NAME);
+	}
+	
 
 }
