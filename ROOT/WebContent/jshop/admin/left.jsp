@@ -48,32 +48,14 @@
 				<li>
 					<a id="link18" href="<%=basePatha%>jshop/admin/goods/goodsgroupmanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#goods">团购商品</a>
 				</li>
-				
-				
-				<li class="collapsible">
-					<a href="#" class="plus">商品列表</a>
-					<ul class="collapsed">
-						<li class="last">
-							<a id="link9" href="<%=basePatha%>jshop/admin/goods/goodsmanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#goods">所有商品</a>
-						</li>
-						<!--<li><a id="link10" href="">上架商品</a></li>
-                                                  <li class="last"><a id="link11" href="">下架商品</a></li>-->
-					</ul>
+				<li>
+					<a id="link19" href="<%=basePatha%>jshop/admin/goods/goodsmanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#goods">所有商品</a>
 				</li>
+
 				<li>
 					<a id="link12" href="<%=basePatha%>jshop/admin/goods/goodscommentmanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#goods">商品评论</a>
 				</li>
-				<li class="collapsible last">
-					<a href="#" class="plus">帮助</a>
-					<ul class="collapsed">
-						<li>
-							<a id="link15" href="#">商品类型和规格是什么？</a>
-						</li>
-						<li class="last">
-							<a id="link16" href="#">如何增加商品？</a>
-						</li>
-					</ul>
-				</li>
+		
 			</ul>
 			<h6 id="h-menu-order">
 				<a href="#order"><span>订单管理</span>
@@ -143,17 +125,7 @@
 					<a id="link5" href="<%=basePatha%>jshop/admin/pagecontent/questionnairemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#pagecontent">问卷列表</a>
 				</li>
 				
-				<li class="collapsible last">
-					<a href="#" class="plus">帮助</a>
-					<ul class="collapsed">
-						<li>
-							<a href="">如何增加文章？</a>
-						</li>
-						<li class="last">
-							<a href="">导航是什么？</a>
-						</li>
-					</ul>
-				</li>
+			
 			</ul>
 			<h6 id="h-menu-pages">
 				<a href="#pages"><span>自定义页面管理</span>
@@ -177,7 +149,7 @@
 				</li>
 			</ul>
 			
-			<h6 id="h-menu-saletools">
+			<!-- <h6 id="h-menu-saletools">
 				<a href="#saletools"><span>餐厅业务管理</span>
 				</a>
 			</h6>
@@ -189,7 +161,7 @@
 					<a id="link1" href="<%=basePatha%>jshop/admin/electricmenutable/electricordermanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#saletools">电子餐桌订单管理</a>
 				</li>
 			
-			</ul>
+			</ul>-->
 			<h6 id="h-menu-settings">
 				<a href="#settings"><span>系统设置</span>
 				</a>
@@ -247,17 +219,7 @@
 					<a id="link16" href="<%=basePatha%>jshop/admin/setting/rolemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#settings">角色权限设置</a>
 				</li>
 				
-				<li class="collapsible last">
-					<a href="#" class="plus">帮助</a>
-					<ul class="collapsed">
-						<li>
-							<a href="">怎么设置系统邮箱？</a>
-						</li>
-						<li class="last">
-							<a href="">怎么设置物流和运费？</a>
-						</li>
-					</ul>
-				</li>
+				
 			</ul>
 		</div>
 		<div id="date-picker"></div>

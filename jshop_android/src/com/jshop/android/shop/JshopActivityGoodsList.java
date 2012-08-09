@@ -83,7 +83,7 @@ public class JshopActivityGoodsList extends Activity{
 		//读取缓存
 		final DBHelper dbhelper=new DBHelper(this);
 		//dbhelper.deleteAll(DBHelper.GOODS_CATEGORY_TM_NAME);
-		Cursor c=dbhelper.queryByParam(DBHelper.GOODS_TM_NAME,goodsCategoryTid);
+		Cursor c=dbhelper.queryByParamgoodsCategoryTid(DBHelper.GOODS_TM_NAME,goodsCategoryTid);
 		try {
 			goodslists=jmGoodslistAction.getGoodsListSQLite(c);
 		} catch (IOException e1) {
