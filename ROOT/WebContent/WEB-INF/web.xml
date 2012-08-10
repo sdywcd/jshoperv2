@@ -65,7 +65,7 @@
 		<init-param>
 			<param-name>actionPackages</param-name>
 			<param-value>com.jshop.action</param-value>
-		</init-param>
+		</init-param>		
 	</filter>
 	<filter-mapping>
 		<filter-name>struts2</filter-name>
@@ -78,7 +78,7 @@
 	</filter>
     <filter-mapping>
     	<filter-name>struts-cleanup</filter-name>
-    	<url-pattern>*.action</url-pattern>
+    	<url-pattern>/*</url-pattern>
     </filter-mapping>
     
     <servlet>
@@ -118,4 +118,5 @@
         <servlet-name>dwr-invoker</servlet-name>
         <url-pattern>/dwr/*</url-pattern>	
     </servlet-mapping>
+    
 </web-app>
