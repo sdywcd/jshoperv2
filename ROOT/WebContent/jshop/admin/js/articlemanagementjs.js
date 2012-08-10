@@ -167,6 +167,14 @@ $(function() {
 			bclass : 'delete',
 			onpress : action
 		}, {
+			name : '生成PDF文件',
+			bclass : 'edit',
+			onpress : action
+		}, {
+			name : '下载PDF文件',
+			bclass : 'edit',
+			onpress : action
+		}, {
 			separator : true
 		} ],
 
@@ -232,6 +240,40 @@ $(function() {
 				return false;
 			}
 	
+		}else if(com=="生成PDF文件"){
+			if($('.trSelected',grid).length==1){
+				jConfirm('确定生成此项?','信息提示',function(r){
+					if(r){
+						var str=$('.trSelected',grid)[0].id.substr(3);
+						$.post("PDF.action",{"articleid":str},function(){
+							$('#articlemanagement').flexReload();
+						});
+					}
+					
+				});
+				return ;
+			}else{
+				jAlert('请选择要生成的信息!', '信息提示');
+				return false;
+			}
+			
+		}else if(com=="下载PDF文件"){
+			if($('.trSelected',grid).length==1){
+				jConfirm('确定下载此项?','信息提示',function(r){
+					if(r){
+						var str=$('.trSelected',grid)[0].id.substr(3);
+						$.post("downloadFile.action",{"articleid":str},function(){
+							$('#articlemanagement').flexReload();
+						});
+					}
+					
+				});
+				return ;
+			}else{
+				jAlert('请选择要生成的信息!', '信息提示');
+				return false;
+			}
+			
 		}
 
 	}

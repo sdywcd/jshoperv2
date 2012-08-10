@@ -41,7 +41,6 @@ public class JshopMGoodsListAction {
 	 * 
 	 * @return
 	 */
-
 	private String queryGoodsListForJshop(String goodsCategoryTid) {
 		String posturl = JshopActivityUtil.BASE_URL + "/"
 				+ JshopMPostActionList.FINDGOODSBYGOODSCATEGORYIDFORANDROID
@@ -49,24 +48,21 @@ public class JshopMGoodsListAction {
 		return JshopActivityUtil.queryStringForPost(posturl);
 	}
 
-	public ArrayList<HashMap<String, Object>> getGoodsList(
-			String goodsCategoryTid) throws IOException {
+	/**
+	 * 获取服务器端的商品数据
+	 */
+	public ArrayList<HashMap<String, Object>> getGoodsList(String goodsCategoryTid) throws IOException {
 		requestjsonstr = this.queryGoodsListForJshop(goodsCategoryTid);
 		if (Validate.StrNotNull(requestjsonstr)) {
 			JSONArray ja = (JSONArray) JSONValue.parse(requestjsonstr);
 			for (int i = 0; i < ja.size(); i++) {
 				HashMap<String, Object> map = new HashMap<String, Object>();
 				JSONObject jo = (JSONObject) (ja.get(i));
-				map.put("pictureurl",
-						getPictureurlImg(JshopActivityUtil.BASE_URL
-								+ jo.get("pictureurl").toString()));
+				map.put("pictureurl",getPictureurlImg(JshopActivityUtil.BASE_URL+ jo.get("pictureurl").toString()));
 				map.put("goodsname", jo.get("goodsname").toString());
 				map.put("memberprice", "￥" + jo.get("memberprice").toString());
 				map.put("goodsid", jo.get("goodsid").toString());
 				map.put("goodsCategoryTid", goodsCategoryTid);
-				// map.put("pictureurlpath",
-				// JshopActivityUtil.BASE_URL
-				// + jo.get("pictureurl").toString());
 				map.put("pictureurlpath", downloadpcurl);
 				goodslists.add(map);
 			}
@@ -74,6 +70,12 @@ public class JshopMGoodsListAction {
 		return goodslists;
 	}
 
+	/**
+	 * 下载服务器图片
+	 * @param pictureurl
+	 * @return
+	 * @throws IOException
+	 */
 	private Bitmap getPictureurlImg(String pictureurl) throws IOException {
 		URL url = new URL(pictureurl);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -99,14 +101,18 @@ public class JshopMGoodsListAction {
 	private String savePicturetoDeviceAndReturnFixedUrl(String pictureurl) {
 		
 		String regstr = "(http:|https:)\\/\\/[\\S\\.:/]*\\/(\\S*)\\.(jpg|png|gif)";
+<<<<<<< HEAD
 		String postfix = "", filename = "", resultstr = "";
+=======
+		String postfix = "", filename = "";
+>>>>>>> 9e06e614d0fc9d84741ab5b98fd416e01d0a7e59
 		Pattern patternForImg = Pattern.compile(regstr,Pattern.CASE_INSENSITIVE);
 		Matcher matcher = patternForImg.matcher(pictureurl);
 		if (matcher.find()) {
 			filename = matcher.group(2);
 			postfix = matcher.group(3);
 		}
-		return resultstr = filename + "." + postfix;
+		return filename + "." + postfix;
 	}
 
 	private void saveOnlinePictureToCard(Bitmap bm, String fileName)
@@ -144,10 +150,9 @@ public class JshopMGoodsListAction {
 				values.put("goodsname", map.get("goodsname").toString());
 				values.put("memberprice", map.get("memberprice").toString());
 				values.put("pictureurl", map.get("pictureurlpath").toString());
-				values.put("goodsCategoryTid", map.get("goodsCategoryTid")
-						.toString());
+				values.put("goodsCategoryTid", map.get("goodsCategoryTid").toString());
 				dbhelper.insert(DBHelper.GOODS_TM_NAME, values);
-			}
+			} 
 			dbhelper.close();
 		}
 
@@ -174,5 +179,13 @@ public class JshopMGoodsListAction {
 		}
 		return goodslists;
 	}
+	/**
+	 * 清空商品表中的所有数据SQLite
+	 */
+	public void deleteGoodsListSQLite(Context context){
+		DBHelper dbhelper = new DBHelper(context);
+		dbhelper.deleteAll(DBHelper.GOODS_TM_NAME);
+	}
+	
 
 }

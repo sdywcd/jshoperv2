@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-7-27 14:17:45 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-8-2 9:31:29 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -48,6 +48,7 @@ public class UserT implements java.io.Serializable {
 	private String gradename;
 	private String rolemname;
 	private String rolemid;
+	private String headpath;
 
 	public UserT() {
 	}
@@ -75,7 +76,8 @@ public class UserT implements java.io.Serializable {
 			String parttime5, String parttime6, String hobby, String qq,
 			String msn, String othercontract, String address, String postcode,
 			String birthday, String grade, Date gradetime, String state,
-			String uid, String gradename, String rolemname, String rolemid) {
+			String uid, String gradename, String rolemname, String rolemid,
+			String headpath) {
 		this.userid = userid;
 		this.username = username;
 		this.realname = realname;
@@ -115,6 +117,7 @@ public class UserT implements java.io.Serializable {
 		this.gradename = gradename;
 		this.rolemname = rolemname;
 		this.rolemid = rolemid;
+		this.headpath = headpath;
 	}
 
 	public String getUserid() {
@@ -427,6 +430,14 @@ public class UserT implements java.io.Serializable {
 
 	public void setRolemid(String rolemid) {
 		this.rolemid = rolemid;
+	}
+
+	public String getHeadpath() {
+		return this.headpath;
+	}
+
+	public void setHeadpath(String headpath) {
+		this.headpath = headpath;
 	}
 
 }

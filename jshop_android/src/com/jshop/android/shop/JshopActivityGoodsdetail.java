@@ -17,6 +17,7 @@ import org.json.simple.JSONValue;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 
 import com.jshop.android.action.JshopMGoodsdetailAction;
 import com.jshop.android.index.R;
+import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.util.BaseTools;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
@@ -58,12 +60,17 @@ public class JshopActivityGoodsdetail extends Activity {
 		addtoelectrocartconfirm=(Button) this.findViewById(R.id.addtoelectrocartconfirm);
 		Intent intent=this.getIntent();
 		String goodsid=intent.getStringExtra("goodsid");
+		//读取缓存
+		final DBHelper dbhelper=new DBHelper(this);
+		Cursor c=dbhelper.queryByParamgoodsid(DBHelper.GOODS_TM_NAME,goodsid);
+		
 		try {
-			goodsdetail=jmgoodsdetailAction.getGoodsdetail(goodsid);
-		}  catch (IOException e) {
+			goodsdetail=jmgoodsdetailAction.getGoodsDetailSQLite(c);
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		//想页面注入值
 		goodsname.setText(goodsdetail.get(0).get("goodsname").toString());
 		memberprice.setText(goodsdetail.get(0).get("memberprice").toString());

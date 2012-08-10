@@ -76,16 +76,25 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * 查询数据
+	 * 查询商品表数据
 	 * @param tablename
 	 * @return
 	 */
-	public Cursor queryByParam(String tablename,String param){
+	public Cursor queryByParamgoodsCategoryTid(String tablename,String param){
 		SQLiteDatabase db=this.getWritableDatabase();
 		Cursor c=db.rawQuery("select * from "+tablename+" where goodsCategoryTid=?", new String[]{String.valueOf(param)}); 
 		return c;
 	}
-	
+	/**
+	 * 查询商品表数据goodsid
+	 * @param tablename
+	 * @return
+	 */
+	public Cursor queryByParamgoodsid(String tablename,String param){
+		SQLiteDatabase db=this.getWritableDatabase();
+		Cursor c=db.rawQuery("select * from "+tablename+" where goodsid=?", new String[]{String.valueOf(param)}); 
+		return c;
+	}
 	/**
 	 * 删除数据
 	 * @param talbename

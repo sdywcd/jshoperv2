@@ -1,6 +1,13 @@
 package com.jshop.action;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,16 +15,26 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.jshop.action.templates.CreateHtml;
 import com.jshop.action.templates.DataCollectionTAction;
 import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.ContentTag;
 import com.jshop.action.tools.Serial;
+import com.jshop.action.tools.ToChangePDF;
 import com.jshop.action.tools.Validate;
 import com.jshop.entity.ArticleCategoryT;
 import com.jshop.entity.ArticleT;
@@ -528,11 +545,12 @@ public class ArticleTAction extends ActionSupport {
 	 * 查询所有文章
 	 * 
 	 * @return
+	 * @throws Exception 
 	 */
 	@Action(value = "findAllArticleT", results = { @Result(name = "json", type = "json") })
-	public String findAllArticleT() {
+	public String findAllArticleT() throws Exception {
 		if ("sc".equals(this.getQtype())) {
-			this.findDefaultAllArticle();
+			this.findDefaultAllArticle();				
 		} else {
 			if (Validate.StrisNull(this.getQuery())) {
 				return "json";
@@ -582,4 +600,106 @@ public class ArticleTAction extends ActionSupport {
 			rows.add(cellMap);
 		}
 	}
+	/**
+	 * 生成文章PDF文件
+	 * @return
+	 * @throws Exception
+	 */
+	@Action(value="PDF", results = { @Result(name = "json", type = "json")})
+	public  String PDF() throws Exception{		
+		Document d = new Document();
+		try {
+			bean=this.getArticleTService().findArticleByarticleid(this.getArticleid());
+			String path=ServletActionContext.getServletContext().getRealPath("");//获取根目录
+			String savePath=isexistdir();
+			savePath=path+savePath;
+			String savePDF= savePath+bean.getTitle();
+			PdfWriter.getInstance(d, new FileOutputStream(savePDF+".PDF"));
+			BaseFont bf = BaseFont.createFont( "c:\\windows\\fonts\\simsun.ttc,1", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+			d.addAuthor("作者-alextao");
+			d.open();
+			d.add(new Paragraph(bean.getContentvalue(),new Font(bf)));
+			d.close();
+		} catch (Exception e) {
+			throw e;
+		} 
+		return "json";
+		
+	}
+	/**
+	 * 检测目录是否存在
+	 * 
+	 * @return
+	 */
+
+	public static String isexistdir() {
+		String nowTimeStr = "";
+		String savedir = "/PDF/";
+		String realpath = "";
+//		SimpleDateFormat sDateFormat;
+//		sDateFormat = new SimpleDateFormat("yyyyMMdd");
+//		nowTimeStr = sDateFormat.format(new Date());
+		String savePath = ServletActionContext.getServletContext().getRealPath("");
+		savePath = savePath + savedir ;
+		File dir = new File(savePath);
+		if (!dir.exists()) {
+			dir.mkdirs();
+			realpath = savedir ;
+			return realpath;
+		} else {
+			realpath = savedir ;
+			return realpath;
+		}
+	}
+	/**
+	 * 下载文件
+	 * @param filePath
+	 * @param response
+	 * @return
+	 */
+	@SuppressWarnings("null")
+	@Action(value="downloadFile",results={@Result(name="json",type="json")})
+	public String downloadFile(){
+		HttpServletResponse response = ServletActionContext.getResponse();
+		bean=this.getArticleTService().findArticleByarticleid(this.getArticleid());
+		String fileName=bean.getTitle();//文件名
+		String path=ServletActionContext.getServletContext().getRealPath("")+"/PDF/";
+		String filePath=path+fileName+".PDF";		
+			try {
+				//从文件完整路径中提取文件名，并进行编码转换，防止不能正确显示中文名
+				if(filePath.lastIndexOf("/")>0){			
+					fileName=new String(filePath.substring(filePath.lastIndexOf("/")+1,filePath.length()).getBytes("UTF-8"),"ISO8859_1");
+
+				}else if(filePath.lastIndexOf("\\")>0){
+				fileName=new String(filePath.substring(filePath.lastIndexOf("\\")+1,filePath.length()).getBytes("UTF-8"),"ISO8859_1");
+				
+				}			
+				//打开指定文件的流信息
+				FileInputStream fs =null;		
+				fs=new FileInputStream(new File(filePath));			
+
+				//设置响应头和保存文件名 
+				response.setContentType("APPLICATION/OCTET-STREAM");
+				response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+				//写出流信息
+				int b=0;		
+				PrintWriter out = response.getWriter();
+				while((b=fs.read())!=1){
+					out.write(b);
+				}
+				fs.close();
+				out.close();
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return "json";
+	}
+	
 }

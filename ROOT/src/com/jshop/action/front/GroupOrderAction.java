@@ -907,7 +907,7 @@ public class GroupOrderAction extends ActionSupport {
 			AddShippingAddress();
 			//增加订单到数据库
 			initGroupOrder(user);
-//			if (this.isSaddorder()) {
+			if (this.isSaddorder()) {
 //				//更新购物车商品到3，表示已经在订单中。并把对应订单号更新
 //				//String []tempgoodsid=order.getGoodid().split(",");
 //				//检查如果购物已经有对应的订单号则不更新
@@ -921,7 +921,7 @@ public class GroupOrderAction extends ActionSupport {
 		}
 			
 
-//		}
+		}
 		this.setSlogin(false);
 		return "json";
 	}

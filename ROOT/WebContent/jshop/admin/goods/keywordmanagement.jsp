@@ -3,7 +3,6 @@
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
-<%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -113,7 +112,7 @@
 									<div class="button highlight">
 										<input type="button" name="submit" id="submit" value="提交" />
 										<input id="modify" type="button" value="更新" style="display: none;" />
-										<s:hidden id="keywordid" name="keywordid" value=""></s:hidden>
+										<input type="hidden" id="keywordid" name="keywordid" value=""></input>
 										</div>
 								</div>
 							</div>
@@ -123,9 +122,7 @@
 									<div class="label">
 										<label for="input-small"></label>
 									</div>
-									<div class="input">
-										<s:property value="#request.errormsg" />
-									</div>
+									
 								</div>
 							</div>
 						</div>
