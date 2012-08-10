@@ -262,7 +262,7 @@ $(function() {
 				jConfirm('确定下载此项?','信息提示',function(r){
 					if(r){
 						var str=$('.trSelected',grid)[0].id.substr(3);
-						$.post("downloadFile.action",{"articleid":str},function(){
+						$.post("download.action",{"articleid":str},function(){
 							$('#articlemanagement').flexReload();
 						});
 					}
@@ -270,7 +270,7 @@ $(function() {
 				});
 				return ;
 			}else{
-				jAlert('请选择要生成的信息!', '信息提示');
+				jAlert('请选择要下载的信息!', '信息提示');
 				return false;
 			}
 			
