@@ -79,28 +79,7 @@
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 		</action>
 		    <!-- 文件下载，支持中文附件名 -->   
-      
-    <action name="download" class="com.jshop.action.FileDownloadAction">   
-      
-        <!-- 初始文件名 -->   
-      
-        <param name="fileName"></param>   
-      
-        <result name="success" type="stream">   
-      
-            <param name="contentType">application/pdf</param>   
-      
-            <param name="inputName">inputStream</param>   
-      
-            <!-- 使用经过转码的文件名作为下载文件名，downloadFileName属性对应action类中的方法 getDownloadFileName() -->   
-      
-            <param name="contentDisposition">attachment;filename="${downloadFileName}"</param>   
-      
-            <param name="bufferSize">4096</param>   
-      
-        </result>   
-      
-    </action>   
+ 
 		
 	</package>
 </struts>
