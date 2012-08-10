@@ -101,7 +101,11 @@ public class JshopMGoodsListAction {
 	private String savePicturetoDeviceAndReturnFixedUrl(String pictureurl) {
 		
 		String regstr = "(http:|https:)\\/\\/[\\S\\.:/]*\\/(\\S*)\\.(jpg|png|gif)";
+<<<<<<< HEAD
+		String postfix = "", filename = "", resultstr = "";
+=======
 		String postfix = "", filename = "";
+>>>>>>> 9e06e614d0fc9d84741ab5b98fd416e01d0a7e59
 		Pattern patternForImg = Pattern.compile(regstr,Pattern.CASE_INSENSITIVE);
 		Matcher matcher = patternForImg.matcher(pictureurl);
 		if (matcher.find()) {
