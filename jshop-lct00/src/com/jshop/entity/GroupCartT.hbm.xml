@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-8-2 9:31:29 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.jshop.entity.GroupCartT" table="group_cart_t" catalog="jshopactive">
+        <id name="id" type="string">
+            <column name="ID" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="cartid" type="string">
+            <column name="CARTID" length="20" />
+        </property>
+        <property name="orderid" type="string">
+            <column name="ORDERID" length="20" />
+        </property>
+        <property name="goodsid" type="string">
+            <column name="GOODSID" length="20" not-null="true" />
+        </property>
+        <property name="goodsname" type="string">
+            <column name="GOODSNAME" length="100" not-null="true" />
+        </property>
+        <property name="userid" type="string">
+            <column name="USERID" length="20" not-null="true" />
+        </property>
+        <property name="username" type="string">
+            <column name="USERNAME" length="50" not-null="true" />
+        </property>
+        <property name="needquantity" type="int">
+            <column name="NEEDQUANTITY" not-null="true" />
+        </property>
+        <property name="price" type="double">
+            <column name="PRICE" precision="10" not-null="true" />
+        </property>
+        <property name="groupprice" type="double">
+            <column name="GROUPPRICE" precision="10" not-null="true" />
+        </property>
+        <property name="changeprice" type="java.lang.Double">
+            <column name="CHANGEPRICE" precision="10" />
+        </property>
+        <property name="points" type="double">
+            <column name="POINTS" precision="10" not-null="true" />
+        </property>
+        <property name="subtotal" type="double">
+            <column name="SUBTOTAL" precision="10" not-null="true" />
+        </property>
+        <property name="addtime" type="timestamp">
+            <column name="ADDTIME" length="0" not-null="true" />
+        </property>
+        <property name="quantity" type="java.lang.Integer">
+            <column name="QUANTITY" />
+        </property>
+        <property name="picture" type="string">
+            <column name="PICTURE" length="250" not-null="true" />
+        </property>
+        <property name="usersetnum" type="string">
+            <column name="USERSETNUM" length="20" not-null="true" />
+        </property>
+        <property name="weight" type="string">
+            <column name="WEIGHT" length="20" />
+        </property>
+        <property name="state" type="string">
+            <column name="STATE" length="1" not-null="true" />
+        </property>
+        <property name="htmlpath" type="string">
+            <column name="HTMLPATH" not-null="true" />
+        </property>
+        <property name="productid" type="string">
+            <column name="PRODUCTID" length="20" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
