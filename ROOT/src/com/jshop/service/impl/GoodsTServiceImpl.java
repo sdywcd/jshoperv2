@@ -327,4 +327,9 @@ public class GoodsTServiceImpl implements GoodsTService {
 		return this.getGoodsTDao().updateHtmlPath(goodsid, htmlPath, updatetime);
 	}
 
+	@Override
+	public List<GoodsT> findAllGoodsByNoTerm() {		
+		return this.getGoodsTDao().findAllGoodsByNoTerm();
+	}
+
 }

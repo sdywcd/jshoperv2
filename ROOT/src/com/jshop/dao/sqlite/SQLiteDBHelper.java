@@ -4,11 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.mysql.jdbc.Statement;
+
 public class SQLiteDBHelper {
+	
 
 	public static final String DRIVERCLASS="org.sqlite.JDBC";
 	
-	public static final String FILENAME="jshopmactive.db";
+	public static final String FILENAME="c:/jshopmactive.db";
 	protected Connection conn;
 	
 	static{
@@ -22,7 +25,7 @@ public class SQLiteDBHelper {
 	public void openSQLiteConn(){
 		
 		try{
-			conn=DriverManager.getConnection("jdbc:sqlite"+FILENAME);
+			conn=DriverManager.getConnection("jdbc:sqlite:"+FILENAME);		
 		}catch(SQLException e){
 			e.printStackTrace();
 		}

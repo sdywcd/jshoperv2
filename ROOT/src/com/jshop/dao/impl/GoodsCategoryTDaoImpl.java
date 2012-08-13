@@ -10,6 +10,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -390,6 +391,31 @@ public class GoodsCategoryTDaoImpl extends HibernateDaoSupport implements GoodsC
 			log.error("find all findAllGoodsCategoryT error", re);
 			throw re;
 		}
+	}
+
+	@Override
+	public List<GoodsCategoryT> findAllCategoryByNoTrem() {
+		try {
+			final String queryString="from GoodsCategoryT";
+			@SuppressWarnings("unchecked")
+			List<GoodsCategoryT> list =this.getHibernateTemplate().executeFind(new HibernateCallback() {
+				
+				@Override
+				public Object doInHibernate(Session session) throws HibernateException,
+						SQLException {
+					Query query= session.createQuery(queryString);
+					List list=query.list();
+					return list;
+				}
+			});
+			if(list.size()>0){
+				return list;
+			}
+			return null;
+		} catch (RuntimeException e) {
+			throw e;
+		}
+		
 	}
 
 

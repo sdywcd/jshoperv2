@@ -145,7 +145,11 @@ public interface GoodsCategoryTService {
 	 * @return
 	 */
 	public abstract List<GoodsCategoryT>sortAllGoodsCategoryT(final int currentPage,final int lineSize,final String state,String queryString);
-
+	/**
+	 * 查询所有没有条件商品分类
+	 * @return
+	 */
+	public abstract List<GoodsCategoryT> findAllCategoryByNoTrem();
 
 	
 	
