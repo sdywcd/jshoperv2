@@ -262,9 +262,8 @@ $(function() {
 				jConfirm('确定下载此项?','信息提示',function(r){
 					if(r){
 						var str=$('.trSelected',grid)[0].id.substr(3);
-						$.post("download.action",{"articleid":str},function(){
-							$('#articlemanagement').flexReload();
-						});
+                        window.location.href="download.action?articleid="+str;
+                        $('#articlemanagement').flexReload();
 					}
 					
 				});

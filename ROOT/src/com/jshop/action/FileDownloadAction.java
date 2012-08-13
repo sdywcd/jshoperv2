@@ -13,15 +13,19 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.ServletActionContext;
 
 import org.apache.struts2.json.annotations.JSON;
+import org.springframework.stereotype.Controller;
 
+import com.jshop.action.tools.Validate;
 import com.jshop.entity.ArticleT;
 import com.jshop.service.ArticleTService;
 import com.opensymphony.xwork2.ActionSupport;
-
+@ParentPackage("jshop")
+@Controller("fileDownloadAction")
 @Action(value="download",results={@Result(name = "success", type = "stream", params = { "contentType",  
         "application/pdf", "inputName",  
         "inputStream", "contentDisposition",  
         "attachment;filename=${downloadFileName}", "bufferSize", "4096" })})
+        
 public class FileDownloadAction extends ActionSupport  {
 	
 	/**
@@ -63,11 +67,13 @@ public class FileDownloadAction extends ActionSupport  {
 	        this.fileName = fileName;   
 	  
 	}   
-    public InputStream getInputStream() throws Exception {      	
-    	 bean=this.getArticleTService().findArticleByarticleid("201205060086");
-    	 fileName=bean.getTitle()+".PDF";//文件名
-        return new FileInputStream(ServletActionContext.getServletContext().getRealPath("")+"/PDF/"+fileName);
-    	
+    public InputStream getInputStream() throws Exception {     
+    	if(Validate.StrNotNull(this.getArticleid())){
+    		bean=this.getArticleTService().findArticleByarticleid(this.getArticleid().trim());
+        	fileName=bean.getTitle()+".PDF";//文件名
+            return new FileInputStream(ServletActionContext.getServletContext().getRealPath("")+"/PDF/"+fileName);
+    	}
+    	return null;
     }   
   
     public String execute() throws Exception {     	

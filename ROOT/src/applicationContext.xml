@@ -115,11 +115,7 @@
 		</tx:attributes>
 	</tx:advice>
 	
-	 <bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean> 
+
 
 	<!-- 配置异步线程执行器 -->  <!-- 为异步线程执行器 进注入  -->
 	<bean id="taskExecutor"
