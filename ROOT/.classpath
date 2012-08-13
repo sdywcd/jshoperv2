@@ -72,5 +72,6 @@
 	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/itextpdf-5.2.1-sources.jar"/>
 	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/itext-xtra-5.2.1.jar"/>
 	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/itext-xtra-5.2.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/sqlite-jdbc-3.5.7.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
