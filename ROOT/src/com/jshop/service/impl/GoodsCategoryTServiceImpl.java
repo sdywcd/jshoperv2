@@ -107,6 +107,12 @@ public class GoodsCategoryTServiceImpl implements GoodsCategoryTService {
 		return this.getGoodsCategoryTDao().sortAllGoodsCategoryT(currentPage, lineSize, state, queryString);
 	}
 
+	@Override
+	public List<GoodsCategoryT> findAllCategoryByNoTrem() {
+		
+		return this.getGoodsCategoryTDao().findAllCategoryByNoTrem();
+	}
+
 	
 	
 	

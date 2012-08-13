@@ -104,6 +104,10 @@ $(function() {
 			bclass : 'delete',
 			onpress : action
 		},{
+			name : '创建数据库',
+			bclass : 'delete',
+			onpress : action
+		},{
 			separator : true
 		} ],
 
@@ -175,6 +179,8 @@ $(function() {
 				jAlert('请选择要删除的信息!', '信息提示');
 				return false;
 			}
+		}else if(com=="创建数据库"){
+			$.post("createTable.action");
 		}
 	}
 });
