@@ -38,6 +38,8 @@ public class SqliteAction extends SQLiteDBHelper {
 	public void setGoodsCategoryTService(GoodsCategoryTService goodsCategoryTService) {
 		this.goodsCategoryTService = goodsCategoryTService;
 	}
+	
+	
 	@Action(value="createTable",results={@Result(name="json",type="json")})
 	public String createTable() throws SQLException{
 		try {
