@@ -61,7 +61,7 @@
 
     <RelativeLayout
         android:id="@+id/topRectangle"
-        android:layout_width="580dp"
+        android:layout_width="704dp"
         android:layout_height="200dp"
         android:layout_above="@id/centersquare"
         android:layout_alignParentLeft="true"
@@ -73,7 +73,7 @@
 
         <RelativeLayout
             android:id="@+id/block_1"
-            android:layout_width="242dp"
+            android:layout_width="440dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:background="@color/cobalt_blue"
@@ -123,7 +123,7 @@
         <RelativeLayout
             android:id="@+id/block_3"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="275dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"

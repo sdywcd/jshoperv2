@@ -6,4 +6,9 @@
     <color name="dirty_blue">#ff9cc4c8</color>
     <color name="dark_blue">#ff024f95</color>
     <color name="green">#ff35fa08</color>
+    <color name="white_grey">#fff6f6f6</color>
+    <color name="grass_green">#ff58a300</color>
+    <color name="red_pink">#ffed6941</color>
+    <color name="khaki">#ffd0ac02</color>
+    <color name="deep_blue">#ff003464</color>
 </resources>
