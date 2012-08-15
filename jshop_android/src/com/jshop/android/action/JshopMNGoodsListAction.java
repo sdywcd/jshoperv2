@@ -31,7 +31,7 @@ import com.jshop.android.util.JshopMParams;
 import com.jshop.android.util.JshopMPostActionList;
 import com.jshop.android.util.Validate;
 
-public class JshopMGoodsListAction {
+public class JshopMNGoodsListAction {
 	private String downloadpcurl;
 	private String requestjsonstr;
 	private ArrayList<HashMap<String, Object>> goodslists = new ArrayList<HashMap<String, Object>>();
@@ -99,6 +99,7 @@ public class JshopMGoodsListAction {
 	 * @return
 	 */
 	private String savePicturetoDeviceAndReturnFixedUrl(String pictureurl) {
+
 		String regstr = "(http:|https:)\\/\\/[\\S\\.:/]*\\/(\\S*)\\.(jpg|png|gif)";
 		String postfix = "", filename = "";
 		Pattern patternForImg = Pattern.compile(regstr,Pattern.CASE_INSENSITIVE);

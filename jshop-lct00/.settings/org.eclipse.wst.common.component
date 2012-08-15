@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="jshop-lct00">
-        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
-        <property name="context-root" value="jshop-lct00"/>
-        <property name="java-output-path" value="/jshop-lct00/build/classes"/>
-    </wb-module>
-</project-modules>
