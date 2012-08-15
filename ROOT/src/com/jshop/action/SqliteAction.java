@@ -45,7 +45,9 @@ public class SqliteAction extends SQLiteDBHelper {
 		try {
 			conn=DriverManager.getConnection("jdbc:sqlite:"+FILENAME);
 			Statement st =  conn.createStatement();
+			st.executeUpdate("drop table if exists goods_category_tm");
 			st.executeUpdate("create table goods_category_tm(_id integer primary key autoincrement,goodsCategoryTid text,grade text,name text,goodsTypeId text,sort text)");
+			st.executeUpdate("drop table if exists goods_tm");
 			st.executeUpdate("create table goods_tm(_id integer primary key autoincrement,goodsCategoryTid text,goodsid text,goodsname text,memberprice text,pictureurl text)");
 			List<GoodsT> list = this.getGoodsTService().findAllGoodsByNoTerm();
 			List<GoodsCategoryT> l=this.getGoodsCategoryTService().findAllCategoryByNoTrem();
