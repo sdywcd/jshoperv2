@@ -1,10 +1,14 @@
 package com.jshop.action;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
@@ -651,55 +655,6 @@ public class ArticleTAction extends ActionSupport {
 			return realpath;
 		}
 	}
-	/**
-	 * 下载文件
-	 * @param filePath
-	 * @param response
-	 * @return
-	 */
-	@SuppressWarnings("null")
-	@Action(value="downloadFile",results={@Result(name="json",type="json")})
-	public String downloadFile(){
-		HttpServletResponse response = ServletActionContext.getResponse();
-		bean=this.getArticleTService().findArticleByarticleid(this.getArticleid());
-		String fileName=bean.getTitle();//文件名
-		String path=ServletActionContext.getServletContext().getRealPath("")+"/PDF/";
-		String filePath=path+fileName+".PDF";		
-			try {
-				//从文件完整路径中提取文件名，并进行编码转换，防止不能正确显示中文名
-				if(filePath.lastIndexOf("/")>0){			
-					fileName=new String(filePath.substring(filePath.lastIndexOf("/")+1,filePath.length()).getBytes("UTF-8"),"ISO8859_1");
 
-				}else if(filePath.lastIndexOf("\\")>0){
-				fileName=new String(filePath.substring(filePath.lastIndexOf("\\")+1,filePath.length()).getBytes("UTF-8"),"ISO8859_1");
-				
-				}			
-				//打开指定文件的流信息
-				FileInputStream fs =null;		
-				fs=new FileInputStream(new File(filePath));			
-
-				//设置响应头和保存文件名 
-				response.setContentType("APPLICATION/OCTET-STREAM");
-				response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
-				//写出流信息
-				int b=0;		
-				PrintWriter out = response.getWriter();
-				while((b=fs.read())!=1){
-					out.write(b);
-				}
-				fs.close();
-				out.close();
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		return "json";
-	}
 	
 }

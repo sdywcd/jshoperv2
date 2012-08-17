@@ -40,6 +40,11 @@ public interface GoodsTDao {
 	 * @return
 	 */
 	public abstract List<GoodsT> findAllGoods(final int currentPage, final int lineSize, final String creatorid);
+	/**
+	 * 查询所有没有条件商品
+	 * @return
+	 */
+	public abstract List<GoodsT> findAllGoodsByNoTerm();
 
 	/**
 	 * 统计所有商品信息

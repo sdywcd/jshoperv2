@@ -16,6 +16,10 @@ public class DBHelper extends SQLiteOpenHelper {
 	public static final String GOODS_CATEGORY_TM_NAME="goods_category_tm";
 	//商品表名称
 	public static final String GOODS_TM_NAME="goods_tm";
+	//餐车表
+	public static final String ELE_CART_TM_NAME="ele_cart_tm";
+	
+	
 	
 	//创建餐桌sql
 	private static final String CREATE_TABLE_TM="create table "
@@ -27,6 +31,10 @@ public class DBHelper extends SQLiteOpenHelper {
 	//创建商品sql
 	private static final String CREATE_GOODS_TM="create table "
 		+"goods_tm(_id integer primary key autoincrement,goodsCategoryTid text,goodsid text,goodsname text,memberprice text,pictureurl text)";
+	
+	//创建餐车表
+	private static final String CREATE_ELE_CART_TM="create table"
+		+"ele_cart_tm(_id integer primary key autoincrement,goodsid text,goodsname text,memberprice text,needquantity text,pictureurl text)";
 	
 	
 	private SQLiteDatabase db;
@@ -43,14 +51,15 @@ public class DBHelper extends SQLiteOpenHelper {
 		db.execSQL(CREATE_TABLE_TM);
 		db.execSQL(CREATE_GOODS_CATEGORY_TM);
 		db.execSQL(CREATE_GOODS_TM);
+		db.execSQL(CREATE_ELE_CART_TM);
 	}
 
-	public void createDB(){
-		db=this.getWritableDatabase();
-		db.execSQL(CREATE_TABLE_TM);
-		db.execSQL(CREATE_GOODS_CATEGORY_TM);
-		db.execSQL(CREATE_GOODS_TM);
-	}
+//	public void createDB(){
+//		db=this.getWritableDatabase();
+//		db.execSQL(CREATE_TABLE_TM);
+//		db.execSQL(CREATE_GOODS_CATEGORY_TM);
+//		db.execSQL(CREATE_GOODS_TM);
+//	}
 	
 	
 	/**
@@ -95,6 +104,8 @@ public class DBHelper extends SQLiteOpenHelper {
 		Cursor c=db.rawQuery("select * from "+tablename+" where goodsid=?", new String[]{String.valueOf(param)}); 
 		return c;
 	}
+	
+	
 	/**
 	 * 删除数据
 	 * @param talbename
@@ -151,6 +162,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS "+TABLE_TM_NAME);
 		db.execSQL("DROP TABLE IF EXISTS "+GOODS_CATEGORY_TM_NAME);
 		db.execSQL("DROP TABLE IF EXISTS "+GOODS_TM_NAME);
+		db.execSQL("DROP TABLE IF EXISTS "+ELE_CART_TM_NAME);
         onCreate(db);
 	}
 

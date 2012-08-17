@@ -11,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -1621,6 +1622,31 @@ public class GoodsTDaoImpl extends HibernateDaoSupport implements GoodsTDao {
 			log.error(" findAllGoodsBynavidandltypeidandstypeid error ", re);
 			throw re;
 		}
+	}
+
+	@Override
+	public List<GoodsT> findAllGoodsByNoTerm() {	
+		 
+		try {
+			final String queryString="from GoodsT";
+			@SuppressWarnings("unchecked")
+			List<GoodsT> list = this.getHibernateTemplate().executeFind(new HibernateCallback() {			
+			 	@Override
+				public Object doInHibernate(Session session) throws HibernateException,
+						SQLException {
+					Query query = session.createQuery(queryString);
+					List list = query.list();
+					return list;
+				}
+			});
+			if(list.size()>0){
+				return list;
+			}
+			return null;
+		} catch (RuntimeException e) {
+			throw e;
+		}
+		
 	}
 
 
