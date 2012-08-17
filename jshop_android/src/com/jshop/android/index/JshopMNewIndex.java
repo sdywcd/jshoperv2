@@ -1,6 +1,7 @@
 package com.jshop.android.index;
 
-import com.jshop.android.shop.JshopActivityGoodsList;
+import com.jshop.android.shop.JshopActivityNGoodsList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -38,7 +39,7 @@ public class JshopMNewIndex extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(JshopMNewIndex.this, JshopActivityGoodsList.class);
+				Intent intent = new Intent(JshopMNewIndex.this, JshopActivityNGoodsList.class);
 				startActivity(intent);
 			}
 		});
