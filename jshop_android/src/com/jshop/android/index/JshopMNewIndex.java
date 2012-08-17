@@ -42,7 +42,6 @@ public class JshopMNewIndex extends Activity {
 				startActivity(intent);
 			}
 		});
-		
-		
 	}
 }
+

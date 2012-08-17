@@ -11,4 +11,7 @@
     <color name="red_pink">#ffed6941</color>
     <color name="khaki">#ffd0ac02</color>
     <color name="deep_blue">#ff003464</color>
+    <color name="red_price">#ffdc3900</color>
+    <color name="grey_weight">#ff808080</color>
+    <color name="yellowhola">#ffffdc06</color>
 </resources>
