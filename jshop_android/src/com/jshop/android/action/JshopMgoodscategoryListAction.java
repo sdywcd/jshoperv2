@@ -15,7 +15,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.jshop.android.sqlite.DBHelper;
+import com.jshop.android.sqlite.DBHelper1;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMPostActionList;
 import com.jshop.android.util.Validate;
@@ -63,7 +63,7 @@ public class JshopMgoodscategoryListAction{
 	public void setGoodsCategoryListtoSQLite(List<Map<String,Object>> goodscategoryList,Context context){
 		List<Map<String,Object>>gcl=goodscategoryList;
 		if(!gcl.isEmpty()){
-			DBHelper dbhelper=new DBHelper(context);
+			DBHelper1 dbhelper=new DBHelper1(context);
 			HashMap<String,Object>map=new HashMap<String,Object>();
 			ContentValues values=new ContentValues();
 			for(int i=0;i<gcl.size();i++){
@@ -73,7 +73,7 @@ public class JshopMgoodscategoryListAction{
 				values.put("name",map.get("name").toString());
 				values.put("goodsTypeId",map.get("goodsTypeId").toString());
 				values.put("sort",map.get("sort").toString());
-				dbhelper.insert(DBHelper.GOODS_CATEGORY_TM_NAME, values);
+				dbhelper.insert(DBHelper1.GOODS_CATEGORY_TM_NAME, values);
 			}
 			dbhelper.close();
 		}
