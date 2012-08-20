@@ -75,7 +75,7 @@ public class JshopMNewIndex extends Activity {
 			//enterIntoSearch();
 			break;
 		case R.id.refresh:
-			//resetDB();
+			resetDB();
 			break;
 		case R.id.loginmenu:
 			//enterIntoLogin();
@@ -171,7 +171,7 @@ public class JshopMNewIndex extends Activity {
 	//重置db
 	private void resetDB(){
 		DBHelper dbHelper=new DBHelper(this.getApplicationContext());
-		dbHelper.DropDB();
+		dbHelper.deleteAllData(DBHelper.ELE_CART_TM_NAME);
 		dbHelper.close();
 	}
 	
