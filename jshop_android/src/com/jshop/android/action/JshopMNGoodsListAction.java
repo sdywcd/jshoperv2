@@ -25,6 +25,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.sqlite.DBHelper1;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
@@ -137,7 +138,7 @@ public class JshopMNGoodsListAction {
 			ArrayList<HashMap<String, Object>> goodslists, Context context) {
 		ArrayList<HashMap<String, Object>> gl = goodslists;
 		if (!gl.isEmpty()) {
-			DBHelper1 dbhelper = new DBHelper1(context);
+			DBHelper dbhelper = new DBHelper(context);
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			ContentValues values = new ContentValues();
 			for (int i = 0; i < gl.size(); i++) {
@@ -147,7 +148,7 @@ public class JshopMNGoodsListAction {
 				values.put("memberprice", map.get("memberprice").toString());
 				values.put("pictureurl", map.get("pictureurlpath").toString());
 				values.put("goodsCategoryTid", map.get("goodsCategoryTid").toString());
-				dbhelper.insert(DBHelper1.GOODS_TM_NAME, values);
+				dbhelper.insert(DBHelper.GOODS_TM_NAME, values);
 			} 
 			dbhelper.close();
 		}
@@ -179,8 +180,8 @@ public class JshopMNGoodsListAction {
 	 * 清空商品表中的所有数据SQLite
 	 */
 	public void deleteGoodsListSQLite(Context context){
-		DBHelper1 dbhelper = new DBHelper1(context);
-		dbhelper.deleteAll(DBHelper1.GOODS_TM_NAME);
+		DBHelper dbhelper = new DBHelper(context);
+		dbhelper.deleteAll(DBHelper.GOODS_TM_NAME);
 	}
 	
 

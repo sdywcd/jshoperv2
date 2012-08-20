@@ -13,6 +13,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.sqlite.DBHelper1;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMPostActionList;
@@ -75,7 +76,7 @@ public class JshopMtableAction {
 	public void setTabletoSQLite(List<Map<String,Object>> tableList,Context context){
 		List<Map<String,Object>>tl=tableList;
 		if(!tl.isEmpty()){
-			DBHelper1 dbhelper=new DBHelper1(context);
+			DBHelper dbhelper=new DBHelper(context);
 			HashMap<String,Object>map=new HashMap<String,Object>();
 			ContentValues values=new ContentValues();
 			for(int i=0;i<tl.size();i++){
@@ -90,7 +91,7 @@ public class JshopMtableAction {
 				values.put("tablestate", map.get("tablestate").toString());
 				values.put("floor", map.get("floor").toString());
 				values.put("rnop", map.get("rnop").toString());
-				dbhelper.insert(DBHelper1.TABLE_TM_NAME, values);
+				dbhelper.insert(DBHelper.TABLE_TM_NAME, values);
 			}
 			dbhelper.close();
 		}

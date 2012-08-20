@@ -39,6 +39,7 @@ import com.jshop.android.action.JshopMGoodsListAction;
 import com.jshop.android.index.JshopActivityIndex;
 import com.jshop.android.index.R;
 import com.jshop.android.index.WelcomeAct;
+import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.sqlite.DBHelper1;
 import com.jshop.android.util.BaseTools;
 import com.jshop.android.util.JshopActivityUtil;
@@ -81,9 +82,9 @@ public class JshopActivityGoodsList extends Activity{
 		Intent intent=this.getIntent();
 		final String goodsCategoryTid=intent.getStringExtra("goodsCategoryTid");
 		//读取缓存
-		final DBHelper1 dbhelper=new DBHelper1(this);
+		final DBHelper dbhelper=new DBHelper(this);
 		//dbhelper.deleteAll(DBHelper.GOODS_CATEGORY_TM_NAME);
-		Cursor c=dbhelper.queryByParamgoodsCategoryTid(DBHelper1.GOODS_TM_NAME,goodsCategoryTid);
+		Cursor c=dbhelper.queryByParamgoodsCategoryTid(DBHelper.GOODS_TM_NAME,goodsCategoryTid);
 		try {
 			goodslists=jmGoodslistAction.getGoodsListSQLite(c);
 		} catch (IOException e1) {

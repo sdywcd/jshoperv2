@@ -1,7 +1,9 @@
 package com.jshop.android.action;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,22 +12,21 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 
-import com.jshop.android.sqlite.DBHelper1;
+import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
 import com.jshop.android.util.JshopMPostActionList;
@@ -90,6 +91,25 @@ public class JshopMGoodsListAction {
 		return bm;
 
 	}
+	
+	/**
+	 * daiyasuo 
+	 * to change sd card pc to bmp type
+	 * @param pictureurl
+	 * @return
+	 * @throws IOException 
+	 */
+	public static Bitmap GetLocalOrNetBitmap(String url) throws IOException  
+    {  
+		String sdcard=Environment.getExternalStorageDirectory().getPath();
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=6;
+		options.inTempStorage=new byte[5*1024];
+		Bitmap bitmap=BitmapFactory.decodeFile(sdcard+url,options);
+		
+		return bitmap;
+    }  
+	
 
 
 	/**
@@ -127,6 +147,11 @@ public class JshopMGoodsListAction {
 		this.downloadpcurl = onlineFilePath;
 	}
 
+	private String subStringPictureurl(String str){
+		return str.substring(0, str.length()-1);
+	}
+	
+	
 	/**
 	 * 把服务器上的商品列表数据缓存到本地数据库中
 	 * 
@@ -137,7 +162,7 @@ public class JshopMGoodsListAction {
 			ArrayList<HashMap<String, Object>> goodslists, Context context) {
 		ArrayList<HashMap<String, Object>> gl = goodslists;
 		if (!gl.isEmpty()) {
-			DBHelper1 dbhelper = new DBHelper1(context);
+			DBHelper dbhelper = new DBHelper(context);
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			ContentValues values = new ContentValues();
 			for (int i = 0; i < gl.size(); i++) {
@@ -145,9 +170,9 @@ public class JshopMGoodsListAction {
 				values.put("goodsid", map.get("goodsid").toString());
 				values.put("goodsname", map.get("goodsname").toString());
 				values.put("memberprice", map.get("memberprice").toString());
-				values.put("pictureurl", map.get("pictureurlpath").toString());
+				values.put("pictureurl", (map.get("pictureurlpath").toString()));
 				values.put("goodsCategoryTid", map.get("goodsCategoryTid").toString());
-				dbhelper.insert(DBHelper1.GOODS_TM_NAME, values);
+				dbhelper.insert(DBHelper.GOODS_TM_NAME, values);
 			} 
 			dbhelper.close();
 		}
@@ -163,24 +188,29 @@ public class JshopMGoodsListAction {
 	 */
 	public ArrayList<HashMap<String, Object>> getGoodsListSQLite(Cursor c)
 			throws IOException {
+		goodslists.clear();
 		c.moveToFirst();
 		while (!c.isAfterLast()) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("goodsid", c.getString(c.getColumnIndex("goodsid")));
 			map.put("goodsname", c.getString(c.getColumnIndex("goodsname")));
 			map.put("memberprice", c.getString(c.getColumnIndex("memberprice")));
-			map.put("pictureurl", c.getString(c.getColumnIndex("pictureurl")).toString());
+			map.put("pictureurl", GetLocalOrNetBitmap(subStringPictureurl(c.getString(c.getColumnIndex("pictureurl")).toString())));
+			map.put("weight", c.getString(c.getColumnIndex("weight")));
+			map.put("unitname", c.getString(c.getColumnIndex("unitname")));
+			map.put("detail", c.getString(c.getColumnIndex("detail")));
 			goodslists.add(map);
 			c.moveToNext();
 		}
 		return goodslists;
 	}
+	
 	/**
 	 * 清空商品表中的所有数据SQLite
 	 */
 	public void deleteGoodsListSQLite(Context context){
-		DBHelper1 dbhelper = new DBHelper1(context);
-		dbhelper.deleteAll(DBHelper1.GOODS_TM_NAME);
+		DBHelper dbhelper = new DBHelper(context);
+		dbhelper.deleteAll(DBHelper.GOODS_TM_NAME);
 	}
 	
 

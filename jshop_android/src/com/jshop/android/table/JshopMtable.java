@@ -33,6 +33,7 @@ import com.jshop.android.index.JshopActivityIndex;
 import com.jshop.android.index.JshopMIndex;
 import com.jshop.android.index.R;
 import com.jshop.android.shop.JshopActivityGoodsCategoryList;
+import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.sqlite.DBHelper1;
 import com.jshop.android.util.BaseTools;
 import com.jshop.android.util.JshopActivityUtil;
@@ -69,8 +70,8 @@ public class JshopMtable extends Activity {
 		this.setContentView(R.layout.jshop_m_table);
 		gv=(GridView) this.findViewById(R.id.tablegridView);
 		gv.setOnItemClickListener(new ItemClickListener());
-		final DBHelper1 dbhelper=new DBHelper1(this);
-		Cursor c=dbhelper.query(DBHelper1.TABLE_TM_NAME);
+		final DBHelper dbhelper=new DBHelper(this);
+		Cursor c=dbhelper.query(DBHelper.TABLE_TM_NAME);
 		tableList=jmAction.getTabletoSQLite(c);
 		c.close();
 		if(tableList.isEmpty()){

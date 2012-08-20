@@ -25,6 +25,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.sqlite.DBHelper1;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
@@ -161,7 +162,7 @@ public class JshopActivityIndex extends Activity{
 	
 	//重置db
 	private void resetDB(){
-		DBHelper1 dbHelper=new DBHelper1(this.getApplicationContext());
+		DBHelper dbHelper=new DBHelper(this.getApplicationContext());
 		dbHelper.DropDB();
 		dbHelper.close();
 	}
