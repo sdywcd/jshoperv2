@@ -16,7 +16,8 @@
         <ImageView
             android:id="@+id/pictureurl"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="fill_parent"
+            android:descendantFocusability="blocksDescendants" >
         </ImageView>
     </LinearLayout>
 	<LinearLayout
@@ -57,9 +58,11 @@
 	          
 				
 	            <ImageView
+	                android:id="@+id/addtomyelecartmenu"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
-	                android:src="@drawable/foodsordermenu" >
+	                android:src="@drawable/foodsordermenu"
+	                android:descendantFocusability="blocksDescendants"   >
 	            </ImageView>
 	        </LinearLayout>
 	    </LinearLayout>

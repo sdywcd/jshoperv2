@@ -64,6 +64,7 @@
                     android:text="目前消费" />
 
                 <TextView
+                    android:id="@+id/totalmemberprice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/feetitle"

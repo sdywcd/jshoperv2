@@ -117,6 +117,24 @@ public class DBHelper extends SQLiteOpenHelper {
 		return c;
 	}
 	
+	/**
+	 * 增加或者减少我的菜单中的单个菜数量
+	 * @param tablename
+	 * @param param
+	 * @param flag
+	 */
+	public void updateByElecartNeedquantity(String tablename,String param,String flag){
+		SQLiteDatabase db=this.getWritableDatabase();
+		if("plus".equals(flag)){
+			db.execSQL("update "+tablename+" set needquantity=needquantity+1 where goodsid=?", new String[]{String.valueOf(param)}); 
+			
+		}else{
+			db.execSQL("update "+tablename+" set needquantity=needquantity-1 where goodsid=?", new String[]{String.valueOf(param)}); 
+		}
+	}
+	
+	
+	
 	
 	/**
 	 * 删除数据
@@ -129,6 +147,17 @@ public class DBHelper extends SQLiteOpenHelper {
 			db.delete(talbename, "_id=?", new String[]{String.valueOf(id)});
 		}
 	}
+	/**
+	 * delete all data
+	 * @param tablename
+	 */
+	public void deleteAllData(String tablename){
+		if(db==null){
+			db=this.getWritableDatabase();
+			db.execSQL("delete  from "+tablename);
+		}
+	}
+	
 	/**
 	 * 删除所有数据
 	 * @param tablename
