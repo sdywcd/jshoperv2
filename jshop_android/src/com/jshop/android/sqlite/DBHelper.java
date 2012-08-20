@@ -30,7 +30,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		+"goods_category_tm(_id integer primary key autoincrement,goodsCategoryTid text,grade text,name text,goodsTypeId text,sort text)";
 	//创建商品sql
 	private static final String CREATE_GOODS_TM="create table "
-		+"goods_tm(_id integer primary key autoincrement,goodsCategoryTid text,goodsid text,goodsname text,memberprice text,pictureurl text)";
+		+"goods_tm(_id integer primary key autoincrement,goodsCategoryTid text,nname text,goodsid text,goodsname text,memberprice text,pictureurl text,weight text,detail text,unitname text)";
 	
 	//创建餐车表
 	private static final String CREATE_ELE_CART_TM="create table"
@@ -48,10 +48,10 @@ public class DBHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		this.db=db;
-		db.execSQL(CREATE_TABLE_TM);
-		db.execSQL(CREATE_GOODS_CATEGORY_TM);
-		db.execSQL(CREATE_GOODS_TM);
-		db.execSQL(CREATE_ELE_CART_TM);
+//		db.execSQL(CREATE_TABLE_TM);
+//		db.execSQL(CREATE_GOODS_CATEGORY_TM);
+//		db.execSQL(CREATE_GOODS_TM);
+//		db.execSQL(CREATE_ELE_CART_TM);
 	}
 
 //	public void createDB(){
@@ -94,6 +94,18 @@ public class DBHelper extends SQLiteOpenHelper {
 		Cursor c=db.rawQuery("select * from "+tablename+" where goodsCategoryTid=?", new String[]{String.valueOf(param)}); 
 		return c;
 	}
+	/**
+	 * 根据商品分类名称查询商品列表
+	 * @param tablename
+	 * @param param
+	 * @return
+	 */
+	public Cursor queryByParamGoodsCategoryTName(String tablename,String param){
+		SQLiteDatabase db=this.getWritableDatabase();
+		Cursor c=db.rawQuery("select * from "+tablename+" where nname=?", new String[]{String.valueOf(param)}); 
+		return c;
+	}
+	
 	/**
 	 * 查询商品表数据goodsid
 	 * @param tablename

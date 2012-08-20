@@ -34,6 +34,7 @@ import com.jshop.android.index.JshopMIndex;
 import com.jshop.android.index.R;
 import com.jshop.android.shop.JshopActivityGoodsCategoryList;
 import com.jshop.android.sqlite.DBHelper;
+import com.jshop.android.sqlite.DBHelper1;
 import com.jshop.android.util.BaseTools;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
