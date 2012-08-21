@@ -1,0 +1,6 @@
+INDEX VERSION 1.122+D:\ostocy-jshop\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1177038131.index
+2655900406.index
+988028452.index
+770913029.index
+2978884209.index

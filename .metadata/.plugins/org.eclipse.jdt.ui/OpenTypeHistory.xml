@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+<typeInfo handle="=jshop_android/D:\/android-sdk_r11-windows\/android-sdk-windows\/platforms\/android-10\/android.jar&lt;android.app(Activity.class[Activity" modifiers="33" timestamp="1334023922847"/>
+<typeInfo handle="=jshop_android/D:\/android-sdk_r11-windows\/android-sdk-windows\/platforms\/android-10\/android.jar&lt;android.database.sqlite(SQLiteOpenHelper.class[SQLiteOpenHelper" modifiers="1057" timestamp="1334023922847"/>
+<typeInfo handle="=ROOT/D:\/ostocy-jshop\/ROOT\/WebContent\/WEB-INF\/lib\/xwork-core-2.1.6.jar&lt;com.opensymphony.xwork2(ActionSupport.class[ActionSupport" modifiers="33" timestamp="1324956201234"/>
+<typeInfo handle="=ROOT/src&lt;com.jshop.dao{VirtualShippingAddressTDao.java[VirtualShippingAddressTDao" modifiers="513" timestamp="1343099754521"/>
+<typeInfo handle="=ROOT/src&lt;com.jshop.service{VirtualShippingAddressTService.java[VirtualShippingAddressTService" modifiers="513" timestamp="1343103232061"/>
+<typeInfo handle="=jshop_android/D:\/android-sdk_r11-windows\/android-sdk-windows\/platforms\/android-10\/android.jar&lt;android.widget(BaseAdapter.class[BaseAdapter" modifiers="1057" timestamp="1334023922847"/>
+</typeInfoHistroy>

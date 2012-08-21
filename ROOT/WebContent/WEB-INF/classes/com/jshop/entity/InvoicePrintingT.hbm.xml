@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-8-2 9:31:29 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.jshop.entity.InvoicePrintingT" table="invoice_printing_t" catalog="jshopactive">
+        <id name="invoicePrintingId" type="string">
+            <column name="INVOICE_PRINTING_ID" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="orderid" type="string">
+            <column name="ORDERID" length="20" not-null="true" />
+        </property>
+        <property name="operatorname" type="string">
+            <column name="OPERATORNAME" length="50" not-null="true" />
+        </property>
+        <property name="createPrintingTime" type="date">
+            <column name="CREATE_PRINTING_TIME" length="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

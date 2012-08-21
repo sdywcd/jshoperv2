@@ -1,0 +1,1 @@
+2012-06-17 15:31:44,891 0      [       Worker-8] WARN  UserSuppliedConnectionProvider  - No connection properties specified - the user must supply JDBC connections
