@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-8-2 9:31:29 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.jshop.entity.LocationT" table="location_t" catalog="jshopactive">
+        <id name="lid" type="string">
+            <column name="LID" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="userid" type="string">
+            <column name="USERID" length="20" not-null="true" />
+        </property>
+        <property name="username" type="string">
+            <column name="USERNAME" length="50" not-null="true" />
+        </property>
+        <property name="lat" type="double">
+            <column name="LAT" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="lng" type="double">
+            <column name="LNG" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="zoom" type="int">
+            <column name="ZOOM" not-null="true" />
+        </property>
+        <property name="versiont" type="int">
+            <column name="VERSIONT" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,25 +80,52 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 		}
 		setTabTitle(goodscategoryList);
 		if(tabTitle!=null){
-			TabHost th = getTabHost();
+			final TabHost th = getTabHost();
 			for(int i = 0; i < tabTitle.length;i++){
 				LinearLayout view = (LinearLayout) getLayoutInflater().inflate(R.layout.jshop_m_textfortabtitle,null);
 				((TextView) view.findViewById(R.id.tv_title)).setText(tabTitle[i]);
 				th.addTab(th.newTabSpec(tabTitle[i]).setIndicator(view).setContent(this));
 			}
-			
+			th.getTabWidget().getChildAt(th.getCurrentTab()).setBackgroundColor(Color.parseColor("#ff58a300"));
 			th.setOnTabChangedListener(new OnTabChangeListener(){
 
 				@Override
 				public void onTabChanged(String tabId) {
 					// TODO Auto-generated method stub
 					SimpleListView(tabId);
+					
+					   // change tab background color to red
+			        for (int i = 0; i < th.getTabWidget().getChildCount(); i++) {
+			        	th.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor("#ff003464"));
+			 
+			            /**
+			             * set height and width under TabActivity setting width has no
+			             * effect due to fill_parent layout parameter
+			             */
+			            //NOTE i cannot get this part work properly.
+			            //tabHost.getTabWidget().getChildAt(i).getLayoutParams().height = 30;
+			            //tabHost.getTabWidget().getChildAt(i).getLayoutParams().width = 30;
+			 
+			            View tempView= th.getTabWidget().getChildAt(i);
+			            /**
+			             * I kept all drawables in selector so that the we could get correct
+			             * drawablea applied to tabs as the selector pointed to has both the
+			             * tabs and the bottom tab-bar drawables referenced
+			             */
+			            //tempView.setBackgroundDrawable(res.getDrawable(R.drawable.somedrawable));
+			 
+			        }
+			 
+			        // o set different color for current selected tab to blue
+			        th.getTabWidget().getChildAt(th.getCurrentTab()).setBackgroundColor(Color.parseColor("#ff58a300"));
+
+					
 				}
 				
 			});
 		}
 	}
-
+	
 
 	/**
 	 * 读取我的菜单数据

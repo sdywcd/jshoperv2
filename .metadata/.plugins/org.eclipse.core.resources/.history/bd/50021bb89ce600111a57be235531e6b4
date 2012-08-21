@@ -1,0 +1,20 @@
+package com.jshop.android.index;
+
+import android.app.Activity;
+import android.app.TabActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TabHost.TabContentFactory;
+
+public class JshopMTabhost extends TabActivity implements TabContentFactory{
+
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	public View createTabContent(String tag) {
+		View view = new View(this);
+		return view;
+	}
+}

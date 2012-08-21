@@ -1,0 +1,5 @@
+#Mon Jul 16 23:34:14 CST 2012
+org.eclipse.team.ui.sychronizing_default_participant_sec_id=secondaryId
+eclipse.preferences.version=1
+org.eclipse.team.ui.first_time=false
+org.eclipse.team.ui.sychronizing_default_participant=org.eclipse.egit.ui.synchronizeParticipant

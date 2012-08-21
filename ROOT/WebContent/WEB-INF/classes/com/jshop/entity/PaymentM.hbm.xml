@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-8-2 9:31:29 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.jshop.entity.PaymentM" table="payment_m" catalog="jshopactive">
+        <id name="paymentid" type="string">
+            <column name="PAYMENTID" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="paymentname" type="string">
+            <column name="PAYMENTNAME" length="45" />
+        </property>
+        <property name="paymentCode" type="string">
+            <column name="PAYMENT_CODE" length="20" />
+        </property>
+        <property name="paymentFree" type="string">
+            <column name="PAYMENT_FREE" length="20" />
+        </property>
+        <property name="paymentInterface" type="string">
+            <column name="PAYMENT_INTERFACE" length="1" />
+        </property>
+        <property name="account" type="string">
+            <column name="ACCOUNT" length="100" />
+        </property>
+        <property name="safecode" type="string">
+            <column name="SAFECODE" length="128" />
+        </property>
+        <property name="partnerid" type="string">
+            <column name="PARTNERID" length="128" />
+        </property>
+        <property name="des" type="string">
+            <column name="DES" length="200" />
+        </property>
+        <property name="isCod" type="string">
+            <column name="IS_COD" length="1" />
+        </property>
+        <property name="isOnline" type="string">
+            <column name="IS_ONLINE" length="1" />
+        </property>
+        <property name="state" type="string">
+            <column name="STATE" length="1" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

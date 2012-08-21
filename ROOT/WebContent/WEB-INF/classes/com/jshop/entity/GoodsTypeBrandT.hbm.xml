@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-8-2 9:31:29 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.jshop.entity.GoodsTypeBrandT" table="goods_type_brand_t" catalog="jshopactive">
+        <id name="goodsTypeBrandTid" type="string">
+            <column name="GOODS_TYPE_BRAND_TID" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="goodsTypeId" type="string">
+            <column name="GOODS_TYPE_ID" length="20" />
+        </property>
+        <property name="name" type="string">
+            <column name="NAME" length="45" />
+        </property>
+        <property name="brandname" type="string">
+            <column name="BRANDNAME" length="45" />
+        </property>
+        <property name="brandid" type="string">
+            <column name="BRANDID" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>
