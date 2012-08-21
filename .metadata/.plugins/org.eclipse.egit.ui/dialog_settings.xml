@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="0" key="org.eclipse.egit.ui.internal.clone.GitSelectWizardPageWizardSel"/>
+	<item value="true" key="CommitDialog.showUntracked"/>
+	<list key="CommitDialog.authorValues">
+		<item value="erdai &lt;peachorchard@qq.com&gt;"/>
+	</list>
+	<list key="CommitDialog.committerValues">
+		<item value="erdai &lt;peachorchard@qq.com&gt;"/>
+	</list>
+</section>

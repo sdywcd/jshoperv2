@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="2.0.0" sequence="1" timestamp="1343057896968" analysisTimestamp="1343057891468" release="">
+  <Project projectName="jshop_android_offline">
+    <Jar>D:\ostocy-jshop\jshop_android_offline\bin\classes\com\jshop\android\pad\shop\JshopActivityGoodsList$1.class</Jar>
+    <Jar>D:\ostocy-jshop\jshop_android_offline\bin\classes\com\jshop\android\pad\shop\JshopActivityGoodsList$2.class</Jar>
+    <Jar>D:\ostocy-jshop\jshop_android_offline\bin\classes\com\jshop\android\pad\shop\JshopActivityGoodsList$3.class</Jar>
+    <Jar>D:\ostocy-jshop\jshop_android_offline\bin\classes\com\jshop\android\pad\shop\JshopActivityGoodsList$MyViewBinder.class</Jar>
+    <Jar>D:\ostocy-jshop\jshop_android_offline\bin\classes\com\jshop\android\pad\shop\JshopActivityGoodsList.class</Jar>
+    <AuxClasspathEntry>D:\ostocy-jshop\jshop_android_offline\bin\classes</AuxClasspathEntry>
+    <AuxClasspathEntry>D:\android-sdk_r11-windows\android-sdk-windows\tools\support\annotations.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>D:\ostocy-jshop\jshop_android_offline\libs\json_simple-1.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>D:\ostocy-jshop\jshop_android_offline\libs\android-support-v4.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>D:\android-sdk_r11-windows\android-sdk-windows\platforms\android-15\android.jar</AuxClasspathEntry>
+    <SrcDir>D:\ostocy-jshop\jshop_android_offline\src</SrcDir>
+    <SrcDir>D:\ostocy-jshop\jshop_android_offline\gen</SrcDir>
+    <Cloud id="edu.umd.cs.findbugs.cloud.doNothingCloud" online="false"></Cloud>
+  </Project>
+  <BugInstance type="DLS_DEAD_LOCAL_STORE" priority="2" abbrev="DLS" category="STYLE" first="1">
+    <Class classname="com.jshop.android.pad.shop.JshopActivityGoodsList">
+      <SourceLine classname="com.jshop.android.pad.shop.JshopActivityGoodsList" sourcefile="JshopActivityGoodsList.java" sourcepath="com/jshop/android/pad/shop/JshopActivityGoodsList.java"/>
+    </Class>
+    <Method classname="com.jshop.android.pad.shop.JshopActivityGoodsList" name="getGoodsList" signature="(Ljava/lang/String;)V" isStatic="false">
+      <SourceLine classname="com.jshop.android.pad.shop.JshopActivityGoodsList" start="117" end="190" startBytecode="0" endBytecode="176" sourcefile="JshopActivityGoodsList.java" sourcepath="com/jshop/android/pad/shop/JshopActivityGoodsList.java"/>
+    </Method>
+    <LocalVariable name="yl" register="5" pc="86" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.jshop.android.pad.shop.JshopActivityGoodsList" start="129" end="129" startBytecode="84" endBytecode="84" sourcefile="JshopActivityGoodsList.java" sourcepath="com/jshop/android/pad/shop/JshopActivityGoodsList.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="yl"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.NO_LOADS" value="true"/>
+  </BugInstance>
+  <BugInstance type="UUF_UNUSED_FIELD" priority="2" abbrev="UuF" category="PERFORMANCE" first="1">
+    <Class classname="com.jshop.android.pad.shop.JshopActivityGoodsList">
+      <SourceLine classname="com.jshop.android.pad.shop.JshopActivityGoodsList" sourcefile="JshopActivityGoodsList.java" sourcepath="com/jshop/android/pad/shop/JshopActivityGoodsList.java"/>
+    </Class>
+    <Field classname="com.jshop.android.pad.shop.JshopActivityGoodsList" name="requestjsonstr" signature="Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="com.jshop.android.pad.shop.JshopActivityGoodsList" sourcefile="JshopActivityGoodsList.java" sourcepath="com/jshop/android/pad/shop/JshopActivityGoodsList.java"/>
+    </Field>
+  </BugInstance>
+  <BugInstance type="SIC_INNER_SHOULD_BE_STATIC" priority="2" abbrev="SIC" category="PERFORMANCE" first="1">
+    <Class classname="com.jshop.android.pad.shop.JshopActivityGoodsList$MyViewBinder">
+      <SourceLine classname="com.jshop.android.pad.shop.JshopActivityGoodsList$MyViewBinder" start="193" end="202" sourcefile="JshopActivityGoodsList.java" sourcepath="com/jshop/android/pad/shop/JshopActivityGoodsList.java"/>
+    </Class>
+  </BugInstance>
+  <Errors errors="0" missingClasses="0"></Errors>
+  <FindBugsSummary timestamp="Mon, 23 Jul 2012 23:35:58 +0800" total_classes="5" referenced_classes="125" total_bugs="3" total_size="114" num_packages="1" vm_version="20.6-b01" cpu_seconds="5.38" clock_seconds="5.55" peak_mbytes="526.97" alloc_mbytes="371.25" gc_seconds="1.33" priority_2="3">
+    <PackageStats package="com.jshop.android.pad.shop" total_bugs="3" total_types="5" total_size="114" priority_2="3">
+      <ClassStats class="com.jshop.android.pad.shop.JshopActivityGoodsList" sourceFile="JshopActivityGoodsList.java" interface="false" size="75" bugs="2" priority_2="2"/>
+      <ClassStats class="com.jshop.android.pad.shop.JshopActivityGoodsList$1" sourceFile="JshopActivityGoodsList.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.jshop.android.pad.shop.JshopActivityGoodsList$2" sourceFile="JshopActivityGoodsList.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.jshop.android.pad.shop.JshopActivityGoodsList$3" sourceFile="JshopActivityGoodsList.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.jshop.android.pad.shop.JshopActivityGoodsList$MyViewBinder" sourceFile="JshopActivityGoodsList.java" interface="false" size="11" bugs="1" priority_2="1"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="de.tobject.findbugs.builder.FindBugs2Eclipse" totalMilliseconds="2024" invocations="2" avgMicrosecondsPerInvocation="1012098" maxMicrosecondsPerInvocation="1677408" standardDeviationMircosecondsPerInvocation="665310"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="566" invocations="407" avgMicrosecondsPerInvocation="1392" maxMicrosecondsPerInvocation="73613" standardDeviationMircosecondsPerInvocation="4138"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ExplicitSerialization" totalMilliseconds="259" invocations="125" avgMicrosecondsPerInvocation="2072" maxMicrosecondsPerInvocation="44467" standardDeviationMircosecondsPerInvocation="4963"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="214" invocations="125" avgMicrosecondsPerInvocation="1718" maxMicrosecondsPerInvocation="35283" standardDeviationMircosecondsPerInvocation="4009"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="192" invocations="125" avgMicrosecondsPerInvocation="1536" maxMicrosecondsPerInvocation="15924" standardDeviationMircosecondsPerInvocation="2814"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="168" invocations="421" avgMicrosecondsPerInvocation="400" maxMicrosecondsPerInvocation="1211" standardDeviationMircosecondsPerInvocation="210"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FunctionsThatMightBeMistakenForProcedures" totalMilliseconds="157" invocations="125" avgMicrosecondsPerInvocation="1257" maxMicrosecondsPerInvocation="32646" standardDeviationMircosecondsPerInvocation="3561"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.OverridingEqualsNotSymmetrical" totalMilliseconds="142" invocations="125" avgMicrosecondsPerInvocation="1137" maxMicrosecondsPerInvocation="26816" standardDeviationMircosecondsPerInvocation="3432"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.EqualsOperandShouldHaveClassCompatibleWithThis" totalMilliseconds="104" invocations="125" avgMicrosecondsPerInvocation="832" maxMicrosecondsPerInvocation="21200" standardDeviationMircosecondsPerInvocation="2277"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="101" invocations="125" avgMicrosecondsPerInvocation="808" maxMicrosecondsPerInvocation="19627" standardDeviationMircosecondsPerInvocation="2095"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="95" invocations="150" avgMicrosecondsPerInvocation="636" maxMicrosecondsPerInvocation="21423" standardDeviationMircosecondsPerInvocation="1964"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ReflectiveClasses" totalMilliseconds="89" invocations="125" avgMicrosecondsPerInvocation="713" maxMicrosecondsPerInvocation="18138" standardDeviationMircosecondsPerInvocation="1915"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History>
+    <AppVersion sequence="0" timestamp="1343057896937" release="" codeSize="0" numClasses="0"/>
+  </History>
+</BugCollection>

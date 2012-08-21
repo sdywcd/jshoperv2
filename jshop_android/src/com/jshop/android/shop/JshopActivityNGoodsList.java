@@ -8,22 +8,25 @@ import java.util.Map;
 
 import android.app.AlertDialog;
 import android.app.TabActivity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabContentFactory;
@@ -32,16 +35,21 @@ import android.widget.TextView;
 import com.jshop.android.action.JshopMGoodsListAction;
 import com.jshop.android.action.JshopMelectrocartAction;
 import com.jshop.android.action.JshopMgoodscategoryListAction;
+import com.jshop.android.holder.ElecartListViewHolder;
+import com.jshop.android.holder.GoodsListViewHolder;
 import com.jshop.android.index.R;
 import com.jshop.android.sqlite.DBHelper;
-public class JshopActivityNGoodsList extends TabActivity implements TabContentFactory{
-	private final DBHelper dbhelper=new DBHelper(this);
+import com.jshop.android.util.Arith;
+import com.jshop.android.widget.JshopListViewAdapter;
 
+public class JshopActivityNGoodsList extends TabActivity  implements TabContentFactory{
+	private final DBHelper dbhelper=new DBHelper(this);
 	private String[]tabTitle=null;
 	private GridView gv;
 	private ListView listViews;//used by goodslist
 	private ListView listViewForCart;//used by cartlist
-	private String requestjsonstr;
+	private TextView totalmemberprice;//显示我的菜单总价
+	private Double total=0.0;
 	private List<Map<String,Object>>goodscategoryList=new ArrayList<Map<String,Object>>();//商品分类
 	private ArrayList<HashMap<String, Object>> electrocartgoodslists = new ArrayList<HashMap<String, Object>>();//elecart
 	private ArrayList<HashMap<String, Object>> goodslists = new ArrayList<HashMap<String, Object>>();//商品列表
@@ -59,22 +67,8 @@ public class JshopActivityNGoodsList extends TabActivity implements TabContentFa
 		this.setContentView(R.layout.jshop_m_newgoodslist);
 		listViews=(ListView)this.findViewById(R.id.listViewfornewgoods);//商品列表的listview
 		listViewForCart=(ListView)this.findViewById(R.id.listViewforelecart);//我的菜单listview
-		//读取ele_cart缓存
-		Cursor ec=dbhelper.query(DBHelper.ELE_CART_TM_NAME);
-		electrocartgoodslists=jmelecart.getElecarttoSQLite(ec);
-		ec.close();
-		SimpleAdapter cartlistItemAdapter=new SimpleAdapter(this,electrocartgoodslists,R.layout.jshop_m_detaillistview,new String[]{"needquantity","goodsname","memberprice"},new int[]{R.id.needquantity,R.id.goodsname,R.id.memberprice});
-		cartlistItemAdapter.setViewBinder(new MyElecartViewBinder());
-		listViewForCart.setAdapter(cartlistItemAdapter);
-		//添加点击
-		listViewForCart.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				//这里要加入elecart
-			}
-		});
+		setElecartListView();//调用读取我的菜单数据
+		
 		//读取商品分类缓存
 		Cursor c=dbhelper.query(DBHelper.GOODS_CATEGORY_TM_NAME);
 		goodscategoryList=jmgclAction.getGoodsCategoryListtoSQLite(c);
@@ -86,27 +80,97 @@ public class JshopActivityNGoodsList extends TabActivity implements TabContentFa
 		}
 		setTabTitle(goodscategoryList);
 		if(tabTitle!=null){
-			TabHost th = getTabHost();
+			final TabHost th = getTabHost();
 			for(int i = 0; i < tabTitle.length;i++){
 				LinearLayout view = (LinearLayout) getLayoutInflater().inflate(R.layout.jshop_m_textfortabtitle,null);
 				((TextView) view.findViewById(R.id.tv_title)).setText(tabTitle[i]);
 				th.addTab(th.newTabSpec(tabTitle[i]).setIndicator(view).setContent(this));
 			}
-			
+			th.getTabWidget().getChildAt(th.getCurrentTab()).setBackgroundColor(Color.parseColor("#ff58a300"));
 			th.setOnTabChangedListener(new OnTabChangeListener(){
 
 				@Override
 				public void onTabChanged(String tabId) {
 					// TODO Auto-generated method stub
 					SimpleListView(tabId);
+					
+					   // change tab background color to red
+			        for (int i = 0; i < th.getTabWidget().getChildCount(); i++) {
+			        	th.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor("#ff003464"));
+			 
+			            /**
+			             * set height and width under TabActivity setting width has no
+			             * effect due to fill_parent layout parameter
+			             */
+			            //NOTE i cannot get this part work properly.
+			            //tabHost.getTabWidget().getChildAt(i).getLayoutParams().height = 30;
+			            //tabHost.getTabWidget().getChildAt(i).getLayoutParams().width = 30;
+			 
+			            View tempView= th.getTabWidget().getChildAt(i);
+			            /**
+			             * I kept all drawables in selector so that the we could get correct
+			             * drawablea applied to tabs as the selector pointed to has both the
+			             * tabs and the bottom tab-bar drawables referenced
+			             */
+			            //tempView.setBackgroundDrawable(res.getDrawable(R.drawable.somedrawable));
+			 
+			        }
+			 
+			        // o set different color for current selected tab to blue
+			        th.getTabWidget().getChildAt(th.getCurrentTab()).setBackgroundColor(Color.parseColor("#ff58a300"));
+
+					
 				}
 				
 			});
 		}
-		
-		
 	}
+	
 
+	/**
+	 * 读取我的菜单数据
+	 */
+	public void setElecartListView(){
+		electrocartgoodslists.clear();
+		//读取ele_cart缓存
+		Cursor ec=dbhelper.query(DBHelper.ELE_CART_TM_NAME);
+		electrocartgoodslists=jmelecart.getElecarttoSQLite(ec);
+		ec.close();
+		listViewForCart.setAdapter(new JshopMyElecartListViewAdapter(electrocartgoodslists,this.getApplicationContext()));
+		
+		setTotalMemberprice();
+	}
+	
+	/**
+	 * 设置计算我的菜单总价
+	 */
+	public void setTotalMemberprice(){
+		total=0.0;
+		if(!electrocartgoodslists.isEmpty()){
+			for(int i=0;i<electrocartgoodslists.size();i++){
+				total=Arith.add(total, Arith.mul(Double.parseDouble(electrocartgoodslists.get(i).get("memberprice").toString()), Double.parseDouble(electrocartgoodslists.get(i).get("needquantity").toString())));
+			}
+			totalmemberprice=(TextView) this.findViewById(R.id.totalmemberprice);
+			totalmemberprice.setText("￥"+total);
+		}else{
+			totalmemberprice=(TextView) this.findViewById(R.id.totalmemberprice);
+			totalmemberprice.setText("￥"+total);
+		}
+	}
+	
+	/**
+	 * 刷新我的菜单数据
+	 */
+//	public void rfreshElecartListView(){
+//		electrocartgoodslists.clear();
+//		//读取ele_cart缓存
+//		Cursor ec=dbhelper.query(DBHelper.ELE_CART_TM_NAME);
+//		electrocartgoodslists=jmelecart.getElecarttoSQLite(ec);
+//		ec.close();
+//		
+//	}
+	
+	
 	/**
 	 * 动态获取tabhost需要的title
 	 * @param goodscategoryList
@@ -122,23 +186,15 @@ public class JshopActivityNGoodsList extends TabActivity implements TabContentFa
 
 	}
 	
+	/**
+	 * 切换tabhost时调用的方法
+	 * @param tag
+	 * @return
+	 */
 	public View SimpleListView(String tag){
 		collectSqliteGoodsList(tag);
-		View view = new View(this);
-		SimpleAdapter listItemAdapter=new SimpleAdapter(this,goodslists,R.layout.jshop_m_listforcategory,new String[]{"pictureurl","goodsname","memberprice","weight","detail","unitname"},new int[]{R.id.pictureurl,R.id.goodsname,R.id.memberprice,R.id.weight,R.id.detail,R.id.unitname});
-		listItemAdapter.setViewBinder(new MyViewBinder());
-		listViews.setAdapter(listItemAdapter);
-		//添加点击
-		listViews.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				showConfirmAddtoCart(goodslists,arg2);
-			}
-		});
-		listItemAdapter.notifyDataSetChanged();
-		return view;
+		listViews.setAdapter(new JshopMyGoodsListViewAdapter(goodslists,this.getApplicationContext()));
+		return listViews;
 	}
 	
 	
@@ -155,19 +211,7 @@ public class JshopActivityNGoodsList extends TabActivity implements TabContentFa
 				}else{
 					collectSqliteGoodsList(tag);
 				}
-				SimpleAdapter listItemAdapter=new SimpleAdapter(this,goodslists,R.layout.jshop_m_listforcategory,new String[]{"pictureurl","goodsname","memberprice","weight","detail","unitname"},new int[]{R.id.pictureurl,R.id.goodsname,R.id.memberprice,R.id.weight,R.id.detail,R.id.unitname});
-				listItemAdapter.setViewBinder(new MyViewBinder());
-				listViews.setAdapter(listItemAdapter);
-				//添加点击
-				listViews.setOnItemClickListener(new OnItemClickListener() {
-
-					@Override
-					public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-							long arg3) {
-						showConfirmAddtoCart(goodslists,arg2);
-					}
-				});
-				listItemAdapter.notifyDataSetChanged();
+				listViews.setAdapter(new JshopMyGoodsListViewAdapter(goodslists,this.getApplicationContext()));
 			}
 		return view;
 	}
@@ -185,49 +229,12 @@ public class JshopActivityNGoodsList extends TabActivity implements TabContentFa
 		}
 		c.close();
 	}
-	
-	/**
-	 * 商品显示用
-	 * @author "chenda"
-	 *
-	 */
-	public class MyViewBinder implements ViewBinder{
-		@Override
-		public boolean setViewValue(View view, Object data, String text) {
-			if((view instanceof ImageView)&&(data instanceof Bitmap)){
-				ImageView iv=(ImageView)view;
-				Bitmap bm=(Bitmap)data;
-				iv.setImageBitmap(bm);
 
-				return true;
-			}
-			
-			return false;
-		}
-		
-	}
 	/**
-	 * 我的菜单用
-	 * @author "chenda"
-	 *
+	 * 点击加入我的菜单
+	 * @param goodslists
+	 * @param arg2
 	 */
-	public class MyElecartViewBinder implements ViewBinder{
-		@Override
-		public boolean setViewValue(View view, Object data, String text) {
-			if((view instanceof ImageView)&&(data instanceof Bitmap)){
-				ImageView iv=(ImageView)view;
-				Bitmap bm=(Bitmap)data;
-				iv.setImageBitmap(bm);
-
-				return true;
-			}
-			
-			return false;
-		}
-		
-	}
-	
-	
 	public void showConfirmAddtoCart(final ArrayList<HashMap<String, Object>> goodslists,final int arg2){
 
 		AlertDialog.Builder bulider=new AlertDialog.Builder(this);
@@ -240,12 +247,193 @@ public class JshopActivityNGoodsList extends TabActivity implements TabContentFa
 				String pictureurl=goodslists.get(arg2).get("pictureurl").toString();
 				String needquantity="1";
 				jmelecart.setGoodsToElecartSQLite(goodsid,goodsname,memberprice,pictureurl,needquantity, getApplicationContext());
+				setElecartListView();
+				
 			}
-			
+
 		}).setNegativeButton("取消", null);
 		AlertDialog alert=bulider.create();
 		alert.show();
 	}
 	
+	/**
+	 * 商品listview的适配器
+	 * @author "chenda"
+	 *
+	 */
+	public class JshopMyGoodsListViewAdapter extends BaseAdapter {
+		private ArrayList<HashMap<String, Object>> list;
+		private LayoutInflater myInflater;
+
+		public JshopMyGoodsListViewAdapter(
+				ArrayList<HashMap<String, Object>> list, Context context) {
+			this.list = list;
+			this.myInflater = LayoutInflater.from(context);
+		}
+
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return list.size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			// TODO Auto-generated method stub
+			return list.get(position);
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return position;
+		}
+
+		@Override
+		public View getView(final int position, View convertView,
+				ViewGroup parent) {
+			GoodsListViewHolder holder = null;
+			if (convertView == null) {
+				holder = new GoodsListViewHolder();
+				convertView = myInflater.inflate(
+						R.layout.jshop_m_listforcategory, null);
+				holder.setPictureurl((ImageView) convertView
+						.findViewById(R.id.pictureurl));
+				holder.setGoodsname((TextView) convertView
+						.findViewById(R.id.goodsname));
+				holder.setMemberprice((TextView) convertView
+						.findViewById(R.id.memberprice));
+				holder.setWeight((TextView) convertView
+						.findViewById(R.id.weight));
+				holder.setUnitname((TextView) convertView
+						.findViewById(R.id.unitname));
+				holder.setAddtomyelecartmenu((ImageView) convertView
+						.findViewById(R.id.addtomyelecartmenu));
+				holder.setDetail((TextView) convertView
+						.findViewById(R.id.detail));
+				convertView.setTag(holder);
+			} else {
+				holder = (GoodsListViewHolder) convertView.getTag();
+			}
+			holder.getPictureurl().setImageBitmap(
+					(Bitmap) list.get(position).get("pictureurl"));
+			holder.getGoodsname().setText(
+					list.get(position).get("goodsname").toString());
+			holder.getMemberprice().setText(
+					list.get(position).get("memberprice").toString());
+			holder.getWeight().setText(
+					list.get(position).get("weight").toString());
+			holder.getUnitname().setText(
+					list.get(position).get("unitname").toString());
+			holder.getDetail().setText(
+					list.get(position).get("detail").toString());
+			holder.getAddtomyelecartmenu().setOnClickListener(
+					new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							showConfirmAddtoCart(list,
+									position);
+							
+						}
+					});
+			return convertView;
+		}
+
+		@Override
+		public void notifyDataSetChanged() {
+			// TODO Auto-generated method stub
+			super.notifyDataSetChanged();
+		}
+		
+		
+		
+	}
 	
+	
+	/**
+	 * 我的elecart的适配器
+	 * @author "chenda"
+	 *
+	 */
+	public class JshopMyElecartListViewAdapter extends BaseAdapter {
+		private final ArrayList<HashMap<String, Object>> list;
+		private LayoutInflater myInflater;
+
+		public JshopMyElecartListViewAdapter(
+				ArrayList<HashMap<String, Object>> list, Context context) {
+			this.list = list;
+			this.myInflater = LayoutInflater.from(context);
+		}
+
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return list.size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			// TODO Auto-generated method stub
+			return list.get(position);
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return position;
+		}
+
+		@Override
+		public View getView(final int position, View convertView,
+				final ViewGroup parent) {
+			ElecartListViewHolder holder = null;
+			if (convertView == null) {
+				holder = new ElecartListViewHolder();
+				convertView = myInflater.inflate(
+						R.layout.jshop_m_detaillistview, null);
+				holder.setGoodsname((TextView) convertView
+						.findViewById(R.id.goodsname));
+				holder.setMemberprice((TextView) convertView
+						.findViewById(R.id.memberprice));
+				holder.setNeedquantity((TextView) convertView.findViewById(R.id.needquantity));
+				holder.setPlus((ImageView) convertView.findViewById(R.id.plus));
+				holder.setMinus((ImageView) convertView.findViewById(R.id.minus));
+				convertView.setTag(holder);
+			} else {
+				holder = (ElecartListViewHolder) convertView.getTag();
+			}
+			holder.getGoodsname().setText(
+					list.get(position).get("goodsname").toString());
+			holder.getMemberprice().setText(
+					list.get(position).get("memberprice").toString());
+			holder.getNeedquantity().setText(
+					list.get(position).get("needquantity").toString());
+			holder.getPlus().setOnClickListener(
+					new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							jmelecart.plusorMinusElecart(list, position, "plus", v.getContext());
+							setElecartListView();
+							setTotalMemberprice();
+						}
+					});
+			holder.getMinus().setOnClickListener(
+					new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							jmelecart.plusorMinusElecart(list, position, "minus", v.getContext());
+							
+							setElecartListView();
+							setTotalMemberprice();
+						}
+					});
+			return convertView;
+		}
+
+		@Override
+		public void notifyDataSetChanged() {
+			// TODO Auto-generated method stub
+			super.notifyDataSetChanged();
+		}
+	}
 }

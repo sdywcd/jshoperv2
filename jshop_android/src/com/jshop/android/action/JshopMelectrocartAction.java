@@ -177,7 +177,14 @@ public class JshopMelectrocartAction {
 		values.put("memberprice",memberprice);
 		values.put("pictureurl", pictureurl);
 		values.put("needquantity",needquantity);
-		dbhelper.insert(DBHelper.ELE_CART_TM_NAME, values);
+		Cursor c=dbhelper.queryByParamgoodsid(DBHelper.ELE_CART_TM_NAME, goodsid);
+		int querycount=c.getCount();
+		if(querycount>0){
+			dbhelper.updateByElecartNeedquantity(DBHelper.ELE_CART_TM_NAME,goodsid,"plus");
+		}else{
+			dbhelper.insert(DBHelper.ELE_CART_TM_NAME, values);
+		}
+		
 		dbhelper.close();
 	}
 	
@@ -195,10 +202,21 @@ public class JshopMelectrocartAction {
 			map.put("goodsname", c.getString(c.getColumnIndex("goodsname")));
 			map.put("memberprice", c.getString(c.getColumnIndex("memberprice")));
 			map.put("needquantity", c.getString(c.getColumnIndex("needquantity")));
-			electrocartgoodslists.add(map);
+			int ineed=Integer.parseInt(map.get("needquantity").toString());
+			if(ineed>=1){
+				electrocartgoodslists.add(map);
+			}
 			c.moveToNext();
 		}
 		return electrocartgoodslists;
+	}
+	
+	public void plusorMinusElecart(ArrayList<HashMap<String, Object>> list,int position,String flag,Context context){
+		if(!list.isEmpty()){
+			String goodsid=list.get(position).get("goodsid").toString();
+			DBHelper dbhelper = new DBHelper(context);
+			dbhelper.updateByElecartNeedquantity(DBHelper.ELE_CART_TM_NAME, goodsid, flag);
+		}
 	}
 	
 	
