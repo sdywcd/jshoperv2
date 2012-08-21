@@ -1,4 +1,0 @@
-#Mon Jul 02 07:53:45 CST 2012
-module-start-timeout=300000
-runtimes=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<runtimes>\r\n  <runtime id\="Apache Tomcat v6.0" location\="D\:/apache-tomcat-6.0.18" name\="Apache Tomcat v6.0" runtime-type-id\="org.eclipse.jst.server.tomcat.runtime.60" timestamp\="0" vm-install-id\="1340867955031" vm-install-type-id\="org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType"/>\r\n  <runtime id\="Apache Tomcat v6.0 (2)" location\="D\:/apache-tomcat-6.0.18" name\="Apache Tomcat v6.0 (2)" runtime-type-id\="org.eclipse.jst.server.tomcat.runtime.60" timestamp\="0"/>\r\n</runtimes>\r\n
-eclipse.preferences.version=1

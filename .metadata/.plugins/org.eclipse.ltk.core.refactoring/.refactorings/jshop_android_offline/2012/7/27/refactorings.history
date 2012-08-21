@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring accessors="true" comment="Delete 6 elements from project &apos;jshop_android_offline&apos;&#x0D;&#x0A;- Original project: &apos;jshop_android_offline&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     res&#x0D;&#x0A;     AndroidManifest.xml&#x0D;&#x0A;     classes.dex&#x0D;&#x0A;     jarlist.cache&#x0D;&#x0A;     jshop_android_offline.apk&#x0D;&#x0A;     resources.ap_" description="Delete elements" element1="bin/resources.ap_" element2="bin/res" element3="bin/classes.dex" element4="bin/jshop_android_offline.apk" element5="bin/jarlist.cache" element6="bin/AndroidManifest.xml" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="6" stamp="1341193722906" subPackages="false" version="1.0"/>
-</session>
