@@ -10,10 +10,13 @@ import android.app.AlertDialog;
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,9 +40,13 @@ import com.jshop.android.action.JshopMgoodscategoryListAction;
 import com.jshop.android.holder.ElecartListViewHolder;
 import com.jshop.android.holder.GoodsListViewHolder;
 import com.jshop.android.index.R;
+import com.jshop.android.shop.JshopActivityGoodsList.JshopActivityGoodsListPageChangeListener;
 import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.util.Arith;
+import com.jshop.android.util.BaseTools;
 import com.jshop.android.widget.JshopListViewAdapter;
+import com.jshop.android.widget.JshopViewpagerAdapter;
+import com.jshop.android.widget.JshopViewpagerAdapter.JshopActivityGoodsListPageAdapter;
 
 public class JshopActivityNGoodsList extends TabActivity  implements TabContentFactory{
 	private final DBHelper dbhelper=new DBHelper(this);
@@ -299,15 +306,22 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 					list.get(position).get("unitname").toString());
 			holder.getDetail().setText(
 					list.get(position).get("detail").toString());
-			holder.getAddtomyelecartmenu().setOnClickListener(
-					new OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							showConfirmAddtoCart(list,
-									position);
-							
-						}
-					});
+			holder.getAddtomyelecartmenu().setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						showConfirmAddtoCart(list,
+								position);
+						
+					}
+				});
+			holder.getPictureurl().setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					
+				}
+				
+			});
 			return convertView;
 		}
 
@@ -320,6 +334,7 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 		
 		
 	}
+	
 	
 	
 	/**

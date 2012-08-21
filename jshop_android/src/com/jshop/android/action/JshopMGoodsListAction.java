@@ -109,7 +109,22 @@ public class JshopMGoodsListAction {
 		
 		return bitmap;
     }  
-	
+	/**
+	 * 不压缩图片
+	 * to change sd card pc to bmp type
+	 * @param pictureurl
+	 * @return
+	 * @throws IOException 
+	 */
+	public static Bitmap GetLocalOrNetBitmapNoZip(String url) throws IOException  
+    {  
+		String sdcard=Environment.getExternalStorageDirectory().getPath();
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inTempStorage=new byte[5*1024];
+		Bitmap bitmap=BitmapFactory.decodeFile(sdcard+url,options);
+		
+		return bitmap;
+    }  
 
 
 	/**
@@ -199,12 +214,38 @@ public class JshopMGoodsListAction {
 			map.put("weight", c.getString(c.getColumnIndex("weight")));
 			map.put("unitname", c.getString(c.getColumnIndex("unitname")));
 			map.put("detail", c.getString(c.getColumnIndex("detail")));
+			map.put("goodsCategoryTid", c.getString(c.getColumnIndex("goodsCategoryTid")));
 			goodslists.add(map);
 			c.moveToNext();
 		}
 		return goodslists;
 	}
-	
+	/**
+	 * 读取商品列表换群从sqlite不压缩
+	 * 
+	 * @param c
+	 * @return
+	 * @throws IOException
+	 */
+	public ArrayList<HashMap<String, Object>> getGoodsListSQLiteNoZip(Cursor c)
+			throws IOException {
+		goodslists.clear();
+		c.moveToFirst();
+		while (!c.isAfterLast()) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("goodsid", c.getString(c.getColumnIndex("goodsid")));
+			map.put("goodsname", c.getString(c.getColumnIndex("goodsname")));
+			map.put("memberprice", c.getString(c.getColumnIndex("memberprice")));
+			map.put("pictureurl",GetLocalOrNetBitmapNoZip(subStringPictureurl(c.getString(c.getColumnIndex("pictureurl")).toString())));
+			map.put("weight", c.getString(c.getColumnIndex("weight")));
+			map.put("unitname", c.getString(c.getColumnIndex("unitname")));
+			map.put("detail", c.getString(c.getColumnIndex("detail")));
+			map.put("goodsCategoryTid", c.getString(c.getColumnIndex("goodsCategoryTid")));
+			goodslists.add(map);
+			c.moveToNext();
+		}
+		return goodslists;
+	}
 	/**
 	 * 清空商品表中的所有数据SQLite
 	 */
