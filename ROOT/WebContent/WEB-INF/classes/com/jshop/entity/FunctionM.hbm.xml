@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-8-2 9:31:29 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.jshop.entity.FunctionM" table="function_m" catalog="jshopactive">
+        <id name="id" type="string">
+            <column name="ID" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="visiturl" type="string">
+            <column name="VISITURL" length="225" not-null="true" />
+        </property>
+        <property name="visitmethodname" type="string">
+            <column name="VISITMETHODNAME" length="100" not-null="true" />
+        </property>
+        <property name="functionname" type="string">
+            <column name="FUNCTIONNAME" length="100" not-null="true" />
+        </property>
+        <property name="createtime" type="timestamp">
+            <column name="CREATETIME" length="0" not-null="true" />
+        </property>
+        <property name="moduleid" type="string">
+            <column name="MODULEID" length="20" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

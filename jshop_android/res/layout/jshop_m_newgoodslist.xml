@@ -64,6 +64,7 @@
                     android:text="目前消费" />
 
                 <TextView
+                    android:id="@+id/totalmemberprice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/feetitle"
@@ -150,16 +151,21 @@
 
         <TextView
             android:gravity="right"
-            android:text="￥56"
+            android:text="合计:￥56"
             android:layout_width="match_parent"
             android:layout_height="20dp" 
             android:textSize="18dp"
+            android:textColor="@color/khaki"
             />
 
-        <Button
-            android:layout_width="match_parent"
+        <ImageButton
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0" />
+            android:layout_weight="0"
+            android:background="@drawable/orders" 
+            android:layout_gravity="center_horizontal">
+            
+        </ImageButton>
     </LinearLayout>
 
     <ImageView
@@ -198,28 +204,16 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/advimage"
                 android:text="@string/t3"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/sitwhere"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/titletext"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/advimage"
-                android:text="@string/t3"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textColor="@color/cobalt_blue"
+                android:textSize="38dp" />
 
             <EditText
                 android:id="@+id/searchedit"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
-                android:layout_below="@id/sitwhere"
+                android:layout_below="@id/titletext"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="21dp"
                 android:layout_toRightOf="@id/advimage"
                 android:text="" 
                 android:focusable="false"/>
@@ -229,9 +223,9 @@
                 android:layout_width="40dp"
                 android:layout_height="32dp"
                 android:layout_alignParentRight="true"
-                android:layout_below="@id/sitwhere"
+                android:layout_below="@id/titletext"
                 android:layout_marginRight="2dp"
-                android:layout_marginTop="11dp" />
+                android:layout_marginTop="22dp" />
         </RelativeLayout>
 
         <LinearLayout
@@ -239,7 +233,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white_grey" >
-            <TabHost
+       <TabHost
 	    android:id="@android:id/tabhost"	    
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent">
@@ -256,7 +250,8 @@
 		        <TabWidget
 		            android:id="@android:id/tabs"
 		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content">
+		            android:layout_height="wrap_content"
+		            >
 		            
 		        </TabWidget>
 	        </HorizontalScrollView>

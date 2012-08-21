@@ -1,0 +1,7 @@
+package com.jshop.android.index;
+
+import android.app.Activity;
+
+public class JshopMTabhost extends Activity {
+
+}

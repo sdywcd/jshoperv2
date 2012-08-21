@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.6"?>
+
+<target name="Running Platform">
+<locations>
+<location path="${eclipse_home}" type="Profile"/>
+</locations>
+<environment>
+<os>win32</os>
+<ws>win32</ws>
+<arch>x86</arch>
+<nl>zh_CN</nl>
+</environment>
+<launcherArgs>
+<vmArgs>-Xms40m -Xmx384m -Duser.name="chenda"</vmArgs>
+</launcherArgs>
+</target>
