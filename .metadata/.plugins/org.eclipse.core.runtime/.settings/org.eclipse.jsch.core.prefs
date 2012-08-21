@@ -1,6 +1,0 @@
-#Thu May 24 13:59:26 CST 2012
-CVSSSH2PreferencePage.PREF_AUTH_METHODS_ORDER=gssapi-with-mic,publickey,password,keyboard-interactive
-eclipse.preferences.version=1
-CVSSSH2PreferencePage.PREF_AUTH_METHODS=gssapi-with-mic,publickey,password,keyboard-interactive
-org.eclipse.jsch.core.hasMigratedSsh2Preferences=true
-SSH2HOME=D\:\\ostocy-jshop\\.ssh
