@@ -135,7 +135,7 @@
                 android:layout_height="246dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:background="@color/dirty_blue" />
+                android:background="@color/dirty_blue"/>
         </RelativeLayout>
 
         <RelativeLayout
