@@ -195,6 +195,7 @@ public class JshopMelectrocartAction {
 	 * @return
 	 */
 	public ArrayList<HashMap<String, Object>>getElecarttoSQLite(Cursor c){
+		electrocartgoodslists.clear();
 		c.moveToFirst();
 		while(!c.isAfterLast()){
 			HashMap<String,Object>map=new HashMap<String,Object>();

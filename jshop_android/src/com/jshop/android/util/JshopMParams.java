@@ -13,4 +13,5 @@ public class JshopMParams {
 	public static final String SHAREMTABLEPARAM="jmtable.txt";
 	
 	public static final String SAVEPCPATH=Environment.getExternalStorageDirectory() + "/Uploads/";
+	
 }

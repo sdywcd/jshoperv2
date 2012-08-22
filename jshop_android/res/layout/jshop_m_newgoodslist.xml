@@ -18,6 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/logotitle"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_margin="8dp"
             android:background="@color/dark_blue" />
 
         <LinearLayout
@@ -61,6 +63,7 @@
                     android:layout_below="@+id/seatnumbg"
                     android:layout_marginTop="15dp"
                     android:layout_marginLeft="-30dp"
+                    android:textColor="@color/white"
                     android:text="目前消费" />
 
                 <TextView
@@ -94,13 +97,12 @@
                     android:gravity="center_vertical"
                     android:orientation="vertical">
                     <TextView 
-                        android:text="点餐 "
+                        android:layout_marginLeft="5dp"
+                        android:text="点餐\nOrder Dishes"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"/>
-                     <TextView 
-                        android:text="order dishes"                        
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/white"/>
                     
                 </LinearLayout>
 
@@ -113,13 +115,13 @@
                     android:orientation="vertical">
                   
                     <TextView 
-                        android:text="就座 "
+                        android:id="@+id/setseat"
+                        android:layout_marginLeft="5dp"
+                        android:text="就座\nHave a seat "
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"/>
-                     <TextView 
-                        android:text="Have a seat"                        
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/white"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -130,13 +132,14 @@
                     android:orientation="vertical" >
                     
                      <TextView 
-                        android:text="计算器 "
+                        android:id="@+id/clearlist"
+                        android:layout_marginLeft="5dp"
+                        android:text="清空列表\nClear list"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"/>
-                     <TextView 
-                        android:text="calculator"                        
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/white"/>
+
                      
                 </LinearLayout>
             </LinearLayout>
@@ -149,20 +152,12 @@
             android:layout_weight="1" >
         </ListView>
 
-        <TextView
-            android:gravity="right"
-            android:text="合计:￥56"
-            android:layout_width="match_parent"
-            android:layout_height="20dp" 
-            android:textSize="18dp"
-            android:textColor="@color/khaki"
-            />
-
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:background="@drawable/orders" 
+            android:layout_marginBottom="5dp"
             android:layout_gravity="center_horizontal">
             
         </ImageButton>
@@ -193,7 +188,8 @@
                 android:layout_height="106dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/advtsmt"
+                android:src="@drawable/lctlogob"
+                android:scaleType="centerInside"
                 />
 
             <TextView
@@ -225,7 +221,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/titletext"
                 android:layout_marginRight="2dp"
-                android:layout_marginTop="22dp" />
+                android:layout_marginTop="22dp" 
+                />
         </RelativeLayout>
 
         <LinearLayout

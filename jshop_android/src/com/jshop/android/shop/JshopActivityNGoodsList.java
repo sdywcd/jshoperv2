@@ -1,10 +1,14 @@
 package com.jshop.android.shop;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.http.util.EncodingUtils;
 
 import android.app.AlertDialog;
 import android.app.TabActivity;
@@ -37,9 +41,11 @@ import com.jshop.android.action.JshopMelectrocartAction;
 import com.jshop.android.action.JshopMgoodscategoryListAction;
 import com.jshop.android.holder.ElecartListViewHolder;
 import com.jshop.android.holder.GoodsListViewHolder;
+import com.jshop.android.index.JshopMNewIndex;
 import com.jshop.android.index.R;
 import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.util.Arith;
+import com.jshop.android.util.JshopMParams;
 import com.jshop.android.widget.JshopListViewAdapter;
 
 public class JshopActivityNGoodsList extends TabActivity  implements TabContentFactory{
@@ -49,13 +55,19 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 	private ListView listViews;//used by goodslist
 	private ListView listViewForCart;//used by cartlist
 	private TextView totalmemberprice;//显示我的菜单总价
+	private TextView seatTextView;//显示座位
+	private TextView seatSetTextView;//设置座位
+	private TextView clearlistTextView;//清空列表
 	private Double total=0.0;
 	private List<Map<String,Object>>goodscategoryList=new ArrayList<Map<String,Object>>();//商品分类
 	private ArrayList<HashMap<String, Object>> electrocartgoodslists = new ArrayList<HashMap<String, Object>>();//elecart
 	private ArrayList<HashMap<String, Object>> goodslists = new ArrayList<HashMap<String, Object>>();//商品列表
+	private ArrayList<HashMap<String, Object>> piclist = new ArrayList<HashMap<String, Object>>();//图片列表
 	private JshopMgoodscategoryListAction jmgclAction=new JshopMgoodscategoryListAction();
 	private JshopMGoodsListAction jmGoodslistAction=new JshopMGoodsListAction();
 	private JshopMelectrocartAction jmelecart=new JshopMelectrocartAction();
+	
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +79,7 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 		this.setContentView(R.layout.jshop_m_newgoodslist);
 		listViews=(ListView)this.findViewById(R.id.listViewfornewgoods);//商品列表的listview
 		listViewForCart=(ListView)this.findViewById(R.id.listViewforelecart);//我的菜单listview
+		
 		setElecartListView();//调用读取我的菜单数据
 		
 		//读取商品分类缓存
@@ -94,29 +107,13 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 					// TODO Auto-generated method stub
 					SimpleListView(tabId);
 					
-					   // change tab background color to red
+					   // 设置tab颜色为蓝色
 			        for (int i = 0; i < th.getTabWidget().getChildCount(); i++) {
 			        	th.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor("#ff003464"));
-			 
-			            /**
-			             * set height and width under TabActivity setting width has no
-			             * effect due to fill_parent layout parameter
-			             */
-			            //NOTE i cannot get this part work properly.
-			            //tabHost.getTabWidget().getChildAt(i).getLayoutParams().height = 30;
-			            //tabHost.getTabWidget().getChildAt(i).getLayoutParams().width = 30;
-			 
 			            View tempView= th.getTabWidget().getChildAt(i);
-			            /**
-			             * I kept all drawables in selector so that the we could get correct
-			             * drawablea applied to tabs as the selector pointed to has both the
-			             * tabs and the bottom tab-bar drawables referenced
-			             */
-			            //tempView.setBackgroundDrawable(res.getDrawable(R.drawable.somedrawable));
-			 
+
 			        }
-			 
-			        // o set different color for current selected tab to blue
+			        // 设置当前tab颜色为绿色
 			        th.getTabWidget().getChildAt(th.getCurrentTab()).setBackgroundColor(Color.parseColor("#ff58a300"));
 
 					
@@ -124,6 +121,112 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 				
 			});
 		}
+		seatTextView = (TextView)this.findViewById(R.id.seatnum);
+		String text =  readSeat();
+		seatTextView.setText(text);
+		
+		seatSetTextView = (TextView)this.findViewById(R.id.setseat);
+		seatSetTextView.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				setSeat();
+			}
+
+		});
+		clearlistTextView = (TextView)this.findViewById(R.id.clearlist);
+		clearlistTextView.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				clearList();
+			}
+			
+		});
+		
+		
+	}	
+	/**
+	 * 清空订单列表
+	 */
+	private void clearList(){
+		AlertDialog.Builder bulider=new AlertDialog.Builder(this);
+		bulider.setMessage("确定清空点菜列表吗?").setCancelable(false).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				clearElecartList();
+			}
+		}).setNegativeButton("取消", null);
+		AlertDialog alert=bulider.create();
+		alert.show();
+	}
+	/**
+	 * 设置座位
+	 */
+	private void setSeat(){
+		AlertDialog.Builder builder;
+		AlertDialog alertDialog;
+		Context mContext = JshopActivityNGoodsList.this;
+		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+		final View seatPopupLayout = inflater.inflate(R.layout.jshop_m_popupseat,null);
+		builder = new AlertDialog.Builder(mContext);		
+		builder.setTitle("荔餐厅").setMessage("输入就座位置").setView(seatPopupLayout).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+
+				TextView seatwhere = (TextView) seatPopupLayout.findViewById(R.id.desireseat);
+				String lctseat = seatwhere.getText().toString();
+				//写入文件并保存坐席
+				
+				writeSeat(lctseat);
+				String rlcteat =  readSeat();
+				seatTextView.setText(rlcteat);
+
+			}
+		});
+		String rlcteat =  readSeat();
+		if(rlcteat!=null){
+			TextView seatwhere=(TextView) seatPopupLayout.findViewById(R.id.desireseat);
+			seatwhere.setText(rlcteat);
+		}
+		alertDialog = builder.create();
+		alertDialog.show();
+	}
+
+	/**
+	 * 写文件，保存就座位置
+	 * @param content
+	 */
+	public void writeSeat(String content){
+		try{
+			//实例化文件文件输出流
+			FileOutputStream fos=openFileOutput(JshopMParams.SEATPLACE,MODE_WORLD_WRITEABLE+MODE_WORLD_WRITEABLE);
+			fos.write(content.getBytes());
+			fos.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 读取座位文件
+	 * @return
+	 */
+	public String readSeat(){
+		String res="";
+		try{
+			FileInputStream fis=openFileInput(JshopMParams.SEATPLACE);
+			byte[]buffer=new byte[fis.available()];
+			fis.read(buffer);
+			res=EncodingUtils.getString(buffer,"UTF-8");
+			fis.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return res;
 	}
 	
 
@@ -140,7 +243,20 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 		
 		setTotalMemberprice();
 	}
+	/**
+	 * 清空我的菜单数据
+	 */
+	public void clearElecartList(){
+		
+		dbhelper.deleteAllData(DBHelper.ELE_CART_TM_NAME);
 	
+		Cursor ec=dbhelper.query(DBHelper.ELE_CART_TM_NAME);
+		electrocartgoodslists=jmelecart.getElecarttoSQLite(ec);
+		ec.close();
+		listViewForCart.setAdapter(new JshopMyElecartListViewAdapter(electrocartgoodslists,this.getApplicationContext()));
+
+		setTotalMemberprice();
+	}
 	/**
 	 * 设置计算我的菜单总价
 	 */
@@ -336,6 +452,36 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 							
 						}
 					});
+			holder.getPictureurl().setOnClickListener(
+					new OnClickListener(){
+
+						@Override
+						public void onClick(View v) {
+							AlertDialog.Builder builder;
+							AlertDialog alertDialog;
+							Context mContext = JshopActivityNGoodsList.this;
+							LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+							final View bigpicPopupLayout = inflater.inflate(R.layout.jshop_m_bigpic,null);
+							builder = new AlertDialog.Builder(mContext);
+							ImageView bigpicview = (ImageView) bigpicPopupLayout.findViewById(R.id.bigpic);
+							String goodsid = list.get(position).get("goodsid").toString();
+							Cursor c = dbhelper.queryByParamgoodsid(dbhelper.GOODS_TM_NAME,goodsid);
+							try {
+								piclist =  jmGoodslistAction.GetPicArrayList(c);
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							Bitmap picurl = (Bitmap) piclist.get(0).get("pictureurl");							
+							bigpicview.setImageBitmap(picurl);
+							builder.setTitle("荔餐厅")
+								   //.setMessage(list.get(position).get("goodsname").toString())
+								   .setView(bigpicPopupLayout);
+								   //.setNegativeButton("关闭",null);
+							AlertDialog alert = builder.create();
+							alert.show();
+						}											
+					});
 			return convertView;
 		}
 
@@ -361,7 +507,9 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 
 		public JshopMyElecartListViewAdapter(
 				ArrayList<HashMap<String, Object>> list, Context context) {
+			//this.list.clear();
 			this.list = list;
+			
 			this.myInflater = LayoutInflater.from(context);
 		}
 
