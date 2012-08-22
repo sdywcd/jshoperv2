@@ -67,8 +67,7 @@ public class JshopMNewIndex extends Activity {
 		/**
 		 * 弹出坐席设置
 		 */
-		sit.setOnClickListener(new OnClickListener(){
-			
+		sit.setOnClickListener(new OnClickListener(){			
 			@Override
 			public void onClick(View v){
 				setSeat();
@@ -105,8 +104,8 @@ public class JshopMNewIndex extends Activity {
 	}
 	//显示exit对话框
 	private void exitAlert(String msg){
-		AlertDialog.Builder bulider=new AlertDialog.Builder(this);
-		bulider.setMessage(msg).setCancelable(false).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+		AlertDialog.Builder builder=new AlertDialog.Builder(this);
+		builder.setMessage(msg).setCancelable(false).setPositiveButton("确定", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface arg0, int id) {
 				finish();
@@ -117,7 +116,7 @@ public class JshopMNewIndex extends Activity {
 				return;
 			}
 		});
-		AlertDialog alert=bulider.create();
+		AlertDialog alert=builder.create();
 		alert.show();
 	}
 	/**
