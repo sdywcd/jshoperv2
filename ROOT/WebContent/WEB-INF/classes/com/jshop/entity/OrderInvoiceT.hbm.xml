@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2012-8-2 9:31:29 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2012-8-22 20:51:24 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="com.jshop.entity.OrderInvoiceT" table="order_invoice_t" catalog="jshopactive">
         <id name="orderInvoiceid" type="string">

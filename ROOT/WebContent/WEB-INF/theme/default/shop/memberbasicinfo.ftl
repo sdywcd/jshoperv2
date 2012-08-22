@@ -1,4 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+ 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -11,6 +12,7 @@
 <script type="text/javascript" src="${basepath}ui/default/js/jquery.query.js"></script>
 <script type="text/javascript"  src="${basepath}ui/default/js/location.js"></script>
 <script type="text/javascript"  src="${basepath}ui/default/js/YLChinaArea.js"></script>
+<script type="text/javascript"  src="${basepath}jshop/admin/js/jquery.form.js"></script>
 
 </head>
 <body>
@@ -26,17 +28,29 @@
 <div id="hui_r">
   <div class="m1top"><span>我的资料</span></div>
   <div class="mem_bor_006194" style="height:1%;">
+  <#if Session??&&Session["user"]?exists>
     <div style="padding:0px 15px">
         <div class="myinfo_rtoptxt">我当前的个性头像：</div>
         <div class="myinfo_rm1">
-          <div class="myinfo_rm1l"> <img id="fileChecker" name="fileChecker" src="${basepath}ui/default/images/hui_100_100.jpg" alt=""> </div>
+          <div class="myinfo_rm1l"> <img id="fileChecker" name="fileChecker" src="${user.headpath}" alt=""> </div>
           <div class="myinfo_rm1r">
             <div class="myinfo_rm1rt1">选择你的个性头像，<br>
               请点击“浏览”后，选择需要上传的图片！</div>
             	<input name="providerInnerName" value="userBaseDatum" type="hidden">
            		<input name="deleteTopPic" id="deleteTopPic" type="hidden">
             <div class="myinfo_rm1rt2">上传新头像：
-             	<input id="picfile" name="TopPicture_file" onchange="changeSrc(this)" style="width:350px;" type="file">
+             	<form id="form2" action="uploadFile" method="post" enctype="multipart/form-data">              
+                <tr>                      
+				<td>  
+                        <input id="fileupload" name="fileupload" type="file" />  
+						<div id="tipDiv"></div>
+						<input type="submit" class="right-button02"   value="上传" />  
+                          
+                    </td>  
+                </tr>  
+                
+             
+        </form>  
             </div>
             <div class="myinfo_rm1rt3">要求：图片尺寸最大100*100像素，文件大小100k以内（支持JPG，GIF）。</div>
           </div>
@@ -44,7 +58,7 @@
         <div class="myinfo_rtoptxt">基本联系方式：</div>
         <div>
           <ul>
-			<#if Session??&&Session["user"]?exists>
+			
             <li class="mem_data01">用 户 名：</li>
             <li class="mem_data02" style="height:25px;padding-top:5px;">${user.username}</li>
             <li class="mem_data01">电子邮件：</li>
@@ -323,5 +337,28 @@
 </div>
 <#include "/WEB-INF/theme/default/shop/footer.ftl">
 <script type="text/javascript" src="${basepath}ui/default/js/jshop.js"></script>
+ <script type="text/javascript">  
+function uploadImage() {  
+    $(document).ready(function() {  
+                        var options = {  
+                            url : "${basepath}/uploadFile.action",  
+                            type : "POST",  
+                            dataType : "script",  
+                            success : function(msg) {  
+                                if (msg.indexOf("#") > 0) {  
+                                    var data = msg.split("#");  
+                                    $("#tipDiv").html(data[0]);  
+									//图片浏览
+                                  <!--  $("#showImage").html("<img src='<%=basepath%>/showImage.action?imageUrl="+data[1]+"'/>");  -->
+                                } else {  
+                                    $("#tipDiv").html(msg);  
+                                }  
+                            }  
+                        };  
+                        $("#form2").ajaxSubmit(options);  
+                        return false;  
+                    });  
+}  
+</script>  
 </body>
 </html>

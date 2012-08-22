@@ -23,14 +23,15 @@
 <div id="mem_right" name="mem_right"  width="100%" height="606" frameborder="0" scrolling="no" onload="javascript:dyniframesize('mem_right');" style="display: block; ">
   <div id="ind_r">
     <div class="m1top"><span>会员信息</span></div>
+	<#if Session??&&Session["user"]?exists>
     <div class="m1">
       <div class="l">
-        <div class="img"> <img src="${basepath}ui/default/images/hui_100_100.jpg" alt=""> </div>
+        <div class="img"> <img src="${user.headpath}" alt=""> </div>
         <div class="update"><a href="/Member/UserUpdateForm.do">修改头像</a></div>
       </div>
       <div class="r">
         <ul>
-		  <#if Session??&&Session["user"]?exists>
+		  
           <li>
 		  
 		  您好！<span class="name">${user.username}</span>&nbsp;&nbsp;欢迎您回来！
