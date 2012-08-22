@@ -47,7 +47,6 @@ public class JshopMNewIndex extends Activity {
 		gethosturl();
 		//初始化页面元素
 		ordingfoods=(ImageView) this.findViewById(R.id.ordingfoods);
-		sit = (ImageView) this.findViewById(R.id.sit);
 		calculator=(ImageView) this.findViewById(R.id.calculator);
 		logo=(ImageView) this.findViewById(R.id.logo);
 		
@@ -63,7 +62,7 @@ public class JshopMNewIndex extends Activity {
 				startActivity(intent);
 			}
 		});
-		
+
 		/**
 		 * 弹出坐席设置
 		 */
@@ -71,6 +70,11 @@ public class JshopMNewIndex extends Activity {
 			@Override
 			public void onClick(View v){
 				setSeat();
+			}
+
+			private void setSeat() {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 	}
@@ -242,6 +246,7 @@ public class JshopMNewIndex extends Activity {
 			e.printStackTrace();
 		}
 	}
+
 
 	/**
 	 * 设置客户就座餐桌

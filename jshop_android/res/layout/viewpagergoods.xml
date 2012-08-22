@@ -19,7 +19,7 @@
         android:background="@drawable/divider_horizontal_line"
         android:orientation="vertical" >
     </LinearLayout>
-
+
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
             android:id="@+id/pictureurl"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-          >
+            android:layout_weight="10.92" >
         </ImageView>
     </LinearLayout>
 
