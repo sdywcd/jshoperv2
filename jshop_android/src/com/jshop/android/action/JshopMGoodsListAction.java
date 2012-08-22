@@ -36,7 +36,7 @@ public class JshopMGoodsListAction {
 	private String downloadpcurl;
 	private String requestjsonstr;
 	private ArrayList<HashMap<String, Object>> goodslists = new ArrayList<HashMap<String, Object>>();
-
+	private ArrayList<HashMap<String, Object>> findpiclist = new ArrayList<HashMap<String, Object>>();
 	/**
 	 * 向服务器端发送请求获取goodslist信息
 	 * 
@@ -108,6 +108,7 @@ public class JshopMGoodsListAction {
 		Bitmap bitmap=BitmapFactory.decodeFile(sdcard+url,options);
 		
 		return bitmap;
+
     }  
 	/**
 	 * 不压缩图片
@@ -126,6 +127,31 @@ public class JshopMGoodsListAction {
 		return bitmap;
     }  
 
+	
+	/**
+	 * 得到Sqlite商品图片url
+	 */
+	public ArrayList<HashMap<String, Object>> GetPicArrayList(Cursor c) throws IOException{
+		findpiclist.clear();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		c.moveToFirst();
+		String rowpicturl =subStringPictureurl(c.getString(c.getColumnIndex("pictureurl")));
+		map.put("pictureurl", GetLocalOrNetBitmapWithoutScale(rowpicturl));
+		findpiclist.add(map);
+		return findpiclist;
+	}
+	/**
+	 * 得到商品图片不进行缩放
+	 * @param url
+	 * @return
+	 * @throws IOException
+	 */
+	public static Bitmap GetLocalOrNetBitmapWithoutScale(String url) throws IOException
+	{
+		String sdcard=Environment.getExternalStorageDirectory().getPath();
+		Bitmap bitmap=BitmapFactory.decodeFile(sdcard+url);
+		return bitmap;
+	}
 
 	/**
 	 * 获取网络图片名称

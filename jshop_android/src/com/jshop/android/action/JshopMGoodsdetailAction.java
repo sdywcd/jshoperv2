@@ -64,6 +64,7 @@ public class JshopMGoodsdetailAction {
 		}
 		return goodsdetail;
 	}
+	
 
 	/**
 	 * 下载服务器图片
