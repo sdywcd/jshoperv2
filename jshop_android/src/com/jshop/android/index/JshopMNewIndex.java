@@ -13,6 +13,7 @@ import com.jshop.android.util.JshopMParams;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -244,6 +245,74 @@ public class JshopMNewIndex extends Activity {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+
+
+	/**
+	 * 设置客户就座餐桌
+	 */
+	private void setSeat(){
+		//建立弹出框
+		AlertDialog.Builder builder;
+		AlertDialog alertDialog;
+		Context mContext = JshopMNewIndex.this;
+		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+		final View seatPopupLayout = inflater.inflate(R.layout.jshop_m_popupseat,null);
+		builder = new AlertDialog.Builder(mContext);		
+		builder.setTitle("荔餐厅").setMessage("输入就座位置").setView(seatPopupLayout).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+
+				TextView seatwhere = (TextView) seatPopupLayout.findViewById(R.id.desireseat);
+				String lctseat = seatwhere.getText().toString();
+				//写入文件并保存坐席
+				if(validateserverhost(lctseat)){
+					writeSeat(lctseat);
+				}
+			}
+		});
+		//读取是否有服务器地址
+		String rlcteat =readSeat();
+		if(rlcteat!=null){
+			TextView seatwhere=(TextView) seatPopupLayout.findViewById(R.id.desireseat);
+			seatwhere.setText(rlcteat);
+		}
+		alertDialog = builder.create();
+		alertDialog.show();
+	}
+	
+	/**
+	 * 写文件，保存就座位置
+	 * @param content
+	 */
+	public void writeSeat(String content){
+		try{
+			//实例化文件文件输出流
+			FileOutputStream fos=openFileOutput(JshopMParams.SEATPLACE,MODE_WORLD_WRITEABLE+MODE_WORLD_WRITEABLE);
+			fos.write(content.getBytes());
+			fos.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 读取座位文件
+	 * @return
+	 */
+	public String readSeat(){
+		String res="";
+		try{
+			FileInputStream fis=openFileInput(JshopMParams.SEATPLACE);
+			byte[]buffer=new byte[fis.available()];
+			fis.read(buffer);
+			res=EncodingUtils.getString(buffer,"UTF-8");
+			fis.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return res;
 	}
 	
 }
