@@ -93,13 +93,11 @@
                     android:gravity="center_vertical"
                     android:orientation="vertical">
                     <TextView 
-                        android:text="点餐 "
+                        android:text="点餐\nOrder Dishes"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"/>
-                     <TextView 
-                        android:text="order dishes"                        
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"/>
+
                     
                 </LinearLayout>
 
@@ -112,13 +110,12 @@
                     android:orientation="vertical">
                   
                     <TextView 
-                        android:text="就座 "
+                        android:id="@+id/setseat"
+                        android:text="就座\nHave a seat "
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"/>
-                     <TextView 
-                        android:text="Have a seat"                        
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"/>
+                     
                 </LinearLayout>
 
                 <LinearLayout
@@ -129,14 +126,11 @@
                     android:orientation="vertical" >
                     
                      <TextView 
-                        android:text="计算器 "
+                        android:text="计算器\ncalculator"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"/>
-                     <TextView 
-                        android:text="calculator"                        
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"/>
-                     
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"/>
+                                          
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

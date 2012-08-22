@@ -152,10 +152,9 @@ public class DBHelper extends SQLiteOpenHelper {
 	 * @param tablename
 	 */
 	public void deleteAllData(String tablename){
-		if(db==null){
-			db=this.getWritableDatabase();
-			db.execSQL("delete  from "+tablename);
-		}
+		SQLiteDatabase db=this.getWritableDatabase();
+		db.execSQL("delete  from "+tablename);
+		
 	}
 	
 	/**
