@@ -93,7 +93,7 @@ public class JshopMGoodsListAction {
 	}
 	
 	/**
-	 * daiyasuo 
+	 * 压缩图片
 	 * to change sd card pc to bmp type
 	 * @param pictureurl
 	 * @return
