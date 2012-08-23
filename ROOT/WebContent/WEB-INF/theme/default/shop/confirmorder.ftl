@@ -296,7 +296,7 @@
 		  <#list cart as c>
           <tr>
 			<td class="td3">${c.usersetnum}</td>
-            <td class="td1"><div class="img"> <a href="${basepath}html/default/shop/${c.goodsid}.html"><img src="${c.picture}" alt=""> </a> </div>
+            <td class="td1"><div class="img"> <a href="${basepath}html/default/shop/${c.goodsid}.html"><img src="${basepath}${c.picture}" alt=""> </a> </div>
               <div class="name"> <a href="${basepath}html/default/shop/${c.goodsid}.html"> ${c.goodsname} </a>
               </div></td>
             <td class="td3"> ￥${c.favorable} </td>

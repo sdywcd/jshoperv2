@@ -61,7 +61,7 @@
 		  <td class="td3">${cart.usersetnum}</td>
             <td class="td2">
 				<div class="img"> 
-				<a href="${basepath}html/default/shop/${cart.goodsid}.html"><img src="${cart.picture}" alt=""></a> 
+				<a href="${basepath}html/default/shop/${cart.goodsid}.html"><img src="${basepath}${cart.picture}" alt=""></a> 
 				</div>
 				<div class="name"> <a href="${basepath}html/default/shop/${cart.goodsid}.html">${cart.goodsname}</a> </div>
 			</td>

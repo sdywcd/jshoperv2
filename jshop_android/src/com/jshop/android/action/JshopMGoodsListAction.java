@@ -1,7 +1,9 @@
 package com.jshop.android.action;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,20 +12,19 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 
 import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.util.JshopActivityUtil;
@@ -35,7 +36,7 @@ public class JshopMGoodsListAction {
 	private String downloadpcurl;
 	private String requestjsonstr;
 	private ArrayList<HashMap<String, Object>> goodslists = new ArrayList<HashMap<String, Object>>();
-
+	private ArrayList<HashMap<String, Object>> findpiclist = new ArrayList<HashMap<String, Object>>();
 	/**
 	 * 向服务器端发送请求获取goodslist信息
 	 * 
@@ -90,7 +91,67 @@ public class JshopMGoodsListAction {
 		return bm;
 
 	}
+	
+	/**
+	 * 压缩图片
+	 * to change sd card pc to bmp type
+	 * @param pictureurl
+	 * @return
+	 * @throws IOException 
+	 */
+	public static Bitmap GetLocalOrNetBitmap(String url) throws IOException  
+    {  
+		String sdcard=Environment.getExternalStorageDirectory().getPath();
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=6;
+		options.inTempStorage=new byte[5*1024];
+		Bitmap bitmap=BitmapFactory.decodeFile(sdcard+url,options);
+		
+		return bitmap;
 
+    }  
+	/**
+	 * 不压缩图片
+	 * to change sd card pc to bmp type
+	 * @param pictureurl
+	 * @return
+	 * @throws IOException 
+	 */
+	public static Bitmap GetLocalOrNetBitmapNoZip(String url) throws IOException  
+    {  
+		String sdcard=Environment.getExternalStorageDirectory().getPath();
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inTempStorage=new byte[5*1024];
+		Bitmap bitmap=BitmapFactory.decodeFile(sdcard+url,options);
+		
+		return bitmap;
+    }  
+
+	
+	/**
+	 * 得到Sqlite商品图片url
+	 */
+	public ArrayList<HashMap<String, Object>> GetPicArrayList(Cursor c) throws IOException{
+		findpiclist.clear();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		c.moveToFirst();
+		String rowpicturl =subStringPictureurl(c.getString(c.getColumnIndex("pictureurl")));
+		map.put("pictureurl", GetLocalOrNetBitmapWithoutScale(rowpicturl));
+		findpiclist.add(map);
+		return findpiclist;
+	}
+	/**
+	 * 得到商品图片不进行缩放
+	 * @param url
+	 * @return
+	 * @throws IOException
+	 */
+	public static Bitmap GetLocalOrNetBitmapWithoutScale(String url) throws IOException
+	{
+		String sdcard=Environment.getExternalStorageDirectory().getPath();
+		Bitmap bitmap=BitmapFactory.decodeFile(sdcard+url);
+		return bitmap;
+	}
 
 	/**
 	 * 获取网络图片名称
@@ -127,6 +188,11 @@ public class JshopMGoodsListAction {
 		this.downloadpcurl = onlineFilePath;
 	}
 
+	private String subStringPictureurl(String str){
+		return str.substring(0, str.length()-1);
+	}
+	
+	
 	/**
 	 * 把服务器上的商品列表数据缓存到本地数据库中
 	 * 
@@ -145,7 +211,7 @@ public class JshopMGoodsListAction {
 				values.put("goodsid", map.get("goodsid").toString());
 				values.put("goodsname", map.get("goodsname").toString());
 				values.put("memberprice", map.get("memberprice").toString());
-				values.put("pictureurl", map.get("pictureurlpath").toString());
+				values.put("pictureurl", (map.get("pictureurlpath").toString()));
 				values.put("goodsCategoryTid", map.get("goodsCategoryTid").toString());
 				dbhelper.insert(DBHelper.GOODS_TM_NAME, values);
 			} 
@@ -163,13 +229,44 @@ public class JshopMGoodsListAction {
 	 */
 	public ArrayList<HashMap<String, Object>> getGoodsListSQLite(Cursor c)
 			throws IOException {
+		goodslists.clear();
 		c.moveToFirst();
 		while (!c.isAfterLast()) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("goodsid", c.getString(c.getColumnIndex("goodsid")));
 			map.put("goodsname", c.getString(c.getColumnIndex("goodsname")));
 			map.put("memberprice", c.getString(c.getColumnIndex("memberprice")));
-			map.put("pictureurl", c.getString(c.getColumnIndex("pictureurl")).toString());
+			map.put("pictureurl", GetLocalOrNetBitmap(subStringPictureurl(c.getString(c.getColumnIndex("pictureurl")).toString())));
+			map.put("weight", c.getString(c.getColumnIndex("weight")));
+			map.put("unitname", c.getString(c.getColumnIndex("unitname")));
+			map.put("detail", c.getString(c.getColumnIndex("detail")));
+			map.put("goodsCategoryTid", c.getString(c.getColumnIndex("goodsCategoryTid")));
+			goodslists.add(map);
+			c.moveToNext();
+		}
+		return goodslists;
+	}
+	/**
+	 * 读取商品列表换群从sqlite不压缩
+	 * 
+	 * @param c
+	 * @return
+	 * @throws IOException
+	 */
+	public ArrayList<HashMap<String, Object>> getGoodsListSQLiteNoZip(Cursor c)
+			throws IOException {
+		goodslists.clear();
+		c.moveToFirst();
+		while (!c.isAfterLast()) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("goodsid", c.getString(c.getColumnIndex("goodsid")));
+			map.put("goodsname", c.getString(c.getColumnIndex("goodsname")));
+			map.put("memberprice", c.getString(c.getColumnIndex("memberprice")));
+			map.put("pictureurl",GetLocalOrNetBitmapNoZip(subStringPictureurl(c.getString(c.getColumnIndex("pictureurl")).toString())));
+			map.put("weight", c.getString(c.getColumnIndex("weight")));
+			map.put("unitname", c.getString(c.getColumnIndex("unitname")));
+			map.put("detail", c.getString(c.getColumnIndex("detail")));
+			map.put("goodsCategoryTid", c.getString(c.getColumnIndex("goodsCategoryTid")));
 			goodslists.add(map);
 			c.moveToNext();
 		}

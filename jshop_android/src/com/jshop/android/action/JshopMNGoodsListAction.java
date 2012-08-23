@@ -24,8 +24,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 
 import com.jshop.android.sqlite.DBHelper;
+import com.jshop.android.sqlite.DBHelper1;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
 import com.jshop.android.util.JshopMPostActionList;
@@ -35,7 +37,7 @@ public class JshopMNGoodsListAction {
 	private String downloadpcurl;
 	private String requestjsonstr;
 	private ArrayList<HashMap<String, Object>> goodslists = new ArrayList<HashMap<String, Object>>();
-
+	
 	/**
 	 * 向服务器端发送请求获取goodslist信息
 	 * 
@@ -90,6 +92,7 @@ public class JshopMNGoodsListAction {
 		return bm;
 
 	}
+	
 
 
 	/**

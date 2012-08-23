@@ -14,4 +14,7 @@
     <color name="red_price">#ffdc3900</color>
     <color name="grey_weight">#ff808080</color>
     <color name="yellowhola">#ffffdc06</color>
+    <color name="darkdeep_blue">#ff003464</color>
+    <color name="good_green">#ff58a300</color>
+    <color name="good_blue">#ff6bb3cb</color>
 </resources>

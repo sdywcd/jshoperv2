@@ -35,8 +35,8 @@
             android:layout_height="120dp"
             android:layout_marginTop="6dp"
             android:layout_below="@id/sit"
-            android:background="@color/white"
-            android:src="@drawable/indexcalculator" />
+            android:background="@color/khaki"
+             />
 
         <ImageView
             android:id="@+id/logo"
@@ -48,15 +48,18 @@
             android:layout_toRightOf="@id/calculator"
             android:background="@color/white"
             android:src="@drawable/indexlogo" />
-
+        
         <ImageView
             android:id="@+id/advisement"
             android:layout_width="372dp"
             android:layout_height="120dp"
-            android:layout_marginTop="6dp"
             android:layout_below="@id/calculator"
-            android:background="@color/white"
-            android:src="@drawable/indexadvertisement" />
+            android:layout_marginTop="6dp"
+            android:background="@color/good_blue"
+            android:scaleType="centerInside"
+            android:src="@drawable/lctlogob"
+            />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -135,7 +138,7 @@
                 android:layout_height="246dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:background="@color/dirty_blue" />
+                android:background="@color/dirty_blue"/>
         </RelativeLayout>
 
         <RelativeLayout

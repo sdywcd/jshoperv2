@@ -14,8 +14,10 @@
         android:padding="5dp" >
 
         <ImageView
+            android:id="@+id/pictureurl"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="fill_parent"
+            android:descendantFocusability="blocksDescendants" >
         </ImageView>
     </LinearLayout>
 	<LinearLayout
@@ -27,21 +29,24 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="60dp"
 	        android:orientation="horizontal" >
-	
+	
 	        <TextView
+	            android:id="@+id/goodsname"
 	            android:layout_width="240dp"
 	            android:layout_height="wrap_content"
 	            android:layout_marginLeft="10dp"
 	            android:text="大厨XO酱干炒牛河"
 	            android:textColor="@color/black"
 	            android:textSize="20dp" />
-	
+	
 	        <TextView
+	            android:id="@+id/memberprice"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:text="￥56"
 	            android:textColor="@color/red_price"
 	            android:textSize="32dp" >
+
 	        </TextView>
 	
 	        <LinearLayout
@@ -49,11 +54,15 @@
 	            android:layout_height="match_parent"
 	            android:layout_gravity="center_vertical|right"
 	            android:gravity="center_vertical|right" >
-	
+
+	          
+				
 	            <ImageView
+	                android:id="@+id/addtomyelecartmenu"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
-	                android:src="@drawable/foodsordermenu" >
+	                android:src="@drawable/foodsordermenu"
+	                android:descendantFocusability="blocksDescendants"   >
 	            </ImageView>
 	        </LinearLayout>
 	    </LinearLayout>
@@ -62,13 +71,24 @@
 	        android:layout_height="40dp"
 	        android:padding="5dp"
 	        android:orientation="horizontal">
-	        
+	        
 	        <TextView
-	            android:layout_width="240dp"
+	            android:id="@+id/weight"
+	            android:layout_width="121dp"
 	            android:layout_height="wrap_content"
 	            android:layout_marginLeft="10dp"
 	            android:layout_marginTop="5dp"
 	            android:text="分量:250g"
+	            android:textColor="@color/grey_weight"
+	            android:textSize="18dp" />
+
+	        <TextView
+	            android:id="@+id/unitname"
+	            android:layout_width="50dp"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="10dp"
+	            android:layout_marginTop="5dp"
+	            android:text="g"
 	            android:textColor="@color/grey_weight"
 	            android:textSize="18dp" />
 	    </LinearLayout>
@@ -77,15 +97,17 @@
 	        android:layout_height="55dp"
 	        android:padding="5dp"
 	        android:orientation="horizontal">
-	        
+	        
 	        <TextView
+	            android:id="@+id/detail"
 	            android:layout_width="240dp"
 	            android:layout_height="wrap_content"
-	            android:layout_marginTop="25dp"
 	            android:layout_marginLeft="10dp"
+	            android:layout_marginTop="20dp"
 	            android:text="主料:牛肉"
 	            android:textColor="@color/grey_weight"
 	            android:textSize="18dp" />
+
 	    </LinearLayout>
 	</LinearLayout>
 </LinearLayout>

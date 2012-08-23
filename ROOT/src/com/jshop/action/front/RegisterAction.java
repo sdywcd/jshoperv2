@@ -269,7 +269,7 @@ public class RegisterAction extends ActionSupport {
 					user.setState("1");
 					user.setRolemid("0");
 					user.setRolemname("");
-
+					user.setHeadpath("#");
 					if(this.getUsertService().save(user)>0){
 						//会员注册成功自动发送邮件
 						if(user.getUserstate().equals("0")){

@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-8-2 9:31:29 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-8-22 20:51:22 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -55,7 +55,7 @@ public class UserT implements java.io.Serializable {
 
 	public UserT(String userid, String username, String email, String password,
 			String userstate, double points, int postingcount, Date registtime,
-			String rolemid) {
+			String rolemid, String headpath) {
 		this.userid = userid;
 		this.username = username;
 		this.email = email;
@@ -65,6 +65,7 @@ public class UserT implements java.io.Serializable {
 		this.postingcount = postingcount;
 		this.registtime = registtime;
 		this.rolemid = rolemid;
+		this.headpath = headpath;
 	}
 
 	public UserT(String userid, String username, String realname, String email,

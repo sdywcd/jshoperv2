@@ -16,6 +16,7 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.jshop.android.sqlite.DBHelper;
+import com.jshop.android.sqlite.DBHelper1;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMPostActionList;
 import com.jshop.android.util.Validate;
@@ -85,6 +86,7 @@ public class JshopMgoodscategoryListAction{
 	 * @return
 	 */
 	public List<Map<String,Object>>  getGoodsCategoryListtoSQLite(Cursor c){
+		goodscategoryList.clear();
 		c.moveToFirst();
 		while(!c.isAfterLast()){
 			HashMap<String,Object>map=new HashMap<String,Object>();

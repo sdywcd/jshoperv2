@@ -2,7 +2,7 @@
 <resources>
 
     <string name="hello">Hello World, JshopActivity!</string>
-    <string name="app_name">jshop_android</string>
+    <string name="app_name">荔餐厅</string>
     <string name="username">用户名称:</string>
     <string name="password">用户密码:</string>
     <string name="confirmpassword">确认密码:</string>
@@ -29,7 +29,7 @@
     <string name="text6">Google搜索引擎已经赢得全球范围的赞誉，而这一切都要归功于Google开创性的MapReduce。Google搜索引擎算法只是其搜索引擎的一部分，在后台支持Google算法的基础设施才是真正的幕后英雄，其基础设施可快速的索引链接成千上万台普通服务器。MapReduce的成功也直接推动了Hadoop的发展。</string>
 	<string name="t1">测试1</string>
 	<string name="t2">测试2</string>
-	<string name="t3">测试3</string>
+	<string name="t3">欢迎来荔餐厅</string>
 	<string name="tableandchangetable">就坐/更改座位</string>
 	<string name="eat">点餐/加餐</string>
 	<string name="finishorder">结帐/埋单</string>

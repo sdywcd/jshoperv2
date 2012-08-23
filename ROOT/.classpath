@@ -66,12 +66,8 @@
 	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/taobao-sdk-java-jichukaifang-20111205.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-httpclient-3.0.1.jar"/>
 	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/jdom.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/itext-xtra-5.2.1-sources.jar"/>
 	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/itextpdf-5.2.1.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/itextpdf-5.2.1-javadoc.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/itextpdf-5.2.1-sources.jar"/>
 	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/itext-xtra-5.2.1.jar"/>
-	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/itext-xtra-5.2.1-javadoc.jar"/>
 	<classpathentry kind="lib" path="D:/ostocy-jshop/ROOT/WebContent/WEB-INF/lib/sqlite-jdbc-3.5.7.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
