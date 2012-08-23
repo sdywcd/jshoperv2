@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application  android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
-        <activity android:name=".JshopMTabhost"
+        <activity android:name=".JshopMNewIndex"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,11 +32,12 @@
 		<activity android:name="com.jshop.android.shop.JshopActivityGoodsList"></activity>
 		<activity android:name="com.jshop.android.shop.JshopActivityGoodsdetail"></activity>
 		<activity android:name="com.jshop.android.shop.JshopMGoodsdetail"></activity>
-		
+		<activity android:name="com.jshop.android.shop.JshopActivityNGoodsList"></activity>
 		<activity android:name="com.jshop.android.shop.JshopMelectrocart"/>
 		<activity android:name="com.jshop.android.shop.JshopMelectroorder"/>
 		<activity android:name="com.jshop.android.shop.JshopMelectroorderdetail"/>
 		<activity android:name="com.jshop.android.shop.JshopActivityGoodsListViewPager"/>
+		<activity android:name="com.jshop.android.shop.JshopMGoodsListViewPager"/>
 		<!-- <activity android:name="com.jshop.android.location.JshopActivityLocationer" />
 		<activity android:name="com.jshop.android.location.JshopItemizedOverlay" /> -->
 		

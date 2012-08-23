@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.jshop.android.action.JshopMgoodscategoryListAction;
 import com.jshop.android.index.R;
 import com.jshop.android.sqlite.DBHelper;
+import com.jshop.android.sqlite.DBHelper1;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMPostActionList;
 import com.jshop.android.widget.JshopGridViewAdapter;

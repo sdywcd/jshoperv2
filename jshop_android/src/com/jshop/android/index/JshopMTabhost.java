@@ -22,8 +22,6 @@ public class JshopMTabhost extends TabActivity implements TabContentFactory{
 			((TextView) view.findViewById(R.id.tv_title)).setText(tabTitle[i]);
 			th.addTab(th.newTabSpec(tabTitle[i]).setIndicator(view).setContent(this));
 		}
-		
-		
 	}
 
 	@Override

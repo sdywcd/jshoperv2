@@ -129,7 +129,7 @@
 			<div class="img"><a href="${basepath}<@scg.htmlPath?interpret />" target="_blank">
 			<#list scg.pictureurl?split(",") as img>
 			<#if img_index==0>
-			<img style="width:120px;height:120px;" src="${img}" alt="${scg.goodsname}">
+			<img style="width:120px;height:120px;" src="${basepath}${img}" alt="${scg.goodsname}">
 			</#if>
 			</#list>
 			</a>

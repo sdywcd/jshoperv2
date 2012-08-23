@@ -6,14 +6,21 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import org.json.JSONException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.util.Arith;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMPostActionList;
@@ -158,4 +165,61 @@ public class JshopMelectrocartAction {
 		in.close();
 		return bm;
 	}
+	
+	/**
+	 * 将商品加入我的菜单
+	 */
+	public void setGoodsToElecartSQLite(String goodsid,String goodsname,String memberprice,String pictureurl,String needquantity,Context context){
+		DBHelper dbhelper = new DBHelper(context);
+		ContentValues values = new ContentValues();
+		values.put("goodsid",goodsid);
+		values.put("goodsname",goodsname);
+		values.put("memberprice",memberprice);
+		values.put("pictureurl", pictureurl);
+		values.put("needquantity",needquantity);
+		Cursor c=dbhelper.queryByParamgoodsid(DBHelper.ELE_CART_TM_NAME, goodsid);
+		int querycount=c.getCount();
+		if(querycount>0){
+			dbhelper.updateByElecartNeedquantity(DBHelper.ELE_CART_TM_NAME,goodsid,"plus");
+		}else{
+			dbhelper.insert(DBHelper.ELE_CART_TM_NAME, values);
+		}
+		
+		dbhelper.close();
+	}
+	
+	
+	/**
+	 * 从sqlite读取已经点的菜品
+	 * @param c
+	 * @return
+	 */
+	public ArrayList<HashMap<String, Object>>getElecarttoSQLite(Cursor c){
+		electrocartgoodslists.clear();
+		c.moveToFirst();
+		while(!c.isAfterLast()){
+			HashMap<String,Object>map=new HashMap<String,Object>();
+			map.put("goodsid",c.getString(c.getColumnIndex("goodsid")));
+			map.put("goodsname", c.getString(c.getColumnIndex("goodsname")));
+			map.put("memberprice", c.getString(c.getColumnIndex("memberprice")));
+			map.put("needquantity", c.getString(c.getColumnIndex("needquantity")));
+			int ineed=Integer.parseInt(map.get("needquantity").toString());
+			if(ineed>=1){
+				electrocartgoodslists.add(map);
+			}
+			c.moveToNext();
+		}
+		return electrocartgoodslists;
+	}
+	
+	public void plusorMinusElecart(ArrayList<HashMap<String, Object>> list,int position,String flag,Context context){
+		if(!list.isEmpty()){
+			String goodsid=list.get(position).get("goodsid").toString();
+			DBHelper dbhelper = new DBHelper(context);
+			dbhelper.updateByElecartNeedquantity(DBHelper.ELE_CART_TM_NAME, goodsid, flag);
+		}
+	}
+	
+	
+	
 }
