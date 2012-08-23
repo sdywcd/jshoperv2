@@ -36,6 +36,7 @@ public class GoodsAttributeTDaoImpl extends HibernateDaoSupport implements Goods
 	
 	public int addGoodsAttributeT(GoodsAttributeT gat) {
 		log.debug("save GoodsAttributeT");
+		log.info("save GoodsAttributeT");
 		try {
 			this.getHibernateTemplate().save(gat);
 			log.debug("save successful");

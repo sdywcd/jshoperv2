@@ -45,14 +45,20 @@ public class SqliteAction extends SQLiteDBHelper {
 		try {
 			conn=DriverManager.getConnection("jdbc:sqlite:"+FILENAME);
 			Statement st =  conn.createStatement();
-			st.executeUpdate("drop table if exists goods_category_tm");
+			//创建商品分类表
+			st.executeUpdate("drop table if exists goods_category_tm");			
 			st.executeUpdate("create table goods_category_tm(_id integer primary key autoincrement,goodsCategoryTid text,grade text,name text,goodsTypeId text,sort text)");
+			//创建商品表
 			st.executeUpdate("drop table if exists goods_tm");
-			st.executeUpdate("create table goods_tm(_id integer primary key autoincrement,goodsCategoryTid text,goodsid text,goodsname text,memberprice text,pictureurl text)");
+			st.executeUpdate("create table goods_tm(_id integer primary key autoincrement,goodsCategoryTid text,goodsid text,goodsname text,memberprice text,pictureurl text,weight text,detail text,nname text,unitname text)");
+			//
+			st.executeUpdate("drop table if exists table_tm");
+			st.executeUpdate("create table table_tm(_id integer primary key autoincrement,tableid text,tableNumber text,roomName text,androidDevicesCount text,note text,createtime text,nop text,tablestate text,floor text,rnop text)");
+			
 			List<GoodsT> list = this.getGoodsTService().findAllGoodsByNoTerm();
 			List<GoodsCategoryT> l=this.getGoodsCategoryTService().findAllCategoryByNoTrem();
 			for(GoodsT goods:list){
-				st.executeUpdate("insert into goods_tm (goodsCategoryTid,goodsid,goodsname,memberprice,pictureurl)values('"+goods.getNavid()+"','"+goods.getGoodsid()+"','"+goods.getGoodsname()+"','"+goods.getMemberprice()+"','"+goods.getPictureurl()+"')");
+				st.executeUpdate("insert into goods_tm (goodsCategoryTid,goodsid,goodsname,memberprice,pictureurl,weight,detail,nname,unitname)values('"+goods.getNavid()+"','"+goods.getGoodsid()+"','"+goods.getGoodsname()+"','"+goods.getMemberprice()+"','"+goods.getPictureurl()+"','"+goods.getWeight()+"','"+goods.getDetail()+"','"+goods.getNname()+"','"+goods.getUnitname()+"')");
 			}
 			for(GoodsCategoryT category :l){
 				st.executeUpdate("insert into goods_category_tm(goodsCategoryTid,grade,name,goodsTypeId,sort)values('"+category.getGoodsCategoryTid()+"','"+category.getGrade()+"','"+category.getName()+"','"+category.getGoodsTypeId()+"','"+category.getSort()+"')");

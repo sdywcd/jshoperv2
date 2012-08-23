@@ -114,7 +114,7 @@
 				<a target="_blank" href="${basepath}<@g.htmlPath?interpret />">
 				<#list g.pictureurl?split(",") as img>
 				<#if img_index=0>
-				<img border="0" alt="${g.goodsname}" style="width:120px;height:120px;" src="${img}" id="imgbox_${g.goodsid}" />
+				<img border="0" alt="${g.goodsname}" style="width:120px;height:120px;" src="${basepath}${img}" id="imgbox_${g.goodsid}" />
 				</#if>
 				</#list>
 				</a>

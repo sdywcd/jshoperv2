@@ -68,7 +68,7 @@
 		<!-- end user -->
 		<div id="header-inner">
 			<div id="home">
-				<a id="adminindex" href="<%=basePathb%>jshop/admin/adminindex.jsp?session=6584359BA964336B9BDE75737952F5AA" title="Home"></a>
+				<a id="adminindex"  href="<%=basePathb%>jshop/admin/adminindex.jsp?session=6584359BA964336B9BDE75737952F5AA" title="Home"></a>
 			</div>
 			<!-- quick -->
 			<ul id="quick">

@@ -563,9 +563,11 @@ ServletResponseAware {
         sDateFormat = new SimpleDateFormat("yyyyMMddHHmmss"); // 时间格式化的格式  
         nowTimeStr = sDateFormat.format(new Date()); // 当前时间  
         // 获取拓展名  
+        if(fileuploadFileName!=null){
         if (fileuploadFileName.lastIndexOf(".") >= 0) {  
             extName = fileuploadFileName.substring(fileuploadFileName.lastIndexOf("."));  
         }  
+       
         try {  
             out = response.getWriter();  
             newFileName = nowTimeStr + rannum + extName; // 文件重命名后的名字  
@@ -594,6 +596,7 @@ ServletResponseAware {
             e.printStackTrace();  
       //   out.print("上传失败，出错啦!");  
         }  
+        }
         return SUCCESS;
        
     }  
