@@ -11,12 +11,15 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 
 import com.jshop.action.InitTAction;
 import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.ContentTag;
 
+import com.jshop.dao.impl.GoodsAttributeTDaoImpl;
 import com.jshop.entity.TemplatesetT;
 import com.jshop.service.TemplatesetTService;
 import com.opensymphony.xwork2.ActionSupport;
@@ -119,50 +122,61 @@ public class InitAllHtml extends ActionSupport {
 	})
 	public String buildAllHtml() throws IOException, TemplateException, IllegalAccessException {
 		StringBuilder buildhtmllog=new StringBuilder();
+		final Logger log = LoggerFactory.getLogger(InitAllHtml.class);
 		//开始收集公共数据
 		try{
 			//生成记录开始
 			buildhtmllog.append("<p>1,获取默认主题信息</p>");
+			log.info("<p>1,获取默认主题信息</p>");
 			//获取默认主题
 			this.getInitTAction().InitDefaultThemeT();
 			buildhtmllog.append(this.getInitTAction().getLogmsg());
 			//创建ftl模板数据
 			buildhtmllog.append("<p>2,创建FTL模板数据</p>");
+			log.info("<p>2,创建FTL模板数据</p>");
 			this.getCreateHtml().recreateTemplate();
 			buildhtmllog.append(this.getCreateHtml().getLogmsg());
 			//获取根目录
 			buildhtmllog.append("<p>3,获取网站根目录</p>");
+			log.info("<p>3,获取网站根目录</p>");
 			map.put(FreeMarkervariable.BASEPATH,this.getDataCollectionTAction().getBasePath());
 			buildhtmllog.append("<p>根目录获取成功</p>");
+			log.info("<p>根目录获取成功</p>");
 			//获取session
 //			buildhtmllog.append("<p>4,获取Session数据</p>");
 //			map.put(FreeMarkervariable.SESSION, this.getDataCollectionTAction().getSession());
 //			buildhtmllog.append("<p>Session数据获取成功</p>");
 			//获取导航数据
 			buildhtmllog.append("<p>5,获取导航数据<p>");
+			log.info("<p>5,获取导航数据<p>");
 			map.put(FreeMarkervariable.SITENAVIGATIONLIST, this.getDataCollectionTAction().findSiteNavigation());
 			buildhtmllog.append(this.getDataCollectionTAction().getLogmsg());
 			//获取商城基本数据
 			buildhtmllog.append("<p>6,获取商城基础数据</p>");
+			log.info("<p>6,获取商城基础数据</p>");
 			map.put(FreeMarkervariable.JSHOPBASICINFO, this.getDataCollectionTAction().findJshopbasicInfo());
 			buildhtmllog.append(this.getDataCollectionTAction().getLogmsg());
 			
 			
 			//获取商品分类左侧主导航
 			buildhtmllog.append("<p>7,获取商品分类导航数据</p>");
+			log.info("<p>7,获取商品分类导航数据</p>");
 			map.put(FreeMarkervariable.GOODSCATEGORYTREE, this.getDataCollectionTAction().findGoodsCategoryT());
 			map.put(FreeMarkervariable.GOODSCATEGORYTREEFIRSTCOUNT, this.getDataCollectionTAction().getGoodsCategoryTreeFirstCount());
 			buildhtmllog.append(this.getDataCollectionTAction().getLogmsg());
 			//获取页脚分类数据
 			buildhtmllog.append("<p>8,获取商城页脚分类数据</p>");
+			log.info("<p>8,获取商城页脚分类数据</p>");
 			map.put(FreeMarkervariable.FOOTCATEGORY, this.getDataCollectionTAction().findFooterCateogyrT());
 			buildhtmllog.append(this.getDataCollectionTAction().getLogmsg());
 			//获取页脚文章数据
 			buildhtmllog.append("<p>9,获取商城页脚文章数据</p>");
+			log.info("<p>9,获取商城页脚文章数据</p>");
 			map.put(FreeMarkervariable.FOOTERATRICLE,this.getDataCollectionTAction().findFooterArticle());
 			buildhtmllog.append(this.getDataCollectionTAction().getLogmsg());
 			//获取首页自定义区域
 			buildhtmllog.append("<p>10,获取首页自定义区域数据</p>");
+			log.info("<p>10,获取首页自定义区域数据</p>");
 			this.getDataCollectionTAction().findEditarea(ContentTag.TEMPLATENAMEFORINDEX, "1", map);
 			buildhtmllog.append(this.getDataCollectionTAction().getLogmsg());
 			//获取系统所有文章数据
@@ -201,6 +215,7 @@ public class InitAllHtml extends ActionSupport {
 		}catch(Exception e){
 			if(e.getMessage()!=null){
 				buildhtmllog.append("<p style='color:red;'>"+e.getMessage()+"出现异常请根据反馈信息修复</p>");
+				log.info("<p style='color:red;'>"+e.getMessage()+"出现异常请根据反馈信息修复</p>");
 				this.setBuildlog(buildhtmllog.toString());
 			}
 			

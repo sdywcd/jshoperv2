@@ -2,8 +2,6 @@ package com.jshop.android.action;
 
 
 import com.jshop.android.index.R;
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
