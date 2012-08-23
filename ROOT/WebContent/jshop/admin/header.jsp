@@ -106,10 +106,10 @@
                                                             </li>
                                                   </ul>-->
 				</li>
-				<li><form action="createTable">
-				<input type="submit" value="创建数据库"></input>
-				</form>
-				
+				<li>
+					<a href="" onclick="createSqlite()"><span class="normal">同步SQLite数据库</span>
+					</a>
+					
 				</li>
 				<!-- <li>
                                                   <a href="" title="Events"><span class="icon"><img src="<%=basePathb%>jshop/admin/resources/images/icons/calendar.png" alt="Events" /></span><span>Events</span></a>
