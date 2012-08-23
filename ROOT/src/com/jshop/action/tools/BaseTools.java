@@ -13,38 +13,38 @@ public class BaseTools {
 	/**
 	 * 前台用户登录创建的session名称
 	 */
-	public static final String USER_SESSION_KEY = "user";
+	public static String USER_SESSION_KEY = "user";
 	/**
 	 * 后台用户登录创建的session名称
 	 */
-	public static final String BACK_USER_SESSION_KEY = "admin";
+	public static String BACK_USER_SESSION_KEY = "admin";
 	/**
 	 * 后台用户登录创建的session用户名称
 	 */
-	public static final String BACK_USER_NAME_SESSION_KEY = "username";
+	public static String BACK_USER_NAME_SESSION_KEY = "username";
 	/**
 	 * 后台用户登录创建的session_key
 	 */
-	public static final String BACK_SESSION_KEY = "sessionKey";
+	public static String BACK_SESSION_KEY = "sessionKey";
 
 	/**
 	 * 默认的用户ID，用于在没有登录的情况下生成静态页面，主要是在安装的时候使用
 	 */
-	public static final String DEFAULTADMINID = "20100721001";
+	public static String DEFAULTADMINID = "20100721001";
 
 	/**
 	 * 用户的可操作的方法权限
 	 */
-	public static final String USERROLEFUNCTION = "userrolefunction";
+	public static String USERROLEFUNCTION = "userrolefunction";
 	/**
 	 * 所有定义的权限
 	 */
-	public static final String ALLROLEFUNCTION = "allrolefunction";
+	public static String ALLROLEFUNCTION = "allrolefunction";
 
-	public static final String KEYFORAUTHORITY = "keyforauthority";
+	public static String KEYFORAUTHORITY = "keyforauthority";
 
 	// 默认时间
-	public static final String DEFAULTTIME = "2010-06-25 12:48:21";
+	public static String DEFAULTTIME = "2010-06-25 12:48:21";
 
 	/**
 	 * 设置日期格式
