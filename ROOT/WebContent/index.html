@@ -15,7 +15,7 @@
 <script type="text/javascript"  src="/ostocy/ui/default/js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="/ostocy/ui/default/js/easyslider1.7/js/easySlider1.7.js"></script>
 <script type="text/javascript" src="/ostocy/ui/default/js/jquery.query.js"></script>
-</head><body>
+</head><body onload="findUsernameSession();">
 <!--载入公共头文件-->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -27,7 +27,7 @@
 
 
 	</head>
-	<body>
+	<body >
 		<div id="header">
 			<div id="logininfo" style="height: 30px;">
 				<div class="topbar">
@@ -42,11 +42,12 @@
 								您好，欢迎来到欧斯塔克商城！
 							</div>
 							<ul>
-									<li>
-										<a href="/ostocy/html/default/shop/user/login.html"
-										  >登录
-										</a>
-									</li>
+									
+										<li id="welcomeusername">
+											<a href="/ostocy/html/default/shop/user/login.html"
+											  >登录
+											</a>
+										</li>
 									<li>
 										<a href="/ostocy/InitUserCenterIndex.action"
 										 >我的塔克
@@ -55,6 +56,11 @@
 									<li>
 										<a href="/ostocy/html/default/shop/user/register.html"
 										  >免费注册
+										</a>
+									</li>
+									<li>
+										<a href="/ostocy/userLogout.action"
+										 >退出
 										</a>
 									</li>
 							</ul>
@@ -777,7 +783,7 @@
       <div class="hongfentuan mt7">
 		
 		<div class="groupbuy">
-		<img width="208" height="215" alt="" border="0" src="/ui/default/images/20120406044512909.jpg" style="display: inline; ">
+		<img width="208" height="215" alt="" border="0" src="/ostocy//ui/default/images/20120406044512909.jpg" style="display: inline; ">
          <!--  <div class="groupbuy_time"> 剩余<span id="hour">20</span>时<span id="minute">13</span>分<span id="second">28</span>秒 </div>
           <script type="text/javascript">saleTimer(-330352615,72847385);
 		    </script>
@@ -788,7 +794,7 @@
           </a> -->
 		</div>
         <div class="groupbuy" style="border-top:#e0e0e0 solid 1px;">
-		<img width="208" height="215" alt="" border="0" src="/ui/default/images/20120406041435454.jpg" style="display: inline; ">
+		<img width="208" height="215" alt="" border="0" src="/ostocy//ui/default/images/20120406041435454.jpg" style="display: inline; ">
 <!--           <div class="groupbuy_time" style="width:168px;float:left;margin:6px 0 0 0;color:#484848;padding:0 0 0 40px;"> 剩余<span id="hour2">44</span>时<span id="minute2">13</span>分<span id="second2">28</span>秒 </div>
           <script type="text/javascript">saleTimer(-99952617,159247383);
 		    </script>
