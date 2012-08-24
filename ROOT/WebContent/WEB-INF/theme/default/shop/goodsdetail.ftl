@@ -12,19 +12,19 @@
 </#if>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>${goodsdetail.goodsname}</title>
-<link href="${basepath}ui/default/css/global.css" rel="stylesheet" type="text/css" />
-<link href="${basepath}ui/default/css/details.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/goodshow.css"/>
-<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/jqzoom.css"/>
-<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/tabs-accordion.css"/>
-<script type="text/javascript" src="${basepath}ui/default/js/jquery-1.6.2.min.js"></script>
-<script type="text/javascript" src="${basepath}ui/default/js/jquery.tools.min.js"></script>
-<script type="text/javascript" src="${basepath}ui/default/js/jquery.query.js"></script>
-<script type="text/javascript" src="${basepath}ui/default/js/jquery.jqzoom.js"></script>
-<script type="text/javascript" src="${basepath}ui/default/js/jquery.dimensions.js"></script>
-<script type="text/javascript" src="${basepath}ui/default/js/jquery.sexy-vote.js"></script>
-<script type="text/javascript" src="${basepath}jshop/admin/js/kindeditor-min.js"></script>
-<script type="text/javascript" src="${basepath}ui/default/js/jquery.cookie.js"></script>
+<link href="${basepath}/ui/default/css/global.css" rel="stylesheet" type="text/css" />
+<link href="${basepath}/ui/default/css/details.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="${basepath}/ui/default/css/goodshow.css"/>
+<link rel="stylesheet" type="text/css" href="${basepath}/ui/default/css/jqzoom.css"/>
+<link rel="stylesheet" type="text/css" href="${basepath}/ui/default/css/tabs-accordion.css"/>
+<script type="text/javascript" src="${basepath}/ui/default/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="${basepath}/ui/default/js/jquery.tools.min.js"></script>
+<script type="text/javascript" src="${basepath}/ui/default/js/jquery.query.js"></script>
+<script type="text/javascript" src="${basepath}/ui/default/js/jquery.jqzoom.js"></script>
+<script type="text/javascript" src="${basepath}/ui/default/js/jquery.dimensions.js"></script>
+<script type="text/javascript" src="${basepath}/ui/default/js/jquery.sexy-vote.js"></script>
+<script type="text/javascript" src="${basepath}/jshop/admin/js/kindeditor-min.js"></script>
+<script type="text/javascript" src="${basepath}/ui/default/js/jquery.cookie.js"></script>
 </head><body>
 <input type="hidden" id="hidurl" name="hidurl" value=""/>
 <!--载入公共头文件-->
@@ -38,7 +38,7 @@
         <ul>
           <#list secondgoodscategory as sct> 
           <#if sct.htmlpath! !="">
-          <li> <a href="${basepath}<@sct.htmlpath?interpret />">${sct.name}</a> </li>
+          <li> <a href="${basepath}/<@sct.htmlpath?interpret />">${sct.name}</a> </li>
           </#if>
           </#list>
         </ul>
@@ -57,9 +57,9 @@
       </div>
       </#if>
       <div class="m_leftdiv03 mt7" id="viewHistory"></div>
-      <div class="m_leftdiv02 mt7"> <a href=""><a href='#' target='_blank'><img src='${basepath}ui/default/images/20120302084354280.jpg'  width='200' height='240' alt='' border='0' /></a></a> </div>
-      <div class="m_leftdiv02 mt7"> <a href=""><a href='#' target='_blank'><img src='${basepath}ui/default/images/20120302084447454.jpg'  width='200' height='240' alt='' border='0' /></a></a> </div>
-      <div class="m_leftdiv02 mt7"> <a href=""><a href='#' target='_blank'><img src='${basepath}ui/default/images/20120302084732989.jpg'  width='200' height='240' alt='' border='0' /></a></a> </div>
+      <div class="m_leftdiv02 mt7"> <a href=""><a href='#' target='_blank'><img src='${basepath}/ui/default/images/20120302084354280.jpg'  width='200' height='240' alt='' border='0' /></a></a> </div>
+      <div class="m_leftdiv02 mt7"> <a href=""><a href='#' target='_blank'><img src='${basepath}/ui/default/images/20120302084447454.jpg'  width='200' height='240' alt='' border='0' /></a></a> </div>
+      <div class="m_leftdiv02 mt7"> <a href=""><a href='#' target='_blank'><img src='${basepath}/ui/default/images/20120302084732989.jpg'  width='200' height='240' alt='' border='0' /></a></a> </div>
       <div class="m_leftdiv02 mt7" id="viewHistory"><h1>浏览记录</h1></div>
       <div class="m_leftdiv02 mt7" id="goodshistory"></div>
 	
@@ -72,11 +72,11 @@
           <div class="detail_info_lm1">
             <div class="bigpro">
               <div id="myImagesSlideBox" class="myImagesSlideBox">
-                <div class="myImages"> <#list goodsdetail.pictureurl?split(",") as img> <img src="${basepath}${img}" class="myImgs" bigimg="${basepath}${img}"  jqimg="${basepath}${img}"></img> </#list> </div>
+                <div class="myImages"> <#list goodsdetail.pictureurl?split(",") as img> <img src="${basepath}/${img}" class="myImgs" bigimg="${basepath}/${img}"  jqimg="${basepath}/${img}"></img> </#list> </div>
                 <div class="myTxts"> <a href="#">在新窗口查看大图.</a> </div>
                 <div id="scrollable"> <a class="prev" href="#" title="上一张"></a>
                   <div class="items" >
-                    <div class="scrollableDiv"> <#list goodsdetail.pictureurl?split(",") as img> <a><img src="${basepath}${img}" imgb="${basepath}${img}"  bigimg="${basepath}${img}" ></a> </#list> </div>
+                    <div class="scrollableDiv"> <#list goodsdetail.pictureurl?split(",") as img> <a><img src="${basepath}/${img}" imgb="${basepath}/${img}"  bigimg="${basepath}/${img}" ></a> </#list> </div>
                     <br clear="all"/>
                   </div>
                   <a class="next" href="#" title="下一张"></a> </div>
@@ -154,8 +154,8 @@
 		<#if (goodsbelinked??)&&(goodsbelinked?size>0)>
         <div class="setmeal mt10">
           <div class="setmeal_top">
-            <p><img src="${basepath}ui/default/images/setmeal_t_1.gif"></p>
-            <cite><img src="${basepath}ui/default//images/setmeal_t_3.gif"></cite></div>
+            <p><img src="${basepath}/ui/default/images/setmeal_t_1.gif"></p>
+            <cite><img src="${basepath}/ui/default//images/setmeal_t_3.gif"></cite></div>
           <h1 id="unit_h1">
             <p>该商品所有的套餐列表</p>
             <cite>总共有(goodsbelinked?size)件可选套餐 </cite></h1>
@@ -166,7 +166,7 @@
 			  <#list goodsdetail.pictureurl?split(",") as mainimg>
 			  <#if mainimg_index == 0>
 				  <#assign firstimg = "${mainimg}" />
-				   <img width="160" hight="160" src="${basepath}${firstimg}" alt="${goodsdetail.goodsname}">
+				   <img width="160" hight="160" src="${basepath}/${firstimg}" alt="${goodsdetail.goodsname}">
 			  </#if>
 				</#list>
 			 </p>
@@ -178,12 +178,12 @@
                   <ul>
 				    <#list goodsbelinked as gbl>
                     <li id="pack_product_${gbl.belinkedgoodsid}" class="">
-                      <div class="set_1_r_1"><a href="${basepath}${gbl.htmlpath}" target="_blank;"><img width="100px" height="100px" src="${gbl.pictureurl}" alt="${gbl.goodsname} "></a></div>
-                      <div class="set_1_r_2"><a href="${basepath}${gbl.htmlpath}" target="_blank;" title="${gbl.goodsname} ">${gbl.goodsname} </a></div>
+                      <div class="set_1_r_1"><a href="${basepath}/${gbl.htmlpath}" target="_blank;"><img width="100px" height="100px" src="${gbl.pictureurl}" alt="${gbl.goodsname} "></a></div>
+                      <div class="set_1_r_2"><a href="${basepath}/${gbl.htmlpath}" target="_blank;" title="${gbl.goodsname} ">${gbl.goodsname} </a></div>
                       <div class="set_1_r_3">市场价:￥${gbl.price} </div>
                       <div class="set_1_r_4">会员价:￥${gbl.memberprice}</div>
                       <input type="hidden" id="pp_price_${gbl.belinkedgoodsid}" value="${gbl.memberprice}">
-                      <div class="set_1_r_5"><img id="img_pack_product_${gbl.belinkedgoodsid}" src="${basepath}ui/default/images/shop_1.gif" onclick="submitPack(${gbl.belinkedgoodsid});" style="cursor:pointer;"></div>
+                      <div class="set_1_r_5"><img id="img_pack_product_${gbl.belinkedgoodsid}" src="${basepath}/ui/default/images/shop_1.gif" onclick="submitPack(${gbl.belinkedgoodsid});" style="cursor:pointer;"></div>
                     </li>
 					</#list>
                   </ul>
@@ -196,11 +196,11 @@
             <div class="left_div" style="display:none;">
               <p><cite>套餐选购总金额: <span id="packTotalPrice"></span></cite></p>
             </div>
-            <div class="right_div"> <img id="addPackProductsToCart" src="${basepath}ui/default/images/setmeal_btn.gif" onclick="addbelinkedGoodsTocart();" style="cursor:pointer;"> </div>
+            <div class="right_div"> <img id="addPackProductsToCart" src="${basepath}/ui/default/images/setmeal_btn.gif" onclick="addbelinkedGoodsTocart();" style="cursor:pointer;"> </div>
           </div>
           <div class="setmeal_bottom">
-            <p><img src="${basepath}ui/default/images/setmeal_t_4.gif"></p>
-            <cite><img src="${basepath}ui/default/images/setmeal_t_6.gif"></cite> </div>
+            <p><img src="${basepath}/ui/default/images/setmeal_t_4.gif"></p>
+            <cite><img src="${basepath}/ui/default/images/setmeal_t_6.gif"></cite> </div>
         </div>
 		</#if>
       </div>
@@ -263,7 +263,7 @@
                 <div class="packingbox"> <#if (goodscomments??)&&(goodscomments?size>0)>
                   <#list goodscomments as gc>
                   <div class="packingtop">
-                    <div class="packingpic"> <img src="${basepath}ui/default/images/hui_60_60.jpg" alt="" width="70px" height="70px" /> </div>
+                    <div class="packingpic"> <img src="${basepath}/ui/default/images/hui_60_60.jpg" alt="" width="70px" height="70px" /> </div>
                     <div class="packingname">
                       <p> <a>${gc.replyorcommentusername}</a> </p>
                       <cite>评论于${gc.posttime}</cite> </div>
@@ -287,7 +287,7 @@
                       <cite>
                       <textarea id="commentcontent" name="commentcontent" cols="" rows=""></textarea>
                       </cite> </div>
-                    <div class="p_re_div2"> <a href="javascript:;"><img src="${basepath}ui/default/images/re_btn1.gif" onclick="addgoodscomment();" /> </a> </div>
+                    <div class="p_re_div2"> <a href="javascript:;"><img src="${basepath}/ui/default/images/re_btn1.gif" onclick="addgoodscomment();" /> </a> </div>
                   </div>
                 </form>
               </div>
@@ -366,7 +366,7 @@
   </div>
 </div>
 <#include "/WEB-INF/theme/default/shop/footer.ftl">
-<script type="text/javascript" src="${basepath}ui/default/js/jshopeasyslider.js"></script>
-<script type="text/javascript" src="${basepath}ui/default/js/jshop.js"></script>
+<script type="text/javascript" src="${basepath}/ui/default/js/jshopeasyslider.js"></script>
+<script type="text/javascript" src="${basepath}/ui/default/js/jshop.js"></script>
 </body>
 </html>

@@ -8,12 +8,12 @@
 <head>
 <title>填写核对订单</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/global.css" />
-<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/shopcar.css" />
-<script type="text/javascript"  src="${basepath}ui/default/js/jquery-1.6.2.min.js"></script>
-<script type="text/javascript" src="${basepath}ui/default/js/jquery.query.js"></script>
-<script type="text/javascript" src="${basepath}ui/default/js/location.js"></script>
-<script type="text/javascript" src="${basepath}ui/default/js/YLChinaArea.js"></script>
+<link rel="stylesheet" type="text/css" href="${basepath}/ui/default/css/global.css" />
+<link rel="stylesheet" type="text/css" href="${basepath}/ui/default/css/shopcar.css" />
+<script type="text/javascript"  src="${basepath}/ui/default/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="${basepath}/ui/default/js/jquery.query.js"></script>
+<script type="text/javascript" src="${basepath}/ui/default/js/location.js"></script>
+<script type="text/javascript" src="${basepath}/ui/default/js/YLChinaArea.js"></script>
 </head>
 <body>
 <!--载入公共头文件-->
@@ -23,13 +23,13 @@
   <div class="head_nav">
     <div>
       <div class="head_shopcar_step">
-        <div class="steppic"><img src="${basepath}ui/default/images/step_1.gif"></div>
+        <div class="steppic"><img src="${basepath}/ui/default/images/step_1.gif"></div>
         <div class="step1">我的购物车</div>
-        <div class="steppic"><img src="${basepath}ui/default/images/step_2.gif"></div>
+        <div class="steppic"><img src="${basepath}/ui/default/images/step_2.gif"></div>
         <div class="step1">填写核对订单</div>
-        <div class="steppic"><img src="${basepath}ui/default/images/step_3.gif"></div>
+        <div class="steppic"><img src="${basepath}/ui/default/images/step_3.gif"></div>
         <div class="step2">成功提交订单</div>
-        <div class="steppic"><img src="${basepath}ui/default/images/step_4.gif"></div>
+        <div class="steppic"><img src="${basepath}/ui/default/images/step_4.gif"></div>
       </div>
     </div>
   </div>
@@ -134,10 +134,10 @@
 		<#list payments as pm>
 		<input id="paymentid" name="paymentid" type="radio" value="${pm.paymentid}"/>
 			<#if (pm.paymentCode=='zfb')>
-				<img src='${basepath}pay/alipay/alipay_logo.png'/>
+				<img src='${basepath}/pay/alipay/alipay_logo.png'/>
 			</#if>
 			<#if (pm.paymentCode=='cft')>
-				<img src='${basepath}pay/tenpay/caifutong.gif'/>
+				<img src='${basepath}/pay/tenpay/caifutong.gif'/>
 			</#if>
 		</#list>
 		<#else>
@@ -296,8 +296,8 @@
 		  <#list cart as c>
           <tr>
 			<td class="td3">${c.usersetnum}</td>
-            <td class="td1"><div class="img"> <a href="${basepath}html/default/shop/${c.goodsid}.html"><img src="${basepath}${c.picture}" alt=""> </a> </div>
-              <div class="name"> <a href="${basepath}html/default/shop/${c.goodsid}.html"> ${c.goodsname} </a>
+            <td class="td1"><div class="img"> <a href="${basepath}/html/default/shop/${c.goodsid}.html"><img src="${basepath}/${c.picture}" alt=""> </a> </div>
+              <div class="name"> <a href="${basepath}/html/default/shop/${c.goodsid}.html"> ${c.goodsname} </a>
               </div></td>
             <td class="td3"> ￥${c.favorable} </td>
             <td class="td4"> ${c.needquantity} </td>
@@ -379,7 +379,7 @@
 		  
 		  <input id="cartid" name="cartid" type="hidden" value="${cartid}">
 		 
-          <img id="submitlink" onclick="InitAlipayandAddOrder();" style="cursor: pointer;" src="${basepath}ui/default/images/submitbtn.gif">
+          <img id="submitlink" onclick="InitAlipayandAddOrder();" style="cursor: pointer;" src="${basepath}/ui/default/images/submitbtn.gif">
 		
 		  </div>
       </div>
@@ -390,7 +390,7 @@
 </div>
 </#if>
 <#include "/WEB-INF/theme/default/shop/footer.ftl">
-<script type="text/javascript" src="${basepath}ui/default/js/jshop.js"></script>
+<script type="text/javascript" src="${basepath}/ui/default/js/jshop.js"></script>
 <script>
 // 所在地插件
 	$("#ChinaArea").jChinaArea( {

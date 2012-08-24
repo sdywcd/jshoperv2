@@ -6,6 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
+
 import com.jshop.action.templates.FreeMarkervariable;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -124,4 +128,17 @@ public class BaseTools {
 		}
 		return "default";
 	}
+	
+	
+	/**
+	 * 获取网站根目录
+	 * 
+	 * @return
+	 */
+	public static String getBasePath() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String path = request.getContextPath();
+		return path;
+	}
+
 }
