@@ -3,7 +3,9 @@ package com.jshop.action.front;
 import java.io.UnsupportedEncodingException;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
@@ -29,7 +31,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @Controller("loginAction")
 public class LoginAction extends ActionSupport {
 	private UsertService usertService;
-
+	private String basepath;
 	private String username;
 	private String password;
 	private String hidurl;
@@ -77,6 +79,14 @@ public class LoginAction extends ActionSupport {
 		this.hidurl = hidurl;
 	}
 
+	public String getBasepath() {
+		return basepath;
+	}
+
+	public void setBasepath(String basepath) {
+		this.basepath = basepath;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -93,6 +103,13 @@ public class LoginAction extends ActionSupport {
 	 */
 	@Action(value="login", results={ @Result(name="json",type="json") })
 	public String login() {
+		
+		this.setBasepath(BaseTools.getBasePath());
+		
+		UserT ut = (UserT) ActionContext.getContext().getSession().get(BaseTools.USER_SESSION_KEY);
+		if(ut!=null){
+			ActionContext.getContext().getSession().remove(BaseTools.USER_SESSION_KEY);
+		}
 		MD5Code md5 = new MD5Code();
 		UserT u = new UserT();
 		UserT user = new UserT();
@@ -125,10 +142,25 @@ public class LoginAction extends ActionSupport {
 	/**
 	 * 前台登出 
 	 */
-	@Action(value="userLogout", results={ @Result(name="json",type="json") })
+	@Action(value = "userLogout", results = { 
+			@Result(name = "success",type="freemarker",location = "/html/default/shop/user/login.html")
+	})
 	public String userLogout() throws UnsupportedEncodingException {
 		this.setLoginflag(false);
 		ActionContext.getContext().getSession().remove(BaseTools.USER_SESSION_KEY);
-		return "logout";
+		return "success";
 	}
+	
+	@Action(value="findUsernameFromSession", results={ @Result(name="json",type="json") })
+	public String findUsernameFromSession(){
+		UserT usert=(UserT) ActionContext.getContext().getSession().get(BaseTools.USER_SESSION_KEY);
+		if(usert!=null){
+			this.setUsername(usert.getUsername());
+		}else{
+			this.setUsername("");
+		}
+		
+		return "json";
+	}
+	
 }

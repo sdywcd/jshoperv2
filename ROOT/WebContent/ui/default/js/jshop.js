@@ -21,6 +21,18 @@ $(function(){
 		});
 });
 /**
+ * 异步获取登录的用户名
+ */
+function findUsernameSession(){
+	$.post("findUsernameFromSession.action",function(data){
+		if(data.username!=""){
+			$("#welcomeusername").html("你好["+data.username+"]");
+		}
+		
+	});
+}
+
+/**
  * 顶级搜索
  */
 $(function(){
@@ -159,11 +171,11 @@ $(function() {
 
 $(function() {
 	// 获取url地址用来让用户登录时跳转
-	function redirect() {
+	function redirect(basepath) {
 		var url = window.location.search;
 		if (url == "") {
-			var redirecturl = "../../../../index.html";
-			self.location = redirecturl;
+			var redirecturl = "/index.html";
+			self.location =basepath+redirecturl;
 		} else {
 			var redirecturl = url.substring(url.indexOf("?") + 13, url.length);
 			self.location = redirecturl;
@@ -179,7 +191,7 @@ $(function() {
 			"password" : password
 		}, function(data) {
 			if (data.loginflag) {
-				redirect();
+				redirect(data.basepath);
 			} else {
 				return;
 			}

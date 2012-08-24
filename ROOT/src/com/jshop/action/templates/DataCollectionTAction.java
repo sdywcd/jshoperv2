@@ -282,8 +282,7 @@ public class DataCollectionTAction extends ActionSupport {
 	public String getBasePath() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String path = request.getContextPath();
-		String basePath = path + "/";
-		return basePath;
+		return path;
 	}
 
 	/**
