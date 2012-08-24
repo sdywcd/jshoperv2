@@ -9,6 +9,17 @@ $(function() {
 	var windowsurl = window.location;
 	$('#hidurl').attr("value", windowsurl);
 });
+
+/**
+ * 
+ */
+$(function(){
+	$.post("findUserHeadById.action",function(data){
+		if(data.head.headpath!=null){
+		$('#fileChecker').attr("src",data.head.headpath);
+		}
+		});
+});
 /**
  * 顶级搜索
  */
