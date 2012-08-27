@@ -12,14 +12,14 @@
 <meta name="description" content="${jshopbasicinfo.metaDes}"/>
 </#if>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/global.css" />
-<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/index.css" />
-<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/category.css" />
-<link rel="stylesheet" type="text/css" href="${basepath}ui/default/js/easyslider1.7/css/screen.css"/>
-<script type="text/javascript"  src="${basepath}ui/default/js/jquery-1.6.2.min.js"></script>
-<script type="text/javascript" src="${basepath}ui/default/js/easyslider1.7/js/easySlider1.7.js"></script>
-<script type="text/javascript" src="${basepath}ui/default/js/jquery.query.js"></script>
-</head><body>
+<link rel="stylesheet" type="text/css" href="${basepath}/ui/default/css/global.css" />
+<link rel="stylesheet" type="text/css" href="${basepath}/ui/default/css/index.css" />
+<link rel="stylesheet" type="text/css" href="${basepath}/ui/default/css/category.css" />
+<link rel="stylesheet" type="text/css" href="${basepath}/ui/default/js/easyslider1.7/css/screen.css"/>
+<script type="text/javascript"  src="${basepath}/ui/default/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="${basepath}/ui/default/js/easyslider1.7/js/easySlider1.7.js"></script>
+<script type="text/javascript" src="${basepath}/ui/default/js/jquery.query.js"></script>
+</head><body onload="findUsernameSession();">
 <!--载入公共头文件-->
 <#include "/WEB-INF/theme/default/shop/header.ftl">
 <div id="main">
@@ -30,7 +30,7 @@
           <ul  id="categoryvalue">
             <#list goodscategorytree as firstGoodsCategory>
             <#if (firstGoodsCategory.grade=='0')&&(firstGoodsCategory.htmlpath! !='')>
-            <li><a target='_blank' href="${basepath}${firstGoodsCategory.htmlpath}">${firstGoodsCategory.name}</a>
+            <li><a target='_blank' href="${basepath}/${firstGoodsCategory.htmlpath}">${firstGoodsCategory.name}</a>
               <div class="cms_submenu">
                 <div class="cmsmenuleft">
                   <dl class="menu_recommend">
@@ -38,7 +38,7 @@
                     <dd> <#list goodscategorytree as secondGoodsCategory>
                       <#if secondGoodsCategory.parentId! !="">
                       <#if secondGoodsCategory.parentId=firstGoodsCategory.goodsCategoryTid>
-                      <#if secondGoodsCategory.htmlpath! !=""> <a href="${basepath}<@secondGoodsCategory.htmlpath?interpret />">${secondGoodsCategory.name}</a> </#if>
+                      <#if secondGoodsCategory.htmlpath! !=""> <a href="${basepath}/<@secondGoodsCategory.htmlpath?interpret />">${secondGoodsCategory.name}</a> </#if>
                       </#if>
                       </#if>
                       </#list> </dd>
@@ -72,7 +72,7 @@
          <!--  <div class="groupbuy_time"> 剩余<span id="hour">20</span>时<span id="minute">13</span>分<span id="second">28</span>秒 </div>
           <script type="text/javascript">saleTimer(-330352615,72847385);
 		    </script>
-          <div class="groupbuy_pic"><a href="#" target="_blank"><img src="${basepath}ui/default/images/227308_1_pic100_47.jpg"></a></div>
+          <div class="groupbuy_pic"><a href="#" target="_blank"><img src="${basepath}/ui/default/images/227308_1_pic100_47.jpg"></a></div>
           <div class="groupbuy_name"><a href="#" target="_blank">柯达（kodak）Playfull 高清</a></div>
           <a class="groupbuy_price" href="#">
           <p>￥<span>399</span><code>.00</code></p>
@@ -83,16 +83,16 @@
 <!--           <div class="groupbuy_time" style="width:168px;float:left;margin:6px 0 0 0;color:#484848;padding:0 0 0 40px;"> 剩余<span id="hour2">44</span>时<span id="minute2">13</span>分<span id="second2">28</span>秒 </div>
           <script type="text/javascript">saleTimer(-99952617,159247383);
 		    </script>
-          <div class="groupbuy_pic"><a href="#" target="_blank"><img src="${basepath}ui/default/images/251671_1_pic100_9546.jpg"></a></div>
+          <div class="groupbuy_pic"><a href="#" target="_blank"><img src="${basepath}/ui/default/images/251671_1_pic100_9546.jpg"></a></div>
           <div class="groupbuy_name"><a href="#" target="_blank">飞利浦（Philips）HD2060/0</a></div>
           <a class="groupbuy_price" href="#">
           <p>￥<span>359</span><code>.00</code></p>
           </a>  --></div>
       </div>
       <div class="clear"></div>
-      <div class="homeleftad mt7"> <a href=""></a><a href="#" target="_blank"><img width="210" height="140" alt="" border="0" src="${basepath}ui/default/images/20120331044355757.jpg" style="display: inline; "></a> </div>
-      <div class="homeleftad mt7"> <a href=""></a><a href="#" target="_blank"><img  width="210" height="140" alt="" border="0" src="${basepath}ui/default/images/20120331044517632.jpg" style="display: inline; "></a> </div>
-      <div class="homeleftad mt7"> <a href=""></a><a href="#" target="_blank"><img width="210" height="140" alt="" border="0" src="${basepath}ui/default/images/20120331044545149.jpg" style="display: inline; "></a> </div>
+      <div class="homeleftad mt7"> <a href=""></a><a href="#" target="_blank"><img width="210" height="140" alt="" border="0" src="${basepath}/ui/default/images/20120331044355757.jpg" style="display: inline; "></a> </div>
+      <div class="homeleftad mt7"> <a href=""></a><a href="#" target="_blank"><img  width="210" height="140" alt="" border="0" src="${basepath}/ui/default/images/20120331044517632.jpg" style="display: inline; "></a> </div>
+      <div class="homeleftad mt7"> <a href=""></a><a href="#" target="_blank"><img width="210" height="140" alt="" border="0" src="${basepath}/ui/default/images/20120331044545149.jpg" style="display: inline; "></a> </div>
     </div>
     <div class="mainright">
       <div class="mainright_l">
@@ -332,7 +332,7 @@
 			<ul>
 			<#list article as a>
 			<#if a.isnotice=="1">
-			<li> <a href="${basepath}<@a.htmlPath?interpret />" target="_blank">${a.title}</a> </li>
+			<li> <a href="${basepath}/<@a.htmlPath?interpret />" target="_blank">${a.title}</a> </li>
 			<#if a_index+1==5>
 			<#break/>
 			</#if>
@@ -343,7 +343,7 @@
           <div class="clear"></div>
         </div>
         <div class="mainright_div1wrap mt7">
-          <div> <a href="http:#" target="_blank"> <img  src="${basepath}ui/default/images/199x150_0210.jpg"> </a> </div>
+          <div> <a href="http:#" target="_blank"> <img  src="${basepath}/ui/default/images/199x150_0210.jpg"> </a> </div>
           <div class="youlike">
             <h1></h1>
             <ul>
@@ -453,7 +453,7 @@
         <p></p>
         <cite> <a href=#" target="_blank">移动硬盘</a> | <a href="#" target="_blank">Thinkpad旗舰店</a> | <a href="#" target="_blank">无线鼠标</a> | <a href="#" target="_blank">联想乐pad</a> </cite> </h1>
       <div class="bottom_div">
-        <div class="ad_div"> <a href=""></a><a href="#" target="_blank"><img  width="210" height="215" alt="" border="0" src="${basepath}ui/default/images/20120406044512909.jpg" style="display: inline; "></a> </div>
+        <div class="ad_div"> <a href=""></a><a href="#" target="_blank"><img  width="210" height="215" alt="" border="0" src="${basepath}/ui/default/images/20120406044512909.jpg" style="display: inline; "></a> </div>
         <div class="caselist">
           <ul>
             <li>
@@ -538,7 +538,7 @@
         <p></p>
         <cite> <a href="#" target="_blank">单反</a> | <a href="#" target="_blank">安卓手机</a> | <a href="#" target="_blank">iphone</a> | <a href="#" target="_blank">htc</a> </cite> </h1>
       <div class="bottom_div">
-        <div class="ad_div"> <a href=""></a><a href="#" target="_blank"><img  width="210" height="215" alt="" border="0" src="${basepath}ui/default/images/20120406041435454.jpg" style="display: inline; "></a> </div>
+        <div class="ad_div"> <a href=""></a><a href="#" target="_blank"><img  width="210" height="215" alt="" border="0" src="${basepath}/ui/default/images/20120406041435454.jpg" style="display: inline; "></a> </div>
         <div class="caselist">
           <ul>
             <li>
@@ -623,7 +623,7 @@
         <p></p>
         <cite> <a href="#" target="_blank">豆浆机</a> | <a href="#" target="_blank">挂烫机</a> | <a href="#" target="_blank">吸尘器</a> | <a href="#">电水壶</a> </cite> </h1>
       <div class="bottom_div">
-        <div class="ad_div"> <a href=""></a><a href="#" target="_blank"><img  width="210" height="215" alt="" border="0" src="${basepath}ui/default/images/20120406041457336.jpg" style="display: inline; "></a> </div>
+        <div class="ad_div"> <a href=""></a><a href="#" target="_blank"><img  width="210" height="215" alt="" border="0" src="${basepath}/ui/default/images/20120406041457336.jpg" style="display: inline; "></a> </div>
         <div class="caselist">
           <ul>
             <li>
@@ -709,7 +709,7 @@
         <p></p>
         <cite> <a href="#" target="_blank">杯具</a> | <a href="#" target="_blank">床品套件</a> | <a href="#" target="_blank">收纳</a> | <a href="#" target="_blank">优雅主妇</a> </cite> </h1>
       <div class="bottom_div">
-        <div class="ad_div"> <a href=""></a><a href="#" target="_blank"><img  width="210" height="215" alt="" border="0" src="${basepath}ui/default/images/20120309012647739.jpg" style="display: inline; "></a> </div>
+        <div class="ad_div"> <a href=""></a><a href="#" target="_blank"><img  width="210" height="215" alt="" border="0" src="${basepath}/ui/default/images/20120309012647739.jpg" style="display: inline; "></a> </div>
         <div class="caselist">
           <ul>
             <li>
@@ -796,7 +796,7 @@
       <p></p>
       <cite> <a href="#" target="_blank">拉杆箱</a> | <a href="#" target="_blank">商务用包</a> | <a href="#" target="_blank">定制礼品</a> </cite> </h1>
     <div class="bottom_div">
-      <div class="ad_div"> <a href=""></a><a href="#" target="_blank"><img  width="210" height="215" alt="" border="0" src="${basepath}ui/default/images/20120202022407899.jpg" style="display: inline; "></a> </div>
+      <div class="ad_div"> <a href=""></a><a href="#" target="_blank"><img  width="210" height="215" alt="" border="0" src="${basepath}/ui/default/images/20120202022407899.jpg" style="display: inline; "></a> </div>
       <div class="caselist">
         <ul>
           <li>
@@ -890,6 +890,6 @@ $(function(data){
 
 </script>
 <#include "/WEB-INF/theme/default/shop/footer.ftl">
-<script type="text/javascript" src="${basepath}ui/default/js/jshop.js"></script>
+<script type="text/javascript" src="${basepath}/ui/default/js/jshop.js"></script>
 </body>
 </html>

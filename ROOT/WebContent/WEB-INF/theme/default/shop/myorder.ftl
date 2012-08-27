@@ -4,12 +4,12 @@
 <head>
 <title>用户中心</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/global.css" />
-<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/css.css" />
-<link rel="stylesheet" type="text/css" href="${basepath}ui/default/css/huiyuan.css" />
+<link rel="stylesheet" type="text/css" href="${basepath}/ui/default/css/global.css" />
+<link rel="stylesheet" type="text/css" href="${basepath}/ui/default/css/css.css" />
+<link rel="stylesheet" type="text/css" href="${basepath}/ui/default/css/huiyuan.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script type="text/javascript"  src="${basepath}ui/default/js/jquery-1.6.2.min.js"></script>
-<script type="text/javascript" src="${basepath}ui/default/js/jquery.query.js"></script>
+<script type="text/javascript"  src="${basepath}/ui/default/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="${basepath}/ui/default/js/jquery.query.js"></script>
 
 </head>
 <body>
@@ -25,7 +25,7 @@
     <div class="m1top"><span>会员信息</span></div>
     <div class="m1">
       <div class="l">
-        <div class="img"> <img src="${basepath}ui/default/images/hui_100_100.jpg" alt=""> </div>
+        <div class="img"> <img src="${basepath}/ui/default/images/hui_100_100.jpg" alt=""> </div>
         <div class="update"><a href="/Member/UserUpdateForm.do">修改头像</a></div>
       </div>
       <div class="r">
@@ -126,15 +126,15 @@
 	<#if (shufflerecommendgoods??)&&(shufflerecommendgoods?size>0)>
 		<#list shufflerecommendgoods as scg>
 		<div class="each1">
-			<div class="img"><a href="${basepath}<@scg.htmlPath?interpret />" target="_blank">
+			<div class="img"><a href="${basepath}/<@scg.htmlPath?interpret />" target="_blank">
 			<#list scg.pictureurl?split(",") as img>
 			<#if img_index==0>
-			<img style="width:120px;height:120px;" src="${basepath}${img}" alt="${scg.goodsname}">
+			<img style="width:120px;height:120px;" src="${basepath}/${img}" alt="${scg.goodsname}">
 			</#if>
 			</#list>
 			</a>
 			</div>
-			<div class="name"><a href="${basepath}<@scg.htmlPath?interpret />" target="_blank" title="${scg.goodsname}">${scg.goodsname}</a></div>
+			<div class="name"><a href="${basepath}/<@scg.htmlPath?interpret />" target="_blank" title="${scg.goodsname}">${scg.goodsname}</a></div>
 			<div id="commend${scg.goodsid}">
 			  <div class="price2">会员价：<span>￥${scg.memberprice}</span></div>
 			</div>
@@ -150,6 +150,6 @@
 </div>
 
 <#include "/WEB-INF/theme/default/shop/footer.ftl">
-<script type="text/javascript" src="${basepath}ui/default/js/jshop.js"></script>
+<script type="text/javascript" src="${basepath}/ui/default/js/jshop.js"></script>
 </body>
 </html>
