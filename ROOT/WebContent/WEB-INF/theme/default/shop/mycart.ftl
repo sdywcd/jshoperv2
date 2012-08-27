@@ -3,10 +3,17 @@
 <head>
 <title>我的购物车${(jshopbasicinfo.jshopname)}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<<<<<<< HEAD
+<link rel="stylesheet" type="text/css" href="${basepath}//ui/default/css/global.css" />
+<link rel="stylesheet" type="text/css" href="${basepath}//ui/default/css/shopcar.css" />
+<script type="text/javascript"  src="${basepath}//ui/default/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="${basepath}//ui/default/js/jquery.query.js"></script>
+=======
 <link rel="stylesheet" type="text/css" href="${basepath}/ui/default/css/global.css" />
 <link rel="stylesheet" type="text/css" href="${basepath}/ui/default/css/shopcar.css" />
 <script type="text/javascript"  src="${basepath}/ui/default/js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="${basepath}/ui/default/js/jquery.query.js"></script>
+>>>>>>> e4a64100a4ffba1e115196766968e2a7f93fbd54
 </head>
 <body>
 <!--载入公共头文件-->
@@ -18,25 +25,41 @@
   <div class="head_nav">
 				<div class="head_shopcar_step">
 					<div class="steppic">
+<<<<<<< HEAD
+						<img src="${basepath}//ui/default/images/step_1.gif">
+=======
 						<img src="${basepath}/ui/default/images/step_1.gif">
+>>>>>>> e4a64100a4ffba1e115196766968e2a7f93fbd54
 					</div>
 					<div class="step1">
 						我的购物车
 					</div>
 					<div class="steppic">
+<<<<<<< HEAD
+						<img src="${basepath}//ui/default/images/step_3.gif">
+=======
 						<img src="${basepath}/ui/default/images/step_3.gif">
+>>>>>>> e4a64100a4ffba1e115196766968e2a7f93fbd54
 					</div>
 					<div class="step2">
 						填写核对订单
 					</div>
 					<div class="steppic">
+<<<<<<< HEAD
+						<img src="${basepath}//ui/default/images/step_5.gif">
+=======
 						<img src="${basepath}/ui/default/images/step_5.gif">
+>>>>>>> e4a64100a4ffba1e115196766968e2a7f93fbd54
 					</div>
 					<div class="step2">
 						成功提交订单
 					</div>
 					<div class="steppic">
+<<<<<<< HEAD
+						<img src="${basepath}//ui/default/images/step_4.gif">
+=======
 						<img src="${basepath}/ui/default/images/step_4.gif">
+>>>>>>> e4a64100a4ffba1e115196766968e2a7f93fbd54
 					</div>
 				</div>
 			</div>
@@ -61,20 +84,34 @@
 		  <td class="td3">${cart.usersetnum}</td>
             <td class="td2">
 				<div class="img"> 
+<<<<<<< HEAD
+				<a href="${basepath}//html/default/shop/${cart.goodsid}.html"><img src="${basepath}//${cart.picture}" alt=""></a> 
+				</div>
+				<div class="name"> <a href="${basepath}//html/default/shop/${cart.goodsid}.html">${cart.goodsname}</a> </div>
+=======
 				<a href="${basepath}/html/default/shop/${cart.goodsid}.html"><img src="${basepath}${cart.picture}" alt=""></a> 
 				</div>
 				<div class="name"> <a href="${basepath}/html/default/shop/${cart.goodsid}.html">${cart.goodsname}</a> </div>
+>>>>>>> e4a64100a4ffba1e115196766968e2a7f93fbd54
 			</td>
               <td class="td3"><span>￥${cart.price}</span><br>
               ￥${cart.favorable} </td>
 			<#if cart.productid=="0"||cart.productid=="">
             <td class="td4">
 			   <a id="reduceamount" onclick="changereduceamount(${cart.goodsid},${cart.weight},${cart.favorable?string('0')})">
+<<<<<<< HEAD
+				<img src="${basepath}//ui/default/images/bag_close.gif" alt="" />
+			</a>
+			<input onblur="changeinfo(${cart.goodsid},${cart.weight},${cart.favorable?string('0')})" type="text" name="amount,${cart.favorable?string('0')},${cart.weight}" id="amount${cart.goodsid}" value="${cart.needquantity}" size="2"/>
+			<a id="plusamount"  onclick="changeplusamount(${cart.goodsid},${cart.weight},${cart.favorable?string('0')})">
+				<img src="${basepath}//ui/default/images/bag_open.gif" alt="" />
+=======
 				<img src="${basepath}/ui/default/images/bag_close.gif" alt="" />
 			</a>
 			<input onblur="changeinfo(${cart.goodsid},${cart.weight},${cart.favorable?string('0')})" type="text" name="amount,${cart.favorable?string('0')},${cart.weight}" id="amount${cart.goodsid}" value="${cart.needquantity}" size="2"/>
 			<a id="plusamount"  onclick="changeplusamount(${cart.goodsid},${cart.weight},${cart.favorable?string('0')})">
 				<img src="${basepath}/ui/default/images/bag_open.gif" alt="" />
+>>>>>>> e4a64100a4ffba1e115196766968e2a7f93fbd54
 			</a>
 			<!-- 隐藏的goodsid -->
 			<input type="hidden" id="hidgoodsid" name="hidgoodsid" value="${cart.goodsid}"/>
@@ -82,11 +119,19 @@
 			<#else>
 			<td class="td4">
 			   <a id="reduceamount" onclick="changereduceamount(${cart.productid},${cart.weight},${cart.favorable?string('0')})">
+<<<<<<< HEAD
+				<img src="${basepath}//ui/default/images/bag_close.gif" alt="" />
+			</a>
+			<input onblur="changeinfo(${cart.productid},${cart.weight},${cart.favorable?string('0')})" type="text" name="amount,${cart.favorable?string('0')},${cart.weight}" id="amount${cart.productid}" value="${cart.needquantity}" size="2"/>
+			<a id="plusamount"  onclick="changeplusamount(${cart.productid},${cart.weight},${cart.favorable?string('0')})">
+				<img src="${basepath}//ui/default/images/bag_open.gif" alt="" />
+=======
 				<img src="${basepath}/ui/default/images/bag_close.gif" alt="" />
 			</a>
 			<input onblur="changeinfo(${cart.productid},${cart.weight},${cart.favorable?string('0')})" type="text" name="amount,${cart.favorable?string('0')},${cart.weight}" id="amount${cart.productid}" value="${cart.needquantity}" size="2"/>
 			<a id="plusamount"  onclick="changeplusamount(${cart.productid},${cart.weight},${cart.favorable?string('0')})">
 				<img src="${basepath}/ui/default/images/bag_open.gif" alt="" />
+>>>>>>> e4a64100a4ffba1e115196766968e2a7f93fbd54
 			</a>
 			<!-- 隐藏的goodsid -->
 			<input type="hidden" id="hidproductid" name="hidproductid" value="${cart.productid}"/>
@@ -117,6 +162,15 @@
           <a style="color:#c00; text-decoration:none;" href="/DelCartItem.do?mid=0&amp;ItemId=&amp;ObjectId=&amp;ObjectType=&amp;deliveryDepartmentId=" class="sea_keyword">[确定]</a>&nbsp;&nbsp;<a style="color:#c00; text-decoration:none;" href="javascript:void(0);" onclick="showDelAllCart('delAll','1');">[取消]</a></div>
         <div class="bot"></div>
       </div>
+<<<<<<< HEAD
+      <!--<a href="javascript:;" onclick="showDelAllCart('delAll','1')"><img src="${basepath}//ui/default/images/cart_btn1.gif"></a>-->
+	  <a href="${basepath}//index.html"><img src="${basepath}//ui/default/images/cart_btn2.gif"></a>
+      <a id="gotojs" onclick="gotojs();" href="#" class="nextbtn1"> <img src="${basepath}//ui/default/images/cart_btn3.gif"> </a> </div>
+  </div>
+</div>
+<#include "/WEB-INF/theme/default/shop/footer.ftl">
+<script type="text/javascript" src="${basepath}//ui/default/js/jshop.js"></script>
+=======
       <!--<a href="javascript:;" onclick="showDelAllCart('delAll','1')"><img src="${basepath}/ui/default/images/cart_btn1.gif"></a>-->
 	  <a href="${basepath}/index.html"><img src="${basepath}/ui/default/images/cart_btn2.gif"></a>
       <a id="gotojs" onclick="gotojs();" href="#" class="nextbtn1"> <img src="${basepath}/ui/default/images/cart_btn3.gif"> </a> </div>
@@ -124,5 +178,6 @@
 </div>
 <#include "/WEB-INF/theme/default/shop/footer.ftl">
 <script type="text/javascript" src="${basepath}/ui/default/js/jshop.js"></script>
+>>>>>>> e4a64100a4ffba1e115196766968e2a7f93fbd54
 </body>
 </html>
