@@ -33,6 +33,18 @@ function findUsernameSession(){
 }
 
 /**
+ * 异步获取登录的用户名
+ */
+function findUsernameSession(){
+	$.post("findUsernameFromSession.action",function(data){
+		if(data.username!=""){
+			$("#welcomeusername").html("你好["+data.username+"]");
+		}
+		
+	});
+}
+
+/**
  * 顶级搜索
  */
 $(function(){
