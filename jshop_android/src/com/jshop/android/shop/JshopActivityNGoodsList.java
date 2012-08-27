@@ -464,6 +464,8 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 							final View bigpicPopupLayout = inflater.inflate(R.layout.jshop_m_bigpic,null);
 							builder = new AlertDialog.Builder(mContext);
 							ImageView bigpicview = (ImageView) bigpicPopupLayout.findViewById(R.id.bigpic);
+						
+							
 							String goodsid = list.get(position).get("goodsid").toString();
 							Cursor c = dbhelper.queryByParamgoodsid(dbhelper.GOODS_TM_NAME,goodsid);
 							try {
@@ -478,7 +480,16 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 								   //.setMessage(list.get(position).get("goodsname").toString())
 								   .setView(bigpicPopupLayout);
 								   //.setNegativeButton("关闭",null);
-							AlertDialog alert = builder.create();
+							final AlertDialog alert = builder.create();
+							bigpicview.setOnClickListener(new OnClickListener(){
+
+								@Override
+								public void onClick(View v) {
+									// TODO Auto-generated method stub
+									alert.dismiss();
+								}
+								
+							});
 							alert.show();
 						}											
 					});
