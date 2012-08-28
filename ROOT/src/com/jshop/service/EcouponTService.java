@@ -1,5 +1,7 @@
 package com.jshop.service;
 
+import java.util.List;
+
 import com.jshop.entity.EcouponT;
 
 public interface EcouponTService {
@@ -9,4 +11,10 @@ public interface EcouponTService {
 	 * @return
 	 */
 	public int addEcoupon(EcouponT et);
+	/**
+	 * 查询所有电子优惠券
+	 * @return
+	 */
+	public List<EcouponT> findAllEcoupon(final int currentPage,final int lineSize);
+
 }

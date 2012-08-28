@@ -1,9 +1,15 @@
 package com.jshop.service.impl;
 
+import java.util.List;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+
 import com.jshop.dao.EcouponTDao;
 import com.jshop.entity.EcouponT;
 import com.jshop.service.EcouponTService;
-
+@Service("ecouponTService")
+@Scope("prototype")
 public class EcouponTServiceImpl implements EcouponTService {
 	private EcouponTDao ecouponTDao;
 	
@@ -18,6 +24,12 @@ public class EcouponTServiceImpl implements EcouponTService {
 	@Override
 	public int addEcoupon(EcouponT et) {		
 		return this.getEcouponTDao().addEcoupon(et);
+	}
+
+	@Override
+	public List<EcouponT> findAllEcoupon(int currentPage, int lineSize) {
+		
+		return this.getEcouponTDao().findAllEcoupon(currentPage, lineSize);
 	}
 
 }

@@ -13,7 +13,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -36,6 +37,9 @@
 						</h5>
 
 					</div>
+					<div class="form">
+					<div class="fields">	
+					<div class="field ">
 					<div class="field field-first">
 								<div class="label">
 									<label for="select">
@@ -48,20 +52,26 @@
 												---请选择---
 											</option>
 											<option value="1">
-												现金抵扣模式
+												购物抵扣模式
 											</option>
 											<option value="2">
 												现金购物模式
 											</option>
 											<option value="3">
-												商品总价抵扣模式
+												现金抵扣模式
 											</option>
 										</select>
-									</div>
-					</div>
-
-					<div class="form">
-						<div class="fields">
+								</div>
+								<div class="button highlight">										
+										<input type="button" id="confirm" name="confirm" value="确认"  />										
+								</div>
+				</div>
+				</div>
+				</div>
+				</div>
+			
+		 <div class="form" style="display: none" id="three"  >
+							<div class="fields">
 							
 							
 							<div class="field ">
@@ -104,7 +114,7 @@
 							</div>
 							<div id="box-mainpicture" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
 					
-					</div>
+							</div>
 							<div class="field field-first">
 								<div class="label">
 									<label for="input-small">
@@ -126,36 +136,35 @@
 									<input type="text" id="endtime" name="endtime" class="small" onfocus="WdatePicker({startDate:'%y-%M 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUserStartDate:true})" />
 									
 								</div>
-							</div>							
-						
+							</div>	
 							<div class="field field-first">
 								<div class="label">
 									<label for="input-small">
-										商品说明:
+										注释:
 									</label>
 								</div>
-								<div style="margin: 0 0 0 200px;">
-									<div id="cssrefuse">
-										<textarea id="note" name="note" cols="50" rows="12" style="width: 100%; height: 600px; visibility: hidden;"><%=htmlspecialchars(htmlData)%></textarea>
-									</div>
+								<div class="input">
+									<textarea  id="note" name="note" class="small"  style="width: 239px; height: 70px;" ></textarea>
+									
 								</div>
+							</div>						
+						
+												
 							</div>
-							<div class="form">
+								<div class="form">
 						<div class="fields">
 							<div class="field field-first">
 								<div class="input">
-									<div class="button highlight">
-										<input type="hidden" id="groupid" name="groupid" />
-										<input type="button" id="add" name="add" value="提交"  />
-										<input type="button" id="update" name="update" value="更新" style="display: none;" />
+									<div class="button highlight">										
+										<input type="button" id="add" name="add" value="提交"  />										
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 							
-						</div>
+				</div>
+						
 					</div>	
 				</div>
 				<!-- end table -->
@@ -164,9 +173,9 @@
 		</div>
 		<!-- end content -->
 		<!-- footer -->
-		<script type="text/javascript" src="<%=basePath%>/jshop/admin/js/regme.js"></script>
-		<script type="text/javascript" src="<%=basePath%>/jshop/admin/js/addgoodsgroupjs.js"></script>
+		<script type="text/javascript" src="<%=basePath%>/jshop/admin/js/regme.js"></script>		
 		<script type="text/javascript" src="<%=basePath %>/My97DatePicker/WdatePicker.js"></script>
+		<script type="text/javascript" src="<%=basePath%>/jshop/admin/js/addecoupontjs.js"></script>
 		<%@include file="/jshop/admin/footer.jsp"%>
 		<!-- end footert -->
 
