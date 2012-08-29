@@ -52,4 +52,21 @@ public class EcouponTDaoImpl extends HibernateDaoSupport implements EcouponTDao 
 		}
 	}
 
+	@Override
+	public int countAllEcoupon() {
+		String queryString ="select count(*) from EcouponT";
+		try {
+			List list = this.getHibernateTemplate().find(queryString);
+			if(list.size()>0){
+				Object o= list.get(0);
+				long l = (Long) o;
+				return (int)l;
+			}
+			return 0;
+		} catch (DataAccessException e) {
+			throw e;
+			
+		}
+	}
+
 }

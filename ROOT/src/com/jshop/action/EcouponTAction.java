@@ -1,6 +1,11 @@
 package com.jshop.action;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -8,6 +13,8 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.stereotype.Controller;
 
+
+import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.Serial;
 import com.jshop.entity.EcouponT;
 import com.jshop.service.EcouponTService;
@@ -27,6 +34,10 @@ public class EcouponTAction {
 	private String note;
 	private boolean flag;
 	private Serial serial;
+	private List rows = new ArrayList();
+	private int rp;
+	private int page = 1;
+	private int total = 0;
 	@JSON(serialize=false)
 	public Serial getSerial() {
 		return serial;
@@ -107,6 +118,30 @@ public class EcouponTAction {
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
+	public List getRows() {
+		return rows;
+	}
+	public void setRows(List rows) {
+		this.rows = rows;
+	}
+	public int getRp() {
+		return rp;
+	}
+	public void setRp(int rp) {
+		this.rp = rp;
+	}
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
 	/**
 	 * 添加电子订单优惠券
 	 * @return
@@ -131,6 +166,58 @@ public class EcouponTAction {
 			return "json";
 		}
 		}
+		return "json";
+	}
+	/**
+	 *查询所有的电子优惠券
+	 * @return
+	 */
+	@Action(value="findAllEcouponT",results={@Result(name="json",type="json")})
+	@SuppressWarnings("unchecked")
+	public String findAllEcouponT(){
+		int currentPage= page;
+		int lineSize= rp;
+		List<EcouponT> list = this.getEcouponTService().findAllEcoupon(currentPage, lineSize);
+		if(!list.isEmpty()){
+		total = this.getEcouponTService().countAllEcoupon();
+		rows.clear();
+		for(Iterator it=list.iterator();it.hasNext();){
+			EcouponT et = (EcouponT) it.next();
+			if(et.getEcouponstate().equals("3")){
+				et.setEcouponstate("现金抵扣模式");
+			}else if(et.getEcouponstate().equals("2")){
+				et.setEcouponstate("现金购物模式");
+			}else if(et.getEcouponstate().equals("1")){
+				et.setEcouponstate("购物抵扣模式");
+			}
+			if(et.getState().equals("1")){
+				et.setState("开启");
+			}else if(et.getState().equals("0")){
+				et.setState("关闭");
+			}
+			if(et.getGoodsname().equals("")){
+				et.setGoodsname("null");
+			}
+			if(et.getGoodsid().equals("")){
+				et.setGoodsid("null");
+			}
+			Map cellMap= new HashMap();
+			cellMap.put("id",et.getEid());
+			cellMap.put("cell", new Object[]{
+					et.getGoodsname(),
+					et.getGoodsid(),
+					et.getEcouponstate(),
+					et.getState(),
+					et.getBegintime(),
+					et.getEndtime(),
+					et.getFavourableprices(),
+					et.getPricededuction(),
+					et.getNote()					
+			});
+			rows.add(cellMap);
+		}
+		return "json";
+		}		
 		return "json";
 	}
 

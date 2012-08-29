@@ -32,4 +32,10 @@ public class EcouponTServiceImpl implements EcouponTService {
 		return this.getEcouponTDao().findAllEcoupon(currentPage, lineSize);
 	}
 
+	@Override
+	public int countAllEcoupon() {
+		// TODO Auto-generated method stub
+		return this.getEcouponTDao().countAllEcoupon();
+	}
+
 }
