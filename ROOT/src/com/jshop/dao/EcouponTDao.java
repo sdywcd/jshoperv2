@@ -16,5 +16,10 @@ public interface EcouponTDao {
 	 * @return
 	 */
 	public List<EcouponT> findAllEcoupon(final int currentPage,final int lineSize);
-
+	
+	/**
+	 * 统计所有优惠券数量
+	 * @return
+	 */
+	public int countAllEcoupon();
 }

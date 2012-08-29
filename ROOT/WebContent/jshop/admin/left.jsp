@@ -56,7 +56,7 @@
 					<a id="link12" href="<%=basePatha%>jshop/admin/goods/goodscommentmanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#goods">商品评论</a>
 				</li>
 				<li>
-					<a id="link9" href="<%=basePatha%>jshop/admin/activity/addecoupont.jsp?session=6584359BA964336B9BDE75737952F5AA#goods">电子优惠券</a>
+					<a id="link9" href="<%=basePatha%>jshop/admin/activity/ecoupontmanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#goods">电子优惠券</a>
 				</li>
 		
 			</ul>
