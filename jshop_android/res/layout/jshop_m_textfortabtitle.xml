@@ -10,6 +10,7 @@
 		android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
+        android:textSize="22dp"
         android:gravity="center"
         android:singleLine="true"
         android:textColor="#ffffff" />

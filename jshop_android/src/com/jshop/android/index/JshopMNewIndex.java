@@ -49,6 +49,7 @@ public class JshopMNewIndex extends Activity {
 		ordingfoods=(ImageView) this.findViewById(R.id.ordingfoods);
 		calculator=(ImageView) this.findViewById(R.id.calculator);
 		logo=(ImageView) this.findViewById(R.id.logo);
+		sit = (ImageView) this.findViewById(R.id.sit);
 		
 		//绑定页面元素事件
 		/**
@@ -59,6 +60,7 @@ public class JshopMNewIndex extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(JshopMNewIndex.this, JshopActivityNGoodsList.class);
+				
 				startActivity(intent);
 			}
 		});
@@ -72,10 +74,6 @@ public class JshopMNewIndex extends Activity {
 				setSeat();
 			}
 
-			private void setSeat() {
-				// TODO Auto-generated method stub
-				
-			}
 		});
 	}
 	
