@@ -60,6 +60,7 @@ public class JshopMNewIndex extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(JshopMNewIndex.this, JshopActivityNGoodsList.class);
+				
 				startActivity(intent);
 			}
 		});

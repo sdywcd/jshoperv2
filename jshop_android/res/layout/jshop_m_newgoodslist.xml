@@ -97,10 +97,12 @@
                     android:gravity="center_vertical"
                     android:orientation="vertical">
                     <TextView 
+                        android:id="@+id/changeviewlooking"
                         android:layout_marginLeft="5dp"
                         android:text="点餐\nOrder Dishes"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
+                        android:textSize="20dp"
                         android:gravity="center_vertical"
                         android:textColor="@color/white"/>
                     
@@ -118,6 +120,7 @@
                         android:id="@+id/setseat"
                         android:layout_marginLeft="5dp"
                         android:text="就座\nHave a seat "
+                        android:textSize="20dp"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:gravity="center_vertical"
@@ -136,6 +139,7 @@
                         android:layout_marginLeft="5dp"
                         android:text="清空列表\nClear list"
                         android:layout_width="fill_parent"
+                        android:textSize="20dp"
                         android:layout_height="fill_parent"
                         android:gravity="center_vertical"
                         android:textColor="@color/white"/>
