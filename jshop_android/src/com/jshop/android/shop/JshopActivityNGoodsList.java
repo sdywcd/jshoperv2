@@ -463,11 +463,11 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 
 						@Override
 						public void onClick(View v) {
-							//Intent intent = new Intent(JshopActivityNGoodsList.this,JshopActivityNGoodsViewPager.class);
-							//intent.putExtra("curposition",list.get(position));
-							//intent.putExtra("goodsCategoryTid", list.get(position).get("goodsCategoryTid").toString());
-							//startActivity(intent);
-							AlertDialog.Builder builder;
+							Intent intent = new Intent(JshopActivityNGoodsList.this,JshopActivityNGoodsViewPager.class);
+							intent.putExtra("curposition",list.get(position));
+							intent.putExtra("goodsCategoryTid", list.get(position).get("goodsCategoryTid").toString());
+							startActivity(intent);
+/*							AlertDialog.Builder builder;
 							AlertDialog alertDialog;
 							Context mContext = JshopActivityNGoodsList.this;
 							LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -502,7 +502,7 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 								}
 								
 							});
-							alert.show();
+							alert.show();*/
 						}											
 					});
 			return convertView;
