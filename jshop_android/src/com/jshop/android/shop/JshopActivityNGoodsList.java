@@ -20,6 +20,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -448,7 +449,7 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 			holder.getUnitname().setText(
 					list.get(position).get("unitname").toString());
 			holder.getDetail().setText(
-					list.get(position).get("detail").toString());
+					Html.fromHtml(list.get(position).get("detail").toString()));
 			holder.getAddtomyelecartmenu().setOnClickListener(
 					new OnClickListener() {
 						@Override
