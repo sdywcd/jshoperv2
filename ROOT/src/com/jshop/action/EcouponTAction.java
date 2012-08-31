@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 
 import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.Serial;
+import com.jshop.action.tools.Validate;
 import com.jshop.entity.EcouponT;
 import com.jshop.service.EcouponTService;
 @ParentPackage("jshop")
@@ -38,6 +39,7 @@ public class EcouponTAction {
 	private int rp;
 	private int page = 1;
 	private int total = 0;
+	private EcouponT bean = new EcouponT();
 	@JSON(serialize=false)
 	public Serial getSerial() {
 		return serial;
@@ -142,6 +144,12 @@ public class EcouponTAction {
 	public void setTotal(int total) {
 		this.total = total;
 	}
+	public EcouponT getBean() {
+		return bean;
+	}
+	public void setBean(EcouponT bean) {
+		this.bean = bean;
+	}
 	/**
 	 * 添加电子订单优惠券
 	 * @return
@@ -150,7 +158,7 @@ public class EcouponTAction {
 	public String addEcouponT(){
 		EcouponT et = new EcouponT();
 		//当ECOUPONSTATE=3的时候，现金抵扣模式		 
-		if(this.getEcouponstate().trim().equals("3")){
+		
 		et.setEid(this.getSerial().Serialid(Serial.ECOUPONT));
 		et.setEcouponstate(this.getEcouponstate());
 		et.setFavourableprices(this.getFavourableprices());
@@ -159,13 +167,18 @@ public class EcouponTAction {
 		et.setEndtime(this.getEndtime());
 		et.setState(this.getState());
 		et.setNote(this.getNote());
+		if(this.getEcouponstate().trim().equals("3")){
 		et.setGoodsname("");
 		et.setGoodsid("");
+		}else{
+			et.setGoodsname(this.getGoodsname());
+			et.setGoodsid(this.getGoodsid());
+		}
 		if(this.getEcouponTService().addEcoupon(et)>0){
 			this.setFlag(true);
 			return "json";
 		}
-		}
+		
 		return "json";
 	}
 	/**
@@ -177,7 +190,8 @@ public class EcouponTAction {
 	public String findAllEcouponT(){
 		int currentPage= page;
 		int lineSize= rp;
-		List<EcouponT> list = this.getEcouponTService().findAllEcoupon(currentPage, lineSize);
+		List<EcouponT> list = this.getEcouponTService().findAllEcoupon(currentPage, lineSize);		
+		if(list==null) return"json";
 		if(!list.isEmpty()){
 		total = this.getEcouponTService().countAllEcoupon();
 		rows.clear();
@@ -208,8 +222,8 @@ public class EcouponTAction {
 					et.getGoodsid(),
 					et.getEcouponstate(),
 					et.getState(),
-					et.getBegintime(),
-					et.getEndtime(),
+					BaseTools.formateDbDate(et.getBegintime()),
+					BaseTools.formateDbDate(et.getEndtime()),
 					et.getFavourableprices(),
 					et.getPricededuction(),
 					et.getNote()					
@@ -217,8 +231,73 @@ public class EcouponTAction {
 			rows.add(cellMap);
 		}
 		return "json";
+		}else{
+			return "json";
+		}				
+	}
+	/**
+	 * 根据ID查询电子券信息 
+	 * @return
+	 */
+	@Action(value="findEcoupontById",results={@Result(name="json",type="json")})
+	public String findEcoupontById(){
+		if(!this.getEid().isEmpty()){
+			bean=this.getEcouponTService().findEcouponByEid(this.getEid());
+			if(bean!=null){
+				return "json";
+			}
+		}
+		return "json";
+	}
+	/**
+	 * 更新电子优惠券
+	 * @return
+	 */
+	@Action(value="updateEcouponT",results={@Result(name="json",type="json")})
+	public String updateEcouponT(){
+		EcouponT et = new EcouponT();		
+		et.setEid(this.getEid());
+		et.setEcouponstate(this.getEcouponstate());
+		et.setFavourableprices(this.getFavourableprices());
+		et.setPricededuction(this.getPricededuction());
+		et.setBegintime(this.getBegintime());
+		et.setEndtime(this.getEndtime());
+		et.setState(this.getState());
+		et.setNote(this.getNote());
+		if(et.getEcouponstate().equals("3")){
+			et.setGoodsname("");
+			et.setGoodsid("");
+		}else{
+		et.setGoodsname(this.getGoodsname());
+		et.setGoodsid(this.getGoodsid());
+		}
+		if(this.getEcouponTService().updateEcouponT(et)>0){
+			this.setFlag(true);
+			return "json";
 		}		
 		return "json";
 	}
+	/**
+	 * 批量删除优惠券
+	 * @return
+	 */
+	@Action(value="delEcouponT",results={@Result(name="json",type="json")})
+	public String delEcouponT(){
+		if(Validate.StrNotNull(this.getEid())){
+			String[] s = this.getEid().trim().split(",");
+			this.getEcouponTService().dekEcoupont(s);
+				this.setFlag(true);			
+				return "json";
+			}		
+		return "json";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

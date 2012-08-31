@@ -34,8 +34,26 @@ public class EcouponTServiceImpl implements EcouponTService {
 
 	@Override
 	public int countAllEcoupon() {
-		// TODO Auto-generated method stub
+		
 		return this.getEcouponTDao().countAllEcoupon();
+	}
+
+	@Override
+	public EcouponT findEcouponByEid(String eid) {
+		
+		return this.getEcouponTDao().findEcouponByEid(eid);
+	}
+
+	@Override
+	public int dekEcoupont(String[] eid) {
+		
+		return this.getEcouponTDao().dekEcoupont(eid);
+	}
+
+	@Override
+	public int updateEcouponT(EcouponT et) {
+		
+		return this.getEcouponTDao().updateEcouponT(et);
 	}
 
 }
