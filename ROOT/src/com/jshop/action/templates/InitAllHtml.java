@@ -36,6 +36,7 @@ public class InitAllHtml extends ActionSupport {
 	private Map<String, Object> map;
 	private String status;
 	private String buildlog;
+	private int processbar;
 	public InitAllHtml() {
 		map = new HashMap<String, Object>();
 	}
@@ -99,6 +100,12 @@ public class InitAllHtml extends ActionSupport {
 		this.buildlog = buildlog;
 	}
 
+	public int getProcessbar() {
+		return processbar;
+	}
+	public void setProcessbar(int processbar) {
+		this.processbar = processbar;
+	}
 	/**
 	 * 清理错误
 	 */
@@ -108,6 +115,18 @@ public class InitAllHtml extends ActionSupport {
 
 	}
 
+	/**
+	 * 获取精度条所需数据
+	 * @return
+	 */
+	@Action(value = "findProcessBar", results = { 
+			@Result(name = "json",type="json")
+	})
+	public String findProcessBar(){
+		this.getProcessbar();
+		return "json";
+	}
+	
 	/**
 	 * 生成所有静态数据
 	 * 
@@ -128,6 +147,7 @@ public class InitAllHtml extends ActionSupport {
 			//生成记录开始
 			buildhtmllog.append("<p>1,获取默认主题信息</p>");
 			log.info("<p>1,获取默认主题信息</p>");
+			this.setProcessbar(2);//进度2%
 			//获取默认主题
 			this.getInitTAction().InitDefaultThemeT();
 			buildhtmllog.append(this.getInitTAction().getLogmsg());
@@ -182,10 +202,16 @@ public class InitAllHtml extends ActionSupport {
 			//获取系统所有文章数据
 			map.put(FreeMarkervariable.ARTICLE, this.getDataCollectionTAction().findAllArticleT());
 			
+			this.setProcessbar(20);//进度20%
+			
 			//根据模板生成静态页
 			List<TemplatesetT>list=this.getTemplatesetTService().findTemplatesetTBystatus("1");
 			if(!list.isEmpty()){
+				this.setProcessbar(30);//进度30%
 				for(Iterator it=list.iterator();it.hasNext();){
+					if(list.size()+this.getProcessbar()<=100){
+						this.setProcessbar(this.getProcessbar()+5);
+					}
 					TemplatesetT tt=(TemplatesetT)it.next();
 					if(tt.getSign().equals(BaseTools.getApplicationthemesig()+"_"+ContentTag.TEMPLATENAMEFORGOODSDETAIL)){
 						this.getCreateHtml().buildGoodsdetailsPage(map);
@@ -220,6 +246,7 @@ public class InitAllHtml extends ActionSupport {
 			}
 			
 		}
+		this.setProcessbar(100);//进度100%
 		this.setBuildlog(buildhtmllog.toString());
 		this.setStatus("success");
 		return "json";
