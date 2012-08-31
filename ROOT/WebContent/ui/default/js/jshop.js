@@ -9,6 +9,29 @@ $(function() {
 	var windowsurl = window.location;
 	$('#hidurl').attr("value", windowsurl);
 });
+
+/**
+ * 
+ */
+$(function(){
+	$.post("findUserHeadById.action",function(data){
+		if(data.head.headpath!=null){
+		$('#fileChecker').attr("src",data.head.headpath);
+		}
+		});
+});
+/**
+ * 异步获取登录的用户名
+ */
+function findUsernameSession(){
+	$.post("findUsernameFromSession.action",function(data){
+		if(data.username!=""){
+			$("#welcomeusername").html("你好["+data.username+"]");
+		}
+		
+	});
+}
+
 /**
  * 异步获取登录的用户名
  */

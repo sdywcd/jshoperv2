@@ -30,6 +30,7 @@ import com.jshop.action.templates.DataCollectionTAction;
 import com.jshop.action.templates.FreeMarkervariable;
 import com.jshop.action.tools.BaseTools;
 import com.jshop.action.tools.UtilCommon;
+import com.jshop.action.tools.Validate;
 import com.jshop.entity.UserT;
 import com.jshop.service.UsertService;
 import com.jshop.service.impl.UsertServiceImpl;
@@ -89,7 +90,7 @@ ServletResponseAware {
     // Struts2拦截器获得的文件名,命名规则，File的名字+FileName  
     // 如此处为 'fileupload' + 'FileName' = 'fileuploadFileName'  
     private String fileuploadFileName; // 上传来的文件的名字  
-	
+	private UserT head= new UserT();
 	public DataCollectionTAction getDataCollectionTAction() {
 		return dataCollectionTAction;
 	}
@@ -443,6 +444,14 @@ ServletResponseAware {
 		this.fileuploadFileName = fileuploadFileName;
 	}
 
+	public UserT getHead() {
+		return head;
+	}
+
+	public void setHead(UserT head) {
+		this.head = head;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -543,7 +552,7 @@ ServletResponseAware {
 	/**
 	 * 上传图片
 	 */
-	@Action(value="uploadFile", results={ @Result(name = "success",type="chain",location = "findUserInfo")})
+	@Action(value="uploadFile", results={ @Result(name = "success",type="redirect",location = "findUserInfo")})
     public String  uploadFile() {  
         String extName = ""; // 保存文件拓展名  
         String newFileName = ""; // 保存新的文件名  
@@ -620,7 +629,22 @@ ServletResponseAware {
 		// TODO Auto-generated method stub
 		
 	}  
-	
+	/**
+	 * 根据用户id获取用户头像
+	 * 
+	 * @return
+	 */
+	@Action(value = "findUserHeadById", results = { @Result(name = "json", type = "json") })
+	public String findUserHeadById() {
+		UserT user=(UserT)ActionContext.getContext().getSession().get(BaseTools.USER_SESSION_KEY);
+		
+		 head = this.getUsertService().findById(user.getUserid());
+			if (head != null) {				
+				return "json";
+			}
+		
+		return "json";
+	}
 	
 	
 }

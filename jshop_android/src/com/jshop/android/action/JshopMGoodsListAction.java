@@ -125,7 +125,9 @@ public class JshopMGoodsListAction {
 		Bitmap bitmap=BitmapFactory.decodeFile(sdcard+url,options);
 		
 		return bitmap;
+
     }  
+
 
 	
 	/**
@@ -152,6 +154,8 @@ public class JshopMGoodsListAction {
 		Bitmap bitmap=BitmapFactory.decodeFile(sdcard+url);
 		return bitmap;
 	}
+
+
 
 	/**
 	 * 获取网络图片名称

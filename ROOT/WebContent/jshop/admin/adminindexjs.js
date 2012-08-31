@@ -70,5 +70,15 @@ $(function(){
 });
 
 /*===========================================Gorgeous split-line==============================================*/
-
+function createSqlite(){
+	$.post("createTable.action",function(data){
+		if(data.sqlite){
+			jAlert('生成成功','信息提示');
+			return;
+		}else {
+			jAlert('生成失败','信息提示');
+			return;
+		}
+	});
+}
 
