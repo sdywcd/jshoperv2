@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.jshop.android.action.JshopMGoodsListAction;
+
+import com.jshop.android.holder.GoodsListViewHolder;
 import com.jshop.android.index.R;
 import com.jshop.android.sqlite.DBHelper;
 
@@ -22,6 +24,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class JshopActivityNGoodsViewPager extends Activity {
 	private final DBHelper dbhelper=new DBHelper(this);
@@ -30,14 +33,13 @@ public class JshopActivityNGoodsViewPager extends Activity {
 	private String goodsCategoryTid;
 	private ArrayList<HashMap<String,Object>> goodslist;
 	//private JshopMGoodsListAction jmGoodsListAction = new JshopMGoodsListAction();
-	private GoodsPagerAdapter goodsViewPagerAdapter;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		super.requestWindowFeature(Window.FEATURE_NO_TITLE);//设置无标题窗口
 		super.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//全屏模式
 		super.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//强制为横屏
-		this.setContentView(R.layout.jshop_m_goodslistviewpager);
+		this.setContentView(R.layout.jshop_m_goodslistviewpager); //有android.support.v4.view.ViewPager外层layout
 		this.mContext = JshopActivityNGoodsViewPager.this;
 		int curpositoin = this.getIntent().getIntExtra("curposition", 0);
 		goodsCategoryTid = this.getIntent().getStringExtra("goodsCategoryTid");
@@ -54,7 +56,7 @@ public class JshopActivityNGoodsViewPager extends Activity {
 		
 	}
 	/**
-	 * 
+	 * 通过商品分类ID 得到商品数据
 	 * @param goodsCategoryTid
 	 */
 	private void collectSqliteGoodsList(String goodsCategoryTid) {
@@ -68,7 +70,7 @@ public class JshopActivityNGoodsViewPager extends Activity {
 		}
 	}
 	/**
-	 * 根据商品分类ID拿到商品数据
+	 * 这个要写到action
 	 */
 	public ArrayList<HashMap<String,Object>> getGoodsListSqlite(Cursor c) throws IOException{
 		ArrayList<HashMap<String,Object>> tempgoodslist = new ArrayList<HashMap<String,Object>>();
@@ -95,32 +97,82 @@ public class JshopActivityNGoodsViewPager extends Activity {
 	}
 	
 	/**
-	 * 在layout中通过id找到ViewPager
+	 * viewpager没做出来
 	 * 
 	 */
 	private void InitialViewPager(){
-		goodsViewPager = (ViewPager) this.findViewById(R.id.goodslistPages);//找到jshop_m_goodslistviewpager的ViewPager
 		
-		LayoutInflater myinflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+		//goodsViewPager = (ViewPager) this.findViewById(R.id.goodslistPages);//找到jshop_m_goodslistviewpager的ViewPager
+		ArrayList<View> views = null;
+		LayoutInflater minflater = LayoutInflater.from(this);
+		for(int i=0;i<goodslist.size();i++){
+			final GoodsListViewHolder holder = new GoodsListViewHolder();
+			View view = minflater.inflate(R.layout.jshop_m_forgoodsviewpager,null);//ViewPager的Layout
+			holder.setPictureurl((ImageView) view.findViewById(R.id.goodsimage));
+			holder.setGoodsname((TextView) view.findViewById(R.id.goodsname));
+			holder.setWeight((TextView) view.findViewById(R.id.valueweight));
+			holder.setUnitname((TextView) view.findViewById(R.id.unit));
+			holder.setMemberprice((TextView) view.findViewById(R.id.memprice));
+			holder.setDetail((TextView) view.findViewById(R.id.goodsdetail));
+			holder.setAddtomyelecartmenu((ImageView) view.findViewById(R.id.addtoelectrocartconfirm));
+			views.add(view);
+		}
+			
 		goodsViewPager.setAdapter(new GoodsPagerAdapter(mContext,goodslist));
 		
 		
 	}
+	/**
+	 * ViewPager的适配器
+	 * @author "chenda"
+	 *
+	 */
+	
 	public class GoodsPagerAdapter extends PagerAdapter{
-		private ArrayList<HashMap<String, Object>> list;
+		private ArrayList<HashMap<String, Object>> list; 
 		private Context ctx; 
+		
 		
 		public  GoodsPagerAdapter(Context ctx, ArrayList<HashMap<String, Object>> list){
 			this.ctx = ctx;
 			this.list = list;
+			
 		}
-		public Object instantiateItem(View collection, int position) {
-			View v;
-			v = View.inflate(ctx, R.layout.jshop_m_forgoodsviewpager, null);
-			ImageView goodsimage = (ImageView) v.findViewById(R.id.goodsimage);
-			goodsimage.setImageBitmap((Bitmap) this.list.get(position).get("pictureurl"));
-			return position;	        
-	    }
+
+		@Override
+		public void destroyItem(View container, int position, Object object) {
+			// TODO Auto-generated method stub
+			super.destroyItem(container, position, object);
+		}
+
+
+		@Override
+		public void finishUpdate(View container) {
+			// TODO Auto-generated method stub
+			super.finishUpdate(container);
+		}
+
+
+		@Override
+		public void startUpdate(View container) {
+			// TODO Auto-generated method stub
+			super.startUpdate(container);
+		}
+
+
+
+		@Override
+		public void setPrimaryItem(View container, int position, Object object) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public Object instantiateItem(ViewGroup container, int position) {
+			// TODO Auto-generated method stub
+			return super.instantiateItem(container, position);
+		}
+
 
 		@Override
 		public int getCount() {
