@@ -94,31 +94,40 @@ $(function(){
 			window.location.href='addecoupont.jsp?session='+session+"#goods";
 			return;
 		}else if(com=='编辑'){
-			if($('.trSelected',grid).legth==1){
+			if($('.trSelected',grid).length==1){
 				jConfirm('确定编辑此项吗？','信息提示',function(r){
 					if(r){
 					var str	=$('.trSelected',grid)[0].id.substr(3);
-					window.location.href="editecoupont.jsp?session="+session+"#goods";
+					window.location.href="editecoupont.jsp?session="+session+"#goods&eid="+str;
+					return;
 					}
 				});
+			}else if($('.trSelected').length>1){
+				jAlert('请不要选择多个','信息提示');
 			}else {
 				jAlert('请选择一条信息','信息提示');
 				return false;
 			}
 		}else if(com=='删除'){
-			if($('.trSslected',grid).legth>0){
+			if($('.trSelected',grid).length>0){
 				jConfirm('确定删除吗？','信息提示',function(r){
 					if(r){
 						var str="";
-						$('.trSelected'.grid).each(function(){
-							str +=this.id.substr(3)+",";
+						$('.trSelected', grid).each(function() {
+							str += this.id.substr(3) + ",";
 						});
-						$.post("",{"eid":str},function(data){
-							
+						$.post("delEcouponT.action",{"eid":str},function(data){
+							if(data.flag){
+								jAlert('删除成功','信息提示');
+								$('#ecoupontmanagement').flexReload();
+							}
 						});
 					}
 				});
-				
+				return ;				
+			}else{
+				jAlert('请选择要删除的信息!', '信息提示');
+				return false;
 			}
 		}
 	}
