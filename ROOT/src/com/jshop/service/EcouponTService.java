@@ -21,4 +21,23 @@ public interface EcouponTService {
 	 * @return
 	 */
 	public int countAllEcoupon();
+	/**
+	 * 根据电子券id获取信息
+	 * @param eid
+	 * @return
+	 */
+	public EcouponT findEcouponByEid(String eid);
+	/**
+	 * 批量删除
+	 * @param id
+	 * @return
+	 */
+	public int dekEcoupont(String[] eid);
+	/**
+	 * 更新优惠券信息
+	 * @param eid
+	 * @return
+	 */
+	public int updateEcouponT(EcouponT et);
+	
 }
