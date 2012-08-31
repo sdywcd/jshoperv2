@@ -260,7 +260,11 @@
 	            android:id="@android:id/tabcontent"
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent">
-
+				 <android.support.v4.view.ViewPager
+			        android:id="@+id/goodslistPages"
+			        android:layout_width="0dp"
+			        android:layout_height="fill_parent"
+			        android:layout_weight="0.8"/>
 	            <ListView
 	                android:id="@+id/listViewfornewgoods"
 	                android:layout_width="fill_parent"
