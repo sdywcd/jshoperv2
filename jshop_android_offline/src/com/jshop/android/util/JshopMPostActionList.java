@@ -10,7 +10,7 @@ public class JshopMPostActionList {
 	 * 更新餐桌状态
 	 * 
 	 */
-	public static final String UPDATETABLETABLESTATEBYTABLENO="updateTableTtablestateBytableNo.action";
+	public static final String UPDATETABLETABLESTATEBYTABLENO="updateTableTtablestateBytableNoforAndroid.action";
 	/**
 	 * 获取所有商品分类
 	 */
