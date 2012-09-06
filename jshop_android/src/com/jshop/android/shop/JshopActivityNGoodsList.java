@@ -20,6 +20,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +54,8 @@ import com.jshop.android.widget.JshopListViewAdapter;
 public class JshopActivityNGoodsList extends TabActivity  implements TabContentFactory{
 	private final DBHelper dbhelper=new DBHelper(this);
 	private String[]tabTitle=null;
-	private GridView gv;
+	private ViewGroup maingroup;
+	private ViewPager viewPager;
 	private ListView listViews;//used by goodslist
 	private ListView listViewForCart;//used by cartlist
 	private TextView totalmemberprice;//显示我的菜单总价
@@ -464,11 +466,12 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 
 						@Override
 						public void onClick(View v) {
-							Intent intent = new Intent(JshopActivityNGoodsList.this,JshopActivityNGoodsViewPager.class);
-							intent.putExtra("curposition",list.get(position));
-							intent.putExtra("goodsCategoryTid", list.get(position).get("goodsCategoryTid").toString());
-							startActivity(intent);
-/*							AlertDialog.Builder builder;
+//							Intent intent = new Intent(JshopActivityNGoodsList.this,JshopActivityNGoodsViewPager.class);
+//							intent.putExtra("curposition",list.get(position));
+//							intent.putExtra("goodsCategoryTid", list.get(position).get("goodsCategoryTid").toString());
+//							startActivity(intent);
+							
+							AlertDialog.Builder builder;
 							AlertDialog alertDialog;
 							Context mContext = JshopActivityNGoodsList.this;
 							LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -503,7 +506,7 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 								}
 								
 							});
-							alert.show();*/
+							alert.show();
 						}											
 					});
 			return convertView;

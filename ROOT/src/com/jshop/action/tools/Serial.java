@@ -136,6 +136,8 @@ public class Serial {
 	public static String QUESTIONNAIRET="questionnaire";
 	//虚拟发货地址，邮件地址和手机号码
 	public static String VIRTUALSHIPPINGADDRESS="virtualshippingaddress";
+	//电子优惠券
+	public static String ECOUPONT="ecoupont";
 	
 	private SerialTService serialTService;
 	

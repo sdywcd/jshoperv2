@@ -9,6 +9,41 @@ $(function() {
 	var windowsurl = window.location;
 	$('#hidurl').attr("value", windowsurl);
 });
+
+/**
+ * 
+ */
+$(function(){
+	$.post("findUserHeadById.action",function(data){
+		if(data.head.headpath!=null){
+		$('#fileChecker').attr("src",data.head.headpath);
+		}
+		});
+});
+/**
+ * 异步获取登录的用户名
+ */
+function findUsernameSession(){
+	$.post("findUsernameFromSession.action",function(data){
+		if(data.username!=""){
+			$("#welcomeusername").html("你好["+data.username+"]");
+		}
+		
+	});
+}
+
+/**
+ * 异步获取登录的用户名
+ */
+function findUsernameSession(){
+	$.post("findUsernameFromSession.action",function(data){
+		if(data.username!=""){
+			$("#welcomeusername").html("你好["+data.username+"]");
+		}
+		
+	});
+}
+
 /**
  * 顶级搜索
  */
@@ -148,11 +183,11 @@ $(function() {
 
 $(function() {
 	// 获取url地址用来让用户登录时跳转
-	function redirect() {
+	function redirect(basepath) {
 		var url = window.location.search;
 		if (url == "") {
-			var redirecturl = "../../../../index.html";
-			self.location = redirecturl;
+			var redirecturl = "/index.html";
+			self.location =basepath+redirecturl;
 		} else {
 			var redirecturl = url.substring(url.indexOf("?") + 13, url.length);
 			self.location = redirecturl;
@@ -168,7 +203,7 @@ $(function() {
 			"password" : password
 		}, function(data) {
 			if (data.loginflag) {
-				redirect();
+				redirect(data.basepath);
 			} else {
 				return;
 			}
@@ -852,6 +887,28 @@ function showdiv(index) {
 	}
 
 }
+
+
+//控制特价促销页面UL的切换方法
+function show1() {
+$("#u1").show();
+$("#u2").hide();
+$("#u3").hide();
+}
+
+function show2() {
+$("#u1").hide();
+$("#u2").show();
+$("#u3").hide();
+}
+
+function show3() {
+$("#u1").hide();
+$("#u2").hide();
+$("#u3").show();
+}
+
+
 
 $(function(){
 	/**

@@ -910,6 +910,7 @@ public class UserTAction extends ActionSupport implements ServletResponseAware, 
 		if (Validate.StrNotNull(this.getUserid())) {
 			beanlist = this.getUsertService().findById(this.getUserid());
 			if (beanlist != null) {
+				beanlist.setHeadpath(BaseTools.getBasePath()+beanlist.getHeadpath());
 				return "json";
 			}
 		}

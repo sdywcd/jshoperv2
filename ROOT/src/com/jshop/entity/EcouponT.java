@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-8-22 20:51:22 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-8-27 13:29:59 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -19,16 +19,13 @@ public class EcouponT implements java.io.Serializable {
 	private String ecouponstate;
 	private String state;
 	private String note;
-	private String timerangebegin;
-	private String timerangeendtime;
 
 	public EcouponT() {
 	}
 
 	public EcouponT(String eid, String goodsname, double favourableprices,
 			double pricededuction, String goodsid, Date begintime,
-			Date endtime, String ecouponstate, String state, String note,
-			String timerangebegin, String timerangeendtime) {
+			Date endtime, String ecouponstate, String state, String note) {
 		this.eid = eid;
 		this.goodsname = goodsname;
 		this.favourableprices = favourableprices;
@@ -39,8 +36,6 @@ public class EcouponT implements java.io.Serializable {
 		this.ecouponstate = ecouponstate;
 		this.state = state;
 		this.note = note;
-		this.timerangebegin = timerangebegin;
-		this.timerangeendtime = timerangeendtime;
 	}
 
 	public String getEid() {
@@ -121,22 +116,6 @@ public class EcouponT implements java.io.Serializable {
 
 	public void setNote(String note) {
 		this.note = note;
-	}
-
-	public String getTimerangebegin() {
-		return this.timerangebegin;
-	}
-
-	public void setTimerangebegin(String timerangebegin) {
-		this.timerangebegin = timerangebegin;
-	}
-
-	public String getTimerangeendtime() {
-		return this.timerangeendtime;
-	}
-
-	public void setTimerangeendtime(String timerangeendtime) {
-		this.timerangeendtime = timerangeendtime;
 	}
 
 }

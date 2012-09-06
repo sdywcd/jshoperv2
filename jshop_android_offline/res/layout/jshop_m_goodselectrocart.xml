@@ -6,87 +6,78 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:layout_marginTop="5dp"
         android:orientation="vertical" >
 
-        <TableLayout
-            android:layout_width="fill_parent"
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|center"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="5dp"
-            android:stretchColumns="*" >
+            android:layout_gravity="center"
+            android:baselineAligned="true" >
 
-            <TableRow
-                android:id="@+id/tableRow1"
+
+            <Button
+                android:id="@+id/Buttonmaidan"
+                android:textColor="#ffffff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/floorleftbuttonleftbg"
+                android:text="@string/maidan" />
+
+
+            <Button
+                android:id="@+id/button1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:baselineAligned="true" >
+                android:background="@drawable/floortitlebg"
+                android:text="@string/myelectrocart"
+                android:textColor="#FFFFFF" />
 
-                <Button
-                    android:id="@+id/Buttonmaidan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/maidan"
-                    android:textColor="#000000" />
-
-                <Button
-                    android:id="@+id/backtolist"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/myelectrocart"
-                    android:textColor="#000000" />
 
-                <Button
-                    android:id="@+id/Buttondiandan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/diandan"
-                    android:textColor="#000000" />
-            </TableRow>
-        </TableLayout>
+            <Button
+                android:id="@+id/Buttondiandan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:background="@drawable/floorleftbuttonrightbg"
+                android:text="@string/diandan"
+                android:textColor="#ffffff" />
+
+        </TableRow>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_height="387dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="80dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="20dp"
         android:background="@drawable/border"
         android:orientation="vertical" >
-
         <ListView
             android:id="@+id/listViewmyelectrocart"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_width="708dp"
+            android:layout_height="1057dp"
             android:layout_gravity="center"
             android:background="#000000" >
-        </ListView>
-    </LinearLayout>
 
+        </ListView>
+
+    </LinearLayout>
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="-70dp"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/totalprice"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/totalprice"
-            android:textColor="#f7be14"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
 
