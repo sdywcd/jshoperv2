@@ -888,6 +888,28 @@ function showdiv(index) {
 
 }
 
+
+//控制特价促销页面UL的切换方法
+function show1() {
+$("#u1").show();
+$("#u2").hide();
+$("#u3").hide();
+}
+
+function show2() {
+$("#u1").hide();
+$("#u2").show();
+$("#u3").hide();
+}
+
+function show3() {
+$("#u1").hide();
+$("#u2").hide();
+$("#u3").show();
+}
+
+
+
 $(function(){
 	/**
 	 * 

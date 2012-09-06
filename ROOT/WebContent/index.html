@@ -8,24 +8,13 @@
 <meta name="keywords" content="ostocy-jshop2.0系统演示"/>
 <meta name="description" content="ostocy-jshop2.0系统演示"/>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<<<<<<< HEAD
-<link rel="stylesheet" type="text/css" href="/ostocy/ui/default/css/global.css" />
-<link rel="stylesheet" type="text/css" href="/ostocy/ui/default/css/index.css" />
-<link rel="stylesheet" type="text/css" href="/ostocy/ui/default/css/category.css" />
-<link rel="stylesheet" type="text/css" href="/ostocy/ui/default/js/easyslider1.7/css/screen.css"/>
-<script type="text/javascript"  src="/ostocy/ui/default/js/jquery-1.6.2.min.js"></script>
-<script type="text/javascript" src="/ostocy/ui/default/js/easyslider1.7/js/easySlider1.7.js"></script>
-<script type="text/javascript" src="/ostocy/ui/default/js/jquery.query.js"></script>
-=======
 <link rel="stylesheet" type="text/css" href="/ui/default/css/global.css" />
 <link rel="stylesheet" type="text/css" href="/ui/default/css/index.css" />
 <link rel="stylesheet" type="text/css" href="/ui/default/css/category.css" />
 <link rel="stylesheet" type="text/css" href="/ui/default/js/easyslider1.7/css/screen.css"/>
 <script type="text/javascript"  src="/ui/default/js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="/ui/default/js/easyslider1.7/js/easySlider1.7.js"></script>
-<script type="text/javascript" src="/ui/default/js/jquery.query.js"></script>
->>>>>>> e4a64100a4ffba1e115196766968e2a7f93fbd54
-</head><body onload="findUsernameSession();">
+</head><body>
 <!--载入公共头文件-->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -35,9 +24,9 @@
 		<link rel="stylesheet" type="text/css" href="/ui/default/css/global.css"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 
-
+		
 	</head>
-	<body >
+	<body>
 		<div id="header">
 			<div id="logininfo" style="height: 30px;">
 				<div class="topbar">
@@ -52,30 +41,19 @@
 								您好，欢迎来到欧斯塔克商城！
 							</div>
 							<ul>
-									
-										<li id="welcomeusername">
-
-											<a href="/ostocy/html/default/shop/user/login.html"
-											  >登录
-											</a>
-										</li>
-
-										
+									<li>
+										<a href="/html/default/shop/user/login.html"
+										 target="_blank" >登录
+										</a>
+									</li>
 									<li>
 										<a href="/InitUserCenterIndex.action"
 										 >我的塔克
 										</a>
 									</li>
-
 									<li>
 										<a href="/html/default/shop/user/register.html"
-										  >免费注册
-										</a>
-									</li>
-									
-									<li>
-										<a href="/ostocy/userLogout.action"
-										 >退出
+										 target="_blank" >免费注册
 										</a>
 									</li>
 							</ul>
@@ -136,29 +114,19 @@
 			<li>
 				<img src="/ui/default/images/top_separator_02.gif">
 			</li>
-			<li>
-				<a href="/GettoGoodsGroupList.action"
-				 >塔克团购
-				</a>
-				
-			</li>
-			<li>
-				<img src="/ui/default/images/top_separator_02.gif">
-			</li>
 			
 		</ul>
 		<div class="search">
 			
-	
+			<form id="searchform" name="searchform" method="get" style="margin: 0px" action="/ProductListSort.do ">
 				<div style="display:none;">
 					<input type="hidden" id="SortCid2" name="Cid" value="">
 					<input type="hidden" id="thKeywords" name="Keywords">
 					<input type="hidden" name="searchlist" value="1">
 				</div>
 					<input type="text" id="topKeywords" class="searchinput_top" value="" onfocus="if (value ==''){value =''};this.style.color='#000'" onkeyup="showSuggest();" onkeydown="keyDown(event)">
-<button id="searchgoods" name="searchgoods" class="searchbtn" target="_blank"value="搜索"/>
-					
-			
+					<a href="#" onclick="javascript:checkTopSearchForm();return false;" class="searchbtn" target="_blank" title="搜索"></a>
+			</form>
 		</div>
 	
 
@@ -194,58 +162,10 @@
                       
                       
                       
-                       <a href="/html/default/shop/pad_1.html">平板电脑</a> 
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
+                       <a href="/html/default/shop/pad_1.html">平板电脑</a>                       
+                                                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                                                                                                                                                 
                        <a href="/html/default/shop/ydyp_1.html">移动硬盘</a> 
-                      
                       
                       
                       
@@ -265,7 +185,6 @@
                 </div>
               </div>
             </li>
-           
             <li><a target='_blank' href="/html/default/shop/sjsm_1.html">手机数码</a>
               <div class="cms_submenu">
                 <div class="cmsmenuleft">
@@ -288,52 +207,9 @@
                       
                       
                       
-                       <a href="/html/default/shop/telephone_1.html">手机</a> 
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
+                       <a href="/html/default/shop/telephone_1.html">手机</a>                      
+                                                                                                            
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
                        <a href="/html/default/shop/dfxj_1.html">单反相机</a> 
                       
                       
@@ -341,7 +217,6 @@
                       
                       
                        <a href="/html/default/shop/sxj_1.html">摄像机</a> 
-                      
                        </dd>
                     <div class="clear"></div>
                   </dl>
@@ -357,7 +232,6 @@
                 </div>
               </div>
             </li>
-           
             <li><a target='_blank' href="/html/default/shop/hhapp_1.html">家用电器</a>
               <div class="cms_submenu">
                 <div class="cmsmenuleft">
@@ -434,7 +308,6 @@
                        <a href="/html/default/shop/dcl_1.html">电磁炉</a> 
                       
                       
-                      
                        </dd>
                     <div class="clear"></div>
                   </dl>
@@ -450,355 +323,13 @@
                 </div>
               </div>
             </li>
-           
-            <li><a target='_blank' href="/html/default/shop/lingshi_1.html">零食</a>
-              <div class="cms_submenu">
-                <div class="cmsmenuleft">
-                  <dl class="menu_recommend">
-                    <dt>热门类目</dt>
-                    <dd> 
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                       </dd>
-                    <div class="clear"></div>
-                  </dl>
-                  <dl class="menu_price">
-                    <div class="clear"></div>
-                  </dl>
-                  <dl class="menu_new">
-                  </dl>
-                </div>
-                <div class="cmsmenuright">
-                  <dl>
-                  </dl>
-                </div>
-              </div>
-            </li>
-           
-            <li><a target='_blank' href="/html/default/shop/jjry_1.html">家居日用</a>
-              <div class="cms_submenu">
-                <div class="cmsmenuleft">
-                  <dl class="menu_recommend">
-                    <dt>热门类目</dt>
-                    <dd> 
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                       <a href="/html/default/shop/baoxh_1.html">保鲜盒</a> 
-                      
-                      
-                      
-                       <a href="/html/default/shop/cjyp_1.html">厨具用品</a> 
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                       <a href="/html/default/shop/snyp_1.html">收纳用品</a> 
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                       </dd>
-                    <div class="clear"></div>
-                  </dl>
-                  <dl class="menu_price">
-                    <div class="clear"></div>
-                  </dl>
-                  <dl class="menu_new">
-                  </dl>
-                </div>
-                <div class="cmsmenuright">
-                  <dl>
-                  </dl>
-                </div>
-              </div>
-            </li>
-           
-            <li><a target='_blank' href="/html/default/shop/xblp_1.html">箱包礼品</a>
-              <div class="cms_submenu">
-                <div class="cmsmenuleft">
-                  <dl class="menu_recommend">
-                    <dt>热门类目</dt>
-                    <dd> 
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                       <a href="/html/default/shop/stxkb_1.html">手提斜挎包</a> 
-                      
-                      
-                      
-                      
-                      
-                      
-                       <a href="/html/default/shop/qianb_1.html">钱包</a> 
-                      
-                      
-                       </dd>
-                    <div class="clear"></div>
-                  </dl>
-                  <dl class="menu_price">
-                    <div class="clear"></div>
-                  </dl>
-                  <dl class="menu_new">
-                  </dl>
-                </div>
-                <div class="cmsmenuright">
-                  <dl>
-                  </dl>
-                </div>
-              </div>
-            </li>
-           
-            <li><a target='_blank' href="/html/default/shop/jcxx_1.html">教程学习</a>
-              <div class="cms_submenu">
-                <div class="cmsmenuleft">
-                  <dl class="menu_recommend">
-                    <dt>热门类目</dt>
-                    <dd> 
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                       </dd>
-                    <div class="clear"></div>
-                  </dl>
-                  <dl class="menu_price">
-                    <div class="clear"></div>
-                  </dl>
-                  <dl class="menu_new">
-                  </dl>
-                </div>
-                <div class="cmsmenuright">
-                  <dl>
-                  </dl>
-                </div>
-              </div>
-            </li>
-           
           </ul>
         </div>
       </div>
       <div class="hongfentuan mt7">
 		
 		<div class="groupbuy">
-		<img width="208" height="215" alt="" border="0" src="/ostocy//ui/default/images/20120406044512909.jpg" style="display: inline; ">
+		<img width="208" height="215" alt="" border="0" src="/ui/default/images/20120406044512909.jpg" style="display: inline; ">
          <!--  <div class="groupbuy_time"> 剩余<span id="hour">20</span>时<span id="minute">13</span>分<span id="second">28</span>秒 </div>
           <script type="text/javascript">saleTimer(-330352615,72847385);
 		    </script>
@@ -809,7 +340,7 @@
           </a> -->
 		</div>
         <div class="groupbuy" style="border-top:#e0e0e0 solid 1px;">
-		<img width="208" height="215" alt="" border="0" src="/ostocy//ui/default/images/20120406041435454.jpg" style="display: inline; ">
+		<img width="208" height="215" alt="" border="0" src="/ui/default/images/20120406041435454.jpg" style="display: inline; ">
 <!--           <div class="groupbuy_time" style="width:168px;float:left;margin:6px 0 0 0;color:#484848;padding:0 0 0 40px;"> 剩余<span id="hour2">44</span>时<span id="minute2">13</span>分<span id="second2">28</span>秒 </div>
           <script type="text/javascript">saleTimer(-99952617,159247383);
 		    </script>
@@ -1060,15 +591,15 @@
       <div class="mainright_r">
         <div class="board">
           <h1> <a href="#" target="_blank">更多</a> </h1>
-			<ul>
-			<li> <a href="/html/default/article/notice/201205060078.html" target="_blank">配送范围查询</a> </li>
-			<li> <a href="/html/default/article/notice/201205060086.html" target="_blank">错货补货</a> </li>
-			<li> <a href="/html/default/article/notice/201205060088.html" target="_blank">交易条款</a> </li>
-			<li> <a href="/html/default/article/notice/201205060089.html" target="_blank">积分政策</a> </li>
-			<li> <a href="/html/default/article/notice/201205060090.html" target="_blank">购物券政策</a> </li>
-			<li> <a href="/html/default/article/notice/201205060091.html" target="_blank">联系客服</a> </li>
-			<li> <a href="/html/default/article/notice/201205060092.html" target="_blank">常见问题</a> </li>
-			</ul>
+          <ul>
+            <li><a href="#" target="_blank">欧斯塔克商城返利</a></li>
+            <li><a href="#" target="_blank">有礼有节 小黑赠原装内存</a></li>
+            <li><a href="#" target="_blank">史上最给力神秘礼包现身</a></li>
+            <li><a href="#" target="_blank">低能耗数码限时1小时疯抢</a></li>
+            <li><a href="#" target="_blank">ThinkPad狂欢全场赠小黑优盘</a></li>
+            <li><a href="#" target="_blank">欧斯塔克商城打造女人节</a></li>
+            <li><a href="#" target="_blank">数码装备大折扣全场赠8G卡</a></li>
+          </ul>
           <div class="clear"></div>
         </div>
         <div class="mainright_div1wrap mt7">
@@ -1652,7 +1183,7 @@ $(function(data){
 			
 			<li> <a href="/html/default/article/201205060077.html" target="_blank">快速送货</a> </li>
 			
-			<li> <a href="/html/default/article/notice/201205060078.html" target="_blank">配送范围查询</a> </li>
+			<li> <a href="/html/default/article/201205060078.html" target="_blank">配送范围查询</a> </li>
 			
 			<li> <a href="/html/default/article/201205060079.html" target="_blank">加急送</a> </li>
           </ul>
@@ -1665,11 +1196,11 @@ $(function(data){
 			
 			<li> <a href="/html/default/article/201205060085.html" target="_blank">服务承诺</a> </li>
 			
-			<li> <a href="/html/default/article/notice/201205060086.html" target="_blank">错货补货</a> </li>
+			<li> <a href="/html/default/article/201205060086.html" target="_blank">错货补货</a> </li>
 			
 			<li> <a href="/html/default/article/201205060087.html" target="_blank">退款办理</a> </li>
 			
-			<li> <a href="/html/default/article/notice/201205060088.html" target="_blank">交易条款</a> </li>
+			<li> <a href="/html/default/article/201205060088.html" target="_blank">交易条款</a> </li>
           </ul>
         </div>
         <div class="service_z1">
@@ -1689,13 +1220,13 @@ $(function(data){
           <h1>5 . 虚拟物品</h1>
 		  <ul>
 			
-			<li> <a href="/html/default/article/notice/201205060089.html" target="_blank">积分政策</a> </li>
+			<li> <a href="/html/default/article/201205060089.html" target="_blank">积分政策</a> </li>
 			
-			<li> <a href="/html/default/article/notice/201205060090.html" target="_blank">购物券政策</a> </li>
+			<li> <a href="/html/default/article/201205060090.html" target="_blank">购物券政策</a> </li>
 			
-			<li> <a href="/html/default/article/notice/201205060091.html" target="_blank">联系客服</a> </li>
+			<li> <a href="/html/default/article/201205060091.html" target="_blank">联系客服</a> </li>
 			
-			<li> <a href="/html/default/article/notice/201205060092.html" target="_blank">常见问题</a> </li>
+			<li> <a href="/html/default/article/201205060092.html" target="_blank">常见问题</a> </li>
           </ul>
         </div>
    
@@ -1716,7 +1247,7 @@ $(function(data){
   </div>
   <!-- 底部文字菜单 -->
   <div class="copyright">
-    <p> <a href="http://www.ostocy.com" target="_blank">关于我们</a> | <a href="#" target="_blank">帮助中心</a> | <a href="#" target="_blank">联系我们</a> | <a href="#" target="_blank">合作伙伴</a> | <a href="#" target="_blank">友情链接</a> | <a href="#" target="_blank">人才招聘</a> </p>
+    <p> <a href="www.ostocy.com" target="_blank">关于我们</a> | <a href="#" target="_blank">帮助中心</a> | <a href="#" target="_blank">联系我们</a> | <a href="#" target="_blank">合作伙伴</a> | <a href="#" target="_blank">友情链接</a> | <a href="#" target="_blank">人才招聘</a> </p>
     <span>沪ICP备09069935号<br>
     Copyright&#169;2000-2012 All Rights Reserved 欧斯塔克(上海) 版权所有</span> </div>
   <div class="link"> </div>
