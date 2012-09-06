@@ -29,6 +29,7 @@
 		<script type="text/javascript" src="<%=basePathb%>jshop/admin/js/jqueryplugin/jquery.query.js"></script>
 		<script type="text/javascript" src="<%=basePathb%>jshop/admin/js/uploader/fileuploader.js"></script>
 		<script type="text/javascript" src="<%=basePathb%>jshop/admin/js/farbtastic/farbtastic.js"></script>
+		<script type="text/javascript" src="<%=basePathb%>jshop/admin/js/jqueryprogressbar/jquery.progressbar.min.js"></script>
 		<script type="text/javascript" src="<%=basePathb%>jshop/admin/adminindexjs.js"></script>
 		<script type="text/javascript" src="<%=basePathb%>jshop/admin/indexjs.js"></script>
 		<!-- stylesheets -->
@@ -106,10 +107,10 @@
                                                             </li>
                                                   </ul>-->
 				</li>
-				<li><form action="createTable">
-				<input type="submit" value="创建数据库"></input>
-				</form>
-				
+				<li>
+					<a href="" onclick="createSqlite()"><span class="normal">同步SQLite数据库</span>
+					</a>
+					
 				</li>
 				<!-- <li>
                                                   <a href="" title="Events"><span class="icon"><img src="<%=basePathb%>jshop/admin/resources/images/icons/calendar.png" alt="Events" /></span><span>Events</span></a>

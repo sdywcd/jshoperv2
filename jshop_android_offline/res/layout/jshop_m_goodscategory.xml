@@ -12,45 +12,38 @@
         android:layout_marginTop="5dp"
         android:orientation="vertical" >
 
-      	<TableLayout
-            android:layout_width="fill_parent"
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|center"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:stretchColumns="1" >
-            
-	        <TableRow
-	            android:id="@+id/tableRow1"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_gravity="center"
-	            android:baselineAligned="true" >
-	
-	            <ImageButton
-	                android:id="@+id/imageButton1"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:background="#00000000"
-	                android:src="@drawable/floorleftbutton" />
-		
-	            <Button
-	                android:id="@+id/button1"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:background="@drawable/floortitlebg"
-	                android:text="@string/goodscategoryname"
-	                android:textColor="#FFFFFF" />
-	
-	            <ImageButton
-	                android:id="@+id/imageButton3"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_gravity="left"
-	                android:background="#00000000"
-	                android:src="@drawable/floorrightbutton" />
-	        </TableRow>
-        </TableLayout>
+            android:layout_gravity="center"
+            android:baselineAligned="true" >
+
+            <ImageButton
+                android:id="@+id/imageButton1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:src="@drawable/floorleftbutton" />
+
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/floortitlebg"
+                android:text="@string/goodscategoryname"
+                android:textColor="#FFFFFF" />
+
+            <ImageButton
+                android:id="@+id/imageButton3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:background="#00000000"
+                android:src="@drawable/floorrightbutton" />
+        </TableRow>
     </LinearLayout>
 
 
@@ -61,26 +54,27 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_height="387dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="-2dp"
-        android:layout_marginLeft="52dp"
-        android:layout_marginRight="52dp"
         android:background="@drawable/border"
         android:orientation="vertical" >
 
+
+
+
+
+
+
         <GridView
             android:id="@+id/goodscategorygridView"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_width="705dp"
+            android:layout_height="1094dp"
+            android:layout_gravity="center"
             android:background="#000000"
-            android:columnWidth="100dp"
-            android:horizontalSpacing="10dp"
-            android:numColumns="4"
-            android:gravity="center"
-            android:stretchMode="spacingWidthUniform" >
+            android:numColumns="4" >
+
         </GridView>
+
      
     </LinearLayout>
 

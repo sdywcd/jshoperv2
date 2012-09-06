@@ -314,8 +314,8 @@ public class CreateHtml extends ActionSupport {
 	 * @throws TemplateException
 	 */
 	public void buildGoodsCategoryPage(Map<String, Object> map) throws IOException, TemplateException {
-		String salestate = "1";
-		List<GoodsCategoryT> gclist = this.getDataCollectionTAction().findAllGoodsCategoryTByState();
+		String salestate = "1";//salestate=1表示上架商品
+		List<GoodsCategoryT> gclist = this.getDataCollectionTAction().findAllGoodsCategoryTByState();//读取所有启用的商品分类
 		if (!gclist.isEmpty()) {
 			List<GoodsT> list = new ArrayList<GoodsT>();
 			for (Iterator it = gclist.iterator(); it.hasNext();) {

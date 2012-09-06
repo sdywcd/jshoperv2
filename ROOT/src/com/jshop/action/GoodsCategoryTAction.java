@@ -100,7 +100,7 @@ public class GoodsCategoryTAction extends ActionSupport {
 	private String usession;
 	private String sortname;
 	private String sortorder;
-
+	private String basepath;
 	@JSON(serialize = false)
 	public DataCollectionTAction getDataCollectionTAction() {
 		return dataCollectionTAction;
@@ -497,6 +497,14 @@ public class GoodsCategoryTAction extends ActionSupport {
 		this.mobilesync = mobilesync;
 	}
 
+	public String getBasepath() {
+		return basepath;
+	}
+
+	public void setBasepath(String basepath) {
+		this.basepath = basepath;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -752,7 +760,7 @@ public class GoodsCategoryTAction extends ActionSupport {
 	}
 
 	/**
-	 * 获取商品分类
+	 * 获取商品分类详细
 	 * 
 	 * @return
 	 */
@@ -761,6 +769,7 @@ public class GoodsCategoryTAction extends ActionSupport {
 		if (Validate.StrNotNull(this.getGoodsCategoryTid())) {
 			bean = this.getGoodsCategoryTService().findGoodscategoryBygoodscategoryId(this.getGoodsCategoryTid());
 			if (bean != null) {
+				bean.setLogo(BaseTools.getBasePath()+bean.getLogo());
 				return "json";
 			}
 		}

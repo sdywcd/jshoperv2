@@ -8,8 +8,7 @@
 %>
 <%
 	request.setCharacterEncoding("UTF-8");
-	String htmlData = request.getParameter("detail") != null ? request
-			.getParameter("detail") : "";
+	String htmlData = request.getParameter("detail") != null ? request.getParameter("detail") : "";
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

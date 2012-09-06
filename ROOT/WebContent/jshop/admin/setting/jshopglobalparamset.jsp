@@ -74,7 +74,7 @@
 						</div>
 					</div>
 					<div class="title">
-						<h5>购物流程</h5>
+						<h5>购物规则</h5>
 					</div>
 					<div class="form">
 						<div class="fields">
@@ -97,7 +97,23 @@
 										class="small" />
 								</div>
 							</div>
-							
+							<div class="field">
+								<div class="label label-radio">
+									<label> 全场电子优惠激活: </label>
+								</div>
+								<div class="radios">
+									<div class="radio">
+										<input type="radio" id="isglobalecoupon"
+											name="isglobalecoupon" value="1" /> <label for="radio-1">
+											开启 </label>
+									</div>
+									<div class="radio">
+										<input type="radio" id="isglobalecoupon"
+											name="isglobalecoupon" value="0" checked /> <label
+											for="radio-2"> 关闭 </label>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="title">

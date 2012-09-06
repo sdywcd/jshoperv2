@@ -44,9 +44,7 @@
 					</div>
 				</div>
 				<!-- end table -->
-				<form action="download" id="form">
-		<input type="submit" id="but" value="下载"/>
-	</form>
+			
 			</div>
 			<!-- end content / right -->
 		</div>

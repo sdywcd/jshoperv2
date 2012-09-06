@@ -9,6 +9,7 @@
 	<head>
 
 		<title>网站生成信息反馈</title>
+
 	</head>
 	<body>
 		<!-- header 包含头部导航-->
@@ -33,12 +34,23 @@
 
 					<div class="form">
 						<div class="fields">
-							<div class="field  field-first">
+							<!-- <div class="field">
+								<div class="label label-radio">
+									<label>进度信息: </label>
+								</div>
+								<div class="input">
+									<span class="progressbar" id="uploadprogressbar">0%</span>	
+								</div>
+							</div>
+							 -->
+							<div class="field">
 								<div class="label label-textarea">
 										<label for="textarea">
 											反馈信息:
 										</label>
 									</div>
+								
+									
 									<div id="backinfo" style="border:1px solid #ccc;margin: 0 0 0 200px; height:auto;">
 										
 									</div>
@@ -69,7 +81,10 @@
 		<!-- end content -->
 		<!-- footer -->
 		<%@include file="/jshop/admin/footer.jsp"%>
+		<script type="text/javascript">
+
 		
+		</script>
 
 	</body>
 </html>

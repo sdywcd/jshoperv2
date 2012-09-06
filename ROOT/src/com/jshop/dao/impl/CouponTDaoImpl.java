@@ -51,6 +51,7 @@ public class CouponTDaoImpl extends HibernateDaoSupport implements CouponTDao {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<CouponT> findAllCoupon(final int currentPage, final int lineSize) {
 		log.debug("find all findAllCoupon");
 		try {
