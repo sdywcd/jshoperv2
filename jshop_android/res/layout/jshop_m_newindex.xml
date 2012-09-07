@@ -76,18 +76,18 @@
 
         <RelativeLayout
             android:id="@+id/block_1"
-            android:layout_width="440dp"
+            android:layout_width="440dp"                  
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
-            android:background="@color/cobalt_blue"
-            android:gravity="bottom|right" >
+            android:gravity="bottom|right"
+            style="?rBlock">
 
             <ImageView
                 android:id="@+id/image1"
                 android:layout_width="246dp"
                 android:layout_height="120dp"
-                
-                android:background="@color/dirty_blue" />
+                android:background="@color/dirty_blue"
+                />
         </RelativeLayout>
 
         <RelativeLayout
