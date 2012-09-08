@@ -126,7 +126,7 @@
         <RelativeLayout
             android:id="@+id/block_3"
             android:layout_width="match_parent"
-            android:layout_height="275dp"
+            android:layout_height="287dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"

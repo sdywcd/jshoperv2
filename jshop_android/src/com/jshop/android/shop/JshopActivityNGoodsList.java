@@ -14,11 +14,14 @@ import android.app.AlertDialog;
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -51,12 +54,14 @@ import com.jshop.android.widget.JshopListViewAdapter;
 public class JshopActivityNGoodsList extends TabActivity  implements TabContentFactory{
 	private final DBHelper dbhelper=new DBHelper(this);
 	private String[]tabTitle=null;
-	private GridView gv;
+	private ViewGroup maingroup;
+	private ViewPager viewPager;
 	private ListView listViews;//used by goodslist
 	private ListView listViewForCart;//used by cartlist
 	private TextView totalmemberprice;//显示我的菜单总价
 	private TextView seatTextView;//显示座位
 	private TextView seatSetTextView;//设置座位
+	private TextView changeviewlooking;//变换视图模式
 	private TextView clearlistTextView;//清空列表
 	private Double total=0.0;
 	private List<Map<String,Object>>goodscategoryList=new ArrayList<Map<String,Object>>();//商品分类
@@ -145,9 +150,10 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 			}
 			
 		});
+
 		
-		
-	}	
+	}
+
 	/**
 	 * 清空订单列表
 	 */
@@ -332,7 +338,10 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 		return view;
 	}
 	
-
+	/**
+	 * 根据商品分类名称获取商品列表
+	 * @param tag
+	 */
 	@SuppressWarnings("unused")
 	private  void collectSqliteGoodsList(String tag){
 		
@@ -442,7 +451,7 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 			holder.getUnitname().setText(
 					list.get(position).get("unitname").toString());
 			holder.getDetail().setText(
-					list.get(position).get("detail").toString());
+					Html.fromHtml(list.get(position).get("detail").toString()));
 			holder.getAddtomyelecartmenu().setOnClickListener(
 					new OnClickListener() {
 						@Override
@@ -457,13 +466,22 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 
 						@Override
 						public void onClick(View v) {
-							AlertDialog.Builder builder;
+							Intent intent = new Intent(JshopActivityNGoodsList.this,JshopActivityNGoodsViewPager.class);
+							intent.putExtra("curposition",list.get(position));
+							intent.putExtra("goodsCategoryTid", list.get(position).get("goodsCategoryTid").toString());
+							startActivity(intent);
+							
+/*							AlertDialog.Builder builder;
 							AlertDialog alertDialog;
 							Context mContext = JshopActivityNGoodsList.this;
 							LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+						
+							
 							final View bigpicPopupLayout = inflater.inflate(R.layout.jshop_m_bigpic,null);
 							builder = new AlertDialog.Builder(mContext);
 							ImageView bigpicview = (ImageView) bigpicPopupLayout.findViewById(R.id.bigpic);
+						
+							
 							String goodsid = list.get(position).get("goodsid").toString();
 							Cursor c = dbhelper.queryByParamgoodsid(dbhelper.GOODS_TM_NAME,goodsid);
 							try {
@@ -478,8 +496,17 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 								   //.setMessage(list.get(position).get("goodsname").toString())
 								   .setView(bigpicPopupLayout);
 								   //.setNegativeButton("关闭",null);
-							AlertDialog alert = builder.create();
-							alert.show();
+							final AlertDialog alert = builder.create();
+							bigpicview.setOnClickListener(new OnClickListener(){
+
+								@Override
+								public void onClick(View v) {
+									// TODO Auto-generated method stub
+									alert.dismiss();
+								}
+								
+							});
+							alert.show();*/
 						}											
 					});
 			return convertView;

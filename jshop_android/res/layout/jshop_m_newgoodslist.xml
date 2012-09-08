@@ -97,10 +97,12 @@
                     android:gravity="center_vertical"
                     android:orientation="vertical">
                     <TextView 
+                        android:id="@+id/changeviewlooking"
                         android:layout_marginLeft="5dp"
                         android:text="点餐\nOrder Dishes"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
+                        android:textSize="20dp"
                         android:gravity="center_vertical"
                         android:textColor="@color/white"/>
                     
@@ -118,6 +120,7 @@
                         android:id="@+id/setseat"
                         android:layout_marginLeft="5dp"
                         android:text="就座\nHave a seat "
+                        android:textSize="20dp"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:gravity="center_vertical"
@@ -136,6 +139,7 @@
                         android:layout_marginLeft="5dp"
                         android:text="清空列表\nClear list"
                         android:layout_width="fill_parent"
+                        android:textSize="20dp"
                         android:layout_height="fill_parent"
                         android:gravity="center_vertical"
                         android:textColor="@color/white"/>
@@ -156,7 +160,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:background="@drawable/orders" 
+            android:background="@drawable/refresh" 
             android:layout_marginBottom="5dp"
             android:layout_gravity="center_horizontal">
             
@@ -256,7 +260,11 @@
 	            android:id="@android:id/tabcontent"
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent">
-
+				 <android.support.v4.view.ViewPager
+			        android:id="@+id/goodslistPages"
+			        android:layout_width="0dp"
+			        android:layout_height="fill_parent"
+			        android:layout_weight="0.8"/>
 	            <ListView
 	                android:id="@+id/listViewfornewgoods"
 	                android:layout_width="fill_parent"

@@ -411,7 +411,7 @@
 										</label>
 									</div>
 									<div class="input input-file">
-										<button id="delpc" name="delpc">
+										<button id="delpc" name="delpc" style="border:1px solid #ccc;">
 											删除图片
 										</button>
 										<div id="file-uploader-demo1">
@@ -424,6 +424,15 @@
 										</div>
 										<!-- trigger elements -->
 										<div id="triggers">
+										</div>
+									</div>
+									<div class="input input-file">
+										<button id="showserverpc" name="showserverpc" style="border:1px solid #ccc;">
+											从服务器选择已上传的图片
+										</button>
+										
+										<!-- trigger elements -->
+										<div id="triggers1" style="border:1px solid #ccc;width:80%;height:200px">
 										</div>
 									</div>
 								</div>
