@@ -125,7 +125,9 @@ public class JshopMGoodsListAction {
 		Bitmap bitmap=BitmapFactory.decodeFile(sdcard+url,options);
 		
 		return bitmap;
+
     }  
+
 
 	
 	/**
@@ -152,6 +154,8 @@ public class JshopMGoodsListAction {
 		Bitmap bitmap=BitmapFactory.decodeFile(sdcard+url);
 		return bitmap;
 	}
+
+
 
 	/**
 	 * 获取网络图片名称
@@ -220,6 +224,31 @@ public class JshopMGoodsListAction {
 
 	}
 
+	/**
+	 * 获取商品列表没有经过压缩和bitmap处理
+	 * @param c
+	 * @return
+	 * @throws IOException
+	 */
+	public ArrayList<HashMap<String,Object>> getGoodsListSQLiteNoBitmap(Cursor c) throws IOException{
+		goodslists.clear();
+		c.moveToFirst();
+		while(!c.isAfterLast()){//！！！！
+			HashMap<String,Object> map = new HashMap<String,Object>();
+			map.put("goodsid", c.getString(c.getColumnIndex("goodsid")));
+			map.put("goodsname", c.getString(c.getColumnIndex("goodsname")));
+			map.put("memberprice", c.getString(c.getColumnIndex("memberprice")));
+			map.put("pictureurl",subStringPictureurl(c.getString(c.getColumnIndex("pictureurl")).toString()));
+			map.put("weight", c.getString(c.getColumnIndex("weight")));
+			map.put("unitname", c.getString(c.getColumnIndex("unitname")));
+			map.put("detail", c.getString(c.getColumnIndex("detail")));
+			map.put("goodsCategoryTid", c.getString(c.getColumnIndex("goodsCategoryTid")));
+			goodslists.add(map);
+			c.moveToNext();
+		}
+		return goodslists;
+	}
+	
 	/**
 	 * 读取商品列表换群从sqlite
 	 * 

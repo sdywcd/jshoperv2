@@ -28,7 +28,8 @@
 		<script type="text/javascript" src="<%=basePathb%>jshop/admin/js/flexigrid/flexigrid.js"></script>
 		<script type="text/javascript" src="<%=basePathb%>jshop/admin/js/jqueryplugin/jquery.query.js"></script>
 		<script type="text/javascript" src="<%=basePathb%>jshop/admin/js/uploader/fileuploader.js"></script>
-		<script type="text/javascript" src="<%=basePathb%>jshop/admin/js/farbtastic/farbtastic.js"></script>		
+		<script type="text/javascript" src="<%=basePathb%>jshop/admin/js/farbtastic/farbtastic.js"></script>
+		<script type="text/javascript" src="<%=basePathb%>jshop/admin/js/jqueryprogressbar/jquery.progressbar.min.js"></script>
 		<script type="text/javascript" src="<%=basePathb%>jshop/admin/adminindexjs.js"></script>
 		<script type="text/javascript" src="<%=basePathb%>jshop/admin/indexjs.js"></script>
 		<!-- stylesheets -->
