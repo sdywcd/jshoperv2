@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2012-8-27 13:29:59 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2012-9-8 14:04:53 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="com.jshop.entity.PlaceoforiginT" table="placeoforigin_t" catalog="jshopactive">
         <id name="placeid" type="string">
@@ -16,6 +16,24 @@
         </property>
         <property name="createtime" type="timestamp">
             <column name="CREATETIME" length="0" not-null="true" />
+        </property>
+        <property name="parentId" type="string">
+            <column name="PARENT_ID" length="20" not-null="true" />
+        </property>
+        <property name="grade" type="string">
+            <column name="GRADE" length="1" not-null="true" />
+        </property>
+        <property name="sort" type="int">
+            <column name="SORT" not-null="true" />
+        </property>
+        <property name="parentName" type="string">
+            <column name="PARENT_NAME" length="45" not-null="true" />
+        </property>
+        <property name="updatetime" type="timestamp">
+            <column name="UPDATETIME" length="0" not-null="true" />
+        </property>
+        <property name="versiont" type="int">
+            <column name="VERSIONT" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

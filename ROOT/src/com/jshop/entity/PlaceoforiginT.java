@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-8-27 13:29:59 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-9-8 14:04:52 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -13,16 +13,29 @@ public class PlaceoforiginT implements java.io.Serializable {
 	private String placename;
 	private String creatorid;
 	private Date createtime;
+	private String parentId;
+	private String grade;
+	private int sort;
+	private String parentName;
+	private Date updatetime;
+	private int versiont;
 
 	public PlaceoforiginT() {
 	}
 
 	public PlaceoforiginT(String placeid, String placename, String creatorid,
-			Date createtime) {
+			Date createtime, String parentId, String grade, int sort,
+			String parentName, Date updatetime, int versiont) {
 		this.placeid = placeid;
 		this.placename = placename;
 		this.creatorid = creatorid;
 		this.createtime = createtime;
+		this.parentId = parentId;
+		this.grade = grade;
+		this.sort = sort;
+		this.parentName = parentName;
+		this.updatetime = updatetime;
+		this.versiont = versiont;
 	}
 
 	public String getPlaceid() {
@@ -55,6 +68,54 @@ public class PlaceoforiginT implements java.io.Serializable {
 
 	public void setCreatetime(Date createtime) {
 		this.createtime = createtime;
+	}
+
+	public String getParentId() {
+		return this.parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+
+	public String getGrade() {
+		return this.grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+	public int getSort() {
+		return this.sort;
+	}
+
+	public void setSort(int sort) {
+		this.sort = sort;
+	}
+
+	public String getParentName() {
+		return this.parentName;
+	}
+
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
+
+	public Date getUpdatetime() {
+		return this.updatetime;
+	}
+
+	public void setUpdatetime(Date updatetime) {
+		this.updatetime = updatetime;
+	}
+
+	public int getVersiont() {
+		return this.versiont;
+	}
+
+	public void setVersiont(int versiont) {
+		this.versiont = versiont;
 	}
 
 }
