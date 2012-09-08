@@ -40,4 +40,5 @@ public interface EcouponTDao {
 	 * @return
 	 */
 	public int updateEcouponT(EcouponT et);
+	
 }

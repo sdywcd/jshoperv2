@@ -213,7 +213,7 @@
 									</label>
 								</div>
 								<div class="input">
-									<input type="text" id="favourableprices" name="favourableprices" class="small" />
+									<input type="text" id="favourableprices" name="favourableprices" class="small"  />
 									
 								</div>
 							</div>
@@ -294,6 +294,9 @@
 								<div class="input">
 									<input type="text" id="goodsname" name="goodsname" class="small"  />
 									
+								</div>
+								<div class="button highlight">
+								<input type="submit" id="serach" name="serach" value="搜索"/>
 								</div>
 							</div>
 							<div class="field field-first">
@@ -398,6 +401,14 @@
 					</div>
 							
 				</div>
+				<div class="table" id="goods" style="display: none">
+						<!-- flexigrid -->
+						<div id="flexgoodsmanagement" style="width: 98%; margin-left: 15px;">
+							<table id="goodsmanagement" style="display: none;"></table>
+						</div>
+
+					</div>
+				
 						
 					</div>	
 				</div>
@@ -410,6 +421,9 @@
 		<script type="text/javascript" src="<%=basePath%>/jshop/admin/js/regme.js"></script>		
 		<script type="text/javascript" src="<%=basePath %>/My97DatePicker/WdatePicker.js"></script>
 		<script type="text/javascript" src="<%=basePath%>/jshop/admin/js/addecoupontjs.js"></script>
+		<script type="text/javascript" src="<%=basePath%>/jshop/admin/js/goodsBlockUIjs.js"></script>
+		<script type="text/javascript" src="<%=basePath%>/jshop/admin/js/jquery.blockUI.js"></script>
+		
 		<%@include file="/jshop/admin/footer.jsp"%>
 		<!-- end footert -->
 
@@ -442,12 +456,24 @@
  		 });  
  		
  	</script>
+ 	<script type="text/javascript">
+ 		$('#serach').click(function(){
+ 			$.blockUI({
+ 				message:$('#goods'),
+ 				css:{
+ 					top:'50%',
+ 					left:'50%',
+ 					textAlign:'left',
+ 					marginleft:'-320px',
+ 					marginTop:'-280px',
+ 					width:'600px',
+ 					backgroud:'none'
+ 				}
+ 			});
+ 			$('.blockOverlay').attr('title','信息提示').click($.unblockUI);
+ 			$('.close').click($.unblockUI);
+ 		});
+ 		
+ 	</script>
 </body>
 </html>
-<%!private String htmlspecialchars(String str) {
-		str = str.replaceAll("&", "&amp;");
-		str = str.replaceAll("<", "&lt;");
-		str = str.replaceAll(">", "&gt;");
-		str = str.replaceAll("\"", "&quot;");
-		return str;
-	}%>

@@ -25,19 +25,19 @@ $(function() {
 			width : 150,
 			sortable : true,
 			align : 'center'
-		}, {
-			display : '分类',
-			name : 'sname',
-			width : 150,
-			sortable : true,
-			align : 'center'
-		}, {
+		},{
 			display : '会员价',
 			name : 'memberprice',
 			width : 120,
 			sortable : true,
 			align : 'center'
 		}, {
+			display : '分类',
+			name : 'sname',
+			width : 150,
+			sortable : true,
+			align : 'center'
+		},  {
 			display : '上架',
 			name : 'salestate',
 			width : 60,
