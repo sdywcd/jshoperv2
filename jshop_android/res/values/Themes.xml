@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<style name="Theme" parent="android:Theme">
+	</style>
+
+	<style name="Theme.Orange">
+		<item name="rBlock" >@style/index_relative_block_background_or</item>	
+	</style>
+	
+	<style name="Theme.Blue">
+		<item name="rBlock" >@style/index_relative_block_background_bl</item>
+	</style>
+	
+	<style name="Theme.Grey">
+		<item name="rBlock" >@style/index_relative_block_background_gr</item>
+	</style>
+</resources>

@@ -415,7 +415,7 @@ $(function() {
 			$('#metaKeywords').attr("value", data.bean.metaKeywords);
 			$('#metaDes').attr("value", data.bean.metaDes);
 			$('#hidgoodsCategoryTid').attr("value", data.bean.goodsCategoryTid);
-            var htm = "<img id='logo' src='" + data.bean.logo + "'/>";
+            var htm = "<img id='logo' src='" + data.basepath+data.bean.logo + "'/>";
             var checkpc = "<input id='logo' name='pcpath' type='checkbox' value='" + data.bean.logo+ "' checked='true' />";
             $("#triggers").html(htm).append(checkpc);
             if(data.bean.mobilesync=="1"){

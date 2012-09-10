@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="index_relative_block_background_bl">
+        <item name="android:background">@color/cobalt_blue</item>
+    </style>
+
+    <style name="index_relative_block_background_gr">
+		<item name="android:background">@color/brown_r</item>
+    </style>
+    
+    <style name="index_relative_block_background_or">
+        <item name="android:background">@color/black</item>
+    </style>
+    
+</resources>

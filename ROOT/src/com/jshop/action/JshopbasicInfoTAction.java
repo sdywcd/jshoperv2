@@ -80,6 +80,7 @@ public class JshopbasicInfoTAction extends ActionSupport {
 	private int total = 0;
 	private boolean slogin;
 	private boolean sucflag;
+	private String basepath;
 	@JSON(serialize = false)
 	public JshopbasicInfoTService getJshopbasicInfoTService() {
 		return jshopbasicInfoTService;
@@ -444,6 +445,14 @@ public class JshopbasicInfoTAction extends ActionSupport {
 		this.metaDes = metaDes;
 	}
 
+	public String getBasepath() {
+		return basepath;
+	}
+
+	public void setBasepath(String basepath) {
+		this.basepath = basepath;
+	}
+
 	/**
 	 * 清理错误
 	 */
@@ -611,6 +620,7 @@ public class JshopbasicInfoTAction extends ActionSupport {
 		if (Validate.StrNotNull(this.getBasicinfoid())) {
 			beanlist = this.getJshopbasicInfoTService().findJshopbasicInfoTById(this.getBasicinfoid().trim());
 			if (beanlist != null) {
+				beanlist.setSitelogo(BaseTools.getBasePath()+beanlist.getSitelogo());
 				return "json";
 			}
 		}
