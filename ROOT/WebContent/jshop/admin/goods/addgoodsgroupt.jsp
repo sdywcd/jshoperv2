@@ -14,7 +14,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
+  <style>
+	#place select{
+		width:120px;
+		margin-left:0px;
+	}
+  </style>
 <title>Insert title here</title>
 		<style type="text/css">
 #triggers img {
@@ -55,7 +60,7 @@
 					<!-- box / title -->
 					<div class="title">
 						<h5>
-							增加/编辑商品类型
+							增加/编辑团购商品
 						</h5>
 
 					</div>
@@ -119,6 +124,16 @@
 								</div>
 								<div class="input">
 									<input type="text" id="memberprice" name="memberprice" class="small" />
+									
+								</div>
+							</div>
+							<div class="field field-first">
+								<div class="label">
+									<label for="input-small">
+										地区:
+									</label>
+								</div>
+								<div class="input" id="place">
 									
 								</div>
 							</div>
@@ -260,9 +275,17 @@
 		<!-- footer -->
 		<script type="text/javascript" src="<%=basePath%>/jshop/admin/js/regme.js"></script>
 		<script type="text/javascript" src="<%=basePath%>/jshop/admin/js/addgoodsgroupjs.js"></script>
+		<script type="text/javascript" src="<%=basePath %>/jshop/admin/js/placecity/jquery-1[1].2.6.js"></script>
 		<script type="text/javascript" src="<%=basePath %>/My97DatePicker/WdatePicker.js"></script>
+		<script type="text/javascript" src="<%=basePath %>/jshop/admin/js/placecity/jquery.provincesCity.js"></script>
+		<script type="text/javascript" src="<%=basePath %>/jshop/admin/js/placecity/provincesdata.js"></script>
 		<%@include file="/jshop/admin/footer.jsp"%>
 		<!-- end footert -->
+		<script type="text/javascript">
+		$(function(){
+			$("#place").ProvinceCity();
+		});
+		</script>
 	<script type="text/javascript">
  		 function createUploader(){ 
              var uploader = new qq.FileUploader({

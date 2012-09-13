@@ -37,7 +37,7 @@ public class GoodsGroupTDaoImpl extends HibernateDaoSupport implements GoodsGrou
 	@Override
 	public int updateGoodsGroupT(final GoodsGroupT group) {
 		log.debug("update goodsGroupT");
-		final String queryString="update GoodsGroupT as ggt set ggt.memberprice=:memberprice, ggt.groupprice=:groupprice, ggt.pictureurl=:pictureurl, ggt.sendpoint=:sendpoint,ggt.detail=:detail,ggt.endtime=:endtime,ggt.begintime=:begintime, ggt.goodsname=:goodsname,ggt.cashstate=:cashstate,ggt.cashlimit=:cashlimit,ggt.limitbuy=:limitbuy,ggt.salequantity=:salequantity where ggt.groupid=:groupid";
+		final String queryString="update GoodsGroupT as ggt set ggt.placename=:placename, ggt.memberprice=:memberprice, ggt.groupprice=:groupprice, ggt.pictureurl=:pictureurl, ggt.sendpoint=:sendpoint,ggt.detail=:detail,ggt.endtime=:endtime,ggt.begintime=:begintime, ggt.goodsname=:goodsname,ggt.cashstate=:cashstate,ggt.cashlimit=:cashlimit,ggt.limitbuy=:limitbuy,ggt.salequantity=:salequantity where ggt.groupid=:groupid";
 		try {
 			Integer integer = (Integer) this.getHibernateTemplate().execute(new HibernateCallback() {
 				
@@ -59,6 +59,7 @@ public class GoodsGroupTDaoImpl extends HibernateDaoSupport implements GoodsGrou
 					query.setParameter("pictureurl", group.getPictureurl());
 					query.setParameter("groupprice", group.getGroupprice());
 					query.setParameter("memberprice", group.getMemberprice());
+					query.setParameter("placename", group.getPlacename());
 //					query.setParameter("totalordercount", group.getTotalOrderCount());
 //					query.setParameter("sordercount", group.getSOrderCount());
 					i= query.executeUpdate();
