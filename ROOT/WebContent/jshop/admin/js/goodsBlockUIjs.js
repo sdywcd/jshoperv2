@@ -35,7 +35,8 @@ $(function() {
 		buttons : [ {
 			name:'确定',
 			bclass:'edit',
-			onpress:action
+			onpress:action,
+			id:'yes'
 		}, {
 			separator : true
 		} ],
@@ -68,9 +69,9 @@ $(function() {
 			if ($('.trSelected', grid).length == 1) {
 				jConfirm('确定编辑此项吗?', '信息提示', function(r) {
 					if (r) {
-						var str = $('.trSelected', grid)[0].id.substr(3);
+						var str = $('.trSelected', grid)[0].id.substr(3);						
 						$.post("findGoodsById.action",{"goodsid":str},function(data){
-							if(data.sucflag){	
+							if(data.sucflag){
 							$('#goodsname').attr("value",data.bean.goodsname);
 							$('#goodsid').attr("value",data.bean.goodsid);
 							return;

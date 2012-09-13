@@ -9,6 +9,8 @@
     <constant name="struts.configuration.xml.reload" value="true" />
      <!-- convention类从新加载 -->  
     <constant name="struts.convention.classes.reload" value="true" />      
+    
+    
 	<!-- 主题 -->  
     <constant name="struts.ui.theme" value="simple" />
 	<constant name="struts.custom.i18n.resources" value="globalMessages" />
