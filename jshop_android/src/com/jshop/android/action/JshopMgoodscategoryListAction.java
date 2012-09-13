@@ -20,7 +20,11 @@ import com.jshop.android.sqlite.DBHelper1;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMPostActionList;
 import com.jshop.android.util.Validate;
-
+/**
+ * 商品分类数据操作集合
+ * @author "chenda"
+ *
+ */
 public class JshopMgoodscategoryListAction{
 	private String requestjsonstr;
 	private List<Map<String,Object>>goodscategoryList=new ArrayList<Map<String,Object>>();

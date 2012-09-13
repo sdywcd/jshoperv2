@@ -85,8 +85,7 @@
                 android:id="@+id/image1"
                 android:layout_width="246dp"
                 android:layout_height="120dp"
-                style="?index_imgBlock"
-                />
+	            style="?index_imgBlock"/>
         </RelativeLayout>
 
         <RelativeLayout

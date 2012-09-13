@@ -14,19 +14,26 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
+import android.app.Activity;
+import android.app.TabActivity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.jshop.android.shop.JshopActivityNGoodsList.JshopMyElecartListViewAdapter;
 import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.util.Arith;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMPostActionList;
 import com.jshop.android.util.Validate;
-
-public class JshopMelectrocartAction {
+/**
+ * 我的菜单数据操作集合
+ * @author "chenda"
+ *
+ */
+public class JshopMelectrocartAction extends Activity {
 	private String needquantity="1";//默认一个
 	private Double totalprice=0.0;//购物车总价
 	private String requestjsonstr;
@@ -219,7 +226,30 @@ public class JshopMelectrocartAction {
 			dbhelper.updateByElecartNeedquantity(DBHelper.ELE_CART_TM_NAME, goodsid, flag);
 		}
 	}
-	
+	/**
+	 * 读取我的菜单数据
+	 */
+	public ArrayList<HashMap<String, Object>> setElecartListView(Context context){
+		electrocartgoodslists.clear();
+		//读取ele_cart缓存
+		DBHelper dbhelper = new DBHelper(context);
+		Cursor c=dbhelper.query(DBHelper.ELE_CART_TM_NAME);
+		c.moveToFirst();
+		while(!c.isAfterLast()){
+			HashMap<String,Object>map=new HashMap<String,Object>();
+			map.put("goodsid",c.getString(c.getColumnIndex("goodsid")));
+			map.put("goodsname", c.getString(c.getColumnIndex("goodsname")));
+			map.put("memberprice", c.getString(c.getColumnIndex("memberprice")));
+			map.put("needquantity", c.getString(c.getColumnIndex("needquantity")));
+			int ineed=Integer.parseInt(map.get("needquantity").toString());
+			if(ineed>=1){
+				electrocartgoodslists.add(map);
+			}
+			c.moveToNext();
+		}
+		dbhelper.close();
+		return electrocartgoodslists;
+	}
 	
 	
 }

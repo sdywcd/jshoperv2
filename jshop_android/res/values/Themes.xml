@@ -3,7 +3,6 @@
 
 	<style name="Theme" parent="android:Theme">
 	</style>
-		
 	<style name="Theme.Blue">
 		<item name="rBlock" >@style/index_relative_block_background_bl</item>
 		<item name="parentB">@style/newindexlayoutbg_bl</item>
@@ -36,5 +35,7 @@
 		<item name="titleofprice">@style/newgoodslist_titleofprice_or</item>
 		<item name="tabhostselector">@style/newgoodslist_tabbg_or</item>
 	</style>
+
+
 
 </resources>

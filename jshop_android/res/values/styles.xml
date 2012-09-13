@@ -83,5 +83,7 @@
     <style name="newgoodslist_tabbg_or">
 	    <item name="android:background">@drawable/tabhost_bl</item>
 	</style>
+
+
     
 </resources>
