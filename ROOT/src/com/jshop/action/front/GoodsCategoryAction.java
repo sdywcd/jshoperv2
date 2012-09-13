@@ -279,10 +279,16 @@ public class GoodsCategoryAction extends ActionSupport{
 		int currentPage = page;
 		int lineSize = rp;
 		List<GoodsT> list = this.getGoodsTService().findGoodsByGoodsname(currentPage, lineSize, this.getTopKeywords().trim());
-		if(!list.isEmpty()){
+		if(!list.isEmpty()&&list!=null){
 			total=this.getGoodsTService().countfindSearchGoods(this.getTopKeywords().trim());
-			PageModel<GoodsT> pm = new PageModel<GoodsT>(currentPage, lineSize, list,total);
-			totalpage=total/lineSize;
+			PageModel<GoodsT> pm = new PageModel<GoodsT>(currentPage, lineSize, list,total);			
+			//判断是否有余数
+			float i= total%lineSize;
+			if(i>0){
+				totalpage=total/lineSize+1;//有余数，页码数+1
+			}else{
+				totalpage=total/lineSize;//没有余数 页码数等于当前值
+			}			
 			ActionContext.getContext().put("goods", pm);
 			ActionContext.getContext().put("goodsList", list);
 			ActionContext.getContext().put("totalgoods",total);

@@ -52,27 +52,44 @@ import com.jshop.android.util.JshopMParams;
 import com.jshop.android.widget.JshopListViewAdapter;
 
 public class JshopActivityNGoodsList extends TabActivity  implements TabContentFactory{
+	//sqllite数据库对象
 	private final DBHelper dbhelper=new DBHelper(this);
+	//tabhost 对象
 	private String[]tabTitle=null;
+	//viewpager 对象
 	private ViewGroup maingroup;
 	private ViewPager viewPager;
+	//viewpager中的控件对象
+	private ImageView addtomyelecartmenu;//加入我的菜单按钮
+	//tabhost下每个tab页对应的商品列表保存对象
 	private ListView listViews;//used by goodslist
+	//我的菜单保存对象
 	private ListView listViewForCart;//used by cartlist
-	private TextView totalmemberprice;//显示我的菜单总价
-	private TextView seatTextView;//显示座位
-	private TextView seatSetTextView;//设置座位
-	private TextView changeviewlooking;//变换视图模式
-	private TextView clearlistTextView;//清空列表
+	//显示在页面中的菜单总价
+	private TextView totalmemberprice;
+	//显示座位
+	private TextView seatTextView;
+	//设置座位
+	private TextView seatSetTextView;
+	//private TextView changeviewlooking;//变换视图模式
+	//清空列表
+	private TextView clearlistTextView;
+	//参与计算总价的变量
 	private Double total=0.0;
-	private List<Map<String,Object>>goodscategoryList=new ArrayList<Map<String,Object>>();//商品分类
-	private ArrayList<HashMap<String, Object>> electrocartgoodslists = new ArrayList<HashMap<String, Object>>();//elecart
-	private ArrayList<HashMap<String, Object>> goodslists = new ArrayList<HashMap<String, Object>>();//商品列表
-	private ArrayList<HashMap<String, Object>> piclist = new ArrayList<HashMap<String, Object>>();//图片列表
+	//保存商品分类数据对象
+	private List<Map<String,Object>>goodscategoryList=new ArrayList<Map<String,Object>>();
+	//保存我的菜单数据对象
+	private ArrayList<HashMap<String, Object>> electrocartgoodslists = new ArrayList<HashMap<String, Object>>();
+	//保存商品列表数据对象
+	private ArrayList<HashMap<String, Object>> goodslists = new ArrayList<HashMap<String, Object>>();
+	//保存图片列表数据对象
+	private ArrayList<HashMap<String, Object>> piclist = new ArrayList<HashMap<String, Object>>();
+	//商品分类数据操作集合
 	private JshopMgoodscategoryListAction jmgclAction=new JshopMgoodscategoryListAction();
+	//商品列表数据操作集合
 	private JshopMGoodsListAction jmGoodslistAction=new JshopMGoodsListAction();
+	//我的菜单数据操作集合
 	private JshopMelectrocartAction jmelecart=new JshopMelectrocartAction();
-	
-	
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,10 +99,16 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 		super.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//全屏模式
 		super.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//强制为横屏
 		this.setContentView(R.layout.jshop_m_newgoodslist);
-		listViews=(ListView)this.findViewById(R.id.listViewfornewgoods);//商品列表的listview
-		listViewForCart=(ListView)this.findViewById(R.id.listViewforelecart);//我的菜单listview
-		
-		setElecartListView();//调用读取我的菜单数据
+		//绑定tabhost下的商品列表控件listview
+		listViews=(ListView)this.findViewById(R.id.listViewfornewgoods);
+		//绑定我的菜单listview
+		listViewForCart=(ListView)this.findViewById(R.id.listViewforelecart);
+		//给我的菜单listview绑定事件和数据集
+		electrocartgoodslists=jmelecart.setElecartListView(this.getApplicationContext());
+		listViewForCart.setAdapter(new JshopMyElecartListViewAdapter(electrocartgoodslists,this.getApplicationContext()));
+		//计算总价
+		setTotalMemberprice();
+		//setElecartListView();//调用读取我的菜单数据
 		
 		//读取商品分类缓存
 		Cursor c=dbhelper.query(DBHelper.GOODS_CATEGORY_TM_NAME);

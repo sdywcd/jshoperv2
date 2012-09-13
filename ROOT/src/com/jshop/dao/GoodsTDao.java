@@ -675,5 +675,6 @@ public interface GoodsTDao {
 	 * @return
 	 */
 	public abstract List<GoodsT>findAllGoodsBynavidandltypeidandstypeid(String navid,String ltypeid,String stypeid,String salestate,String isSpecificationsOpen);
-	
+//	
+//	public List<GoodsT> findGoodsByLikePrice(String price);
 }

@@ -2510,7 +2510,7 @@ public class GoodsTNAction extends ActionSupport {
 
 			Map cellMap = new HashMap();
 			cellMap.put("id", gt.getGoodsid());
-			cellMap.put("cell", new Object[] { gt.getGoodsname(), gt.getUsersetnum(), gt.getNname(), gt.getMemberprice(), gt.getSalestate(), gt.getIsNew(), gt.getBargainprice(), gt.getHotsale(), gt.getRecommended(), gt.getQuantity(), "<a target='_blank' id='editgoods' href='editgoods.jsp?session=" + this.getUsession() + "#goods&goodsid=" + gt.getGoodsid() + "' name='editgoods'>[编辑]</a>" + "<a target='_blank' id='browergoods' href='" + gt.getHtmlPath() + "' name='browergoods'>[预览]</a>" });
+			cellMap.put("cell", new Object[] { gt.getGoodsname(), gt.getUsersetnum(), gt.getMemberprice(),gt.getNname(),  gt.getSalestate(), gt.getIsNew(), gt.getBargainprice(), gt.getHotsale(), gt.getRecommended(), gt.getQuantity(), "<a target='_blank' id='editgoods' href='editgoods.jsp?session=" + this.getUsession() + "#goods&goodsid=" + gt.getGoodsid() + "' name='editgoods'>[编辑]</a>" + "<a target='_blank' id='browergoods' href='" + gt.getHtmlPath() + "' name='browergoods'>[预览]</a>" });
 			rows.add(cellMap);
 		}
 	}

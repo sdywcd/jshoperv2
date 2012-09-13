@@ -3,22 +3,19 @@ var session=true;
 $(function(){	
 $('#confirm').click(function(){
 	var ecouponstate=$('#ecouponstate').val();	
-	if(ecouponstate=="3"){
-		$('#three').show();
-		$('#two').hide();
-		$('#one').hide();
+	if(ecouponstate=="3"){		
+		
+		$('#good').hide();
 		return;
 	}
 	if(ecouponstate=="2"){
-		$('#three').hide();
-		$('#two').show();
-		$('#one').hide();
+	
+		$('#good').show();
 		return;
 	}
-	if(ecouponstate=="1"){
-		$('#three').hide();
-		$('#two').hide();
-		$('#one').show();
+	if(ecouponstate=="1"){	
+		$('#good').show();
+		
 		return;
 	}	
 	
@@ -33,7 +30,7 @@ $('#add').click(function(){
 	var endtime=$('#endtime').val();
 	var note=$('#note').val();
 	var state=$("input[name='state']:checked").val();
-	var goodsname=$('#goosname').val();
+	var goodsname=$('#goodsname').val();
 	var goodsid=$('#goodsid').val();
 	$.post("addEcouponT.action",{"goodsid":goodsid,"goodsname":goodsname,"state":state,"ecouponstate":ecouponstate,"favourableprices":favourableprices,"pricededuction":pricededuction,"begintime":begintime,"endtime":endtime,"note":note},function(data){
 		if(data.flag){
@@ -85,4 +82,22 @@ function validate(){
 		return false;
 	}
 	a=true;
+}
+function eco(){
+	var ecouponstate=$('#ecouponstate').val();	
+	if(ecouponstate=="3"){		
+		
+		$('#good').hide();
+		return;
+	}
+	if(ecouponstate=="2"){
+	
+		$('#good').show();
+		return;
+	}
+	if(ecouponstate=="1"){	
+		$('#good').show();
+		
+		return;
+	}	
 }

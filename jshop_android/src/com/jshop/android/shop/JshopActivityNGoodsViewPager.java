@@ -39,7 +39,7 @@ import com.jshop.android.util.Arith;
 
 public class JshopActivityNGoodsViewPager extends Activity {
 	private final DBHelper dbhelper=new DBHelper(this);
-	private View v;//viewpager中的视图
+	//private View v;//viewpager中的视图
 	private ViewGroup maingroup;
 	private ViewPager viewPager;
 	private ImageView addtomyelecartmenu;//加入我的菜单按钮
