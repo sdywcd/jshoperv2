@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="0.32"
-        android:background="@color/dark_blue"
+        style="?leftbar"
         android:orientation="vertical"
         android:weightSum="1.0" >
 
@@ -19,13 +19,12 @@
             android:layout_height="wrap_content"
             android:src="@drawable/logotitle"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_margin="8dp"
-            android:background="@color/dark_blue" />
+            android:layout_margin="8dp"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@color/dark_blue"
+            style="?leftbar"
             android:orientation="horizontal"
             android:weightSum="1.0" >
 
@@ -33,7 +32,8 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="0.5"
-                android:background="@color/cobalt_blue"
+                android:id="@+id/leftseatbgr"
+               	style="?leftseatbg"
                 android:gravity="center_vertical|center_horizontal"
                 android:orientation="vertical"
                 android:weightSum="1" >
@@ -42,8 +42,7 @@
                     android:id="@+id/seatnumbg"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    
-                    android:background="@drawable/ovalfortable"
+                    style="?ovalseat"                    
                     android:gravity="center_vertical|center_horizontal" >
 
                     <TextView
@@ -63,7 +62,7 @@
                     android:layout_below="@+id/seatnumbg"
                     android:layout_marginTop="15dp"
                     android:layout_marginLeft="-30dp"
-                    android:textColor="@color/white"
+                    style="?titleofprice"
                     android:text="目前消费" />
 
                 <TextView
@@ -85,7 +84,7 @@
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="0.5"
-                android:background="@color/dark_blue"
+                style="?leftbar"
                 android:orientation="vertical"
                 android:weightSum="1.0" >
 
@@ -172,7 +171,7 @@
         android:layout_height="fill_parent"
         android:layout_weight="0.01"
         android:background="@color/deep_blue" >
-    </ImageView>
+    </ImageView> 
 
     <LinearLayout
         android:layout_width="0dp"
@@ -260,11 +259,11 @@
 	            android:id="@android:id/tabcontent"
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent">
-				 <android.support.v4.view.ViewPager
-			        android:id="@+id/goodslistPages"
-			        android:layout_width="0dp"
+				<android.support.v4.view.ViewPager
+			        android:id="@+id/goodsViewPagers"
+			        android:layout_width="match_parent"
 			        android:layout_height="fill_parent"
-			        android:layout_weight="0.8"/>
+			        android:visibility="invisible"/>
 	            <ListView
 	                android:id="@+id/listViewfornewgoods"
 	                android:layout_width="fill_parent"
