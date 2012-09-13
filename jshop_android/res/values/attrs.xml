@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <attr name="rBlock" format="reference"/>
+    <attr name="parentB" format="reference"/>
+    <attr name="index_imgBlock" format="reference"/>
+    <attr name="leftbar" format="reference"/>
+    <attr name="leftseatbg" format="reference"/>
+    <attr name="ovalseat" format="reference"/>
+    <attr name="titleofprice" format="reference"/>
+    <attr name="tabhostselector" format="reference"/>
+</resources>

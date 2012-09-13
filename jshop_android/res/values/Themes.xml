@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<style name="Theme" parent="android:Theme">
+	</style>
+	<style name="Theme.Blue">
+		<item name="rBlock" >@style/index_relative_block_background_bl</item>
+		<item name="parentB">@style/newindexlayoutbg_bl</item>
+		<item name="index_imgBlock">@style/newindeximagebg_bl</item>
+		<item name="leftbar">@style/newgoodlistleftbg_bl</item>
+		<item name="leftseatbg">@style/newgoodslist_seatbg_bl</item>
+		<item name="ovalseat">@style/newgoodslist_seatoval_bl</item>
+		<item name="titleofprice">@style/newgoodslist_titleofprice_bl</item>
+		<item name="tabhostselector">@style/newgoodslist_tabbg_bl</item>
+	</style>	
+		
+	<style name="Theme.Grey">
+		<item name="rBlock" >@style/index_relative_block_background_gr</item>
+		<item name="parentB">@style/newindexlayoutbg_gr</item>
+		<item name="index_imgBlock">@style/newindeximagebg_gr</item>
+		<item name="leftbar">@style/newgoodlistleftbg_gr</item>
+		<item name="leftseatbg">@style/newgoodslist_seatbg_gr</item>
+		<item name="ovalseat">@style/newgoodslist_seatoval_gr</item>
+		<item name="titleofprice">@style/newgoodslist_titleofprice_gr</item>
+		<item name="tabhostselector">@style/newgoodslist_tabbg_gr</item>
+	</style>
+	
+	<style name="Theme.Orange">
+		<item name="rBlock" >@style/index_relative_block_background_or</item>
+		<item name="parentB">@style/newindexlayoutbg_or</item>
+		<item name="index_imgBlock">@style/newindeximagebg_or</item>
+		<item name="leftbar">@style/newgoodlistleftbg_or</item>
+		<item name="leftseatbg">@style/newgoodslist_seatbg_or</item>
+		<item name="ovalseat">@style/newgoodslist_seatoval_or</item>
+		<item name="titleofprice">@style/newgoodslist_titleofprice_or</item>
+		<item name="tabhostselector">@style/newgoodslist_tabbg_or</item>
+	</style>
+
+
+
+</resources>

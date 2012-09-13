@@ -31,7 +31,11 @@ import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
 import com.jshop.android.util.JshopMPostActionList;
 import com.jshop.android.util.Validate;
-
+/**
+ * 商品列表数据操作集合
+ * @author "chenda"
+ *
+ */
 public class JshopMGoodsListAction {
 	private String downloadpcurl;
 	private String requestjsonstr;

@@ -173,6 +173,7 @@ public class GoodsTNAction extends ActionSupport {
 	private boolean sucflag;
 	private String usession;
 	private String specificationsId;
+	private String basepath;
 	@JSON(serialize = false)
 	public GoodsBelinkedTService getGoodsBelinkedTService() {
 		return goodsBelinkedTService;
@@ -1210,6 +1211,14 @@ public class GoodsTNAction extends ActionSupport {
 
 	public void setVirtualresults(String virtualresults) {
 		this.virtualresults = virtualresults;
+	}
+
+	public String getBasepath() {
+		return basepath;
+	}
+
+	public void setBasepath(String basepath) {
+		this.basepath = basepath;
 	}
 
 	/**
@@ -2517,6 +2526,7 @@ public class GoodsTNAction extends ActionSupport {
 		if (Validate.StrNotNull(this.getGoodsid())) {
 			bean = this.getGoodsTService().findGoodsById(this.getGoodsid().trim());
 			if (bean != null) {
+				this.setBasepath(BaseTools.getBasePath());
 				this.setSucflag(true);
 				return "json";
 			}

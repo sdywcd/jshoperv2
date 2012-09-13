@@ -7,7 +7,6 @@
 	request.setCharacterEncoding("UTF-8");
 	String htmlData = request.getParameter("content") != null ? request.getParameter("content") : "";
 %>
-<%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -519,7 +518,7 @@
 									<div class="button highlight">
 										<input type="button" id="submit" name="submit" value="提交" />
 										<input style="display: none;" type="button" id="modify" name="modify" value="更新" />
-										<s:hidden id="hidbasicinfoid" name="hidbasicinfoid" value=""></s:hidden>
+										<input type="hidden" id="hidbasicinfoid" name="hidbasicinfoid" value=""/>
 									</div>
 								</div>
 							</div>
@@ -548,8 +547,9 @@
                  sizeLimit: 1073741824,
                  allowedExtensions: ['jpeg','jpg','gif','png'],
                  onComplete: function(id, fileName, responseJSON){
-                	var pcpath="<%=basePath%>"+responseJSON.success;
-  					var htm="<img id='"+id+"' src='"+pcpath+"' rel='#"+fileName+"'/>";
+                	var pcpath1="<%=basePath%>"+responseJSON.success;
+                	var pcpath=responseJSON.success;
+  					var htm="<img id='"+id+"' src='"+pcpath1+"' rel='#"+fileName+"'/>";
   					var checkpc="<input id='"+id+"' name='pcpath' type='checkbox' value='"+pcpath+"' checked='true'/> "
   					$("#triggers").append(htm).append(checkpc);
                  },

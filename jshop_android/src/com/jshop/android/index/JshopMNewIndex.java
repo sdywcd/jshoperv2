@@ -8,6 +8,7 @@ import org.apache.http.util.EncodingUtils;
 import com.jshop.android.shop.JshopActivityNGoodsList;
 import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.sqlite.DBHelper1;
+import com.jshop.android.util.ChangeTheme;
 import com.jshop.android.util.JshopActivityUtil;
 import com.jshop.android.util.JshopMParams;
 
@@ -27,6 +28,8 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 /**
  * new pad ui index 
@@ -38,7 +41,8 @@ public class JshopMNewIndex extends Activity {
 	private ImageView sit,ordingfoods,calculator,logo;
 	private MenuInflater mi;//系统菜单
 	public void onCreate(Bundle savedInstanceState){
-		super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);	
+		ChangeTheme.onActivityCreateSetTheme(this);
 		super.requestWindowFeature(Window.FEATURE_NO_TITLE);//设置无标题窗口
 		super.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//全屏模式
 		super.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//强制为横屏
@@ -100,9 +104,39 @@ public class JshopMNewIndex extends Activity {
 			getHost();
 			break;
 		case R.id.exit:
-			exitAlert("真的要退出吗？");
+			exitAlert("真的要退出吗？");		
+		case R.id.theme:
+			setMyTheme();
+			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	/**
+	 * 设置主题风格
+	 */
+	private void setMyTheme(){
+		AlertDialog.Builder builder; 
+		AlertDialog alertDialog;
+		Context mContext = JshopMNewIndex.this;
+		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+		final View themePopupLayout = inflater.inflate(R.layout.jshop_m_changetheme, null);
+		builder = new AlertDialog.Builder(mContext);
+		builder.setTitle("荔餐厅").setMessage("选择样式").setView(themePopupLayout).setPositiveButton("确定",new DialogInterface.OnClickListener(){
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				RadioGroup rgp = (RadioGroup) themePopupLayout.findViewById(R.id.changetheme);
+				int rbtid = rgp.getCheckedRadioButtonId();
+				RadioButton rbtn = (RadioButton) themePopupLayout.findViewById(rbtid);
+				int theme = rgp.indexOfChild(rbtn);
+				ChangeTheme.changeToTheme(JshopMNewIndex.this, theme);
+
+			}
+		});
+		alertDialog = builder.create();
+		alertDialog.show();
+		
 	}
 	//显示exit对话框
 	private void exitAlert(String msg){
