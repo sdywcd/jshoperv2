@@ -263,7 +263,8 @@
 			        android:id="@+id/goodsViewPagers"
 			        android:layout_width="match_parent"
 			        android:layout_height="fill_parent"
-			        android:visibility="invisible"/>
+			        android:visibility="gone"
+			        />
 	            <ListView
 	                android:id="@+id/listViewfornewgoods"
 	                android:layout_width="fill_parent"

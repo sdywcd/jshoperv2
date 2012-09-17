@@ -1,6 +1,6 @@
 package com.jshop.entity;
 
-// Generated 2012-9-8 14:04:52 by Hibernate Tools 3.4.0.CR1
+// Generated 2012-9-13 10:50:57 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -30,6 +30,7 @@ public class GoodsGroupT implements java.io.Serializable {
 	private String htmlpath;
 	private double memberprice;
 	private double groupprice;
+	private String placename;
 
 	public GoodsGroupT() {
 	}
@@ -39,7 +40,7 @@ public class GoodsGroupT implements java.io.Serializable {
 			Date createtime, String cashstate, int limitbuy, int salequantity,
 			int SOrderCount, int totalOrderCount, double sendpoint,
 			String detail, String pictureurl, String htmlpath,
-			double memberprice, double groupprice) {
+			double memberprice, double groupprice, String placename) {
 		this.groupid = groupid;
 		this.goodsid = goodsid;
 		this.goodsname = goodsname;
@@ -59,6 +60,7 @@ public class GoodsGroupT implements java.io.Serializable {
 		this.htmlpath = htmlpath;
 		this.memberprice = memberprice;
 		this.groupprice = groupprice;
+		this.placename = placename;
 	}
 
 	public GoodsGroupT(String groupid, String goodsid, String goodsname,
@@ -67,7 +69,7 @@ public class GoodsGroupT implements java.io.Serializable {
 			int salequantity, int SOrderCount, int totalOrderCount,
 			double sendpoint, String priceladder, String detail,
 			String pictureurl, String htmlpath, double memberprice,
-			double groupprice) {
+			double groupprice, String placename) {
 		this.groupid = groupid;
 		this.goodsid = goodsid;
 		this.goodsname = goodsname;
@@ -89,6 +91,7 @@ public class GoodsGroupT implements java.io.Serializable {
 		this.htmlpath = htmlpath;
 		this.memberprice = memberprice;
 		this.groupprice = groupprice;
+		this.placename = placename;
 	}
 
 	public String getGroupid() {
@@ -257,6 +260,14 @@ public class GoodsGroupT implements java.io.Serializable {
 
 	public void setGroupprice(double groupprice) {
 		this.groupprice = groupprice;
+	}
+
+	public String getPlacename() {
+		return this.placename;
+	}
+
+	public void setPlacename(String placename) {
+		this.placename = placename;
 	}
 
 }
