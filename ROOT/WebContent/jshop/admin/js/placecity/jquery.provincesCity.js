@@ -1,6 +1,7 @@
 ﻿/**
  * jQuery :  城市联动插件
- * @author   alextao
+ * @author   XiaoDong <cssrain@gmail.com>
+ *			 http://www.cssrain.cn
  * @example  $("#test").ProvinceCity();
  * @params   暂无
  */
@@ -13,7 +14,7 @@ $.fn.ProvinceCity = function(){
 	//插入3个空的下拉框
 	_self.append("<select></select>");
 	_self.append("<select></select>");
-//	_self.append("<select></select>");
+	//_self.append("<select></select>");
 	//分别获取3个下拉框
 	var $sel1 = _self.find("select").eq(0);
 	var $sel2 = _self.find("select").eq(1);
@@ -38,7 +39,7 @@ $.fn.ProvinceCity = function(){
 	$sel1.change(function(){
 		//清空其它2个下拉框
 		$sel2[0].options.length=0;
-		//$sel3[0].options.length=0;
+//		$sel3[0].options.length=0;
 		index1 = this.selectedIndex;
 		if(index1==0){	//当选择的为 “请选择” 时
 			if(_self.data("city1")){
@@ -53,7 +54,7 @@ $.fn.ProvinceCity = function(){
 			});
 //			$.each( GC[index1-1][0] , function(index,data){
 //				$sel3.append("<option value='"+data+"'>"+data+"</option>");
-//			})
+//			});
 		}
 	}).change();
 	//1级城市联动 控制
@@ -63,7 +64,7 @@ $.fn.ProvinceCity = function(){
 //		index2 = this.selectedIndex;
 //		$.each( GC[index1-1][index2] , function(index,data){
 //			$sel3.append("<option value='"+data+"'>"+data+"</option>");
-//		})
+//		});
 //	});
 	return _self;
 };
