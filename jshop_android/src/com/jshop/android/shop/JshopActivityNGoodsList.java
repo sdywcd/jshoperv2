@@ -23,7 +23,9 @@ import android.graphics.Color;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,10 +52,13 @@ import com.jshop.android.holder.ElecartListViewHolder;
 import com.jshop.android.holder.GoodsListViewHolder;
 import com.jshop.android.index.JshopMNewIndex;
 import com.jshop.android.index.R;
+import com.jshop.android.shop.JshopActivityNGoodsViewPager.JshopActivityNGoodsViewPageAdapter;
+import com.jshop.android.shop.JshopActivityNGoodsViewPager.JshopActivityNGoodsViewPagerChangeListener;
 import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.util.Arith;
 import com.jshop.android.util.ChangeTheme;
 import com.jshop.android.util.JshopMParams;
+import com.jshop.android.util.JshopTabHostViewPagerAdapter;
 import com.jshop.android.widget.JshopListViewAdapter;
 
 public class JshopActivityNGoodsList extends TabActivity  implements TabContentFactory{
@@ -64,6 +69,7 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 	//viewpager 对象
 	private ViewGroup maingroup;
 	private ViewPager viewPager;
+	private ArrayList<View>pageViews = new ArrayList<View>();
 	//viewpager中的控件对象
 	private ImageView addtomyelecartmenu;//加入我的菜单按钮
 	//tabhost下每个tab页对应的商品列表保存对象
@@ -77,6 +83,8 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 	private TextView clearlistTextView;//清空列表
 	private static int focusTabhostResId,normalTabhostResId;
 	private Double total=0.0;
+	//viewpager中要显示的数据实体
+	private GoodsListViewHolder holder = new GoodsListViewHolder();
 	//保存商品分类数据对象
 	private List<Map<String,Object>>goodscategoryList=new ArrayList<Map<String,Object>>();
 	//保存我的菜单数据对象
@@ -89,6 +97,7 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 	private JshopMgoodscategoryListAction jmgclAction=new JshopMgoodscategoryListAction();
 	//商品列表数据操作集合
 	private JshopMGoodsListAction jmGoodslistAction=new JshopMGoodsListAction();
+
 	//我的菜单数据操作集合
 	private JshopMelectrocartAction jmelecart=new JshopMelectrocartAction();
 	@SuppressWarnings("unchecked")
@@ -106,8 +115,10 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 		background.setTileModeX(Shader.TileMode.REPEAT);
 		listViews=(ListView)this.findViewById(R.id.listViewfornewgoods);//商品列表的listview
 		listViewForCart=(ListView)this.findViewById(R.id.listViewforelecart);//我的菜单listview
+		LayoutInflater inflater=getLayoutInflater();
+		maingroup=(ViewGroup) inflater.inflate(R.layout.jshop_m_goodslistviewpager, null);
 		viewPager =(ViewPager) this.findViewById(R.id.goodsViewPagers);//菜单ViewPager
-		
+				
 		setElecartListView();//调用读取我的菜单数据
 
 		//读取商品分类缓存
@@ -161,7 +172,7 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 			        // 设置当前tab颜色为绿色
 			        th.getTabWidget().getChildAt(th.getCurrentTab()).setBackgroundResource(focusTabhostResId);
 
-					
+			        listViews.setVisibility(View.VISIBLE);
 				}
 				
 			});
@@ -505,47 +516,9 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 
 						@Override
 						public void onClick(View v) {
-//							Intent intent = new Intent(JshopActivityNGoodsList.this,JshopActivityNGoodsViewPager.class);
-//							intent.putExtra("curposition",list.get(position));
-//							intent.putExtra("goodsCategoryTid", list.get(position).get("goodsCategoryTid").toString());
-//							startActivity(intent);
-							
-/*							AlertDialog.Builder builder;
-							AlertDialog alertDialog;
-							Context mContext = JshopActivityNGoodsList.this;
-							LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-						
-							
-							final View bigpicPopupLayout = inflater.inflate(R.layout.jshop_m_bigpic,null);
-							builder = new AlertDialog.Builder(mContext);
-							ImageView bigpicview = (ImageView) bigpicPopupLayout.findViewById(R.id.bigpic);
-						
-							
-							String goodsid = list.get(position).get("goodsid").toString();
-							Cursor c = dbhelper.queryByParamgoodsid(dbhelper.GOODS_TM_NAME,goodsid);
-							try {
-								piclist =  jmGoodslistAction.GetPicArrayList(c);
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							Bitmap picurl = (Bitmap) piclist.get(0).get("pictureurl");							
-							bigpicview.setImageBitmap(picurl);
-							builder.setTitle("荔餐厅")
-								   //.setMessage(list.get(position).get("goodsname").toString())
-								   .setView(bigpicPopupLayout);
-								   //.setNegativeButton("关闭",null);
-							final AlertDialog alert = builder.create();
-							bigpicview.setOnClickListener(new OnClickListener(){
+							listViews.setVisibility(View.GONE);
+							startViewPager(list,position);
 
-								@Override
-								public void onClick(View v) {
-									// TODO Auto-generated method stub
-									alert.dismiss();
-								}
-								
-							});
-							alert.show();*/
 						}											
 					});
 			return convertView;
@@ -557,11 +530,139 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 			super.notifyDataSetChanged();
 		}
 		
-		
-		
 	}
-	
-	
+	public void startViewPager(ArrayList<HashMap<String, Object>> goodslists,int position){
+		LayoutInflater inflater=getLayoutInflater();
+		JshopMGoodsListAction jmGoodsListAction = new JshopMGoodsListAction();
+		if(!goodslists.isEmpty()){
+			pageViews.clear();
+		}
+		for(int i = 0;i<goodslists.size();i++){
+			
+			View v=(View)inflater.inflate(R.layout.jshop_m_forgoodsviewpager, null);
+			holder.setPictureurl((ImageView) v.findViewById(R.id.goodsimage));
+			holder.setGoodsname((TextView) v.findViewById(R.id.goodsname));
+			holder.setWeight((TextView) v.findViewById(R.id.valueweight));
+			holder.setUnitname((TextView) v.findViewById(R.id.unit));
+			holder.setMemberprice((TextView) v.findViewById(R.id.memprice));
+			holder.setDetail((TextView) v.findViewById(R.id.goodsdetail));
+			holder.setAddtomyelecartmenu((ImageView) v.findViewById(R.id.addtomyelecartmenu));
+			holder.getGoodsname().setText(goodslists.get(position).get("goodsname").toString());
+			holder.getWeight().setText(goodslists.get(position).get("weight").toString());
+			holder.getMemberprice().setText(goodslists.get(position).get("memberprice").toString());
+			holder.getUnitname().setText(goodslists.get(position).get("unitname").toString());
+			holder.getDetail().setText(Html.fromHtml(goodslists.get(position).get("detail").toString()));
+			holder.setAddtomyelecartmenu((ImageView) v.findViewById(R.id.addtomyelecartmenu));
+			pageViews.add(v);
+		}
+		//setContentView(maingroup);
+		viewPager.setAdapter(new JshopActivityNGoodsViewPageAdapter());
+		//viewPager.setCurrentItem(position);
+		viewPager.setOnPageChangeListener(new JshopActivityNGoodsViewPagerChangeListener());
+		viewPager.setVisibility(View.VISIBLE);
+		
+		//viewPager.setAdapter(new JshopTabHostViewPagerAdapter(goodslists,position));
+	}
+	/**
+	 * ViewPager的适配器
+	 * @author "chenda"
+	 *
+	 */
+	/**
+	 * 对左右滚动空间进行适配器定义和操作
+	 */
+	class JshopActivityNGoodsViewPageAdapter extends PagerAdapter{
+
+		@Override
+		public int getCount() {
+			return pageViews.size();
+		}
+
+		@Override
+		public boolean isViewFromObject(View arg0, Object arg1) {
+			return arg0==arg1;
+		}
+
+		@Override
+		public void destroyItem(View container, int position, Object object) {
+			((ViewPager) container).removeView(pageViews.get(position));
+		}
+
+		@Override
+		public void finishUpdate(View container) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public Object instantiateItem(View container, final int position) {
+			// TODO Auto-generated method stub
+			View v=new View(container.getContext());
+			LayoutInflater inflater=(LayoutInflater) container.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			v=inflater.inflate(R.layout.jshop_m_forgoodsviewpager, null, false);
+			holder.setPictureurl((ImageView) v.findViewById(R.id.goodsimage));
+			holder.setGoodsname((TextView) v.findViewById(R.id.goodsname));
+			holder.setWeight((TextView) v.findViewById(R.id.valueweight));
+			holder.setUnitname((TextView) v.findViewById(R.id.unit));
+			holder.setMemberprice((TextView) v.findViewById(R.id.memprice));
+			holder.setDetail((TextView) v.findViewById(R.id.goodsdetail));
+			holder.setAddtomyelecartmenu((ImageView) v.findViewById(R.id.addtomyelecartmenu));
+			try {
+				holder.getPictureurl().setImageBitmap(jmGoodslistAction.GetLocalOrNetBitmapWithoutScale(goodslists.get(position).get("pictureurl").toString()));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			holder.getGoodsname().setText(goodslists.get(position).get("goodsname").toString());
+			holder.getWeight().setText(goodslists.get(position).get("weight").toString());
+			holder.getMemberprice().setText(goodslists.get(position).get("memberprice").toString());
+			holder.getUnitname().setText(goodslists.get(position).get("unitname").toString());
+			holder.getDetail().setText(Html.fromHtml(goodslists.get(position).get("detail").toString()));
+			holder.getAddtomyelecartmenu().setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					showConfirmAddtoCart(goodslists,
+							position);
+				}
+			 });
+			 ((ViewPager) container).addView(v,0);
+			 return v;
+		}
+
+		@Override
+		public void setPrimaryItem(View container, int position, Object object) {
+			// TODO Auto-generated method stub
+			super.setPrimaryItem(container, position, object);
+		}
+
+		@Override
+		public void startUpdate(View container) {
+			// TODO Auto-generated method stub
+			super.startUpdate(container);
+		}
+	}
+	 // 指引页面更改事件监听器
+    class JshopActivityNGoodsViewPagerChangeListener implements OnPageChangeListener {  
+
+    	public JshopActivityNGoodsViewPagerChangeListener(){
+		
+    	}
+    	
+    	
+    	@Override  
+        public void onPageScrollStateChanged(int arg0) {  
+            // TODO Auto-generated method stub  
+        }  
+  
+        @Override  
+        public void onPageScrolled(int arg0, float arg1, int arg2) {  
+            // TODO Auto-generated method stub  
+        }  
+  
+		@Override  
+        public void onPageSelected(final int arg0) {
+       
+        }  
+    }
 	/**
 	 * 我的elecart的适配器
 	 * @author "chenda"
