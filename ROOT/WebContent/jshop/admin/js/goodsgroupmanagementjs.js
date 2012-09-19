@@ -90,6 +90,12 @@ $(function() {
 			width : 110,
 			sortable : true,
 			align : 'center'
+		} , {
+			display : '地区',
+			name : 'placename',
+			width : 110,
+			sortable : true,
+			align : 'center'
 		} ],
 		buttons : [ {
 			name : '添加',
