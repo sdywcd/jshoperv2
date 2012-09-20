@@ -138,6 +138,8 @@ public class Serial {
 	public static String VIRTUALSHIPPINGADDRESS="virtualshippingaddress";
 	//电子优惠券
 	public static String ECOUPONT="ecoupont";
+	//
+	public static String  WEBSITEMSG1 ="websitemsg";
 	
 	private SerialTService serialTService;
 	
