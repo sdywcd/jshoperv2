@@ -1,25 +1,6 @@
 var a=false;
 var session=true;
 $(function(){	
-$('#confirm').click(function(){
-	var ecouponstate=$('#ecouponstate').val();	
-	if(ecouponstate=="3"){		
-		
-		$('#good').hide();
-		return;
-	}
-	if(ecouponstate=="2"){
-	
-		$('#good').show();
-		return;
-	}
-	if(ecouponstate=="1"){	
-		$('#good').show();
-		
-		return;
-	}	
-	
-});	
 $('#add').click(function(){
 	validate();
 	if(a){
@@ -86,18 +67,21 @@ function validate(){
 function eco(){
 	var ecouponstate=$('#ecouponstate').val();	
 	if(ecouponstate=="3"){		
-		
+		$('#one').show();
 		$('#good').hide();
 		return;
 	}
 	if(ecouponstate=="2"){
-	
+		$('#one').show();
 		$('#good').show();
 		return;
 	}
 	if(ecouponstate=="1"){	
-		$('#good').show();
-		
+		$('#one').show();
+		$('#good').show();		
 		return;
+	}if(ecouponstate=="0"){
+		$('#one').hide();
+		$('#good').hide();
 	}	
 }

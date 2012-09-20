@@ -68,7 +68,7 @@
 				</div>
 				</div>			
 
-		 <div class="form" " id="one"  >
+		 <div class="form" " id="one"  style="display: none" >
 						<div class="fields">
 						<div  id="good" style="display: none">
 							<div class="field field-first" >

@@ -53,6 +53,7 @@ public class GoodsGroupTAction extends ActionSupport {
 	private double memberprice;
 	private double groupprice;
 	private String htmlpath;
+	private String placename;
 	private int total=0;
 	private int page=1;
 	private int rp;
@@ -257,6 +258,12 @@ public class GoodsGroupTAction extends ActionSupport {
 	public void setGroupprice(double groupprice) {
 		this.groupprice = groupprice;
 	}
+	public String getPlacename() {
+		return placename;
+	}
+	public void setPlacename(String placename) {
+		this.placename = placename;
+	}
 	@Override
 	public void validate() {
 		this.clearErrorsAndMessages();
@@ -290,6 +297,7 @@ public class GoodsGroupTAction extends ActionSupport {
 		ggt.setDetail(this.getDetail().trim());		
 		ggt.setPictureurl(this.getPictureurl());
 		ggt.setHtmlpath(" ");
+		ggt.setPlacename(this.getPlacename());
 		if(this.getGoodsGroupTService().addGoodsGroupT(ggt)>0){
 			this.setGoodsgroup(true);
 			return "json";			
@@ -323,7 +331,8 @@ public class GoodsGroupTAction extends ActionSupport {
 					ggt.getSalequantity(),
 					ggt.getSOrderCount(),
 					ggt.getTotalOrderCount(),					
-					ggt.getCreatorid()
+					ggt.getCreatorid(),
+					ggt.getPlacename()
 			});
 			rows.add(cellMap);
 		}
@@ -403,6 +412,7 @@ public class GoodsGroupTAction extends ActionSupport {
 		ggt.setGroupprice(this.getGroupprice());
 		ggt.setMemberprice(this.getMemberprice());
 		ggt.setPictureurl(this.getPictureurl());
+		ggt.setPlacename(this.getPlacename());
 		if(this.getGoodsGroupTService().updateGoodsGroupT(ggt)>0){
 			this.setGoodsgroup(true);
 			return "json";
