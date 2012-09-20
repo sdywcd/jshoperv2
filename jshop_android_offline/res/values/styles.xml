@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- ===================================================================== -->
+    <!-- blue style -->
+    <!-- ===================================================================== --> 
+    <style name="index_relative_block_background_bl">
+        <item name="android:background">@color/cobalt_blue</item>        
+    </style>
+    <style name="newindexlayoutbg_bl">
+        <item name="android:background">@color/dark_blue</item>
+    </style>
+    <style name="newindeximagebg_bl">
+        <item name="android:background">@color/dirty_blue</item>
+    </style>
+    <style name="newgoodlistleftbg_bl">
+        <item name="android:background">@color/dark_blue</item>
+    </style>
+    <style name="newgoodslist_seatbg_bl">
+        <item name="android:background">@color/cobalt_blue</item>
+    </style>
+    <style name="newgoodslist_seatoval_bl">
+        <item name="android:background">@drawable/ovalfortable</item>
+    </style>
+    <style name="newgoodslist_titleofprice_bl">
+        <item name="android:textColor">@color/white</item>
+    </style>
+	<style name="newgoodslist_tabbg_bl">
+	    <item name="android:background">@drawable/tabhost_bl</item>
+	</style>
+    
+    <!-- ===================================================================== -->
+    <!-- grey style -->
+    <!-- ===================================================================== --> 
+    <style name="index_relative_block_background_gr">
+		<item name="android:background">@drawable/tilebg</item>
+    </style>
+    <style name="newindexlayoutbg_gr">
+        <item name="android:background">@color/dark_grey</item>
+    </style>
+    <style name="newindeximagebg_gr">
+        <item name="android:background">@color/dirty_grey</item>
+    </style>
+    <style name="newgoodlistleftbg_gr">
+        <item name="android:background">@drawable/tilebg</item>
+    </style>
+    <style name="newgoodslist_seatbg_gr">
+        <item name="android:background">@drawable/seat9pacth</item>
+    </style>    
+    <style name="newgoodslist_seatoval_gr">
+        <item name="android:background">@drawable/ovalfortablegrey</item>
+    </style>
+    <style name="newgoodslist_titleofprice_gr">
+        <item name="android:textColor">@color/black</item>
+    </style>
+   	<style name="newgoodslist_tabbg_gr">
+	    <item name="android:background">@drawable/tabhost_gr</item>
+	</style>
+    
+    <!-- ===================================================================== -->
+    <!-- orange style -->
+    <!-- ===================================================================== --> 
+    <style name="index_relative_block_background_or">
+        <item name="android:background">@color/brown_r</item>
+    </style>
+    <style name="newindexlayoutbg_or">
+        <item name="android:background">@color/dark_brown</item>
+    </style>
+    <style name="newindeximagebg_or">
+        <item name="android:background">@color/dirty_brown</item>
+    </style>
+    <style name="newgoodlistleftbg_or">
+        <item name="android:background">@color/dark_brown</item>
+    </style>
+    <style name="newgoodslist_seatbg_or">
+        <item name="android:background">@color/brownshit</item>
+    </style>
+    <style name="newgoodslist_seatoval_or">
+        <item name="android:background">@drawable/ovalfortable</item>
+    </style>
+    <style name="newgoodslist_titleofprice_or">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="newgoodslist_tabbg_or">
+	    <item name="android:background">@drawable/tabhost_bl</item>
+	</style>
+
+
+    
+</resources>
