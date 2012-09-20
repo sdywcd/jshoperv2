@@ -41,17 +41,18 @@ public class WebsiteMsgTAction {
 	private int rp;
 	private int page = 1;
 	private int total = 0;
-	private String adminid = (String) ActionContext.getContext().getSession().get(BaseTools.BACK_USER_SESSION_KEY);
-	private String adminname = (String) ActionContext.getContext().getSession().get(BaseTools.BACK_USER_NAME_SESSION_KEY);
+	private String adminid ="";
+	private String adminname = "";
 	
 	@JSON(serialize=false)
 	public WebsiteMsgTService getWebsiteMsgTService() {
 		return websiteMsgTService;
 	}
+	@JSON(serialize=false)
 	public MsgtextTService getMsgtextTService() {
 		return msgtextTService;
 	}
-	@JSON(serialize=false)
+	
 	public void setMsgtextTService(MsgtextTService msgtextTService) {
 		this.msgtextTService = msgtextTService;
 	}
@@ -112,6 +113,7 @@ public class WebsiteMsgTAction {
 	public void setMsgstate(String msgstate) {
 		this.msgstate = msgstate;
 	}
+	@JSON(serialize=false)
 	public Serial getSerial() {
 		return serial;
 	}

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_grey"
+    android:orientation="horizontal"
+    android:weightSum="1.0" >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="0.32"
+        style="?leftbar"
+        android:orientation="vertical"
+        android:weightSum="1.0" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logotitle"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_margin="8dp"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="?leftbar"
+            android:orientation="horizontal"
+            android:weightSum="1.0" >
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:id="@+id/leftseatbgr"
+               	style="?leftseatbg"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical"
+                android:weightSum="1" >
+
+                <LinearLayout
+                    android:id="@+id/seatnumbg"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    style="?ovalseat"                    
+                    android:gravity="center_vertical|center_horizontal" >
+
+                    <TextView
+                        android:id="@+id/seatnum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A6"
+                        android:textColor="@color/cobalt_blue"
+                        android:textSize="36dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/feetitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/seatnumbg"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="-30dp"
+                    style="?titleofprice"
+                    android:text="目前消费" />
+
+                <TextView
+                    android:id="@+id/totalmemberprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/feetitle"
+                    android:layout_below="@+id/feetitle"
+                    android:textSize="24dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="-30dp"
+                    android:textColor="@color/yellowhola"
+                    android:text="￥56" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="0.5"
+                style="?leftbar"
+                android:orientation="vertical"
+                android:weightSum="1.0" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/grass_green" 
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+                    <TextView 
+                        android:id="@+id/changeviewlooking"
+                        android:layout_marginLeft="5dp"
+                        android:text="点餐\nOrder Dishes"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:textSize="20dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/white"/>
+                    
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/red_pink"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+                  
+                    <TextView 
+                        android:id="@+id/setseat"
+                        android:layout_marginLeft="5dp"
+                        android:text="就座\nHave a seat "
+                        android:textSize="20dp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="60dp"
+                    android:background="@color/khaki"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical" >
+                    
+                     <TextView 
+                        android:id="@+id/clearlist"
+                        android:layout_marginLeft="5dp"
+                        android:text="清空列表\nClear list"
+                        android:layout_width="fill_parent"
+                        android:textSize="20dp"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/white"/>
+
+                     
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listViewforelecart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+        </ListView>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@drawable/refresh" 
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center_horizontal">
+            
+        </ImageButton>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="0.01"
+        android:background="@color/deep_blue" >
+    </ImageView> 
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="0.67"
+        android:background="@color/green"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="116dp"
+            android:background="@color/white_grey" >
+
+            <ImageView
+                android:id="@+id/advimage"
+                android:layout_width="248dp"
+                android:layout_height="106dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/lctlogob"
+                android:scaleType="centerInside"
+                />
+
+            <TextView
+                android:id="@+id/titletext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/advimage"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/advimage"
+                android:text="@string/t3"
+                android:textColor="@color/cobalt_blue"
+                android:textSize="38dp" />
+
+          
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/tabHostLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white_grey" >
+       <TabHost
+	    android:id="@android:id/tabhost"	    
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent">
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:orientation="vertical">
+	        
+	        <HorizontalScrollView 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:fillViewport="true"
+	            android:scrollbars="none">
+		        <TabWidget
+		            android:id="@android:id/tabs"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            >
+		            
+		        </TabWidget>
+	        </HorizontalScrollView>
+	        <FrameLayout
+	            android:id="@android:id/tabcontent"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent">
+				<android.support.v4.view.ViewPager
+			        android:id="@+id/goodsViewPagers"
+			        android:layout_width="match_parent"
+			        android:layout_height="fill_parent"
+			        android:visibility="gone"
+			        />
+	            <ListView
+	                android:id="@+id/listViewfornewgoods"
+	                android:layout_width="fill_parent"
+            		android:layout_height="match_parent"
+            		android:layout_gravity="center"
+            		>
+	            </ListView>
+	            
+	        </FrameLayout>
+	            
+	    </LinearLayout>
+	</TabHost>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
