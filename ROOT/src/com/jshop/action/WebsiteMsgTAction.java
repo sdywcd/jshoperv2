@@ -41,23 +41,24 @@ public class WebsiteMsgTAction {
 	private int rp;
 	private int page = 1;
 	private int total = 0;
-	private String adminid = (String) ActionContext.getContext().getSession().get(BaseTools.BACK_USER_SESSION_KEY);
-	private String adminname = (String) ActionContext.getContext().getSession().get(BaseTools.BACK_USER_NAME_SESSION_KEY);
 	
 	@JSON(serialize=false)
 	public WebsiteMsgTService getWebsiteMsgTService() {
 		return websiteMsgTService;
-	}
-	public MsgtextTService getMsgtextTService() {
-		return msgtextTService;
-	}
-	@JSON(serialize=false)
-	public void setMsgtextTService(MsgtextTService msgtextTService) {
-		this.msgtextTService = msgtextTService;
+	
 	}
 	public void setWebsiteMsgTService(WebsiteMsgTService websiteMsgTService) {
 		this.websiteMsgTService = websiteMsgTService;
 	}
+	@JSON(serialize=false)
+	public MsgtextTService getMsgtextTService() {
+		return msgtextTService;
+	}
+	
+	public void setMsgtextTService(MsgtextTService msgtextTService) {
+		this.msgtextTService = msgtextTService;
+	}
+	
 	public String getMsgid() {
 		return msgid;
 	}
@@ -142,9 +143,9 @@ public class WebsiteMsgTAction {
 		int currentPage=page;
 		int lineSize=rp;
 		rows.clear();
-		
-		total= this.getWebsiteMsgTService().countfindAllWebsiteMsgByFromUserid(adminid);
-		List<WebsiteMsgT> weblist=this.getWebsiteMsgTService().findAllWebsiteMsgByFromUserid(currentPage, lineSize, adminid);
+		 String adminid = (String) ActionContext.getContext().getSession().get(BaseTools.BACK_USER_SESSION_KEY);
+		total= this.getWebsiteMsgTService().countfindAllWebsiteMsgByFromUserid("20100721001");
+		List<WebsiteMsgT> weblist=this.getWebsiteMsgTService().findAllWebsiteMsgByFromUserid(currentPage, lineSize, "20100721001");
 		for(Iterator it=weblist.iterator();it.hasNext(); ){
 			WebsiteMsgT web=(WebsiteMsgT) it.next();
 			Map<String, Object> map=new HashMap<String,Object>();
@@ -206,22 +207,31 @@ public class WebsiteMsgTAction {
 	 */
 	@Action(value="addWebsiteMsg",results={@Result(name="json",type="json")})
 	public String addWebsiteMsg(){
+		 String adminid = (String) ActionContext.getContext().getSession().get(BaseTools.BACK_USER_SESSION_KEY);
+		 String adminname = (String) ActionContext.getContext().getSession().get(BaseTools.BACK_USER_NAME_SESSION_KEY);
+		
 		WebsiteMsgT web = new WebsiteMsgT();
 		MsgtextT msg = new MsgtextT();
-		web.setCreatetime(BaseTools.systemtime());
-		web.setMsgfromuserid(adminid);
-		web.setMsgfromusrname(adminname);
-		web.setMsgid(this.getSerial().Serialid(Serial.WEBSITEMSG));
-		web.setMsgstate(this.getMsgstate());
-		web.setMsgtextid(this.getMsgtextid());
-		web.setMsgtousername(this.getMsgtousername());
-		web.setState("0");
-		web.setTitle(this.getTitle());
-		msg.setMsgtextid(this.getMsgtextid());
+		
+		msg.setMsgtextid(this.getSerial().Serialid(Serial.MSGTEXT));
 		msg.setSendtime(BaseTools.systemtime());
 		msg.setText(this.getText());
-		this.getMsgtextTService().addMsgtext(msg);
-		this.getWebsiteMsgTService().addWebsiteMsgT(web);
+		if(this.getMsgtextTService().addMsgtext(msg)>0){
+			web.setCreatetime(BaseTools.systemtime());
+			web.setMsgfromuserid(adminid);
+			web.setMsgfromusrname(adminname);
+			web.setMsgid(this.getSerial().Serialid(Serial.WEBSITEMSG));
+			web.setMsgstate(this.getMsgstate());
+			web.setMsgtextid(msg.getMsgtextid());
+			web.setMsgtousername(this.getMsgtousername());
+			web.setState("0");
+			web.setTitle(this.getTitle());			
+			if(this.getWebsiteMsgTService().addWebsiteMsgT(web)>0){
+				return "json";
+			}
+			return "json";
+		}	
+		
 		return "json";
 	}
 
