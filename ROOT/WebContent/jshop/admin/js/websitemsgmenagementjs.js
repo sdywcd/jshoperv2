@@ -88,7 +88,7 @@ $(function() {
 	});
 	function action(com, grid) {
 		if (com == '添加') {
-			window.location.href = "addarticlecategory.jsp?session="+session+"#pagecontent";
+			window.location.href = "addwensitemsg.jsp?session="+session+"#pagecontent";
 			return;
 		} else if (com == '编辑') {
 			if ($('.trSelected', grid).length == 1) {

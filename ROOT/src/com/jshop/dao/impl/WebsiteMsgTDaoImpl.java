@@ -51,7 +51,7 @@ public class WebsiteMsgTDaoImpl extends HibernateDaoSupport implements WebsiteMs
 		log.debug("count all countfindAllWebsiteMsgBySenduserid");
 		try {
 			String queryString = "select count(*) from WebsiteMsgT as wm where wm.msgfromuserid=:userid";
-			List list = this.getHibernateTemplate().find(queryString);
+			List list = this.getHibernateTemplate().findByNamedParam(queryString, "userid", userid);
 			if (list.size() > 0) {
 				Object o = list.get(0);
 				long l = (Long) o;
