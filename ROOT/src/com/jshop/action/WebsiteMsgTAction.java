@@ -41,13 +41,9 @@ public class WebsiteMsgTAction {
 	private int rp;
 	private int page = 1;
 	private int total = 0;
-	private String adminid ="";
-	private String adminname = "";
-	
 	@JSON(serialize=false)
 	public WebsiteMsgTService getWebsiteMsgTService() {
 		return websiteMsgTService;
-	
 	}
 	public void setWebsiteMsgTService(WebsiteMsgTService websiteMsgTService) {
 		this.websiteMsgTService = websiteMsgTService;
@@ -147,8 +143,8 @@ public class WebsiteMsgTAction {
 		int lineSize=rp;
 		rows.clear();
 		 String adminid = (String) ActionContext.getContext().getSession().get(BaseTools.BACK_USER_SESSION_KEY);
-		total= this.getWebsiteMsgTService().countfindAllWebsiteMsgByFromUserid("20100721001");
-		List<WebsiteMsgT> weblist=this.getWebsiteMsgTService().findAllWebsiteMsgByFromUserid(currentPage, lineSize, "20100721001");
+		total= this.getWebsiteMsgTService().countfindAllWebsiteMsgByFromUserid(adminid);
+		List<WebsiteMsgT> weblist=this.getWebsiteMsgTService().findAllWebsiteMsgByFromUserid(currentPage, lineSize, adminid);
 		for(Iterator it=weblist.iterator();it.hasNext(); ){
 			WebsiteMsgT web=(WebsiteMsgT) it.next();
 			Map<String, Object> map=new HashMap<String,Object>();
