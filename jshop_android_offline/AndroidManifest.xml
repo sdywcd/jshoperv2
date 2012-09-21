@@ -39,10 +39,7 @@
 		<activity android:name="com.jshop.android.shop.JshopActivityGoodsListViewPager"/>
 		<activity android:name="com.jshop.android.shop.JshopMGoodsListViewPager"/>
 		<activity android:name="com.jshop.android.shop.JshopActivityNGoodsViewPager"/>
-		<!-- <activity android:name="com.jshop.android.location.JshopActivityLocationer" />
-		<activity android:name="com.jshop.android.location.JshopItemizedOverlay" /> -->
-		
-		<!--  <uses-library android:name="com.google.android.maps" /> -->
+
 		
     </application>
     

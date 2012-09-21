@@ -41,11 +41,11 @@ public class WebsiteMsgTAction {
 	private int rp;
 	private int page = 1;
 	private int total = 0;
+
 	
 	@JSON(serialize=false)
 	public WebsiteMsgTService getWebsiteMsgTService() {
 		return websiteMsgTService;
-	
 	}
 	public void setWebsiteMsgTService(WebsiteMsgTService websiteMsgTService) {
 		this.websiteMsgTService = websiteMsgTService;
@@ -113,6 +113,7 @@ public class WebsiteMsgTAction {
 	public void setMsgstate(String msgstate) {
 		this.msgstate = msgstate;
 	}
+	@JSON(serialize=false)
 	public Serial getSerial() {
 		return serial;
 	}
