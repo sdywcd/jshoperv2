@@ -40,8 +40,8 @@ public class WebsiteMsgTAction {
 	private List rows = new ArrayList();
 	private int rp;
 	private int page = 1;
-	private int total = 0;
 
+	private int total = 0;
 	
 	@JSON(serialize=false)
 	public WebsiteMsgTService getWebsiteMsgTService() {
