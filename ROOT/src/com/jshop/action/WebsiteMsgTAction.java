@@ -145,8 +145,8 @@ public class WebsiteMsgTAction {
 		int lineSize=rp;
 		rows.clear();
 		 String adminid = (String) ActionContext.getContext().getSession().get(BaseTools.BACK_USER_SESSION_KEY);
-		total= this.getWebsiteMsgTService().countfindAllWebsiteMsgByFromUserid("20100721001");
-		List<WebsiteMsgT> weblist=this.getWebsiteMsgTService().findAllWebsiteMsgByFromUserid(currentPage, lineSize, "20100721001");
+		total= this.getWebsiteMsgTService().countfindAllWebsiteMsgByFromUserid(adminid);
+		List<WebsiteMsgT> weblist=this.getWebsiteMsgTService().findAllWebsiteMsgByFromUserid(currentPage, lineSize, adminid);
 		for(Iterator it=weblist.iterator();it.hasNext(); ){
 			WebsiteMsgT web=(WebsiteMsgT) it.next();
 			Map<String, Object> map=new HashMap<String,Object>();
