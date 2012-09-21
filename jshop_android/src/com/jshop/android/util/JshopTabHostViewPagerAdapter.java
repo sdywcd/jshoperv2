@@ -24,12 +24,13 @@ import android.text.Html;
 
 public class JshopTabHostViewPagerAdapter extends PagerAdapter {
 	private ArrayList<View> mListViews;
-/*	private ArrayList<HashMap<String, Object>> goodslists = new ArrayList<HashMap<String, Object>>();
-	private GoodsListViewHolder holder = new GoodsListViewHolder();
+	private Context ctx;
+	private ArrayList<HashMap<String, Object>> goodslists = new ArrayList<HashMap<String, Object>>();
+	/*	private GoodsListViewHolder holder = new GoodsListViewHolder();
 	private JshopMGoodsListAction jmGoodsListAction = new JshopMGoodsListAction();*/
-	public JshopTabHostViewPagerAdapter(ArrayList<View> mListViews){
+	public JshopTabHostViewPagerAdapter(Context ctx,ArrayList<View> mListViews){
 		this.mListViews = mListViews;
-		
+		this.ctx = ctx;		
 	}
 	@Override
 	public int getCount() {
@@ -40,13 +41,23 @@ public class JshopTabHostViewPagerAdapter extends PagerAdapter {
 	@Override
 	public Object instantiateItem(View container, int position) {
 		// TODO Auto-generated method stub
+
+		//View v = new View(ctx);
 		((ViewPager) container).addView(mListViews.get(position));
 		return mListViews.get(position);
 	}
 	@Override
 	public boolean isViewFromObject(View arg0, Object arg1) {
 		// TODO Auto-generated method stub
-		return false;
+		return arg0==arg1;
+		//return false;
+	}
+	
+	@Override
+	public void setPrimaryItem(View container, int position, Object object) {
+		// TODO Auto-generated method stub
+		
+		super.setPrimaryItem(container, position, object);
 	}
 	@Override
 	public void destroyItem(View container, int position, Object object) {
@@ -77,6 +88,5 @@ public class JshopTabHostViewPagerAdapter extends PagerAdapter {
 		// TODO Auto-generated method stub
 		return super.saveState();
 	}
-
-
+	
 }
