@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 public class GoodsListViewHolder {
 	private ImageView pictureurl;
+	private ImageView goodsimage;
 	private TextView memberprice;
 	private TextView weight;
 	private TextView unitname;
@@ -66,6 +67,14 @@ public class GoodsListViewHolder {
 
 	public void setDetail(TextView detail) {
 		this.detail = detail;
+	}
+
+	public ImageView getGoodsimage() {
+		return goodsimage;
+	}
+
+	public void setGoodsimage(ImageView goodsimage) {
+		this.goodsimage = goodsimage;
 	}
 
 }

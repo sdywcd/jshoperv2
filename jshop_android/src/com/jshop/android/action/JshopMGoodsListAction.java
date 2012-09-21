@@ -305,9 +305,11 @@ public class JshopMGoodsListAction {
 		}
 		return goodslists;
 	}
+	
 	/**
 	 * 清空商品表中的所有数据SQLite
 	 */
+
 	public void deleteGoodsListSQLite(Context context){
 		DBHelper dbhelper = new DBHelper(context);
 		dbhelper.deleteAll(DBHelper.GOODS_TM_NAME);
