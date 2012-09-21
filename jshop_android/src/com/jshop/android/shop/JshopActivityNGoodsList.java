@@ -23,9 +23,9 @@ import android.graphics.Color;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,13 +52,12 @@ import com.jshop.android.holder.ElecartListViewHolder;
 import com.jshop.android.holder.GoodsListViewHolder;
 import com.jshop.android.index.JshopMNewIndex;
 import com.jshop.android.index.R;
-import com.jshop.android.shop.JshopActivityNGoodsViewPager.JshopActivityNGoodsViewPageAdapter;
-import com.jshop.android.shop.JshopActivityNGoodsViewPager.JshopActivityNGoodsViewPagerChangeListener;
 import com.jshop.android.sqlite.DBHelper;
 import com.jshop.android.util.Arith;
 import com.jshop.android.util.ChangeTheme;
 import com.jshop.android.util.JshopMParams;
 import com.jshop.android.util.JshopTabHostViewPagerAdapter;
+import com.jshop.android.util.myOnPageChangeListener;
 import com.jshop.android.widget.JshopListViewAdapter;
 
 public class JshopActivityNGoodsList extends TabActivity  implements TabContentFactory{
@@ -83,8 +82,6 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 	private TextView clearlistTextView;//清空列表
 	private static int focusTabhostResId,normalTabhostResId;
 	private Double total=0.0;
-	//viewpager中要显示的数据实体
-	private GoodsListViewHolder holder = new GoodsListViewHolder();
 	//保存商品分类数据对象
 	private List<Map<String,Object>>goodscategoryList=new ArrayList<Map<String,Object>>();
 	//保存我的菜单数据对象
@@ -97,7 +94,6 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 	private JshopMgoodscategoryListAction jmgclAction=new JshopMgoodscategoryListAction();
 	//商品列表数据操作集合
 	private JshopMGoodsListAction jmGoodslistAction=new JshopMGoodsListAction();
-
 	//我的菜单数据操作集合
 	private JshopMelectrocartAction jmelecart=new JshopMelectrocartAction();
 	@SuppressWarnings("unchecked")
@@ -517,8 +513,53 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 						@Override
 						public void onClick(View v) {
 							listViews.setVisibility(View.GONE);
-							startViewPager(list,position);
+							try {
+								startViewPager(list,position);
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+//							Intent intent = new Intent(JshopActivityNGoodsList.this,JshopActivityNGoodsViewPager.class);
+//							intent.putExtra("curposition",list.get(position));
+//							intent.putExtra("goodsCategoryTid", list.get(position).get("goodsCategoryTid").toString());
+//							startActivity(intent);
+							
+/*							AlertDialog.Builder builder;
+							AlertDialog alertDialog;
+							Context mContext = JshopActivityNGoodsList.this;
+							LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+						
+							
+							final View bigpicPopupLayout = inflater.inflate(R.layout.jshop_m_bigpic,null);
+							builder = new AlertDialog.Builder(mContext);
+							ImageView bigpicview = (ImageView) bigpicPopupLayout.findViewById(R.id.bigpic);
+						
+							
+							String goodsid = list.get(position).get("goodsid").toString();
+							Cursor c = dbhelper.queryByParamgoodsid(dbhelper.GOODS_TM_NAME,goodsid);
+							try {
+								piclist =  jmGoodslistAction.GetPicArrayList(c);
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							Bitmap picurl = (Bitmap) piclist.get(0).get("pictureurl");							
+							bigpicview.setImageBitmap(picurl);
+							builder.setTitle("荔餐厅")
+								   //.setMessage(list.get(position).get("goodsname").toString())
+								   .setView(bigpicPopupLayout);
+								   //.setNegativeButton("关闭",null);
+							final AlertDialog alert = builder.create();
+							bigpicview.setOnClickListener(new OnClickListener(){
 
+								@Override
+								public void onClick(View v) {
+									// TODO Auto-generated method stub
+									alert.dismiss();
+								}
+								
+							});
+							alert.show();*/
 						}											
 					});
 			return convertView;
@@ -531,14 +572,20 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 		}
 		
 	}
-	public void startViewPager(ArrayList<HashMap<String, Object>> goodslists,int position){
+	public void startViewPager(final ArrayList<HashMap<String, Object>> goodslists,final int position) throws IOException{
 		LayoutInflater inflater=getLayoutInflater();
 		JshopMGoodsListAction jmGoodsListAction = new JshopMGoodsListAction();
+		
 		if(!goodslists.isEmpty()){
 			pageViews.clear();
 		}
-		for(int i = 0;i<goodslists.size();i++){
-			
+		Cursor c = dbhelper.queryByParamgoodsCategoryTid(dbhelper.GOODS_TM_NAME,goodslists.get(position).get("goodsCategoryTid").toString());
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		list = jmGoodslistAction.getGoodsListSQLiteNoBitmap(c);
+		c.close();
+		//GoodsListViewHolder holder = new GoodsListViewHolder();
+/*		for(int i = 0;i<goodslists.size();i++){
+			final int curposition = i;
 			View v=(View)inflater.inflate(R.layout.jshop_m_forgoodsviewpager, null);
 			holder.setPictureurl((ImageView) v.findViewById(R.id.goodsimage));
 			holder.setGoodsname((TextView) v.findViewById(R.id.goodsname));
@@ -547,122 +594,18 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 			holder.setMemberprice((TextView) v.findViewById(R.id.memprice));
 			holder.setDetail((TextView) v.findViewById(R.id.goodsdetail));
 			holder.setAddtomyelecartmenu((ImageView) v.findViewById(R.id.addtomyelecartmenu));
-			holder.getGoodsname().setText(goodslists.get(position).get("goodsname").toString());
-			holder.getWeight().setText(goodslists.get(position).get("weight").toString());
-			holder.getMemberprice().setText(goodslists.get(position).get("memberprice").toString());
-			holder.getUnitname().setText(goodslists.get(position).get("unitname").toString());
-			holder.getDetail().setText(Html.fromHtml(goodslists.get(position).get("detail").toString()));
-			holder.setAddtomyelecartmenu((ImageView) v.findViewById(R.id.addtomyelecartmenu));
 			pageViews.add(v);
-		}
+		}*/
 		//setContentView(maingroup);
-		viewPager.setAdapter(new JshopActivityNGoodsViewPageAdapter());
-		//viewPager.setCurrentItem(position);
-		viewPager.setOnPageChangeListener(new JshopActivityNGoodsViewPagerChangeListener());
+		JshopTabHostViewPagerAdapter testadapter = new JshopTabHostViewPagerAdapter(list);
+		viewPager.setAdapter(testadapter);
+		viewPager.setCurrentItem(position);
+		viewPager.setOnPageChangeListener(new myOnPageChangeListener());
 		viewPager.setVisibility(View.VISIBLE);
 		
 		//viewPager.setAdapter(new JshopTabHostViewPagerAdapter(goodslists,position));
 	}
-	/**
-	 * ViewPager的适配器
-	 * @author "chenda"
-	 *
-	 */
-	/**
-	 * 对左右滚动空间进行适配器定义和操作
-	 */
-	class JshopActivityNGoodsViewPageAdapter extends PagerAdapter{
-
-		@Override
-		public int getCount() {
-			return pageViews.size();
-		}
-
-		@Override
-		public boolean isViewFromObject(View arg0, Object arg1) {
-			return arg0==arg1;
-		}
-
-		@Override
-		public void destroyItem(View container, int position, Object object) {
-			((ViewPager) container).removeView(pageViews.get(position));
-		}
-
-		@Override
-		public void finishUpdate(View container) {
-			// TODO Auto-generated method stub
-		}
-
-		@Override
-		public Object instantiateItem(View container, final int position) {
-			// TODO Auto-generated method stub
-			View v=new View(container.getContext());
-			LayoutInflater inflater=(LayoutInflater) container.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			v=inflater.inflate(R.layout.jshop_m_forgoodsviewpager, null, false);
-			holder.setPictureurl((ImageView) v.findViewById(R.id.goodsimage));
-			holder.setGoodsname((TextView) v.findViewById(R.id.goodsname));
-			holder.setWeight((TextView) v.findViewById(R.id.valueweight));
-			holder.setUnitname((TextView) v.findViewById(R.id.unit));
-			holder.setMemberprice((TextView) v.findViewById(R.id.memprice));
-			holder.setDetail((TextView) v.findViewById(R.id.goodsdetail));
-			holder.setAddtomyelecartmenu((ImageView) v.findViewById(R.id.addtomyelecartmenu));
-			try {
-				holder.getPictureurl().setImageBitmap(jmGoodslistAction.GetLocalOrNetBitmapWithoutScale(goodslists.get(position).get("pictureurl").toString()));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			holder.getGoodsname().setText(goodslists.get(position).get("goodsname").toString());
-			holder.getWeight().setText(goodslists.get(position).get("weight").toString());
-			holder.getMemberprice().setText(goodslists.get(position).get("memberprice").toString());
-			holder.getUnitname().setText(goodslists.get(position).get("unitname").toString());
-			holder.getDetail().setText(Html.fromHtml(goodslists.get(position).get("detail").toString()));
-			holder.getAddtomyelecartmenu().setOnClickListener(new OnClickListener(){
-				@Override
-				public void onClick(View v) {
-					showConfirmAddtoCart(goodslists,
-							position);
-				}
-			 });
-			 ((ViewPager) container).addView(v,0);
-			 return v;
-		}
-
-		@Override
-		public void setPrimaryItem(View container, int position, Object object) {
-			// TODO Auto-generated method stub
-			super.setPrimaryItem(container, position, object);
-		}
-
-		@Override
-		public void startUpdate(View container) {
-			// TODO Auto-generated method stub
-			super.startUpdate(container);
-		}
-	}
-	 // 指引页面更改事件监听器
-    class JshopActivityNGoodsViewPagerChangeListener implements OnPageChangeListener {  
-
-    	public JshopActivityNGoodsViewPagerChangeListener(){
-		
-    	}
-    	
-    	
-    	@Override  
-        public void onPageScrollStateChanged(int arg0) {  
-            // TODO Auto-generated method stub  
-        }  
-  
-        @Override  
-        public void onPageScrolled(int arg0, float arg1, int arg2) {  
-            // TODO Auto-generated method stub  
-        }  
-  
-		@Override  
-        public void onPageSelected(final int arg0) {
-       
-        }  
-    }
+	
 	/**
 	 * 我的elecart的适配器
 	 * @author "chenda"
@@ -750,5 +693,101 @@ public class JshopActivityNGoodsList extends TabActivity  implements TabContentF
 			// TODO Auto-generated method stub
 			super.notifyDataSetChanged();
 		}
+	}
+	public class JshopTabHostViewPagerAdapter extends PagerAdapter {
+		private ArrayList<View> mListViews;
+		private Context ctx;
+		private ArrayList<HashMap<String, Object>> goodslists = new ArrayList<HashMap<String, Object>>();
+		private GoodsListViewHolder holder = new GoodsListViewHolder();
+		//private JshopMGoodsListAction jmGoodsListAction = new JshopMGoodsListAction();
+		public JshopTabHostViewPagerAdapter(ArrayList<HashMap<String, Object>> goodslists){
+			this.goodslists = goodslists;
+		}
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return goodslists.size();
+		}
+
+		@Override
+		public Object instantiateItem(View container, final int position) {
+			// TODO Auto-generated method stub
+
+			//View v = new View(ctx);
+			LayoutInflater inflater=getLayoutInflater();
+			//holder.getPictureurl().setImageBitmap(jmGoodsListAction.GetLocalOrNetBitmapWithoutScale(goodslists.get(position).get("pictureurl").toString()));
+			View v=(View)inflater.inflate(R.layout.jshop_m_forgoodsviewpager, null);
+			holder.setPictureurl((ImageView) v.findViewById(R.id.goodsimage));
+			holder.setGoodsname((TextView) v.findViewById(R.id.goodsname));
+			holder.setWeight((TextView) v.findViewById(R.id.valueweight));
+			holder.setUnitname((TextView) v.findViewById(R.id.unit));
+			holder.setMemberprice((TextView) v.findViewById(R.id.memprice));
+			holder.setDetail((TextView) v.findViewById(R.id.goodsdetail));
+			holder.setAddtomyelecartmenu((ImageView) v.findViewById(R.id.addtomyelecartmenu));
+			
+			try {
+				holder.getPictureurl().setImageBitmap((Bitmap) JshopMGoodsListAction.GetLocalOrNetBitmapWithoutScale(goodslists.get(position).get("pictureurl").toString()));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+			holder.getGoodsname().setText(goodslists.get(position).get("goodsname").toString());
+			holder.getWeight().setText(goodslists.get(position).get("weight").toString());
+			holder.getMemberprice().setText(goodslists.get(position).get("memberprice").toString());
+			holder.getUnitname().setText(goodslists.get(position).get("unitname").toString());
+			holder.getDetail().setText(Html.fromHtml(goodslists.get(position).get("detail").toString()));
+			holder.getAddtomyelecartmenu().setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				showConfirmAddtoCart(goodslists,position);
+			}
+		 });
+			((ViewPager) container).addView(v);
+			return v;
+		}
+		@Override
+		public boolean isViewFromObject(View arg0, Object arg1) {
+			// TODO Auto-generated method stub
+			return arg0==arg1;
+			//return false;
+		}
+		
+		@Override
+		public void setPrimaryItem(View container, int position, Object object) {
+			// TODO Auto-generated method stub
+			//getGoodsDetail(goodslists,position);
+			super.setPrimaryItem(container, position, object);
+		}
+		@Override
+		public void destroyItem(View container, int position, Object object) {
+			((ViewPager) container).removeView(container);
+		}
+		@Override
+		public void finishUpdate(View container) {
+			// TODO Auto-generated method stub
+			super.finishUpdate(container);
+		}
+		@Override
+		public void startUpdate(View container) {
+			// TODO Auto-generated method stub
+			super.startUpdate(container);
+		}
+		@Override
+		public void notifyDataSetChanged() {
+			// TODO Auto-generated method stub
+			super.notifyDataSetChanged();
+		}
+		@Override
+		public void restoreState(Parcelable state, ClassLoader loader) {
+			// TODO Auto-generated method stub
+			super.restoreState(state, loader);
+		}
+		@Override
+		public Parcelable saveState() {
+			// TODO Auto-generated method stub
+			return super.saveState();
+		}
+		
 	}
 }
