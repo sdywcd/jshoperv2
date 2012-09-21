@@ -52,6 +52,7 @@ import com.jshop.service.impl.ArticleCategoryTServiceImpl;
 import com.jshop.service.impl.ArticleTServiceImpl;
 import com.jshop.service.impl.JshopbasicInfoTServiceImpl;
 import com.jshop.service.impl.SiteNavigationTServiceImpl;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import freemarker.template.TemplateException;
 

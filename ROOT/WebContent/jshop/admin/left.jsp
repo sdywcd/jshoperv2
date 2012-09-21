@@ -127,7 +127,9 @@
 				<li>
 					<a id="link5" href="<%=basePatha%>jshop/admin/pagecontent/questionnairemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#pagecontent">问卷列表</a>
 				</li>
-				
+				<li>
+					<a id="link6" href="<%=basePatha%>jshop/admin/websitemsg/websitemsgmenagement.jsp?session=6584359BA964336B9BDE75737952F5AA#pagecontent">站内信</a>
+				</li>
 			
 			</ul>
 			<h6 id="h-menu-pages">
