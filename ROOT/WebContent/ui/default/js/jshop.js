@@ -205,10 +205,27 @@ $(function() {
 			if (data.loginflag) {
 				redirect(data.basepath);
 			} else {
-				return;
+				alert("用户名或密码不正确");
 			}
 
 		});
+	});
+	$('#password').bind('keypress',function(e){
+		if(e.keyCode=='13'){
+			var username = $('#username').val();
+			var password = $('#password').val();
+			$.post("login.action", {
+				"username" : username,
+				"password" : password
+			}, function(data) {
+				if (data.loginflag) {
+					redirect(data.basepath);
+				} else {
+					alert("用户名或密码不正确");
+				}
+	
+			});
+		}
 	});
 	// 找回密码ajax
 	// 检查用户问题

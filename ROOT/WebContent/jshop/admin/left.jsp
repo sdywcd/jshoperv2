@@ -45,9 +45,9 @@
 				<li>
 					<a id="link8" href="<%=basePatha%>jshop/admin/goods/addgoods.jsp?session=6584359BA964336B9BDE75737952F5AA#goods">添加新商品</a>
 				</li>
-				<li>
+				<!-- <li>
 					<a id="link18" href="<%=basePatha%>jshop/admin/goods/goodsgroupmanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#goods">团购商品</a>
-				</li>
+				</li> -->
 				<li>
 					<a id="link19" href="<%=basePatha%>jshop/admin/goods/goodsmanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#goods">所有商品</a>
 				</li>
@@ -55,9 +55,9 @@
 				<li>
 					<a id="link12" href="<%=basePatha%>jshop/admin/goods/goodscommentmanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#goods">商品评论</a>
 				</li>
-				<li>
+				<%-- <li>
 					<a id="link9" href="<%=basePatha%>jshop/admin/activity/ecoupontmanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#goods">电子优惠券</a>
-				</li>
+				</li> --%>
 		
 			</ul>
 			<h6 id="h-menu-order">
@@ -87,9 +87,9 @@
 				<li class="last">
 					<a id="link7" href="<%=basePatha%>jshop/admin/order/returnordermanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#order">需退货订单</a>
 				</li>
-				<li>
+				<%-- <li>
 					<a id="link8" href="<%=basePatha%>jshop/admin/order/groupordermanage.jsp?session=6584359BA964336B9BDE75737952F5AA#order">团购订单管理</a>
-				</li>
+				</li> --%>
 				
 			</ul>
 			<h6 id="h-menu-member">
@@ -124,13 +124,13 @@
 				<li>
 					<a id="link4" href="<%=basePatha%>jshop/admin/pagecontent/articlemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#pagecontent">所有文章</a>
 				</li>
-				<li>
+				<!-- <li>
 					<a id="link5" href="<%=basePatha%>jshop/admin/pagecontent/questionnairemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#pagecontent">问卷列表</a>
-				</li>
+				</li> -->
 				
 			
 			</ul>
-			<h6 id="h-menu-pages">
+			<!-- <h6 id="h-menu-pages">
 				<a href="#pages"><span>自定义页面管理</span>
 				</a>
 			</h6>
@@ -141,7 +141,7 @@
 				<li class="last">
 					<a id="link2" href="<%=basePatha%>jshop/admin/pageedit/pageeditareamanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#pages">自定义页面设置</a>
 				</li>
-			</ul>
+			</ul> -->
 			<h6 id="h-menu-images">
 				<a href="#images"><span>图片管理</span>
 				</a>
@@ -211,7 +211,7 @@
 				</li>
 	
 	
-				<li>
+				<%-- <li>
 					<a id="link13" href="<%=basePatha%>jshop/admin/setting/modulemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#settings">系统模块设置</a>
 	
 				</li>
@@ -220,7 +220,7 @@
 				</li>
 				<li class="last">
 					<a id="link16" href="<%=basePatha%>jshop/admin/setting/rolemanagement.jsp?session=6584359BA964336B9BDE75737952F5AA#settings">角色权限设置</a>
-				</li>
+				</li> --%>
 				
 				
 			</ul>
