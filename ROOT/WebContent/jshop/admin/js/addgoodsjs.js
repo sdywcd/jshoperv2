@@ -3,7 +3,7 @@
  * 商品参数全局变量
  */
 var strvalue="";
-var session="true";
+var session=true;
 var flag=false;
 var specificationsid=""; //商品规格用
 var rid="";
@@ -282,6 +282,7 @@ $(function(){
 							return false;
 						}
 					});
+				$('#submit').attr("disabled",false);
 				}	
 			}
 			//如果规格开启而属性没开启

@@ -133,7 +133,7 @@ $(function() {
 			if ($('.trSelected', grid).length == 1) {
 				var str = "";
 				$('.trSelected', grid).each(function() {
-					str += this.id.substr(3) + ",";
+					str = this.id.substr(3) ;
 				});
 				jConfirm('确定编辑此项吗?', '信息提示', function(r) {
 					if (r) {

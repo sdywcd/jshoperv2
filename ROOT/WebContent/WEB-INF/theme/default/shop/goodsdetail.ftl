@@ -72,11 +72,11 @@
           <div class="detail_info_lm1">
             <div class="bigpro">
               <div id="myImagesSlideBox" class="myImagesSlideBox">
-                <div class="myImages"> <#list goodsdetail.pictureurl?split(",") as img> <img src="${basepath}/${img}" class="myImgs" bigimg="${basepath}/${img}"  jqimg="${basepath}/${img}"></img> </#list> </div>
+                <div class="myImages"> <#list goodsdetail.pictureurl?split(",") as img> <img src="${basepath}${img}" class="myImgs" bigimg="${basepath}${img}"  jqimg="${basepath}${img}"></img> </#list> </div>
                 <div class="myTxts"> <a href="#">在新窗口查看大图.</a> </div>
                 <div id="scrollable"> <a class="prev" href="#" title="上一张"></a>
                   <div class="items" >
-                    <div class="scrollableDiv"> <#list goodsdetail.pictureurl?split(",") as img> <a><img src="${basepath}/${img}" imgb="${basepath}/${img}"  bigimg="${basepath}/${img}" ></a> </#list> </div>
+                    <div class="scrollableDiv"> <#list goodsdetail.pictureurl?split(",") as img> <a><img src="${basepath}${img}" imgb="${basepath}${img}"  bigimg="${basepath}${img}" ></a> </#list> </div>
                     <br clear="all"/>
                   </div>
                   <a class="next" href="#" title="下一张"></a> </div>
@@ -125,7 +125,7 @@
               <p>选择${gs.name}：</p>
               <cite> <#list gs.specificationsValue?split('-') as scv>
               <#assign gdata=scv?eval /> <a  href="#" title="${gdata.goodsattributename}" class="rm3_pic">
-              <!--<img src="http://img.tao3c.com/601/603/78500/108400/111200/218205_1_pic60_6952.jpg">-->
+              
               <div style="width:60px;height:60px;background-color:${gdata.attributelist}"></div>
               </a> </#list> </cite> </div>
             </#if>
@@ -269,8 +269,7 @@
                       <cite>评论于${gc.posttime}</cite> </div>
                     <div class="packingcontent"> ${gc.commentcontent} </div>
                     <div class="packingbtn">
-                      <!--<a href="javascript:;" onclick="repalyRemark_new(207900,368847,'jasonduzx','使用一个多月，很不错。不过最值得自豪和高兴的就是买的时候高鸿价格是最低的，行货卖水货价，2499，可惜了，本来想再买一个呢，没那个价钱了。');">回复</a><a href="javascript:;" onclick="referRemark(207900,368847,'jasonduzx','使用一个多月，很不错。不过最值得自豪和高兴的就是买的时候高鸿价格是最低的，行货卖水货价，2499，可惜了，本来想再买一个呢，没那个价钱了。');">引用</a>
-											-->
+
                     </div>
                   </div>
                   </#list>
@@ -301,7 +300,6 @@
 										</div>
 										<div class="consultdiv1_2">
 
-											2021：亲爱的顾客您好！有现货的，请您放心购买！感谢您的支持，祝您在高鸿商城购物愉快！ &nbsp;&nbsp;
 											<font color="#2379B5">2011-10-19 08:44</font>
 
 										</div>

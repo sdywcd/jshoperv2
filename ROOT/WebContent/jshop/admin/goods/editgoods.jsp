@@ -78,7 +78,7 @@
 							<li class="ui-state-default ui-corner-top">
 								<a href="#box-attrs">属性和参数</a>
 							</li>
-							<li class="ui-state-default ui-corner-top">
+							<!-- <li class="ui-state-default ui-corner-top">
 								<a href="#box-specification">规格货品</a>
 							</li>
 							<li class="ui-state-default ui-corner-top">
@@ -86,7 +86,7 @@
 							</li>
 							<li class="ui-state-default ui-corner-top">
 								<a href="#box-virtualresults">虚拟商品</a>
-							</li>
+							</li> -->
 							<li class="ui-state-default ui-corner-top">
 								<a href="#box-submit">提交信息</a>
 							</li>

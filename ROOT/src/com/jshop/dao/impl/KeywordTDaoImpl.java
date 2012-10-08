@@ -122,9 +122,9 @@ public class KeywordTDaoImpl extends HibernateDaoSupport implements KeywordTDao 
 	public KeywordT findKeywordById(String keywordid) {
 		log.debug("find by id KeywordT");
 		try {
-			String queryString = "from KeywordT as kt where kt.keywordid=:keywordid";
+			String queryString = "from KeywordT as kt where kt.keywordid=:keywordid";			
 			List<KeywordT> list = this.getHibernateTemplate().findByNamedParam(queryString, "keywordid", keywordid);
-			if (list != null) {
+			if (!list.isEmpty()) {
 				return list.get(0);
 			}
 			return null;
