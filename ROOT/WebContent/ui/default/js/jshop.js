@@ -14,23 +14,35 @@ $(function() {
  * 
  */
 $(function(){
-	$.post("findUserHeadById.action",function(data){
-		if(data.head.headpath!=null){
-		$('#fileChecker').attr("src",data.head.headpath);
-		}
+	findUserHeadById=function(){
+		$.post("findUserHeadById.action",function(data){
+			if(data.head.headpath!=null){
+				$('#fileChecker').attr("src",data.head.headpath);
+			}
 		});
+	}
+
 });
 /**
  * 异步获取登录的用户名
  */
-function findUsernameSession(){
-	$.post("findUsernameFromSession.action",function(data){
-		if(data.username!=""){
-			$("#welcomeusername").html("你好["+data.username+"]");
-		}
-		
-	});
-}
+//function findUsernameSession(){
+//	$.post("findUsernameFromSession.action",function(data){
+//		if(data.username!=""){
+//			$("#login").html("你好["+data.username+"]");
+//			$("#index").html("你好["+data.username+"]");
+//			$("#myostocy").html("你好["+data.username+"]");
+//			$("#userLogout").html("你好["+data.username+"]");
+//			
+//		}else{
+//			$("#login").html("你好["+data.username+"]");
+//			$("#index").html("你好["+data.username+"]");
+//			$("#register").html("你好["+data.username+"]");
+//		
+//		}
+//		
+//	});
+//}
 
 /**
  * 异步获取登录的用户名

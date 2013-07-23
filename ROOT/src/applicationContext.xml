@@ -99,7 +99,7 @@
 	</bean> -->
 	
 	<aop:config>
-		<aop:advisor pointcut="execution(* com.jshop.action.service.*Service.*(..))" advice-ref="txAdvice"/>
+		<aop:advisor pointcut="execution(* com.jshop.action.service.impl.*Service.*(..))" advice-ref="txAdvice"/>
 	</aop:config>
  	
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
