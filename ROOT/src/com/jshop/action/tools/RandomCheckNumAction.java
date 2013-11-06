@@ -11,11 +11,9 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
 
-import org.apache.struts2.convention.annotation.ParentPackage;
-
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-@ParentPackage("jshop")
+
 public class RandomCheckNumAction extends ActionSupport {
 
 	

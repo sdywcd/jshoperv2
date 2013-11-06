@@ -1,5 +1,10 @@
 ostocy-jshop
 ============
+ostocy-jshop已经更名为jshoper3x 
+
+请大家关注新版jshoper3x 地址 https://github.com/sdywcd/jshoper3x  
+
+ostocy-jshop的功能会陆续移植到jshoper3x中
 
 欧斯塔克在线商城系统
 

@@ -7,7 +7,7 @@ $(function() {
 		// 10)
 		position : "right", // zooming div position(default position value is
 		// "right")
-		preload : 0,
+		preload : 1,
 		lens : 1
 	});
 

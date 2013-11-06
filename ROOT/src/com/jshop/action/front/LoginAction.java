@@ -106,10 +106,10 @@ public class LoginAction extends ActionSupport {
 		
 		this.setBasepath(BaseTools.getBasePath());
 		
-		UserT ut = (UserT) ActionContext.getContext().getSession().get(BaseTools.USER_SESSION_KEY);
-		if(ut!=null){
+//		UserT ut = (UserT) ActionContext.getContext().getSession().get(BaseTools.USER_SESSION_KEY);
+//		if(ut!=null){
 			ActionContext.getContext().getSession().remove(BaseTools.USER_SESSION_KEY);
-		}
+//		}
 		MD5Code md5 = new MD5Code();
 		UserT u = new UserT();
 		UserT user = new UserT();

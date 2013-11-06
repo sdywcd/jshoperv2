@@ -78,7 +78,8 @@
 			</result>
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 		</action>
-		
+		    <!-- 文件下载，支持中文附件名 -->   
+ 
 		
 	</package>
 </struts>
