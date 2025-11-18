@@ -80,6 +80,33 @@
 		</action>
 		    <!-- 文件下载，支持中文附件名 -->   
  
-		
+    <!-- 租户管理 -->
+    <action name="tenantTAction" class="com.jshop.action.TenantTAction">
+        <!-- 列表租户 -->
+        <result name="listTenants">/jshop/admin/tenant/tenantList.jsp</result>
+        <!-- 跳转到添加租户页面 -->
+        <result name="toAddTenant">/jshop/admin/tenant/addTenant.jsp</result>
+        <!-- 添加租户成功 -->
+        <result name="addTenantSuccess">/jshop/admin/tenant/tenantList.jsp</result>
+        <!-- 添加租户失败 -->
+        <result name="addTenantError">/jshop/admin/tenant/addTenant.jsp</result>
+        <!-- 跳转到编辑租户页面 -->
+        <result name="toEditTenant">/jshop/admin/tenant/editTenant.jsp</result>
+        <!-- 编辑租户成功 -->
+        <result name="editTenantSuccess">/jshop/admin/tenant/tenantList.jsp</result>
+        <!-- 编辑租户失败 -->
+        <result name="editTenantError">/jshop/admin/tenant/editTenant.jsp</result>
+        <!-- 删除租户成功 -->
+        <result name="deleteTenantSuccess">/jshop/admin/tenant/tenantList.jsp</result>
+        <!-- 删除租户失败 -->
+        <result name="deleteTenantError">/jshop/admin/tenant/tenantList.jsp</result>
+        <!-- 查看租户详情 -->
+        <result name="viewTenant">/jshop/admin/tenant/viewTenant.jsp</result>
+        <!-- 切换租户状态成功 -->
+        <result name="toggleTenantStateSuccess">/jshop/admin/tenant/tenantList.jsp</result>
+        <!-- 切换租户状态失败 -->
+        <result name="toggleTenantStateError">/jshop/admin/tenant/tenantList.jsp</result>
+    </action>
+
 	</package>
 </struts>

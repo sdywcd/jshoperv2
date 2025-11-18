@@ -101,6 +101,16 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     
+    <!-- 多租户过滤器 -->
+    <filter>
+        <filter-name>tenantFilter</filter-name>
+        <filter-class>com.jshop.filter.TenantFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>tenantFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
     <!-- dwr拦截器 -->
     <servlet>
         <servlet-name>dwr-invoker</servlet-name>

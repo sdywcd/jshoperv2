@@ -23,19 +23,12 @@
 	<context:annotation-config />
 	<context:property-placeholder location="classpath*:*.properties" />
 
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-		destroy-method="close">
-		<property name="driverClass" value="${jdbc.driver}" />
-		<property name="jdbcUrl" value="${jdbc.url}" />
-		<property name="user" value="${jdbc.username}" />
+	<!-- 多租户数据源 -->
+	<bean id="dataSource" class="com.jshop.datasource.MultiTenantDataSource">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
-		<property name="initialPoolSize" value="${pool.initialPoolSize}" />
-		<property name="minPoolSize" value="${pool.minPoolSize}" />
-		<property name="maxPoolSize" value="${pool.maxPoolSize}" />
-		<property name="maxIdleTime" value="${pool.maxIdleTime}" />
-		<property name="acquireIncrement" value="${pool.acquireIncrement}" />
-		<property name="checkoutTimeout" value="${pool.checkoutTimeout}" />
-		<property name="maxIdleTimeExcessConnections" value="${pool.maxIdleTimeExcessConnections}" />
 	</bean>
 	<!-- 邮箱服务器配置 -->
 	<bean id="javamailsenderimpl" class="org.springframework.mail.javamail.JavaMailSenderImpl">
@@ -75,13 +68,25 @@
 				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
 			</props>
 		</property>
-		
-	</bean>
-	 <bean id="transactionManager"
-		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory">
-			<ref local="sessionFactory" />
+		<!-- 配置Hibernate拦截器实现多租户 -->
+		<property name="entityInterceptor">
+			<bean class="com.jshop.interceptor.TenantInterceptor" />
 		</property>
+	</bean>
+	 <!-- 配置Atomikos分布式事务管理器 -->
+    <bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager" init-method="init" destroy-method="close">
+        <property name="forceShutdown" value="true" />
+    </bean>
+
+    <bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp">
+        <property name="transactionTimeout" value="300" />
+    </bean>
+
+    <!-- 配置Spring事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager">
+        <property name="transactionManager" ref="atomikosTransactionManager" />
+        <property name="userTransaction" ref="atomikosUserTransaction" />
+    </bean>
 	</bean>
 	<!-- <bean id="transactionInterceptor"
 		class="org.springframework.transaction.interceptor.TransactionInterceptor">
